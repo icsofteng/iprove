@@ -6,7 +6,7 @@ import cx from 'classnames'
 import Rule from 'components/Rule'
 
 /* Styles */
-// import styles from 'styles.scss'
+import styles from './styles.scss'
 
 class RuleList extends Component {
 
@@ -14,14 +14,17 @@ class RuleList extends Component {
     super(props)
 
     this.state = {
-      rules: [1, 2, 3],
+      rules: [''],
+      focusIndex: 0,
     }
 
     this.inputRefs = []
 
     this.createRule = this.createRule.bind(this)
+    this.deleteRule = this.deleteRule.bind(this)
     this.moveSelectionUp = this.moveSelectionUp.bind(this)
     this.moveSelectionDown = this.moveSelectionDown.bind(this)
+    this.onChange = this.onChange.bind(this)
   }
 
   moveSelectionUp(index) {
@@ -38,40 +41,74 @@ class RuleList extends Component {
 
   createRule(index) {
     this.setState(oldState => {
-      oldState.rules.splice(index, 0, '')
+      oldState.rules.splice(index + 1, 0, '')
 
       this.setState({
         rules: oldState.rules,
+        focusIndex: index + 1,
       })
     })
 
     if (this.inputRefs.length - 1 > index) {
+      this.inputRefs[index + 1].focus()
+    }
+  }
+
+  deleteRule(index) {
+    if (index === 0 && this.state.rules.length === 1) {
+      return
+    }
+
+    this.setState(oldState => {
+      oldState.rules.splice(index, 1)
+
+      this.setState({
+        rules: oldState.rules,
+        focusIndex: index,
+      })
+    })
+
+    if (index > 0) {
+      this.inputRefs[index - 1].focus()
+    } else if (index < this.state.rules.length) {
       this.inputRefs[index].focus()
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('update', prevState, this.state)
+    // if (prevState.rules.length !== this.state.rules.length) {
+    //   console.log('focus on ', this.state.focusIndex)
+    //   this.inputRefs[this.state.focusIndex].focus()
+    // }
+  }
+
+  onChange(index, value) {
+    this.setState(oldState => {
+      const rules = oldState.rules
+      rules[index] = value
+
+      this.setState({ rules })
+    })
   }
 
   render() {
     const { rules } = this.state
 
     return (
-      <ul>
+      <ul className={cx(styles.ruleList)}>
         { rules.map((rule, index) => (
           <Rule
             value={rule}
             index={index}
             innerRef={(ref) => this.inputRefs[index] = ref}
+            onChange={this.onChange}
             createRule={this.createRule}
+            deleteRule={this.deleteRule}
             moveSelectionUp={this.moveSelectionUp}
             moveSelectionDown={this.moveSelectionDown}
           />
         )) }
-        <Rule
-          index={this.state.rules.length}
-          innerRef={(ref) => this.inputRefs[this.state.rules.length] = ref}
-          createRule={this.createRule}
-          moveSelectionUp={this.moveSelectionUp}
-          moveSelectionDown={this.moveSelectionDown}
-        />
       </ul>
     )
   }

@@ -11,6 +11,7 @@ class Rule extends Component {
 
     this.onKeyDown = this.onKeyDown.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.onRemoveClick = this.onRemoveClick.bind(this)
   }
 
   onKeyDown(event) {
@@ -18,6 +19,7 @@ class Rule extends Component {
 
     const {
       createRule,
+      deleteRule,
       moveSelectionUp,
       moveSelectionDown,
       index,
@@ -28,7 +30,7 @@ class Rule extends Component {
       case 13:
         // Enter key pressed
         event.preventDefault()
-        createRule(index + 1)
+        createRule(index)
         break;
       case 38:
         // Up arrow
@@ -40,12 +42,29 @@ class Rule extends Component {
         event.preventDefault()
         moveSelectionDown(index)
         break;
+      case 8:
+        // Backspace
+        if (event.target.value === '') {
+          event.preventDefault()
+
+          deleteRule(index)
+        }
+
+        break;
     }
     /* eslint-enable default-case */
   }
 
   onChange(event) {
+    const { index, onChange } = this.props
     this.setState({ value: event.target.value })
+    onChange(index, event.target.value)
+  }
+
+  onRemoveClick(event) {
+    const { deleteRule, index } = this.props
+    event.preventDefault()
+    deleteRule(index)
   }
 
   componentWillReceiveProps(newProps) {
@@ -67,6 +86,7 @@ class Rule extends Component {
           onChange={this.onChange}
           ref={innerRef}
         />
+        <a href="#" onClick={this.onRemoveClick}>remove</a>
       </li>
     )
   }
