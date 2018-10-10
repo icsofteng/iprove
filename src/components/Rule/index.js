@@ -13,14 +13,9 @@ class Rule extends Component {
     this.state = {
       value: this.props.value || '',
     }
-
-    this.onKeyDown = this.onKeyDown.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.onRemoveClick = this.onRemoveClick.bind(this)
-    this.appendText = this.appendText.bind(this)
   }
 
-  onKeyDown(event) {
+  onKeyDown = (event) => {
     const charCode = event.charCode ? event.charCode : event.keyCode
 
     const {
@@ -60,25 +55,25 @@ class Rule extends Component {
     /* eslint-enable default-case */
   }
 
-  onChange(event) {
+  onChange = (event) => {
     const { index, onChange } = this.props
     this.setState({ value: event.target.value })
     onChange(index, event.target.value)
   }
 
-  onRemoveClick(event) {
+  onRemoveClick = (event) => {
     const { deleteRule, index } = this.props
     event.preventDefault()
     deleteRule(index)
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps = (newProps) => {
     if (newProps.value !== this.props.value) {
       this.setState({ value: newProps.value })
     }
   }
 
-  appendText(text) {
+  appendText = (text) => {
     this.setState(oldState => {
 
       this.setState({

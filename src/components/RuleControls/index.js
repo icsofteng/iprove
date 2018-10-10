@@ -4,13 +4,7 @@ import cx from 'classnames'
 import styles from './styles.scss'
 
 class RuleControls extends Component {
-  constructor(props) {
-    super(props)
-
-    this.onClick = this.onClick.bind(this)
-  }
-
-  onClick(event) {
+  onClick = (event) => {
     event.preventDefault()
     this.props.appendText(event.target.innerHTML)
   }

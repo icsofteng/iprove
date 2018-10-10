@@ -19,27 +19,21 @@ class RuleList extends Component {
     }
 
     this.inputRefs = []
-
-    this.createRule = this.createRule.bind(this)
-    this.deleteRule = this.deleteRule.bind(this)
-    this.moveSelectionUp = this.moveSelectionUp.bind(this)
-    this.moveSelectionDown = this.moveSelectionDown.bind(this)
-    this.onChange = this.onChange.bind(this)
   }
 
-  moveSelectionUp(index) {
+  moveSelectionUp = (index) => {
     if (index > 0) {
       this.inputRefs[index - 1].focus()
     }
   }
 
-  moveSelectionDown(index) {
+  moveSelectionDown = (index) => {
     if (index < this.inputRefs.length - 1) {
       this.inputRefs[index + 1].focus()
     }
   }
 
-  createRule(index) {
+  createRule = (index) => {
     this.setState(oldState => {
       oldState.rules.splice(index + 1, 0, '')
 
@@ -54,7 +48,7 @@ class RuleList extends Component {
     }
   }
 
-  deleteRule(index) {
+  deleteRule = (index) => {
     if (index === 0 && this.state.rules.length === 1) {
       return
     }
@@ -75,7 +69,7 @@ class RuleList extends Component {
     }
   }
 
-  onChange(index, value) {
+  onChange = (index, value) => {
     this.setState(oldState => {
       const rules = oldState.rules
       rules[index] = value
