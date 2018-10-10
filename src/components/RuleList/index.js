@@ -1,7 +1,12 @@
+/* Dependencies */
 import React, { Component } from 'react'
+import cx from 'classnames'
 
+/* Components */
 import Rule from 'components/Rule'
-import InputRule from 'components/InputRule'
+
+/* Styles */
+// import styles from 'styles.scss'
 
 class RuleList extends Component {
 
@@ -9,18 +14,40 @@ class RuleList extends Component {
     super(props)
 
     this.state = {
-      rules: [1, 2, 3]
+      rules: [1, 2, 3],
     }
 
-    this.addRule = this.addRule.bind(this)
+    this.inputRefs = []
+
+    this.createRule = this.createRule.bind(this)
+    this.moveSelectionUp = this.moveSelectionUp.bind(this)
+    this.moveSelectionDown = this.moveSelectionDown.bind(this)
   }
 
-  addRule(rule) {
-    this.setState(oldState => (
+  moveSelectionUp(index) {
+    if (index > 0) {
+      this.inputRefs[index - 1].focus()
+    }
+  }
+
+  moveSelectionDown(index) {
+    if (index < this.inputRefs.length - 1) {
+      this.inputRefs[index + 1].focus()
+    }
+  }
+
+  createRule(index) {
+    this.setState(oldState => {
+      oldState.rules.splice(index, 0, '')
+
       this.setState({
-        rules: oldState.rules.concat(rule)
+        rules: oldState.rules,
       })
-    ))
+    })
+
+    if (this.inputRefs.length - 1 > index) {
+      this.inputRefs[index].focus()
+    }
   }
 
   render() {
@@ -28,10 +55,23 @@ class RuleList extends Component {
 
     return (
       <ul>
-        { rules.map(rule => (
-          <Rule rule={rule} />
+        { rules.map((rule, index) => (
+          <Rule
+            value={rule}
+            index={index}
+            innerRef={(ref) => this.inputRefs[index] = ref}
+            createRule={this.createRule}
+            moveSelectionUp={this.moveSelectionUp}
+            moveSelectionDown={this.moveSelectionDown}
+          />
         )) }
-        <InputRule addRule={this.addRule} />
+        <Rule
+          index={this.state.rules.length}
+          innerRef={(ref) => this.inputRefs[this.state.rules.length] = ref}
+          createRule={this.createRule}
+          moveSelectionUp={this.moveSelectionUp}
+          moveSelectionDown={this.moveSelectionDown}
+        />
       </ul>
     )
   }
