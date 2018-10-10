@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import cx from 'classnames'
+
+import RuleControls from 'components/RuleControls'
+
+import styles from './styles.scss'
 
 class Rule extends Component {
 
@@ -12,6 +17,7 @@ class Rule extends Component {
     this.onKeyDown = this.onKeyDown.bind(this)
     this.onChange = this.onChange.bind(this)
     this.onRemoveClick = this.onRemoveClick.bind(this)
+    this.appendText = this.appendText.bind(this)
   }
 
   onKeyDown(event) {
@@ -46,7 +52,6 @@ class Rule extends Component {
         // Backspace
         if (event.target.value === '') {
           event.preventDefault()
-
           deleteRule(index)
         }
 
@@ -73,6 +78,15 @@ class Rule extends Component {
     }
   }
 
+  appendText(text) {
+    this.setState(oldState => {
+
+      this.setState({
+        value: oldState.value + text
+      })
+    })
+  }
+
   render() {
     const { value } = this.state
     const { innerRef } = this.props
@@ -85,7 +99,9 @@ class Rule extends Component {
           onKeyDown={this.onKeyDown}
           onChange={this.onChange}
           ref={innerRef}
+          className={cx(styles.ruleInput)}
         />
+        <RuleControls appendText={this.appendText} />
         <a href="#" onClick={this.onRemoveClick}>remove</a>
       </li>
     )

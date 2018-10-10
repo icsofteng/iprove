@@ -75,14 +75,6 @@ class RuleList extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log('update', prevState, this.state)
-    // if (prevState.rules.length !== this.state.rules.length) {
-    //   console.log('focus on ', this.state.focusIndex)
-    //   this.inputRefs[this.state.focusIndex].focus()
-    // }
-  }
-
   onChange(index, value) {
     this.setState(oldState => {
       const rules = oldState.rules
