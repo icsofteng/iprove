@@ -1,94 +1,53 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import cx from 'classnames'
 import styles from './styles.scss'
+import { REMOVE_RULE, NEW_RULE, CHANGE_FOCUS, UPDATE_RULE } from '../../constants';
 
-export default class Rule extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      value: this.props.value || '',
-    }
-  }
-
-  onKeyDown = (event) => {
+const Rule = (props) => {
+  const onKeyDown = (event) => {
     const charCode = event.charCode || event.keyCode
-
-    const {
-      createRule,
-      deleteRule,
-      moveSelectionUp,
-      moveSelectionDown,
-      index,
-    } = this.props
-
-    /* eslint-disable default-case */
     switch (charCode) {
-      case 13:
-        // Enter key pressed
-        event.preventDefault()
-        createRule(index)
-        break;
-      case 38:
-        // Up arrow
-        event.preventDefault()
-        moveSelectionUp(index)
-        break;
-      case 40:
-        // Down arrow
-        event.preventDefault()
-        moveSelectionDown(index)
-        break;
+      case 13: props.createRule(); break;
+      case 38: props.moveSelectionUp(props.index); break;
+      case 40: props.moveSelectionDown(props.index); break;
       case 8:
-        // Backspace
         if (event.target.value === '') {
-          event.preventDefault()
-          deleteRule(index)
+          props.deleteRule(props.index)
         }
         break;
-    }
-    /* eslint-enable default-case */
-  }
-
-  onChange = (event) => {
-    const { index, onChange } = this.props
-    this.setState({ value: event.target.value })
-    onChange(index, event.target.value)
-  }
-
-  onRemoveClick = (event) => {
-    const { deleteRule, index } = this.props
-    event.preventDefault()
-    deleteRule(index)
-  }
-
-  componentWillReceiveProps = (newProps) => {
-    if (newProps.value !== this.props.value) {
-      this.setState({ value: newProps.value })
+      default: break;
     }
   }
 
-  appendText = (text) => {
-    this.setState(oldState => ({ value: oldState.value + text }))
-  }
-
-  render() {
-    const { value } = this.state
-    const { innerRef } = this.props
-
-    return (
-      <li className={cx({[styles.rule_focus]: this.props.isFocus})}>
-        <input
-          type="text"
-          value={value}
-          onKeyDown={this.onKeyDown}
-          onFocus={()=>this.props.onFocus(this.props.index)}
-          onChange={this.onChange}
-          ref={innerRef}
-          className={cx(styles.ruleInput)}
-        />
-        <span onClick={this.onRemoveClick}>remove</span>
-      </li>
-    )
-  }
+  return (
+    <li className={cx({[styles.rule_focus]: props.focus === props.index })}>
+      <input
+        type="text"
+        value={props.value}
+        onKeyDown={onKeyDown}
+        onFocus={()=>props.onFocus(props.index)}
+        onChange={(event)=>props.updateRule(event.target.value)}
+        className={cx(styles.ruleInput)}
+      />
+      <span onClick={()=>props.deleteRule(props.index)}>remove</span>
+    </li>
+  )
 }
+
+const mapStateToProps = state => {
+  return { focus: state.rules.focus }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    moveSelectionUp: (currentIndex) => dispatch({ type: CHANGE_FOCUS, payload: currentIndex - 1 }),
+    moveSelectionDown: (currentIndex) => dispatch({ type: CHANGE_FOCUS, payload: currentIndex + 1 }),
+    createRule: () => dispatch({ type: NEW_RULE }),
+    deleteRule: (index) => dispatch({ type: REMOVE_RULE, payload: index }),
+    updateRule: (text) => dispatch({ type: UPDATE_RULE, payload: text }),
+    onFocus: (index) => dispatch({ type: CHANGE_FOCUS, payload: index })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rule)
