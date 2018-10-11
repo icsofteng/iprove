@@ -18,9 +18,10 @@ const rules = (state = initialState, action) => {
       if (state.steps.length <= 1) {
         return state
       }
+      steps.splice(action.payload, 1)
       return {
         ...state,
-        steps: state.steps.splice(action.payload, 1)
+        steps
       }
 
     case CHANGE_FOCUS:
