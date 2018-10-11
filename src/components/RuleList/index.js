@@ -1,15 +1,10 @@
 /* Dependencies */
 import React, { Component } from 'react'
 import cx from 'classnames'
-
-/* Components */
 import Rule from 'components/Rule'
-
-/* Styles */
 import styles from './styles.scss'
 
-class RuleList extends Component {
-
+export default class RuleList extends Component {
   constructor(props) {
     super(props)
 
@@ -85,6 +80,7 @@ class RuleList extends Component {
       <ul className={cx(styles.ruleList)}>
         { rules.map((rule, index) => (
           <Rule
+            key={"rule"+index}
             value={rule}
             index={index}
             innerRef={(ref) => this.inputRefs[index] = ref}
@@ -99,5 +95,3 @@ class RuleList extends Component {
     )
   }
 }
-
-export default RuleList

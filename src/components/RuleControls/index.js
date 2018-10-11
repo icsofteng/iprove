@@ -1,28 +1,28 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-
 import styles from './styles.scss'
 
-class RuleControls extends Component {
-  onClick = (event) => {
-    event.preventDefault()
-    this.props.appendText(event.target.innerHTML)
+export default class RuleControls extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      controls: ['∧', '∨', '!', '⇒', '⇐', '⇔', '⊤', '⊥']
+    }
+  }
+
+  onClick = (symbol) => {
+    this.props.appendText(symbol)
   }
 
   render() {
     return (
-      <div className={cx(styles.ruleControls)}>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>∧</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>∨</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>!</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>⇒</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>⇐</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>⇔</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>⊤</a>
-        <a href="#" className={cx(styles.ruleControl)} onClick={this.onClick}>⊥</a>
-      </div>
+      <ul className={cx(styles.ruleControls)}>
+        {
+          this.state.controls.map((symbol, index) =>
+            <li key={"control"+index} className={cx(styles.ruleControl)} onClick={()=>this.onClick(symbol)}>{symbol}</li>
+          )
+        }
+      </ul>
     )
   }
 }
-
-export default RuleControls
