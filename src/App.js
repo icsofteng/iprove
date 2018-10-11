@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import RuleList from 'components/RuleList'
 
 class App extends Component {
