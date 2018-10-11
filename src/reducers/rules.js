@@ -21,7 +21,8 @@ const rules = (state = initialState, action) => {
       steps.splice(action.payload, 1)
       return {
         ...state,
-        steps
+        steps,
+        focus: (state.focus === action.payload ? 0 : state.focus)
       }
 
     case CHANGE_FOCUS:
