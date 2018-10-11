@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-
 import RuleControls from 'components/RuleControls'
-
 import styles from './styles.scss'
 
-class Rule extends Component {
-
+export default class Rule extends Component {
   constructor(props) {
     super(props)
 
@@ -16,7 +13,7 @@ class Rule extends Component {
   }
 
   onKeyDown = (event) => {
-    const charCode = event.charCode ? event.charCode : event.keyCode
+    const charCode = event.charCode || event.keyCode
 
     const {
       createRule,
@@ -49,7 +46,6 @@ class Rule extends Component {
           event.preventDefault()
           deleteRule(index)
         }
-
         break;
     }
     /* eslint-enable default-case */
@@ -74,12 +70,7 @@ class Rule extends Component {
   }
 
   appendText = (text) => {
-    this.setState(oldState => {
-
-      this.setState({
-        value: oldState.value + text
-      })
-    })
+    this.setState(oldState => ({ value: oldState.value + text }))
   }
 
   render() {
@@ -97,10 +88,8 @@ class Rule extends Component {
           className={cx(styles.ruleInput)}
         />
         <RuleControls appendText={this.appendText} />
-        <a href="#" onClick={this.onRemoveClick}>remove</a>
+        <span onClick={this.onRemoveClick}>remove</span>
       </li>
     )
   }
 }
-
-export default Rule
