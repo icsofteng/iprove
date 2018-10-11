@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import RuleControls from 'components/RuleControls'
 import styles from './styles.scss'
 
 export default class Rule extends Component {
@@ -78,16 +77,16 @@ export default class Rule extends Component {
     const { innerRef } = this.props
 
     return (
-      <li>
+      <li className={cx({[styles.rule_focus]: this.props.isFocus})}>
         <input
           type="text"
           value={value}
           onKeyDown={this.onKeyDown}
+          onFocus={()=>this.props.onFocus(this.props.index)}
           onChange={this.onChange}
           ref={innerRef}
           className={cx(styles.ruleInput)}
         />
-        <RuleControls appendText={this.appendText} />
         <span onClick={this.onRemoveClick}>remove</span>
       </li>
     )

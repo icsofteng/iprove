@@ -10,16 +10,12 @@ export default class RuleControls extends Component {
     }
   }
 
-  onClick = (symbol) => {
-    this.props.appendText(symbol)
-  }
-
   render() {
     return (
       <ul className={cx(styles.ruleControls)}>
         {
           this.state.controls.map((symbol, index) =>
-            <li key={"control"+index} className={cx(styles.ruleControl)} onClick={()=>this.onClick(symbol)}>{symbol}</li>
+            <li key={"control"+index} className={cx(styles.ruleControl)} onClick={()=>this.props.onSelectRule(symbol)}>{symbol}</li>
           )
         }
       </ul>
