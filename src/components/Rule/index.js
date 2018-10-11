@@ -1,38 +1,56 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import styles from './styles.scss'
 import { REMOVE_RULE, NEW_RULE, CHANGE_FOCUS, UPDATE_RULE } from '../../constants';
 
-const Rule = (props) => {
-  const onKeyDown = (event) => {
+class Rule extends Component {
+  constructor(props) {
+    super(props)
+    this.input = null
+  }
+
+  componentDidUpdate() {
+    if (this.isSelected()) {
+      this.input.focus()
+    }
+  }
+
+  onKeyDown = (event) => {
     const charCode = event.charCode || event.keyCode
     switch (charCode) {
-      case 13: props.createRule(); break;
-      case 38: props.moveSelectionUp(props.index); break;
-      case 40: props.moveSelectionDown(props.index); break;
+      case 13: this.props.createRule(); break;
+      case 38: this.props.moveSelectionUp(this.props.index); break;
+      case 40: this.props.moveSelectionDown(this.props.index); break;
       case 8:
         if (event.target.value === '') {
-          props.deleteRule(props.index)
+          this.props.deleteRule(this.props.index)
         }
         break;
       default: break;
     }
   }
 
-  return (
-    <li className={cx({[styles.rule_focus]: props.focus === props.index })}>
-      <input
-        type="text"
-        value={props.value}
-        onKeyDown={onKeyDown}
-        onFocus={()=>props.onFocus(props.index)}
-        onChange={(event)=>props.updateRule(event.target.value)}
-        className={cx(styles.ruleInput)}
-      />
-      <span onClick={()=>props.deleteRule(props.index)}>remove</span>
-    </li>
-  )
+  isSelected() {
+    return this.props.focus === this.props.index
+  }
+
+  render() {
+    return (
+      <li className={cx({[styles.rule_focus]: this.isSelected() })}>
+        <input
+          type="text"
+          value={this.props.value}
+          onKeyDown={this.onKeyDown}
+          onFocus={()=>this.props.onFocus(this.props.index)}
+          onChange={(event)=>this.props.updateRule(event.target.value)}
+          className={cx(styles.ruleInput)}
+          ref={(ref)=>this.input=ref}
+        />
+        <span onClick={()=>this.props.deleteRule(this.props.index)}>remove</span>
+      </li>
+    )
+  }
 }
 
 const mapStateToProps = state => {
