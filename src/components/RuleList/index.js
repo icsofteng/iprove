@@ -12,7 +12,7 @@ const RuleList = (props) =>
     <ul className={cx(styles.ruleList)}>
     {
       props.rules.map((rule, index) =>
-        <Rule key={"rule"+index} value={rule} index={index} innerRef={/*(ref) => this.inputRefs[index] = ref*/false} />
+        <Rule key={"rule"+index} value={rule} index={index} />
       )
     }
   </ul>
