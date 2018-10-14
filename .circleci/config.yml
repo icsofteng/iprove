@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install "urllib3<1.23,>=1.21.1" awsebcli --upgrade
+      - run:
+          name: Compile and minify assets
+          command: |
+            npm install
+            npm run build-prod
+      - run:
+          name: Deploying
+          command: |
+            bash .circleci/setup-eb.sh
+            eb deploy
+workflows:
+  version: 2
+  deploy-workflow:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
