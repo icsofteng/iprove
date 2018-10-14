@@ -2,8 +2,8 @@
 import React from 'react'
 import cx from 'classnames'
 import { connect } from 'react-redux'
-import Rule from 'components/Rule'
-import RuleControls from 'components/RuleControls'
+import Rule from '../Rule'
+import RuleControls from '../RuleControls'
 import styles from './styles.scss'
 
 const RuleList = (props) =>
