@@ -1,5 +1,9 @@
 branch-defaults:
+  elastic-beanstalk:
+    environment: iProve-www
   master:
+    environment: iProve-www
+  use-npm:
     environment: iProve-www
 environment-defaults:
   iProve-www:
