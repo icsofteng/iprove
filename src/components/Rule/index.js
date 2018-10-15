@@ -1,62 +1,57 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import styles from './styles.scss'
-import { REMOVE_RULE} from '../../constants'
+import { UPDATE_RULE, UPDATE_RULE_LHS, UPDATE_RULE_RHS, REMOVE_RULE, CHANGE_SYMBOL} from '../../constants'
 
-class Rule extends Component {
-  render() {
-    return (
-      <div className={styles.rule}>
-        {
-          this.props.rule.type === 'binary' ?
-          <React.Fragment>
-            <input
-              type="text"
-              value={this.props.rule.lhs}
-              onChange={(event)=>this.props.updateLhs(event.target.value)}
-              className={styles.ruleInput}
-            />
-            <select className={styles.ruleSymbol}>
-              <option>...</option>
-              <option>∧</option>
-              <option>∨</option>
-              <option>⇒</option>
-              <option>⇐</option>
-              <option>⇔</option>
-            </select>
-            <input
-              type="text"
-              value={this.props.rule.rhs}
-              onChange={(event)=>this.props.updateRhs(this.props.index, event.target.value)}
-              className={styles.ruleInput}
-            />
-          </React.Fragment>
-          :
-          <React.Fragment>
-            <select className={styles.ruleSymbol}>
-              <option>...</option>
-              <option>¬</option>
-            </select>
-            <input
-              type="text"
-              value={this.props.rule.value}
-              onChange={(event)=>this.props.updateValue(this.props.index, event.target.value)}
-              className={styles.ruleInput}
-            />
-          </React.Fragment>
-        }
-        
-        <span className={styles.remove} onClick={()=>this.props.deleteRule(this.props.index)}>X</span>
-      </div>
-    )
-  }
-}
+export const Rule = (props) =>
+  <div className={styles.rule}>
+    {
+      props.type === 'binary' ?
+      <React.Fragment>
+        <input
+          type="text"
+          value={props.lhs}
+          onChange={(event)=>props.updateLhs(props.index, event.target.value)}
+          className={styles.ruleInput}
+        />
+        <select className={styles.ruleSymbol} value={props.symbol} onChange={(event)=>props.changeSymbol(props.index, event.target.value)}>
+          <option>...</option>
+          <option value="and">∧</option>
+          <option value="or">∨</option>
+          <option value="implies">⇒</option>
+          <option value="iff">⇔</option>
+        </select>
+        <input
+          type="text"
+          value={props.rhs}
+          onChange={(event)=>props.updateRhs(props.index, event.target.value)}
+          className={styles.ruleInput}
+        />
+      </React.Fragment>
+      :
+      <React.Fragment>
+        <select className={styles.ruleSymbol} value={props.symbol} onChange={(event)=>props.changeSymbol(props.index, event.target.value)}>
+          <option>...</option>
+          <option value="not">¬</option>
+        </select>
+        <input
+          type="text"
+          value={props.value}
+          onChange={(event)=>props.updateValue(props.index, event.target.value)}
+          className={styles.ruleInput}
+        />
+      </React.Fragment>
+    }
+    
+    <span className={styles.remove} onClick={()=>props.deleteRule(props.index)}>X</span>
+  </div>
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateLhs: () => {},
-    updateRhs: () => {},
-    updateValue: () => {},
+    updateLhs: (index, value) => dispatch({ type: UPDATE_RULE_LHS, payload: value, index }),
+    updateRhs: (index, value) => dispatch({ type: UPDATE_RULE_RHS, payload: value, index }),
+    updateValue: (index, value) => dispatch({ type: UPDATE_RULE, payload: value, index }),
+    changeSymbol: (index, value) => dispatch({ type: CHANGE_SYMBOL, payload: value, index }),
     deleteRule: (index) => dispatch({ type: REMOVE_RULE, payload: index }),
   }
 }
