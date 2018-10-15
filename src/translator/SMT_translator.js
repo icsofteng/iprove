@@ -21,6 +21,9 @@ function translate_to_SMT(rules, constants) {
     })
     
     // translate AND NEGATE goal
+    var negated_goal = '(assert (not '+ translate_rule(goal) + '))\n'
+    fs.appendFile(proof_file_name, negated_goal, () =>{})
+    fs.appendFile(proof_file_name, '(check-sat)', () =>{})
 
     
 }
