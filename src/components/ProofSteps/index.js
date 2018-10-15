@@ -1,6 +1,7 @@
 /* Dependencies */
 import React from 'react'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 import Rule from '../Rule'
 import styles from './styles.scss'
 
@@ -11,7 +12,7 @@ const ProofSteps = (props) =>
         <Rule key={"rule"+index} value={rule} index={index} />
       )
     }
-    <div className={styles.rulePlaceholder}>
+    <div className={cx('dropzone', styles.rulePlaceholder)}>
       Drag a step here to add it to your proof.
     </div>
   </div>

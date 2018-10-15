@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 import styles from './styles.scss'
 import { CLICK_SYMBOL } from '../../constants'
 
@@ -9,7 +10,7 @@ const Controls = (props) =>
     <h1 className={styles.title}>iProve</h1>
     <div className={styles.controlList}>
       
-      <div className={styles.controlBlock}>
+      <div className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Binary Rule</div>
         <div className={styles.template}>
           <div className={styles.exprPlaceholder}></div>
@@ -18,7 +19,7 @@ const Controls = (props) =>
         </div>
       </div>
 
-      <div className={styles.controlBlock}>
+      <div className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Unary Rule</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>?</div>
@@ -26,21 +27,21 @@ const Controls = (props) =>
         </div>
       </div>
 
-      <div className={styles.controlBlock}>
+      <div className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Literal</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>x</div>
         </div>
       </div>
 
-      <div className={styles.controlBlock}>
+      <div className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>True</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>⊤</div>
         </div>
       </div>
 
-      <div className={styles.controlBlock}>
+      <div className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>False</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>⊥</div>
