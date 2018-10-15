@@ -1,7 +1,14 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import interact from 'interactjs'
+import { NEW_RULE } from '../../constants'
 
-export default class DragDrop {
-  static onDrag(event) {
+class DragDrop extends Component {
+  componentDidMount() {
+    this.initialise()
+  }
+
+  onDrag(event) {
     var target = event.target,
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
@@ -14,7 +21,7 @@ export default class DragDrop {
     target.setAttribute('data-y', y);
   }
 
-  static initialise() {
+  initialise() {
     interact('.dropzone').dropzone({
       accept: '.drag-drop',
       overlap: 0.75,
@@ -27,20 +34,33 @@ export default class DragDrop {
         event.relatedTarget.classList.remove('inside-target')
       },
       ondrop: function (event) {
-        console.log('add rule')
-      },
+        this.props.addRule(event.relatedTarget.dataset.type)
+      }.bind(this),
     })
     
     interact('.drag-drop')
       .draggable({
         inertia: true,
         autoScroll: true,
-        onmove: DragDrop.onDrag,
+        onmove: this.onDrag,
         onend: function (event) {
-          if (!event.target.classList.contains('inside-target')) {
-            console.log('reset')
-          }
+          event.target.style.webkitTransform =
+          event.target.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
+          event.target.setAttribute('data-x', 0);
+          event.target.setAttribute('data-y', 0);
         }
       })
   }
+
+  render() {
+    return null
+  }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addRule: (type) => dispatch({ type: NEW_RULE, payload: type })
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DragDrop)
