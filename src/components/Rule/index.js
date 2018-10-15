@@ -7,12 +7,13 @@ import { REMOVE_RULE, NEW_RULE, CHANGE_FOCUS, UPDATE_RULE } from '../../constant
 class Rule extends Component {
   constructor(props) {
     super(props)
-    this.input = null
+    this.lhs = null
+    this.rhs = null
   }
 
   componentDidUpdate() {
     if (this.isSelected()) {
-      this.input.focus()
+      this.lhs.focus()
     }
   }
 
@@ -44,12 +45,22 @@ class Rule extends Component {
       <li className={cx({[styles.rule_focus]: this.isSelected() })}>
         <input
           type="text"
-          value={this.props.value}
+          value={this.props.lhs}
           onKeyDown={this.onKeyDown}
           onFocus={()=>this.props.onFocus(this.props.index)}
           onChange={(event)=>this.props.updateRule(event.target.value)}
           className={cx(styles.ruleInput)}
-          ref={(ref)=>this.input=ref}
+          ref={(ref)=>this.lhs=ref}
+        />
+        <span>{this.props.type}</span>
+        <input
+          type="text"
+          value={this.props.rhs}
+          onKeyDown={this.onKeyDown}
+          onFocus={()=>this.props.onFocus(this.props.index)}
+          onChange={(event)=>this.props.updateRule(event.target.value)}
+          className={cx(styles.ruleInput)}
+          ref={(ref)=>this.rhs=ref}
         />
         <span onClick={()=>this.props.deleteRule(this.props.index)}>remove</span>
       </li>

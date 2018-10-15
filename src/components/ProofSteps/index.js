@@ -1,25 +1,23 @@
 /* Dependencies */
 import React from 'react'
-import cx from 'classnames'
 import { connect } from 'react-redux'
 import Rule from '../Rule'
-import RuleControls from '../RuleControls'
 import styles from './styles.scss'
 
-const RuleList = (props) =>
-  <React.Fragment>
-    <RuleControls />
-    <ul className={cx(styles.ruleList)}>
+const ProofSteps = (props) =>
+  <div className={styles.steps}>
     {
       props.rules.map((rule, index) =>
         <Rule key={"rule"+index} value={rule} index={index} />
       )
     }
-  </ul>
-  </React.Fragment>
+    <div className={styles.rulePlaceholder}>
+      Drag a step here to add it to your proof.
+    </div>
+  </div>
 
 const mapStateToProps = state => {
   return { rules: state.rules.steps }
 }
 
-export default connect(mapStateToProps, null)(RuleList)
+export default connect(mapStateToProps, null)(ProofSteps)
