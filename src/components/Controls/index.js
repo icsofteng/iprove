@@ -1,11 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import cx from 'classnames'
 import styles from './styles.scss'
-import { CLICK_SYMBOL } from '../../constants'
 
-// const controls = ['∧', '∨', '¬', '⇒', '⇐', '⇔', '⊤', '⊥']
-const Controls = (props) =>
+const Controls = () =>
   <div className={styles.controls}>
     <h1 className={styles.title}>iProve</h1>
     <div className={styles.controlList}>
@@ -51,10 +48,4 @@ const Controls = (props) =>
     </div>
   </div>
 
-const mapDispatchToProps = dispatch => {
-  return {
-    clickSymbol: (symbol) => dispatch({ type: CLICK_SYMBOL, payload: symbol })
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Controls)
+export default Controls

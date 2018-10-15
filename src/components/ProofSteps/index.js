@@ -1,4 +1,3 @@
-/* Dependencies */
 import React from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
@@ -9,7 +8,7 @@ const ProofSteps = (props) =>
   <div className={styles.steps}>
     {
       props.rules.map((rule, index) =>
-        <Rule key={"rule"+index} value={rule} index={index} />
+        <Rule key={"rule"+index} rule={rule} index={index} />
       )
     }
     <div className={cx('dropzone', styles.rulePlaceholder)}>

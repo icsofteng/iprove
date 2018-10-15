@@ -1,7 +1,6 @@
-import { NEW_RULE, REMOVE_RULE, CHANGE_FOCUS, UPDATE_RULE, CLICK_SYMBOL } from '../constants'
+import { NEW_RULE, REMOVE_RULE } from '../constants'
 
 const initialState = {
-  focus: 0,
   steps: []
 }
 
@@ -21,29 +20,8 @@ const rules = (state = initialState, action) => {
       steps.splice(action.payload, 1)
       return {
         ...state,
-        steps,
-        focus: (state.focus === action.payload ? 0 : state.focus)
-      }
-
-    case CHANGE_FOCUS:
-      return {
-        ...state,
-        focus: action.payload
-      }
-    
-    case CLICK_SYMBOL:
-      steps[state.focus] += action.payload
-      return {
-        ...state,
         steps
-      }
-
-    case UPDATE_RULE:
-      steps[state.focus] = action.payload
-      return {
-        ...state,
-        steps
-      } 
+    }
 
     default:
       return state
