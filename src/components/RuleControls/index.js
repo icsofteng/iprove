@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import styles from './styles.scss'
-import { CLICK_SYMBOL } from '../../constants';
+import { CLICK_SYMBOL } from '../../constants'
 
 const controls = ['∧', '∨', '!', '⇒', '⇐', '⇔', '⊤', '⊥']
 const RuleControls = (props) =>
@@ -17,7 +17,7 @@ const RuleControls = (props) =>
 const mapDispatchToProps = dispatch => {
   return {
     clickSymbol: (symbol) => dispatch({ type: CLICK_SYMBOL, payload: symbol })
-  };
-};
+  }
+}
 
 export default connect(null, mapDispatchToProps)(RuleControls)

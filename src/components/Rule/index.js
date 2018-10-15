@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import styles from './styles.scss'
-import { REMOVE_RULE, NEW_RULE, CHANGE_FOCUS, UPDATE_RULE } from '../../constants';
+import { REMOVE_RULE, NEW_RULE, CHANGE_FOCUS, UPDATE_RULE } from '../../constants'
 
 class Rule extends Component {
   constructor(props) {
@@ -19,15 +19,18 @@ class Rule extends Component {
   onKeyDown = (event) => {
     const charCode = event.charCode || event.keyCode
     switch (charCode) {
-      case 13: this.props.createRule(); break;
-      case 38: this.props.moveSelectionUp(this.props.index); break;
-      case 40: this.props.moveSelectionDown(this.props.index); break;
+      case 13: this.props.createRule()
+               break
+      case 38: this.props.moveSelectionUp(this.props.index)
+               break
+      case 40: this.props.moveSelectionDown(this.props.index)
+               break
       case 8:
         if (event.target.value === '') {
           this.props.deleteRule(this.props.index)
         }
-        break;
-      default: break;
+        break
+      default: break
     }
   }
 
@@ -65,7 +68,7 @@ const mapDispatchToProps = dispatch => {
     deleteRule: (index) => dispatch({ type: REMOVE_RULE, payload: index }),
     updateRule: (text) => dispatch({ type: UPDATE_RULE, payload: text }),
     onFocus: (index) => dispatch({ type: CHANGE_FOCUS, payload: index })
-  };
-};
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rule)

@@ -1,4 +1,4 @@
-import { NEW_RULE, REMOVE_RULE, CHANGE_FOCUS, UPDATE_RULE, CLICK_SYMBOL } from '../constants';
+import { NEW_RULE, REMOVE_RULE, CHANGE_FOCUS, UPDATE_RULE, CLICK_SYMBOL } from '../constants'
 
 const initialState = {
   focus: 0,
