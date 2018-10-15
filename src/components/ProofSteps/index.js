@@ -7,8 +7,8 @@ import styles from './styles.scss'
 const ProofSteps = (props) =>
   <div className={styles.steps}>
     {
-      props.rules.map((rule, index) =>
-        <Rule key={"rule"+index} rule={rule} index={index} />
+      props.steps.map((rule, index) =>
+        <Rule key={"rule"+index} {...rule} index={index} />
       )
     }
     <div className={cx('dropzone', styles.rulePlaceholder)}>
@@ -17,7 +17,7 @@ const ProofSteps = (props) =>
   </div>
 
 const mapStateToProps = state => {
-  return { rules: state.rules.steps }
+  return { steps: state.steps }
 }
 
 export default connect(mapStateToProps, null)(ProofSteps)
