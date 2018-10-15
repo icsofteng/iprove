@@ -36,17 +36,28 @@ function translate_rule(rule) {
     }
 }   
 
-
-function translate_and_rule() {
-
+function translate_and_rule(rule) {
+    lhsExpr = translate_rule(rule.lhs)
+    rhsExpr = translate_rule(rule.rhs)
+    rule = '(and ' + lhsExpr + ' ' + rhsExpr + ')'
+    
+    return rule
 }
 
 function translate_or_rule() {
-
+    lhsExpr = translate_rule(rule.lhs)
+    rhsExpr = translate_rule(rule.rhs)
+    rule = '(or ' + lhsExpr + ' ' + rhsExpr + ')'
+    
+    return rule
 }
 
 function translate_implies_rule() {
-
+    lhsExpr = translate_rule(rule.lhs)
+    rhsExpr = translate_rule(rule.rhs)
+    rule = '(=> ' + lhsExpr + ' ' + rhsExpr + ')'
+    
+    return rule
 }
 
 
