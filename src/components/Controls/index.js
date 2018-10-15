@@ -10,7 +10,7 @@ const Controls = (props) =>
     <h1 className={styles.title}>iProve</h1>
     <div className={styles.controlList}>
       
-      <div className={cx('drag-drop', styles.controlBlock)}>
+      <div data-type="binary" className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Binary Rule</div>
         <div className={styles.template}>
           <div className={styles.exprPlaceholder}></div>
@@ -19,7 +19,7 @@ const Controls = (props) =>
         </div>
       </div>
 
-      <div className={cx('drag-drop', styles.controlBlock)}>
+      <div data-type="unary" className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Unary Rule</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>?</div>
@@ -27,21 +27,21 @@ const Controls = (props) =>
         </div>
       </div>
 
-      <div className={cx('drag-drop', styles.controlBlock)}>
+      <div data-type="literal" className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>Literal</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>x</div>
         </div>
       </div>
 
-      <div className={cx('drag-drop', styles.controlBlock)}>
+      <div data-type="true" className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>True</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>⊤</div>
         </div>
       </div>
 
-      <div className={cx('drag-drop', styles.controlBlock)}>
+      <div data-type="false" className={cx('drag-drop', styles.controlBlock)}>
         <div className={styles.label}>False</div>
         <div className={styles.template}>
           <div className={styles.symbolPlaceholder}>⊥</div>
