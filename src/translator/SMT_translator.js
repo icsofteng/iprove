@@ -1,3 +1,5 @@
+// var test_constants1 = require('./test.js').test_constants1
+
 var fs = require('fs')
 var crypto = require('crypto')
 
