@@ -4,8 +4,11 @@ var proof_file_name = 'tmp'
 function translate_to_SMT(rules, constants) {
     //split goal and assumptions
     var length = rules.length
-    var goal = rules.slice(length - 1)
+    var goal = rules.slice(length - 1)[0]
+    console.log(goal)
     var assumptions = rules.slice(0, length - 1)
+    console.log(assumptions)
+
 
     // declare constants to be used in proof
     constants.forEach(element => {
@@ -40,7 +43,6 @@ function translate_rule(rule) {
 }   
 
 function translate_and_rule(rule) {
-    console.log(rule.lhs)
     lhsExpr = translate_rule(rule.lhs)
     rhsExpr = translate_rule(rule.rhs)
     rule = '(and ' + lhsExpr + ' ' + rhsExpr + ')'
@@ -97,6 +99,10 @@ var test_rules = [{
         type: 'literal', 
         value: 'r'
     }
-}, {}]
+}, 
+{
+    type: 'literal',
+    value: 'r'
+}]
 
 translate_to_SMT(test_rules, test_constants)
