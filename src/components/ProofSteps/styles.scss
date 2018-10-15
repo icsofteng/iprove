@@ -5,4 +5,8 @@
   padding: 20px;
   border: 2px dashed #666;
   color: #666;
+
+  &:global(.drop-target) {
+    background:yellow;
+  }
 }
