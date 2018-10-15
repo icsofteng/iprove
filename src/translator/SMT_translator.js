@@ -1,34 +1,34 @@
 var fs = require('fs')
-var proof_file_name = 'tmp'
+var crypto = require('crypto')
 
 function translate_to_SMT(rules, constants) {
+    // create random file name
+    var current_date = (new Date()).valueOf().toString()
+    var random = Math.random().toString()
+    var proof_file_name = crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
+    var file_contents = ""
+
     //split goal and assumptions
     var length = rules.length
     var goal = rules.slice(length - 1)[0]
-    console.log(goal)
     var assumptions = rules.slice(0, length - 1)
-    console.log(assumptions)
-
 
     // declare constants to be used in proof
     constants.forEach(element => {
         var name = element.value
-        var var_declaration = '(declare-const ' + name + ' Bool)\n'
-        fs.appendFile(proof_file_name,var_declaration,(err) =>{})
+        file_contents += '(declare-const ' + name + ' Bool)\n'
     });
 
     // translate assumptions
     assumptions.forEach(element => {
-        var rule_declaration = '(assert ' + translate_rule(element) + ')'
-        fs.appendFile(proof_file_name, rule_declaration,() =>{})
+        file_contents += '(assert ' + translate_rule(element) + ')\n'
     })
     
     // translate AND NEGATE goal
     var negated_goal = '(assert (not '+ translate_rule(goal) + '))\n'
-    fs.appendFile(proof_file_name, negated_goal, () =>{})
-    fs.appendFile(proof_file_name, '(check-sat)', () =>{})
-
-    
+    file_contents += negated_goal
+    file_contents += '(check-sat)'
+    fs.writeFile(proof_file_name, file_contents, (err)=>{})
 }
 
 function translate_rule(rule) {
@@ -45,25 +45,20 @@ function translate_rule(rule) {
 function translate_and_rule(rule) {
     lhsExpr = translate_rule(rule.lhs)
     rhsExpr = translate_rule(rule.rhs)
-    rule = '(and ' + lhsExpr + ' ' + rhsExpr + ')'
-    
-    return rule
+    return '(and ' + lhsExpr + ' ' + rhsExpr + ')'
+
 }
 
-function translate_or_rule() {
+function translate_or_rule(rule) {
     lhsExpr = translate_rule(rule.lhs)
     rhsExpr = translate_rule(rule.rhs)
-    rule = '(or ' + lhsExpr + ' ' + rhsExpr + ')'
-    
-    return rule
+    return '(or ' + lhsExpr + ' ' + rhsExpr + ')'
 }
 
-function translate_implies_rule() {
+function translate_implies_rule(rule) {
     lhsExpr = translate_rule(rule.lhs)
     rhsExpr = translate_rule(rule.rhs)
-    rule = '(=> ' + lhsExpr + ' ' + rhsExpr + ')'
-    
-    return rule
+    return '(=> ' + lhsExpr + ' ' + rhsExpr + ')'
 }
 
 
@@ -105,4 +100,126 @@ var test_rules = [{
     value: 'r'
 }]
 
+//some tests
+test_constants2 = [{ltype: 'literal', value: 'r'}, {ltype: 'literal', value: 'i'}, {ltype: 'literal', value: 'f'}]
+test_rules2 = [
+    {
+        type: 'implies',
+        lhs: {
+            type: 'literal',
+            value: 'r'
+        },
+        rhs: {
+            type: 'not',
+            value: {
+                type: 'literal',
+                value: 'i'
+            }
+        }
+    },
+    {
+        type: 'or',
+        lhs: {
+            type: 'literal',
+            value: 'i'
+        },
+        rhs: {
+            type: 'literal',
+            value: 'f'
+        }
+    },
+    {
+        type: 'not',
+        value: {
+            type: 'literal',
+            value: 'f'
+        }
+    },
+    {
+        type: 'not',
+        value: {
+            type: 'literal',
+            value: 'r'
+        }
+    }
+]
+
+test_constants3 = [{ltype: 'literal', value: 'a'}, {ltype: 'literal', value: 'b'},
+ {ltype: 'literal', value: 'd'}, {ltype: 'literal', value: 'e'}, {ltype: 'literal', value: 'g'}]
+test_rules3 = [
+    {
+        type: 'implies',
+        lhs: {
+            type: 'literal',
+            value: 'a'
+        },
+        rhs: {
+            type: 'implies',
+            lhs: {
+                type: 'literal',
+                value: 'b'
+            },
+            rhs: {
+                type: 'or',
+                lhs: {
+                    type: 'literal',
+                    value: 'd'
+                },
+                rhs: {
+                    type: 'literal',
+                    value: 'e'
+                }
+            }
+        }
+    },
+    {
+        type: 'not',
+        value: {
+            type: 'or',
+            lhs: {
+                type: 'literal',
+                value: 'd'
+            },
+            rhs: {
+                type: 'literal',
+                value: 'g'
+            }
+        }
+    },
+    {
+        type: 'implies',
+        lhs: {
+            type: 'and',
+            lhs: {
+                type: 'literal',
+                value: 'e'
+            },
+            rhs: {
+                type: 'literal',
+                value: 'b'
+            }
+        },
+        rhs: {
+            type: 'literal',
+            value: 'g'
+        }
+    },
+    {
+        type: 'implies',
+        lhs: {
+            type: 'literal',
+            value: 'b'
+        },
+        rhs: {
+            type: 'not',
+            value: {
+                type: 'literal',
+                value: 'a'
+            }
+        }
+    }
+]
+
 translate_to_SMT(test_rules, test_constants)
+translate_to_SMT(test_rules2, test_constants2)
+translate_to_SMT(test_rules3, test_constants3)
