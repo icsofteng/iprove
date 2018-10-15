@@ -27,16 +27,17 @@ function translate_to_SMT(rules, constants) {
 
 function translate_rule(rule) {
     switch(rule.type) {
-        case 'and': translate_and_rule(rule); break
-        case 'or': translate_or_rule(rule); break
-        case 'not': translate_not_rule(rule); break
-        case 'iff': translate_iff_rule(rule); break
-        case 'implies': translate_implies_rule(rule); break
-        default: translate_literal(rule); break
+        case 'and': return translate_and_rule(rule)
+        case 'or': return translate_or_rule(rule)
+        case 'not': return translate_not_rule(rule)
+        case 'iff': return translate_iff_rule(rule)
+        case 'implies': return translate_implies_rule(rule)
+        default: return translate_literal(rule)
     }
 }   
 
 function translate_and_rule(rule) {
+    console.log(rule.lhs)
     lhsExpr = translate_rule(rule.lhs)
     rhsExpr = translate_rule(rule.rhs)
     rule = '(and ' + lhsExpr + ' ' + rhsExpr + ')'
@@ -68,9 +69,31 @@ function translate_iff_rule(rule) {
 }
 
 function translate_not_rule(rule) {
-    return '( not '+ translate_rule(rule.expr) + ')'
+    return '( not '+ translate_rule(rule.value) + ')'
 }
 
 function translate_literal(rule) {
     return rule.value
 }
+
+var test_constants = [{type: 'literal', value: 'p'}, {type: 'literal', value: 'q'}, {type: 'literal', value: 'r'}]
+var test_rules = [{
+    type: 'and', 
+    lhs: {
+        type: 'and', 
+        lhs: {
+            type:'literal',
+            value: 'p'
+        }, 
+        rhs: {
+            type:'literal',
+            value: 'q'
+        }
+    }, 
+    rhs: {
+        type: 'literal', 
+        value: 'r'
+    }
+}, {}]
+
+translate_to_SMT(test_rules, test_constants)
