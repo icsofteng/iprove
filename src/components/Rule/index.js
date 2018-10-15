@@ -18,11 +18,15 @@ class Rule extends Component {
 
   onKeyDown = (event) => {
     const charCode = event.charCode || event.keyCode
+    const ENTER = 13;
+    const UP = 38;
+    const DOWN = 40;
+    const BACKSPACE = 8;
     switch (charCode) {
-      case 13: this.props.createRule(); break;
-      case 38: this.props.moveSelectionUp(this.props.index); break;
-      case 40: this.props.moveSelectionDown(this.props.index); break;
-      case 8:
+      case ENTER: this.props.createRule(); break;
+      case UP: this.props.moveSelectionUp(this.props.index); break;
+      case DOWN: this.props.moveSelectionDown(this.props.index); break;
+      case BACKSPACE:
         if (event.target.value === '') {
           this.props.deleteRule(this.props.index)
         }
