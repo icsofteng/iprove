@@ -3,48 +3,66 @@ import { connect } from 'react-redux'
 import styles from './styles.scss'
 import { UPDATE_RULE, UPDATE_RULE_LHS, UPDATE_RULE_RHS, REMOVE_RULE, CHANGE_SYMBOL} from '../../constants'
 
-export const Rule = (props) =>
-  <div className={styles.rule}>
+const SymbolChooser = ({changeSymbol, current, index, symbols}) =>
+  <select className={styles.ruleSymbol} value={current} onChange={(event)=>changeSymbol(index, event.target.value)}> 
+    <option>...</option>
     {
-      props.type === 'binary' ?
-      <React.Fragment>
-        <input
-          type="text"
-          value={props.lhs}
-          onChange={(event)=>props.updateLhs(props.index, event.target.value)}
-          className={styles.ruleInput}
-        />
-        <select className={styles.ruleSymbol} value={props.symbol} onChange={(event)=>props.changeSymbol(props.index, event.target.value)}>
-          <option>...</option>
-          <option value="and">∧</option>
-          <option value="or">∨</option>
-          <option value="implies">⇒</option>
-          <option value="iff">⇔</option>
-        </select>
-        <input
-          type="text"
-          value={props.rhs}
-          onChange={(event)=>props.updateRhs(props.index, event.target.value)}
-          className={styles.ruleInput}
-        />
-      </React.Fragment>
-      :
-      <React.Fragment>
-        <select className={styles.ruleSymbol} value={props.symbol} onChange={(event)=>props.changeSymbol(props.index, event.target.value)}>
-          <option>...</option>
-          <option value="not">¬</option>
-        </select>
-        <input
-          type="text"
-          value={props.value}
-          onChange={(event)=>props.updateValue(props.index, event.target.value)}
-          className={styles.ruleInput}
-        />
-      </React.Fragment>
-    }
-    
-    <span className={styles.remove} onClick={()=>props.deleteRule(props.index)}>X</span>
-  </div>
+      Object.keys(symbols).map((key, i) =>
+        <option value={key} key={i}>{symbols[key]}</option>
+      )
+    } 
+  </select>
+
+const BinaryRule = (props) =>
+  <React.Fragment>
+    <input type="text" value={props.lhs} onChange={(event)=>props.updateLhs(props.index, event.target.value)} className={styles.ruleInput} />
+    <SymbolChooser changeSymbol={props.changeSymbol} current={props.symbol} index={props.index} symbols={binSymbols} />
+    <input type="text" value={props.rhs} onChange={(event)=>props.updateRhs(props.index, event.target.value)} className={styles.ruleInput} />
+  </React.Fragment>
+
+const UnaryRule = (props) =>
+  <React.Fragment>
+    <SymbolChooser changeSymbol={props.changeSymbol} current={props.symbol} index={props.index} symbols={unRules} />
+    <input type="text" value={props.value} onChange={(event)=>props.updateValue(props.index, event.target.value)} className={styles.ruleInput} />
+  </React.Fragment>
+
+const LiteralRule = (props) =>
+  <input type="text" value={props.value} onChange={(event)=>props.updateValue(props.index, event.target.value)} className={styles.ruleInput} />
+
+const TrueRule = () =>
+  <input type="text" value="⊤" disabled className={styles.ruleInput} />
+
+const FalseRule = () =>
+  <input type="text" value="⊥" disabled className={styles.ruleInput} />
+
+const binSymbols = {
+  and: '∧',
+  or: '∨',
+  implies: '⇒',
+  iff: '⇔'
+}
+
+const unRules = {
+  not: '¬'
+}
+
+const components = {
+  binary: BinaryRule,
+  unary: UnaryRule,
+  literal: LiteralRule,
+  true: TrueRule,
+  false: FalseRule
+}
+
+const Rule = (props) => {
+  const RuleType = components[props.type]
+  return (
+    <div className={styles.rule}>
+      <RuleType {...props} />
+      <span className={styles.remove} onClick={()=>props.deleteRule(props.index)}>X</span>
+    </div>
+  )
+}
 
 const mapDispatchToProps = dispatch => {
   return {
