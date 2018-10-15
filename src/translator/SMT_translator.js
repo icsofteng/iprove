@@ -16,7 +16,8 @@ function translate_to_SMT(rules, constants) {
 
     // translate assumptions
     assumptions.forEach(element => {
-
+        var rule_declaration = '(assert ' + translate_rule(element) + ')'
+        fs.appendFile(proof_file_name, rule_declaration,() =>{})
     })
     
     // translate AND NEGATE goal
@@ -24,11 +25,17 @@ function translate_to_SMT(rules, constants) {
     
 }
 
-function translate_rule() {
-    
-
-
+function translate_rule(rule) {
+    switch(rule.type) {
+        case 'and': translate_and_rule(rule); break
+        case 'or': translate_or_rule(rule); break
+        case 'not': translate_not_rule(rule); break
+        case 'iff': translate_iff_rule(rule); break
+        case 'implies': translate_implies_rule(rule); break
+        default: translate_literal(rule); break
+    }
 }   
+
 
 function translate_and_rule() {
 
@@ -42,14 +49,17 @@ function translate_implies_rule() {
 
 }
 
-function translate_iff_rule() {
 
+function translate_iff_rule(rule) {
+    var expr1 = translate_rule(rule.lhs)
+    var expr2 = translate_rule(rule.rhs)
+    return '(iff '+ expr1 +  + expr2 + ')'
 }
 
-function translate_not_rule() {
-
+function translate_not_rule(rule) {
+    return '( not '+ translate_rule(rule.expr) + ')'
 }
 
-function translate_literal() {
-
+function translate_literal(rule) {
+    return rule.value
 }
