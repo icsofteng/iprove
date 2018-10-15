@@ -2,7 +2,7 @@ import { NEW_RULE, REMOVE_RULE, CHANGE_FOCUS, UPDATE_RULE, CLICK_SYMBOL } from '
 
 const initialState = {
   focus: 0,
-  steps: ['']
+  steps: []
 }
 
 const rules = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const rules = (state = initialState, action) => {
     case NEW_RULE:
       return {
         ...state,
-        steps: [...state.steps, '']
+        steps: [...state.steps, { type: action.payload }]
       }
 
     case REMOVE_RULE:

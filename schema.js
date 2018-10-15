@@ -16,14 +16,14 @@ var rules = [
 ]
 
 // Translation
-// { type: 'literal', value: true }                 (assert true)
-// { type: 'literal', value: false }                (assert false)
-// { type: 'literal', value: 'p' }                  (assert p)
-// { type: 'implies', lhs: expr1, rhs: expr2 }      (assert (=> expr1 expr2))
-// { type: 'iff', lhs: expr1, rhs: expr2 }          (assert (iff expr1 expr2))
-// { type: 'and', lhs: expr1, rhs: expr2 }          (assert and expr1 expr2)
-// { type: 'or', lhs: expr1, rhs: expr2 }           (assert or expr1 expr2)
-// { type: 'not', value: expr }                     (assert not expr)
+// { type: 'literal', value: true }                                   (assert true)
+// { type: 'literal', value: false }                                  (assert false)
+// { type: 'literal', value: 'p' }                                    (assert p)
+// { type: 'binary', symbol: 'implies', lhs: expr1, rhs: expr2 }      (assert (=> expr1 expr2))
+// { type: 'binary', symbol: 'iff', lhs: expr1, rhs: expr2 }          (assert (iff expr1 expr2))
+// { type: 'binary', symbol: 'and', lhs: expr1, rhs: expr2 }          (assert and expr1 expr2)
+// { type: 'binary', symbol: 'or', lhs: expr1, rhs: expr2 }           (assert or expr1 expr2)
+// { type: 'unary', symbol: 'not', value: expr }                      (assert not expr)
 
 
 
