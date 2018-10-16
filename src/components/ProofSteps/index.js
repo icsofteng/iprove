@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import cx from 'classnames'
 import Rule from '../Rule'
 import styles from './styles.scss'
 import RulePlaceholder from '../RulePlaceholder'
@@ -12,7 +11,7 @@ const ProofSteps = (props) =>
         <Rule key={"rule"+index} {...rule} index={index} />
       )
     }
-    <RulePlaceholder/>
+    <RulePlaceholder wide />
   </div>
 
 const mapStateToProps = state => {

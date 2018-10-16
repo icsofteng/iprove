@@ -1,7 +1,12 @@
 .rulePlaceholder {
-    padding: 20px;
     border: 2px dashed #666;
     color: #666;
+    width: 40px;
+
+    &.wide {
+      padding: 20px;
+      width: auto;
+    }
   
     &:global(.drop-target) {
       background:yellow;
