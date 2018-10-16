@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Controls from './components/Controls'
-import ProofSteps from './components/ProofSteps'
+import ProofStepList from './components/ProofStepList'
 import DragDrop from './components/DragDrop'
 import { connect } from 'react-redux';
 
@@ -21,7 +21,7 @@ class IProve extends Component {
       <div className="IProve">
         <DragDrop />
         <Controls />
-        <ProofSteps steps={this.props.steps} />
+        <ProofStepList steps={this.props.steps} />
       </div>
     )
   }
