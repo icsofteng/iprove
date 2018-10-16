@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styles from './styles.scss'
 import { UPDATE_RULE, UPDATE_RULE_LHS, UPDATE_RULE_RHS, REMOVE_RULE, CHANGE_SYMBOL} from '../../constants'
+import RulePlaceholder from '../RulePlaceholder'
 
 const SymbolChooser = ({changeSymbol, current, index, symbols}) =>
   <select className={styles.ruleSymbol} value={current} onChange={(event)=>changeSymbol(index, event.target.value)}> 
@@ -15,7 +16,8 @@ const SymbolChooser = ({changeSymbol, current, index, symbols}) =>
 
 const BinaryRule = (props) =>
   <React.Fragment>
-    <input type="text" value={props.lhs} onChange={(event)=>props.updateLhs(props.index, event.target.value)} className={styles.ruleInput} />
+    {/* <input type="text" value={props.lhs} onChange={(event)=>props.updateLhs(props.index, event.target.value)} className={styles.ruleInput} /> */}
+    <RulePlaceholder/>
     <SymbolChooser changeSymbol={props.changeSymbol} current={props.symbol} index={props.index} symbols={binSymbols} />
     <input type="text" value={props.rhs} onChange={(event)=>props.updateRhs(props.index, event.target.value)} className={styles.ruleInput} />
   </React.Fragment>
