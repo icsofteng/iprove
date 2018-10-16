@@ -33,7 +33,8 @@ class DragDrop extends Component {
         event.relatedTarget.classList.remove('inside-target')
       },
       ondrop: function (event) {
-        this.props.addRule(event.relatedTarget.dataset.type)
+        event.target.classList.remove('drop-target')
+        this.props.addRule(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
       }.bind(this),
     })
     
@@ -58,7 +59,7 @@ class DragDrop extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addRule: (type) => dispatch({ type: NEW_RULE, payload: type })
+    addRule: (type, path) => dispatch({ type: NEW_RULE, payload: type, path })
   }
 }
 

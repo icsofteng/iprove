@@ -2,10 +2,12 @@
     border: 2px dashed #666;
     color: #666;
     width: 40px;
+    height: 16px;
 
     &.wide {
       padding: 20px;
       width: auto;
+      margin-top: 15px;
     }
   
     &:global(.drop-target) {
