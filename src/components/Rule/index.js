@@ -17,9 +17,10 @@ const SymbolChooser = ({changeSymbol, current, index, symbols}) =>
 const BinaryRule = (props) =>
   <React.Fragment>
     {/* <input type="text" value={props.lhs} onChange={(event)=>props.updateLhs(props.index, event.target.value)} className={styles.ruleInput} /> */}
-    <RulePlaceholder/>
+    <RulePlaceholder />
     <SymbolChooser changeSymbol={props.changeSymbol} current={props.symbol} index={props.index} symbols={binSymbols} />
-    <input type="text" value={props.rhs} onChange={(event)=>props.updateRhs(props.index, event.target.value)} className={styles.ruleInput} />
+    {/* <input type="text" value={props.rhs} onChange={(event)=>props.updateRhs(props.index, event.target.value)} className={styles.ruleInput} /> */}
+    <RulePlaceholder />
   </React.Fragment>
 
 const UnaryRule = (props) =>

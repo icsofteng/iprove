@@ -24,7 +24,6 @@ class DragDrop extends Component {
   initialise() {
     interact('.dropzone').dropzone({
       accept: '.drag-drop',
-      overlap: 0.75,
       ondragenter: function (event) {
         event.target.classList.add('drop-target')
         event.relatedTarget.classList.add('inside-target')
