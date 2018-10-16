@@ -17,7 +17,6 @@ const translate_to_SMT = require('../SMT_translator.js')
 var fs = require('fs')
 
 function checkFile(tmp, expected) {
-  // console.log("expected dir is: " + expected + " " + fs.lstatSync(expected).isDirectory())
   const expectedContent = fs.readFileSync(expected).toString('utf-8')
   const actualContent = fs.readFileSync(tmp).toString('utf-8')
   return (expectedContent == actualContent)
@@ -39,8 +38,6 @@ function runTests(dir){
     })
     if (result) {
       fs.unlinkSync(test_tmp)
-    } else {
-      console.log('Its not the same!')
     }
   });
 }
