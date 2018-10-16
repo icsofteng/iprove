@@ -8,10 +8,10 @@ const ProofSteps = (props) =>
   <div className={styles.steps}>
     {
       props.steps.map((rule, index) =>
-        <Rule key={"rule"+index} {...rule} index={index} />
+        <Rule key={"rule"+index} {...rule} path={[index]} />
       )
     }
-    <RulePlaceholder wide />
+    <RulePlaceholder wide path={[props.steps.length]} />
   </div>
 
 const mapStateToProps = state => {

@@ -1,34 +1,41 @@
-import { NEW_RULE, REMOVE_RULE, UPDATE_RULE, UPDATE_RULE_LHS, UPDATE_RULE_RHS, CHANGE_SYMBOL} from '../constants'
+import { NEW_RULE, REMOVE_RULE, CHANGE_SYMBOL, UPDATE_RULE} from '../constants'
 
 const initialState = {
   steps: []
 }
 
+const dfs = (state, path) => {
+  if (path) {
+    let depth = state.steps
+    let i = 0
+    for (; i<path.length-1; i++) {
+      depth = depth[path[i]]
+    }
+    return { depth, index: path[i] }
+  }
+  return state.steps
+}
+
 const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state)
   newState.steps = state.steps.slice(0)
+  const { depth, index } = dfs(newState, action.path)
+
   switch (action.type) {
     case NEW_RULE:
-      return { ...newState, steps: [...newState.steps, { type: action.payload }] }
-
-    case REMOVE_RULE:
-      newState.steps.splice(action.payload, 1)
+      depth[index] = { type: action.payload }
       return newState
 
     case UPDATE_RULE:
-      newState.steps[action.index].value = action.payload
+      depth[index] = action.payload
       return newState
 
-    case UPDATE_RULE_LHS:
-      newState.steps[action.index].lhs = action.payload
-      return newState
-
-    case UPDATE_RULE_RHS:
-      newState.steps[action.index].rhs = action.payload
+    case REMOVE_RULE:
+      delete depth[index]
       return newState
 
     case CHANGE_SYMBOL:
-      newState.steps[action.index].symbol = action.payload
+      depth[index].symbol = action.payload
       return newState
 
     default:

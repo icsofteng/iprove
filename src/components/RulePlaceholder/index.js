@@ -8,6 +8,7 @@ const RulePlaceholder = (props) =>
     className={cx('dropzone', styles.rulePlaceholder, {
       [styles.wide]: props.wide
     })}
+    data-path={JSON.stringify(props.path)}
     onChange={(event)=>props.dropRule(props.index, event.target.value)}
   >
     { props.wide && "Drag a step here to add it to your proof." }
