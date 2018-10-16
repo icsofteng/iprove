@@ -47,7 +47,6 @@ class DragDrop extends Component {
           event.target.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
           event.target.setAttribute('data-x', 0);
           event.target.setAttribute('data-y', 0);
-          event.relatedTarget.classList.remove('drop-target')
         }
       })
   }
