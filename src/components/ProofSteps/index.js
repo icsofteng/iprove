@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 import Rule from '../Rule'
 import styles from './styles.scss'
+import RulePlaceholder from '../RulePlaceholder'
 
 const ProofSteps = (props) =>
   <div className={styles.steps}>
@@ -11,9 +12,7 @@ const ProofSteps = (props) =>
         <Rule key={"rule"+index} {...rule} index={index} />
       )
     }
-    <div className={cx('dropzone', styles.rulePlaceholder)}>
-      Drag a step here to add it to your proof.
-    </div>
+    <RulePlaceholder/>
   </div>
 
 const mapStateToProps = state => {
