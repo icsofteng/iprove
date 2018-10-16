@@ -36,7 +36,6 @@ function translate_to_SMT(rules, constants, path = undefined) {
   const negated_goal = '(assert (not '+ translate_rule(goal) + '))\n'
   file_contents += negated_goal
   file_contents += '(check-sat)'
-  console.log('writing file '+ proof_file_name)
   fs.writeFileSync(proof_file_name, file_contents)
 }
 module.exports = translate_to_SMT;
