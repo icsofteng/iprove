@@ -15,60 +15,38 @@
 
 const translate_to_SMT = require('../SMT_translator.js')
 var fs = require('fs')
-/////
-var test_constants = [{type: 'literal', value: 'p'}, {type: 'literal', value: 'q'}]
-
-var test_rules = [{
-    type: 'and',
-    lhs: {
-        type: 'literal',
-        value: 'p'
-    },
-    rhs: {
-        type: 'literal',
-        value: 'q'
-    },
-},
-{
-    type: 'literal',
-    value: 'p'
-}]
-/////
 
 function checkFile(tmp, expected) {
-    // console.log("expected dir is: " + expected + " " + fs.lstatSync(expected).isDirectory())
-    const expectedContent = fs.readFileSync(expected).toString('utf-8')
-    const actualContent = fs.readFileSync(tmp).toString('utf-8')
-    return (expectedContent == actualContent)
+  // console.log("expected dir is: " + expected + " " + fs.lstatSync(expected).isDirectory())
+  const expectedContent = fs.readFileSync(expected).toString('utf-8')
+  const actualContent = fs.readFileSync(tmp).toString('utf-8')
+  return (expectedContent == actualContent)
 }
 
-function runTests(dir) {
-    var dir = fs.readdirSync(dir)
-    dir.forEach(testsFolder => {
-        // console.log('In folder ' + testsFolder)
-        var test_dir = dir + '/' + testsFolder
-        console.log(test_dir)
-        // require('./' + test_dir + '/UnTest')
-        translate_to_SMT(test_rules, test_constants, true)
-        console.log('TMP DIR: ' + test_dir + '/tmp.txt')
-        if (checkFile(test_dir + '/tmp.txt', test_dir + '/expected.txt')) {
-            // delete file
-            console.log('ITS THE SAME')
-        } else {
-            console.log('Its not the same!')
-        }
-        // get test variables
-        // run test with those variables
-        // compare tmp file with expected.txt
-        // expect(tmp file == expected).toBe(true) 
-        // if it is not the same keep the file
-        // if it is the same, delete and move on
-    });
+const root = 'src/translator/Test/'
+
+function runTests(dir){
+  var folders = fs.readdirSync( root + dir )
+  folders.forEach(tests_folder => {
+    const test_dir = root + dir + tests_folder
+    const test_tmp = test_dir + '/tmp.txt'
+    const test_dir_obj = './'+ test_dir + '/Test'
+    const obj = require('./'+ dir + tests_folder + '/Test')
+    translate_to_SMT(obj.test_rules, obj.test_constants, test_tmp)
+    const result = checkFile(test_tmp, test_dir + '/expected.txt')
+    test(tests_folder, ()=> {
+      expect(result).toBe(true)
+    })
+    if (result) {
+      fs.unlinkSync(test_tmp)
+    } else {
+      console.log('Its not the same!')
+    }
+  });
 }
 
 runTests("UnitTest/")
-// runTests("IntegrationTest/")
 
-// translate_to_SMT(test_rules, test_constants, false)
+runTests("IntegrationTest/")
 
 
