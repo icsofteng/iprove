@@ -1,9 +1,11 @@
-(declare-const t Bool)
-(declare-const p Bool)
-(declare-const r Bool)
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nested test 2 1`] = `
+"(declare-const p Bool)
 (declare-const q Bool)
 (assert (not t))
 (assert (=> p (not (and r q))))
 (assert (=> p (or r t)))
 (assert (not (=> p (not q))))
-(check-sat)
+(check-sat)"
+`;

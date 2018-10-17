@@ -62,8 +62,7 @@ const translate_iff_rule = (rule) => '(iff '+ translate_rule(rule.lhs) + ' ' + t
 const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_literal = (rule) => rule.value
 
-const translate = (rules, constants) => {
-  const proof_file_name = random_file_name()
+export const translate = (rules, constants) => {
   let file_contents = ""
 
   // split goal and assumptions
@@ -74,8 +73,14 @@ const translate = (rules, constants) => {
   file_contents = declare_constants(constants, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
+  return file_contents
+}
+
+export const translate_and_save = (rules, constants) => {
+  const file_contents = translate(rules, constants)
+  const proof_file_name = random_file_name()
   fs.writeFile(proof_file_name, file_contents, (err)=>{})
   return proof_file_name
 }
 
-module.exports = translate
+export default translate_and_save

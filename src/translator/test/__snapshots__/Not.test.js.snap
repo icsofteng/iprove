@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Not test 1`] = `
+"(declare-const p Bool)
+(assert (not p))
+(assert (not p))
+(check-sat)"
+`;

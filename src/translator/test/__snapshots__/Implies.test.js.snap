@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implies test 1`] = `
+"(declare-const p Bool)
+(declare-const q Bool)
+(assert (=> p q))
+(assert (not p))
+(check-sat)"
+`;
