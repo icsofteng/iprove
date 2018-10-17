@@ -60,6 +60,7 @@ const translate = (rules, constants) => {
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
   fs.writeFile(proof_file_name, file_contents, (err)=>{})
+  return proof_file_name
 }
 
-export default translate
+module.exports = translate

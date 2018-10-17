@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const { exec } = require('child_process')
 const fs = require('fs')
+const translator = require('./src/translator')
 
 // Configuration
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -11,15 +12,15 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/z3', (req, res) => {
-  const code = req.query.code
-  fs.writeFile("tmp", code, () => {
-    const cmd = './z3 tmp'
-    exec(cmd, (err, stdout) => {
-      fs.unlink('tmp', () =>
-        res.send(stdout)
-      )
-    })
+app.post('/z3', (req, res) => {
+  const rules = req.params.rules
+  const constants = req.params.constants
+  const file = translator(rules, constants)
+  const cmd = './z3 ' + file
+  exec(cmd, (err, stdout) => {
+    fs.unlink(file, () =>
+      res.send(stdout)
+    )
   })
 })
 
