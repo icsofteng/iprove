@@ -40,6 +40,8 @@ const reducer = (state = initialState, action) => {
       return newState
 
     case ADD_CONSTANT:
+      if (newState.constants.indexOf(action.payload) > -1) {
+        return newState      }
       return { ...newState, constants: [...newState.constants, action.payload] }
 
     default:
