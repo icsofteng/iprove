@@ -1,5 +1,10 @@
 .lineNumber {
+  display: inline-block;
   text-align: left;
-  font-size: 10pt;
-  padding: 5px;
+  font-size: 12pt;
+  padding: 10pt;
+  vertical-align: middle;
+}
+.step {
+  display: inline-flex;
 }
