@@ -1,5 +1,16 @@
 version: 2
 jobs:
+  build:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: |
+            npm install
+            npm test 
   deploy:
     docker:
       - image: circleci/node:10-browsers
@@ -27,7 +38,10 @@ workflows:
   version: 2
   deploy-workflow:
     jobs:
+      - test
       - deploy:
+          requires:
+            - build
           filters:
             branches:
               only: master
