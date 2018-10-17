@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:10-browsers
     working_directory: ~/app
@@ -41,7 +41,7 @@ workflows:
       - test
       - deploy:
           requires:
-            - build
+            - test
           filters:
             branches:
               only: master
