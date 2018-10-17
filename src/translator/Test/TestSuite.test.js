@@ -1,18 +1,3 @@
-// import translate_to_SMT from '../SMT_translator'
-//import the SMT translator function
-// Function:
-//      For each folders in the name directory
-//          get the test_constants and test_rules
-//          Run translate with those 2 var
-//          Compare the file generated with the expected.txt in the folder
-//          if it is not the same keep the file
-//          if it is the same, delete and move on
-
-// Unit runs all the folders in unit test
-// Integration runs all the folders in Integration
-// checkFile(tmp, expected)
-
-
 const translate_to_SMT = require('../SMT_translator.js')
 var fs = require('fs')
 
