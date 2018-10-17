@@ -10,3 +10,15 @@
     background:yellow;
   }
 }
+.feedback {
+  display: block;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  background: #148414;
+
+  &.error {
+    background:#9a4646;
+  }
+}
