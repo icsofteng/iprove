@@ -1,7 +1,8 @@
-import { NEW_RULE, REMOVE_RULE, CHANGE_SYMBOL, UPDATE_RULE} from '../constants'
+import { NEW_RULE, REMOVE_RULE, CHANGE_SYMBOL, UPDATE_RULE, ADD_CONSTANT} from '../constants'
 
 const initialState = {
-  steps: []
+  steps: [],
+  constants: []
 }
 
 const dfs = (state, path) => {
@@ -37,6 +38,9 @@ const reducer = (state = initialState, action) => {
     case CHANGE_SYMBOL:
       depth[index].symbol = action.payload
       return newState
+
+    case ADD_CONSTANT:
+      return { ...newState, constants: [...newState.constants, action.payload] }
 
     default:
       return newState
