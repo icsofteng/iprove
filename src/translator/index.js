@@ -59,7 +59,7 @@ const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + 
 const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_implies_rule = (rule) => '(=> ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_iff_rule = (rule) => '(iff '+ translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
-const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
+const translate_not_rule = (rule) => '(nott '+ translate_rule(rule.value) + ')'
 const translate_literal = (rule) => rule.value
 
 const translate = (rules, constants) => {
