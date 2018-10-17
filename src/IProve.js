@@ -5,15 +5,21 @@ import DragDrop from './components/DragDrop'
 import { connect } from 'react-redux';
 
 class IProve extends Component {
-  componentDidUpdate() {
-    const { steps: rules, constants } = this.props
-    fetch('/z3', {
-      method: "POST",
-      headers: {"Content-Type": "application/json; charset=utf-8"},
-      body: JSON.stringify({rules, constants})
-    }).then(response => {
-      console.log(response)
-    })
+  constructor(props) {
+    super(props)
+    this.state = { z3: "" }
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.steps !== this.props.steps) {
+      const { steps: rules, constants } = this.props
+      fetch('/z3', {
+        method: "POST",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+        body: JSON.stringify({rules, constants})
+      }).then(r => r.text()).then(response => {
+        this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm,"") })
+      })
+    }
   }
 
   render() {
@@ -21,7 +27,7 @@ class IProve extends Component {
       <div className="IProve">
         <DragDrop />
         <Controls />
-        <ProofStepList steps={this.props.steps} />
+        <ProofStepList z3={this.state.z3} steps={this.props.steps} />
       </div>
     )
   }
