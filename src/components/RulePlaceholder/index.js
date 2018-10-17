@@ -14,9 +14,4 @@ const RulePlaceholder = (props) =>
     { props.wide && "Drag a step here to add it to your proof." }
   </div>
 
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-}
-
-export default connect(null, mapDispatchToProps)(RulePlaceholder)
+export default connect()(RulePlaceholder)

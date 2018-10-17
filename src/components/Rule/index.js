@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styles from './styles.scss'
-import { REMOVE_RULE, UPDATE_RULE} from '../../constants'
+import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANT} from '../../constants'
 import RulePlaceholder from '../RulePlaceholder'
 
 const SymbolChooser = ({updateValue, current, path, symbols}) =>
@@ -20,6 +20,7 @@ const BinaryRule = (props) =>
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
+        addConstant={props.addConstant}
         path={[...props.path, "lhs"]}
         {...props.lhs}
       /> :
@@ -37,6 +38,7 @@ const BinaryRule = (props) =>
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
+        addConstant={props.addConstant}
         path={[...props.path, "rhs"]}
         {...props.rhs}
       /> :
@@ -57,6 +59,7 @@ const UnaryRule = (props) =>
       <Rule 
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
+        addConstant={props.addConstant}
         {...props.value}
       /> : 
       <RulePlaceholder
@@ -69,7 +72,10 @@ const LiteralRule = (props) =>
   <input
     type="text"
     value={props.value}
-    onChange={(event)=>props.updateValue([...props.path, "value"], event.target.value)}
+    onChange={(event)=>{
+      props.addConstant(event.target.value)
+      props.updateValue([...props.path, "value"], event.target.value)
+    }}
     className={styles.ruleInput}
   />
 
@@ -110,6 +116,7 @@ const Rule = (props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    addConstant: (value) => dispatch({ type: ADD_CONSTANT, payload: value }),
     updateValue: (path, value) => dispatch({ type: UPDATE_RULE, payload: value, path }),
     deleteRule: (path) => dispatch({ type: REMOVE_RULE, path }),
   }

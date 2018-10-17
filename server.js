@@ -13,8 +13,8 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
 app.post('/z3', (req, res) => {
-  const rules = req.params.rules
-  const constants = req.params.constants
+  const rules = req.body.rules
+  const constants = req.body.constants
   const file = translator(rules, constants)
   const cmd = './z3 ' + file
   exec(cmd, (err, stdout) => {
