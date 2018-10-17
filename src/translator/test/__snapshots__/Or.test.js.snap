@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Or test 1`] = `
+"(declare-const p Bool)
+(declare-const q Bool)
+(assert (or p q))
+(assert (not p))
+(check-sat)"
+`;

@@ -1,22 +1,27 @@
-module.exports = {
-  test_constants: [{type: 'literal', value: 't'}, {type: 'literal', value: 'p'}, {type: 'literal', value: 'r'}, {type: 'literal', value: 'q'}],
-  test_rules: [{
-    type: 'not',
+const {translate} = require('../../translator')
+
+const test_constants = ['p', 'q']
+const test_rules = [{
+    type: 'unary',
+    symbol: 'not',
     value: {
       type: 'literal',
       value: 't'
     }
   },
   {
-    type: 'implies',
+    type: 'binary',
+    symbol: 'implies',
     lhs: {
       type: 'literal',
       value: 'p'
     },
     rhs: {
-      type: 'not',
+      type: 'unary',
+      symbol: 'not',
       value: {
-        type: 'and',
+        type: 'binary',
+        symbol: 'and',
         lhs: {
           type: 'literal',
           value: 'r'
@@ -27,16 +32,17 @@ module.exports = {
         }
       }
     }
-
   },
   {
-    type: 'implies',
+    type: 'binary',
+    symbol: 'implies',
     lhs: {
       type: 'literal',
       value: 'p'
     },
     rhs: {
-      type: 'or',
+      type: 'binary',
+      symbol: 'or',
       lhs: {
         type: 'literal',
         value: 'r'
@@ -48,17 +54,22 @@ module.exports = {
     }
   },
   {
-    type: 'implies',
+    type: 'binary',
+    symbol: 'implies',
     lhs: {
       type: 'literal',
       value: 'p'
     },
     rhs: {
-      type: 'not',
+      type: 'unary',
+      symbol: 'not',
       value: {
         type: 'literal',
         value: 'q'
       }
     }
   }]
-}
+
+test('Nested test 2', () => {
+  expect(translate(test_rules, test_constants)).toMatchSnapshot()
+})
