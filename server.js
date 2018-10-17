@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const { exec } = require('child_process')
 const fs = require('fs')
-const translator = require('./src/translator')
+const { translate_and_save } = require('./src/translator')
 
 // Configuration
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/public'))
 app.post('/z3', (req, res) => {
   const rules = req.body.rules
   const constants = req.body.constants
-  const file = translator(rules, constants)
+  const file = translate_and_save(rules, constants)
   const cmd = './z3 ' + file
   exec(cmd, (err, stdout) => {
     fs.unlink(file, () =>
