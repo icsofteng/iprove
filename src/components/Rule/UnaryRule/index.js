@@ -16,6 +16,7 @@ const UnaryRule = (props) =>
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
         addConstant={props.addConstant}
+        path={[...props.path, "value"]}
         {...props.value}
       /> :
       <RulePlaceholder
