@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`binary operator and q test 1`] = `
+<Fragment>
+  <Connect(Rule)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+    type="binary"
+  />
+  <SymbolChooser
+    current="and"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(Rule)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+    type="literal"
+    value="q"
+  />
+</Fragment>
+`;
+
+exports[`nothing implies nothing 1`] = `
+<Fragment>
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+  />
+  <SymbolChooser
+    current="implies"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+  />
+</Fragment>
+`;
+
+exports[`nothing implies p test 1`] = `
+<Fragment>
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+  />
+  <SymbolChooser
+    current="implies"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(Rule)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+    type="literal"
+    value="p"
+  />
+</Fragment>
+`;
+
+exports[`p and binary operator test 1`] = `
+<Fragment>
+  <Connect(Rule)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+    type="literal"
+    value="p"
+  />
+  <SymbolChooser
+    current="and"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(Rule)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+    type="binary"
+  />
+</Fragment>
+`;
+
+exports[`p and q test 1`] = `
+<Fragment>
+  <Connect(Rule)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+    type="literal"
+    value="p"
+  />
+  <SymbolChooser
+    current="and"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(Rule)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+    type="literal"
+    value="q"
+  />
+</Fragment>
+`;
+
+exports[`p implies nothing test 1`] = `
+<Fragment>
+  <Connect(Rule)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+    type="literal"
+    value="p"
+  />
+  <SymbolChooser
+    current="implies"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+  />
+</Fragment>
+`;
+
+exports[`p implies q test 1`] = `
+<Fragment>
+  <Connect(Rule)
+    path={
+      Array [
+        "lhs",
+      ]
+    }
+    type="literal"
+    value="p"
+  />
+  <SymbolChooser
+    current="implies"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "and": "∧",
+        "iff": "⇔",
+        "implies": "⇒",
+        "or": "∨",
+      }
+    }
+  />
+  <Connect(Rule)
+    path={
+      Array [
+        "rhs",
+      ]
+    }
+    type="literal"
+    value="q"
+  />
+</Fragment>
+`;
