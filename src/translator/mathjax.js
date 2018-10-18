@@ -15,8 +15,11 @@ const translate_rule = (rule) => {
         default: return translate_literal(rule)
       }
     }
-    else if (rule.type === 'true' || rule.type === 'false') {
-      return rule.type
+    else if (rule.type === 'true') {
+      return '\\top'
+    }
+    else if (rule.type === 'false') {
+      return '\\bot'
     }
     else {
       return translate_literal(rule)
