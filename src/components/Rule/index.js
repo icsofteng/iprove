@@ -8,7 +8,6 @@ import UnaryRule from './UnaryRule'
 import LiteralRule from './LiteralRule'
 import TrueRule from './TrueRule'
 import FalseRule from './FalseRule'
-
 import styles from './styles.scss'
 
 const components = {

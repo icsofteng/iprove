@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<Fragment>
+  <div
+    className="step"
+  >
+    <div
+      className="lineNumber"
+    >
+      1
+    </div>
+    <div
+      className="mathjax"
+    >
+      <MathJaxProvider
+        options={
+          Object {
+            "showMathMenu": false,
+            "showMathMenuMSIE": false,
+            "tex2jax": Object {
+              "inlineMath": Array [],
+            },
+          }
+        }
+        script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+      >
+        <MathJaxNode
+          formula="p \\\\Longrightarrow q"
+        />
+      </MathJaxProvider>
+    </div>
+    <Connect(Rule)
+      key="rule0"
+      lhs={
+        Object {
+          "type": "literal",
+          "value": "p",
+        }
+      }
+      path={
+        Array [
+          0,
+        ]
+      }
+      rhs={
+        Object {
+          "type": "literal",
+          "value": "q",
+        }
+      }
+      symbol="implies"
+      type="binary"
+    />
+    <button
+      onClick={[Function]}
+    >
+      Toggle
+    </button>
+  </div>
+</Fragment>
+`;

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Rule from '../'
 import SymbolChooser from '../SymbolChooser'
 import RulePlaceholder from '../../RulePlaceholder'
@@ -11,20 +10,19 @@ const unSymbols = {
 const UnaryRule = (props) =>
   <React.Fragment>
     <SymbolChooser
-      changeSymbol={props.changeSymbol}
+      updateValue={props.updateValue}
       current={props.symbol}
-      path={props.path}
+      path={[...props.path, "symbol"]}
       symbols={unSymbols} />
     { props.value ?
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
         addConstant={props.addConstant}
+        path={[...props.path, "value"]}
         {...props.value}
       /> :
-      <RulePlaceholder
-        path={[...props.path, "value"]}
-      />
+      <RulePlaceholder path={[...props.path, "value"]} />
     }
   </React.Fragment>
 

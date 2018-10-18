@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const { exec } = require('child_process')
 const fs = require('fs')
-const { translate_and_save } = require('./src/translator')
+const { translate_and_save } = require('./src/translator/z3')
 
 // Configuration
 app.use(bodyParser.urlencoded({ extended: true }))

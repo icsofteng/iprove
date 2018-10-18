@@ -50,6 +50,9 @@ const translate_rule = (rule) => {
       default: return translate_literal(rule)
     }
   }
+  else if (rule.type === 'true' || rule.type === 'false') {
+    return rule.type
+  }
   else {
     return translate_literal(rule)
   }
