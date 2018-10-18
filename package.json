@@ -44,7 +44,19 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
+    "react-test-renderer": "^16.5.2",
     "webpack-cli": "^3.1.2"
+  },
+  "jest": {
+    "setupFiles": ["<rootDir>/jest.js"],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }
