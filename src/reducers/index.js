@@ -1,4 +1,13 @@
-import { NEW_RULE, REMOVE_RULE, CHANGE_SYMBOL, UPDATE_RULE, ADD_CONSTANT} from '../constants'
+import {
+  NEW_RULE,
+  REMOVE_RULE,
+  CHANGE_SYMBOL,
+  UPDATE_RULE,
+  ADD_CONSTANT,
+  ADD_STEP_DEPENDENCY,
+  REMOVE_STEP_DEPENDENCY,
+  UPDATE_STEP_DEPENDENCY,
+} from '../constants'
 
 const initialState = {
   steps: [],
@@ -9,7 +18,7 @@ const dfs = (state, path) => {
   if (path) {
     let depth = state.steps
     let i = 0
-    for (; i<path.length-1; i++) {
+    for (; i < path.length - 1; i++) {
       depth = depth[path[i]]
     }
     return { depth, index: path[i] }
@@ -33,7 +42,7 @@ const reducer = (state = initialState, action) => {
 
     case REMOVE_RULE:
       delete depth[index]
-      return {...newState, steps: newState.steps.filter(Boolean)}
+      return { ...newState, steps: newState.steps.filter(Boolean) }
 
     case CHANGE_SYMBOL:
       depth[index].symbol = action.payload
@@ -41,8 +50,24 @@ const reducer = (state = initialState, action) => {
 
     case ADD_CONSTANT:
       if (newState.constants.indexOf(action.payload) > -1) {
-        return newState      }
+        return newState
+      }
       return { ...newState, constants: [...newState.constants, action.payload] }
+
+    case ADD_STEP_DEPENDENCY:
+      depth[index].dependencies = depth[index].dependencies ? [...depth[index].dependencies, null] : [null]
+      return newState
+
+    case REMOVE_STEP_DEPENDENCY:
+      delete depth[index].dependencies[action.index]
+      depth[index].dependencies = depth[index].dependencies.filter(d => d || d === null)
+      return newState
+
+    case UPDATE_STEP_DEPENDENCY:
+      console.log('update', action)
+      console.log('depth[index].dependencies', depth[index].dependencies)
+      depth[index].dependencies[action.index] = action.value
+      return newState
 
     default:
       return newState

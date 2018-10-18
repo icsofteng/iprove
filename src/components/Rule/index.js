@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANT} from '../../constants'
+import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANT } from '../../constants'
 
 import BinaryRule from './BinaryRule'
 import UnaryRule from './UnaryRule'
@@ -26,7 +26,7 @@ const Rule = (props) => {
       <RuleType {...props} />
       <span
         className={styles.remove}
-        onClick={() => props.deleteRule(props.path)}
+        onClick={() => props.removeRule(props.path)}
       >
         X
       </span>
@@ -37,7 +37,7 @@ const Rule = (props) => {
 const mapDispatchToProps = dispatch => ({
   addConstant: (value) => dispatch({ type: ADD_CONSTANT, payload: value }),
   updateValue: (path, value) => dispatch({ type: UPDATE_RULE, payload: value, path }),
-  deleteRule: (path) => dispatch({ type: REMOVE_RULE, path }),
+  removeRule: (path) => dispatch({ type: REMOVE_RULE, path }),
 })
 
 export default connect(null, mapDispatchToProps)(Rule)
