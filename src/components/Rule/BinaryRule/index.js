@@ -13,7 +13,8 @@ const binSymbols = {
 const BinaryRule = (props) =>
   <React.Fragment>
     { props.lhs ?
-      <Rule updateValue={props.updateValue}
+      <Rule
+        updateValue={props.updateValue}
         deleteRule={props.deleteRule}
         addConstant={props.addConstant}
         path={[...props.path, "lhs"]}
