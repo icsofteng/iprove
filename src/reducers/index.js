@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
 
     case REMOVE_RULE:
       delete depth[index]
-      return newState
+      return {...newState, steps: newState.steps.filter(Boolean)}
 
     case CHANGE_SYMBOL:
       depth[index].symbol = action.payload
