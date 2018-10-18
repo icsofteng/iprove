@@ -4,6 +4,14 @@ import cx from 'classnames'
 import styles from './styles.scss'
 import RulePlaceholder from '../RulePlaceholder'
 
+const numLines = (steps) => {
+  let num = 0;
+  steps.forEach(step => {
+    if (step) num ++;
+  });
+  return num;
+}
+
 const ProofStepList = (props) =>
   <div className={styles.steps}>
     {
@@ -12,7 +20,7 @@ const ProofStepList = (props) =>
         [styles.error]: props.z3 !== 'unsat'
       })}>
       {
-        props.steps.length <= 1 ? "Please enter more than one step to validate your proof" :
+        numLines(props.steps) <= 1 ? "Please enter more than one step to validate your proof" :
         (props.z3 === 'sat' ? "Your proof is incorrect" :
           (
             props.z3 === 'unsat' ? "Your proof is correct, well done!" :
@@ -24,7 +32,7 @@ const ProofStepList = (props) =>
     }
     {
       props.steps.map((rule, index) =>
-        <ProofStep key={"step"+index} rule={rule} index={index} />
+        <ProofStep key={"step"+index} rule={rule} index={numLines(props.steps)} />
       )
     }
     <RulePlaceholder wide path={[props.steps.length]} />
