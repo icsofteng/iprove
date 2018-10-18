@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Rule from '../'
 import SymbolChooser from '../SymbolChooser'
 import RulePlaceholder from '../../RulePlaceholder'
@@ -14,16 +13,12 @@ const binSymbols = {
 const BinaryRule = (props) =>
   <React.Fragment>
     { props.lhs ?
-      <Rule
-        updateValue={props.updateValue}
+      <Rule updateValue={props.updateValue}
         deleteRule={props.deleteRule}
         addConstant={props.addConstant}
         path={[...props.path, "lhs"]}
         {...props.lhs}
-      /> :
-      <RulePlaceholder
-        path={[...props.path, "lhs"]}
-      />
+      /> : <RulePlaceholder path={[...props.path, "lhs"]} />
     }
     <SymbolChooser
       updateValue={props.updateValue}
@@ -38,10 +33,7 @@ const BinaryRule = (props) =>
         addConstant={props.addConstant}
         path={[...props.path, "rhs"]}
         {...props.rhs}
-      /> :
-      <RulePlaceholder
-        path={[...props.path, "rhs"]}
-      />
+      /> : <RulePlaceholder path={[...props.path, "rhs"]} />
     }
   </React.Fragment>
 
