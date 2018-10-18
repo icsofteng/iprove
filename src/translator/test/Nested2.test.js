@@ -1,4 +1,4 @@
-const {translate} = require('../../translator')
+const {translate} = require('../../translator/z3')
 
 const test_constants = ['p', 'q']
 const test_rules = [{
