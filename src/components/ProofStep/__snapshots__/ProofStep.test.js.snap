@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div
+  className="step"
+>
+  <div
+    className="lineNumber"
+  >
+    1
+  </div>
+  <Connect(Rule)
+    key="rule0"
+    lhs={
+      Object {
+        "type": "literal",
+        "value": "p",
+      }
+    }
+    path={
+      Array [
+        0,
+      ]
+    }
+    rhs={
+      Object {
+        "type": "literal",
+        "value": "q",
+      }
+    }
+    symbol="implies"
+    type="binary"
+  />
+</div>
+`;

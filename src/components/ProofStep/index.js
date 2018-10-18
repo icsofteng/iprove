@@ -8,4 +8,4 @@ const ProofStep = (props) =>
     <Rule key={"rule"+props.index} {...props.rule} path={[props.index]} />
   </div>
 
-export default ProofStep
+export default ProofStep 
