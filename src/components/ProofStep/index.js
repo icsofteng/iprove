@@ -4,7 +4,7 @@ import styles from './styles.scss'
 
 const ProofStep = (props) =>
   <div className={styles.step}>
-    <div className={styles.lineNumber}>{props.index + 1}</div>
+    <div className={styles.lineNumber}>{props.index}</div>
     <Rule key={"rule"+props.index} {...props.rule} path={[props.index]} />
   </div>
 
