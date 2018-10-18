@@ -64,8 +64,6 @@ const reducer = (state = initialState, action) => {
       return newState
 
     case UPDATE_STEP_DEPENDENCY:
-      console.log('update', action)
-      console.log('depth[index].dependencies', depth[index].dependencies)
       depth[index].dependencies[action.index] = action.value
       return newState
 
