@@ -27,3 +27,5 @@
 3. Negate final rule
 4. End with (check-sat)
 5. Response "unsat" if goal is true
+
+LIVE LINK : http://iprove.eu-west-2.elasticbeanstalk.com
