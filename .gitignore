@@ -5,3 +5,4 @@ npm-debug.log
 .vscode/
 src/parser/*
 !src/parser/*.g4
+!src/parser/PropositionalVisitor.js

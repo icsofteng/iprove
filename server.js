@@ -5,6 +5,7 @@ const http = require('http')
 const { exec } = require('child_process')
 const fs = require('fs')
 const { translate_and_save } = require('./src/translator/z3')
+const { parse } = require('./src/parser')
 
 // Configuration
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -22,6 +23,11 @@ app.post('/z3', (req, res) => {
       res.send(stdout)
     )
   })
+})
+
+app.get('/parse', (req, res) => {
+  parse(req.query.input, res)
+  res.end()
 })
 
 // Start server

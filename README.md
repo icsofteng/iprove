@@ -17,7 +17,7 @@
 3. To run the tests, run `npm test`
 
 ### Building the parser
-`antlr4 -Dlanguage=JavaScript -visitor src/parser/Propositional.g4`
+`antlr4 -Dlanguage=JavaScript -no-visitor src/parser/Propositional.g4`
 
 ### Translation data structure
 ```
