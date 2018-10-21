@@ -57,6 +57,28 @@ exports[`Snapshot test 1`] = `
     >
       Toggle
     </button>
+    <Connect(StepDependencies)
+      index={0}
+      path={
+        Array [
+          0,
+        ]
+      }
+      rule={
+        Object {
+          "lhs": Object {
+            "type": "literal",
+            "value": "p",
+          },
+          "rhs": Object {
+            "type": "literal",
+            "value": "q",
+          },
+          "symbol": "implies",
+          "type": "binary",
+        }
+      }
+    />
   </div>
 </Fragment>
 `;

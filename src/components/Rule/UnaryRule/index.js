@@ -3,6 +3,10 @@ import Rule from '../'
 import SymbolChooser from '../SymbolChooser'
 import RulePlaceholder from '../../RulePlaceholder'
 
+const unSymbols = {
+  not: '¬'
+}
+
 const UnaryRule = (props) =>
   <React.Fragment>
     <SymbolChooser
@@ -21,9 +25,5 @@ const UnaryRule = (props) =>
       <RulePlaceholder path={[...props.path, "value"]} />
     }
   </React.Fragment>
-
-const unSymbols = {
-  not: '¬'
-}
 
 export default UnaryRule
