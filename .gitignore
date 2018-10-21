@@ -3,3 +3,5 @@ public/
 npm-debug.log
 .env
 .vscode/
+src/parser/*
+!src/parser/*.g4

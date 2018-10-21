@@ -8,6 +8,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "antlr4": "^4.7.1",
     "babel-loader": "^8.0.4",
     "body-parser": "^1.18.3",
     "child_process": "^1.0.2",

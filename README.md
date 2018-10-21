@@ -1,13 +1,23 @@
 ## iProve
-### Installation
+### Installing the app
 1. Clone the repository `git clone git@github.com:icsofteng/iprove.git`
 2. Run `npm install` to sync the dependencies.
 3. Run `npm install -g nodemon` to install the node.js watcher
 
-### Running
+### Installing ANTLR
+1. `cd /usr/local/lib`
+2. `sudo curl -O http://www.antlr.org/download/antlr-4.7.1-complete.jar`
+3. `export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"`
+4. `alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'`
+5. `alias grun='java org.antlr.v4.gui.TestRig'`
+
+### Running the app
 1. In one terminal window, run `nodemon server.js`.
 2. In another terminal, run `npm run build-dev`.
 3. To run the tests, run `npm test`
+
+### Building the parser
+`antlr4 -Dlanguage=JavaScript -visitor src/parser/Propositional.g4`
 
 ### Translation data structure
 ```
@@ -28,4 +38,5 @@
 4. End with (check-sat)
 5. Response "unsat" if goal is true
 
-LIVE LINK : http://iprove.eu-west-2.elasticbeanstalk.com
+### Server
+http://iprove.eu-west-2.elasticbeanstalk.com
