@@ -1,16 +1,25 @@
 grammar Propositional;
-compilationUnit: stmt*;
-stmt:
-    assignStmt
-    | invocationStmt
-;
-assignStmt: SET ID TO expr;
-invocationStmt: name=ID ((expr COMMA)* expr)?;
-expr: ID | INT | STRING;
-COMMA: ',';
-SAY: 'say';
-SET: 'set';
-TO: 'to';
-INT: [0-9]+;
-STRING: '"' (~('\n' | '"'))* '"';
-ID: [a-zA-Z_] [a-zA-Z0-9_]*;
+
+expression:
+  BRACKET_OPEN expression BRACKET_CLOSE |
+  NOT expression |
+  expression AND expression |
+  expression OR expression |
+  expression IMPLIES expression |
+  expression IFF expression |
+  LITERAL |
+  TRUE |
+  FALSE;
+
+LITERAL: [a-z];
+NOT: 'not';
+AND: 'and';
+OR: 'or';
+IMPLIES: 'implies';
+IFF: 'iff';
+TRUE: 'true';
+FALSE: 'false';
+BRACKET_OPEN: '(';
+BRACKET_CLOSE: ')';
+
+WS: [ \t\r\n] -> skip;
