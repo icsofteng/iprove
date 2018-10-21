@@ -26,8 +26,7 @@ app.post('/z3', (req, res) => {
 })
 
 app.get('/parse', (req, res) => {
-  parse(req.query.input, res)
-  res.end()
+  res.send(parse(req.query.input))
 })
 
 // Start server

@@ -1,16 +1,19 @@
-const util = require('util')
 const { tree } = require('antlr4')
 const { ParseTreeVisitor } = tree
 
 class PropositionalVisitor extends ParseTreeVisitor {
-  constructor(response) {
-    super()
-    this.response = response
-  }
-
 	visitExpression(ctx) {
-    this.response.write(util.inspect(ctx))
-    return this.visitChildren(ctx)
+    if (ctx.IMPLIES()) {
+      const lhs = this.visitExpression(ctx.expression()[0])
+      const rhs = this.visitExpression(ctx.expression()[1])
+      return { type: 'binary', symbol: 'implies', lhs, rhs }
+    }
+    else if (ctx.LITERAL()) {
+      return { type: 'literal', value: ctx.LITERAL().toString() }
+    }
+    else {
+      return { type: 'unknown '}
+    }
   }
 }
 
