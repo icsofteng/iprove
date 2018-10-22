@@ -10,11 +10,15 @@ class TextBox extends Component {
   constructor() {
     super()
     this.state = { raw: '', edit: true }
+    this.ref = null
   }
 
   componentDidMount() {
     const translation = translate_raw(this.props.rule)
     this.setState({ raw: translation, edit: Object.keys(this.props.rule).length === 0 })
+    if (this.props.focus) {
+      this.ref.focus()
+    }
   }
 
   parseInput(statement) {
@@ -38,6 +42,7 @@ class TextBox extends Component {
               value={this.state.raw}
               onChange={(event)=>this.setState({raw: event.target.value})}
               onKeyUp={(event)=>{if (event.keyCode === 13) this.parseInput(event.target.value)}}
+              ref={(ref)=>this.ref=ref}
             />
           </div>
           :
