@@ -1,15 +1,18 @@
 grammar Propositional;
 
+statement: expression;
+
 expression:
-  BRACKET_OPEN expression BRACKET_CLOSE |
-  NOT expression |
-  expression AND expression |
-  expression OR expression |
-  expression IMPLIES expression |
-  expression IFF expression |
-  LITERAL |
-  TRUE |
-  FALSE;
+    NOT expression                            # notExp
+  | expression AND expression                 # andExp
+  | expression OR expression                  # orExp
+  | expression IMPLIES expression             # impliesExp
+  | expression IFF expression                 # iffExp
+  | LITERAL                                   # literalExp
+  | TRUE                                      # trueExp
+  | FALSE                                     # falseExp
+  | BRACKET_OPEN expression BRACKET_CLOSE     # parenthesesExp
+  ;
 
 LITERAL: [a-z];
 NOT: 'not';
