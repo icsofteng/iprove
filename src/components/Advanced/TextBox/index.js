@@ -28,6 +28,13 @@ class TextBox extends Component {
     })
   }
 
+  keyDown(event) {
+    if (event.keyCode === 13 || event.keyCode === 9) {
+      event.preventDefault()
+      this.parseInput(event.target.value)
+    }
+  }
+
   render() {
     const { rule, index } = this.props
     return (
@@ -41,7 +48,7 @@ class TextBox extends Component {
               className={styles.textbox}
               value={this.state.raw}
               onChange={(event)=>this.setState({raw: event.target.value})}
-              onKeyUp={(event)=>{if (event.keyCode === 13) this.parseInput(event.target.value)}}
+              onKeyDown={(event)=>this.keyDown(event)}
               ref={(ref)=>this.ref=ref}
             />
           </div>
