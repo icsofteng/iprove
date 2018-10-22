@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unary Rule empty test 1`] = `
+<Fragment>
+  <SymbolChooser
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "not": "¬",
+      }
+    }
+  />
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "value",
+      ]
+    }
+  />
+</Fragment>
+`;
+
+exports[`Unary Rule not test 1`] = `
+<Fragment>
+  <SymbolChooser
+    current="not"
+    path={
+      Array [
+        "symbol",
+      ]
+    }
+    symbols={
+      Object {
+        "not": "¬",
+      }
+    }
+  />
+  <Connect(RulePlaceholder)
+    path={
+      Array [
+        "value",
+      ]
+    }
+  />
+</Fragment>
+`;

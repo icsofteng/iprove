@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Symbol Chooser Empty Symbol test 1`] = `
+<select
+  className="ruleSymbol"
+  onChange={[Function]}
+>
+  <option>
+    ...
+  </option>
+  <option
+    key="0"
+    value="and"
+  >
+    ∧
+  </option>
+  <option
+    key="1"
+    value="or"
+  >
+    ∨
+  </option>
+  <option
+    key="2"
+    value="implies"
+  >
+    ⇒
+  </option>
+  <option
+    key="3"
+    value="iff"
+  >
+    ⇔
+  </option>
+</select>
+`;
+
+exports[`Symbol Chooser and Symbol test 1`] = `
+<select
+  className="ruleSymbol"
+  onChange={[Function]}
+  value="and"
+>
+  <option>
+    ...
+  </option>
+  <option
+    key="0"
+    value="and"
+  >
+    ∧
+  </option>
+  <option
+    key="1"
+    value="or"
+  >
+    ∨
+  </option>
+  <option
+    key="2"
+    value="implies"
+  >
+    ⇒
+  </option>
+  <option
+    key="3"
+    value="iff"
+  >
+    ⇔
+  </option>
+</select>
+`;
+
+exports[`Symbol Chooser iff Symbol test 1`] = `
+<select
+  className="ruleSymbol"
+  onChange={[Function]}
+  value="iff"
+>
+  <option>
+    ...
+  </option>
+  <option
+    key="0"
+    value="and"
+  >
+    ∧
+  </option>
+  <option
+    key="1"
+    value="or"
+  >
+    ∨
+  </option>
+  <option
+    key="2"
+    value="implies"
+  >
+    ⇒
+  </option>
+  <option
+    key="3"
+    value="iff"
+  >
+    ⇔
+  </option>
+</select>
+`;
+
+exports[`Symbol Chooser implies Symbol test 1`] = `
+<select
+  className="ruleSymbol"
+  onChange={[Function]}
+  value="implies"
+>
+  <option>
+    ...
+  </option>
+  <option
+    key="0"
+    value="and"
+  >
+    ∧
+  </option>
+  <option
+    key="1"
+    value="or"
+  >
+    ∨
+  </option>
+  <option
+    key="2"
+    value="implies"
+  >
+    ⇒
+  </option>
+  <option
+    key="3"
+    value="iff"
+  >
+    ⇔
+  </option>
+</select>
+`;
+
+exports[`Symbol Chooser or Symbol test 1`] = `
+<select
+  className="ruleSymbol"
+  onChange={[Function]}
+  value="or"
+>
+  <option>
+    ...
+  </option>
+  <option
+    key="0"
+    value="and"
+  >
+    ∧
+  </option>
+  <option
+    key="1"
+    value="or"
+  >
+    ∨
+  </option>
+  <option
+    key="2"
+    value="implies"
+  >
+    ⇒
+  </option>
+  <option
+    key="3"
+    value="iff"
+  >
+    ⇔
+  </option>
+</select>
+`;

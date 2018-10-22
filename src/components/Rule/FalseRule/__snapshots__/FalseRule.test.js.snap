@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`False Rule test 1`] = `
+<input
+  className="ruleInput"
+  disabled={true}
+  type="text"
+  value="⊥"
+/>
+`;
