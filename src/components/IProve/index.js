@@ -11,6 +11,7 @@ class IProve extends Component {
     super(props)
     this.state = { z3: "", simple: false }
   }
+  
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
       const { steps: rules, constants } = this.props
