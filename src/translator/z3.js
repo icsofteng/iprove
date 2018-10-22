@@ -53,8 +53,13 @@ const translate_rule = (rule) => {
   else if (rule.type === 'true' || rule.type === 'false') {
     return rule.type
   }
+<<<<<<< bf29608fd1713ff84d777d804b31f1457847e48f
   else if (rule.type === 'paren') {
     return translate_rule(rule.value)
+=======
+  else if (rule.type === 'quantifier') {
+    return translate_quantifier(rule)
+>>>>>>> expanding the schema for 1st order logic
   }
   else if (rule.type === 'quantifier') {
     return translate_quantifier(rule)
