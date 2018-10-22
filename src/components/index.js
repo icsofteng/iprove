@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import Controls from '../Controls'
-import ProofStepList from '../ProofStepList'
-import DragDrop from '../DragDrop'
-import TextBoxList from '../TextBoxList'
+import Controls from './Basic/Controls'
+import ProofStepList from './Basic/ProofStepList'
+import DragDrop from './Basic/DragDrop'
+import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import styles from './styles.scss'
 
 class IProve extends Component {
   constructor(props) {
     super(props)
-    this.state = { z3: "", simple: false }
+    this.state = { z3: "", simple: true }
   }
   
   componentDidUpdate(prevProps) {
@@ -30,6 +30,10 @@ class IProve extends Component {
       <div className="IProve">
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
+          <p>
+            Mode: <strong>{this.state.simple ? "Basic" : "Advanced"}</strong>
+            <button onClick={()=>this.setState(state => ({ simple: !state.simple}))}>Switch</button>
+          </p>
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }
         </div>

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import MathJax from 'react-mathjax'
-import { translate_rule as translate_mathjax } from '../../translator/mathjax'
-import { translate_rule as translate_raw } from '../../translator/raw'
+import { translate_rule as translate_mathjax } from '../../../translator/mathjax'
 import styles from './styles.scss'
 import { connect } from 'react-redux'
-import { UPDATE_RULE } from '../../constants'
+import { UPDATE_RULE } from '../../../constants'
 
 class TextBox extends Component {
   constructor() {

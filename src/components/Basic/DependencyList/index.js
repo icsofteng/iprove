@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
-
-import { ADD_STEP_DEPENDENCY } from '../../constants'
-import StepDependency from './StepDependency'
-
+import { ADD_STEP_DEPENDENCY } from '../../../constants'
+import Dependency from '../Dependency'
 import styles from './styles.scss'
 
-class StepDependencies extends Component {
+class DependencyList extends Component {
   onClick(event) {
     event.preventDefault()
     this.props.addDependency(this.props.path)
@@ -19,7 +17,7 @@ class StepDependencies extends Component {
     return (
       <div className={styles.stepDependencies}>
         { dependencies && dependencies.map((dependency, index) => (
-          <StepDependency
+          <Dependency
             dependency={dependency}
             key={"dependency" + index}
             index={index}
@@ -39,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
   addDependency: (path) => dispatch({ type: ADD_STEP_DEPENDENCY, path }),
 })
 
-export default connect(null, mapDispatchToProps)(StepDependencies)
+export default connect(null, mapDispatchToProps)(DependencyList)

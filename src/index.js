@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
-import IProve from './components/IProve'
+import IProve from './components'
 
 const store = createStore(reducer)
 

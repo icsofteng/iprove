@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
-
 import { REMOVE_STEP_DEPENDENCY, UPDATE_STEP_DEPENDENCY } from '../../../constants'
-
 import styles from './styles.scss'
 
-class StepDependency extends Component {
+class Dependency extends Component {
   constructor(props) {
     super(props)
 
@@ -49,4 +47,4 @@ const mapDispatchToProps = dispatch => ({
   updateDependency: (path, index, value) => dispatch({ type: UPDATE_STEP_DEPENDENCY, path, index, value }),
 })
 
-export default connect(null, mapDispatchToProps)(StepDependency)
+export default connect(null, mapDispatchToProps)(Dependency)
