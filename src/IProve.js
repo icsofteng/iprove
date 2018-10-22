@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import Controls from './components/Controls'
 import ProofStepList from './components/ProofStepList'
 import DragDrop from './components/DragDrop'
+import TextBoxList from './components/TextBoxList'
 import { connect } from 'react-redux';
 
 class IProve extends Component {
   constructor(props) {
     super(props)
-    this.state = { z3: "" }
+    this.state = { z3: "", simple: false }
   }
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
@@ -24,10 +25,15 @@ class IProve extends Component {
 
   render() {
     return (
+      this.state.simple ?
       <div className="IProve">
         <DragDrop />
         <Controls />
         <ProofStepList z3={this.state.z3} steps={this.props.steps} />
+      </div>
+      :
+      <div className="IProve">
+        <TextBoxList steps={this.props.steps} />
       </div>
     )
   }
