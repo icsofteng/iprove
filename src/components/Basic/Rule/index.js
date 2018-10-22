@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANT } from '../../constants'
-
+import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANT } from '../../../constants'
 import BinaryRule from './BinaryRule'
 import UnaryRule from './UnaryRule'
 import LiteralRule from './LiteralRule'

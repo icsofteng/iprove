@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import interact from 'interactjs'
-import { NEW_RULE } from '../../constants'
+import { NEW_RULE } from '../../../constants'
 
 class DragDrop extends Component {
   componentDidMount() {

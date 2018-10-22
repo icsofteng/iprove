@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import MathJax from 'react-mathjax'
 import cx from 'classnames'
-
-import { translate_rule } from '../../translator/mathjax'
-
+import { translate_rule } from '../../../translator/mathjax'
 import Rule from '../Rule'
-import StepDependencies from '../StepDependencies'
-
+import DependencyList from '../DependencyList'
 import styles from './styles.scss'
 
 export default class ProofStep extends Component {
@@ -31,7 +28,7 @@ export default class ProofStep extends Component {
             <Rule key={"rule" + index} {...rule} path={[index]} />
           }
           <button onClick={()=>this.setState(state => ({ mathjax: !state.mathjax }))}>Toggle</button>
-          <StepDependencies index={index} rule={rule} path={[index]} />
+          <DependencyList index={index} rule={rule} path={[index]} />
         </div>
       </React.Fragment>
     )
