@@ -10,7 +10,7 @@ const RulePlaceholder = (props) =>
     data-path={JSON.stringify(props.path)}
     onClick={()=>props.dropLiteral(props.path)}
   >
-    { props.wide && "Drag a step here to add it to your proof." }
+    {props.wide && "Drag a step here to add it to your proof." }
   </div>
 
 export default RulePlaceholder
