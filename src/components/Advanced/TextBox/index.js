@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MathJax from 'react-mathjax'
 import { translate_rule as translate_mathjax } from '../../../translator/mathjax'
+import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import { connect } from 'react-redux'
 import { UPDATE_RULE } from '../../../constants'
@@ -9,6 +10,11 @@ class TextBox extends Component {
   constructor() {
     super()
     this.state = { raw: '', edit: true }
+  }
+
+  componentDidMount() {
+    const translation = translate_raw(this.props.rule)
+    this.setState({ raw: translation, edit: Object.keys(this.props.rule).length === 0 })
   }
 
   parseInput(statement) {
