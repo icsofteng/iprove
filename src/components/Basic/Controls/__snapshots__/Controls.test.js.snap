@@ -2,118 +2,109 @@
 
 exports[`Snapshot test 1`] = `
 <div
-  className="controls"
+  className="controlList"
 >
-  <h1
-    className="title"
-  >
-    iProve
-  </h1>
   <div
-    className="controlList"
+    className="drag-drop controlBlock"
+    data-type="binary"
   >
     <div
-      className="drag-drop controlBlock"
-      data-type="binary"
+      className="label"
     >
-      <div
-        className="label"
-      >
-        Binary Rule
-      </div>
-      <div
-        className="template"
-      >
-        <div
-          className="exprPlaceholder"
-        />
-        <div
-          className="symbolPlaceholder"
-        >
-          ?
-        </div>
-        <div
-          className="exprPlaceholder"
-        />
-      </div>
+      Binary Rule
     </div>
     <div
-      className="drag-drop controlBlock"
-      data-type="unary"
+      className="template"
     >
       <div
-        className="label"
+        className="exprPlaceholder"
+      />
+      <div
+        className="symbolPlaceholder"
       >
-        Unary Rule
+        ?
       </div>
       <div
-        className="template"
-      >
-        <div
-          className="symbolPlaceholder"
-        >
-          ?
-        </div>
-        <div
-          className="exprPlaceholder"
-        />
-      </div>
+        className="exprPlaceholder"
+      />
+    </div>
+  </div>
+  <div
+    className="drag-drop controlBlock"
+    data-type="unary"
+  >
+    <div
+      className="label"
+    >
+      Unary Rule
     </div>
     <div
-      className="drag-drop controlBlock"
-      data-type="literal"
+      className="template"
     >
       <div
-        className="label"
+        className="symbolPlaceholder"
       >
-        Literal
+        ?
       </div>
       <div
-        className="template"
-      >
-        <div
-          className="symbolPlaceholder"
-        >
-          x
-        </div>
-      </div>
+        className="exprPlaceholder"
+      />
+    </div>
+  </div>
+  <div
+    className="drag-drop controlBlock"
+    data-type="literal"
+  >
+    <div
+      className="label"
+    >
+      Literal
     </div>
     <div
-      className="drag-drop controlBlock"
-      data-type="true"
+      className="template"
     >
       <div
-        className="label"
+        className="symbolPlaceholder"
       >
-        True
-      </div>
-      <div
-        className="template"
-      >
-        <div
-          className="symbolPlaceholder"
-        >
-          ⊤
-        </div>
+        x
       </div>
     </div>
+  </div>
+  <div
+    className="drag-drop controlBlock"
+    data-type="true"
+  >
     <div
-      className="drag-drop controlBlock"
-      data-type="false"
+      className="label"
+    >
+      True
+    </div>
+    <div
+      className="template"
     >
       <div
-        className="label"
+        className="symbolPlaceholder"
       >
-        False
+        ⊤
       </div>
+    </div>
+  </div>
+  <div
+    className="drag-drop controlBlock"
+    data-type="false"
+  >
+    <div
+      className="label"
+    >
+      False
+    </div>
+    <div
+      className="template"
+    >
       <div
-        className="template"
+        className="symbolPlaceholder"
       >
-        <div
-          className="symbolPlaceholder"
-        >
-          ⊥
-        </div>
+        ⊥
       </div>
     </div>
   </div>
