@@ -43,4 +43,4 @@ class PropositionalVisitor extends ParseTreeVisitor {
   }
 }
 
-module.exports = { PropositionalVisitor }
+exports.PropositionalVisitor = PropositionalVisitor
