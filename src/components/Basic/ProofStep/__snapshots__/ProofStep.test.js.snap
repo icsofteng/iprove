@@ -57,7 +57,7 @@ exports[`Snapshot test 1`] = `
     >
       Toggle
     </button>
-    <Connect(StepDependencies)
+    <Connect(DependencyList)
       index={0}
       path={
         Array [
