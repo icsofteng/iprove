@@ -56,10 +56,17 @@ const translate_rule = (rule) => {
   else if (rule.type === 'paren') {
     return translate_rule(rule.value)
   }
+  else if (rule.type === 'quantifier') {
+    return translate_quantifier(rule)
+  }
   else {
     return translate_literal(rule)
   }
-}   
+}  
+
+const translate_quantifier = (rule) => {
+  return '(' + rule.symbol + ' ((' + rule.variable.literal.value + ' ' + rule.variable.varType.value + '))' + translate_rule(rule.value) + ')'
+}
 
 const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
