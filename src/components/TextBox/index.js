@@ -12,10 +12,6 @@ class TextBox extends Component {
     this.state = { raw: '', edit: true }
   }
 
-  componentDidMount() {
-    this.setState({ raw: translate_raw(this.props.rule) })
-  }
-
   parseInput(statement) {
     fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
       this.props.updateRule(response[0], [this.props.index])

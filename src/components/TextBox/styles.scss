@@ -1,0 +1,37 @@
+.step {
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  display: flex;
+  padding: 0 10px;
+  height: 45px;
+}
+.lineNumber {
+  color: #999;
+  font-weight: bold;
+  margin: 15px 2px;
+}
+.textboxContainer {
+  display:block;
+}
+.textbox {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin: 0 0 0 15px;
+  width: 600px;
+  height: 100%;
+}
+.mathjax {
+  margin: 0px 0 0px 15px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+}
+:global .mjx-chtml.MJXc-display {
+  text-align: left !important;
+  margin: 0;
+}
+:global .mjx-chtml * {
+  outline: none !important;
+}
