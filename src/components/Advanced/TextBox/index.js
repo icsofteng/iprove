@@ -21,6 +21,19 @@ class TextBox extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.focus !== this.props.focus || prevState.edit !== this.state.edit) {
+      if (this.props.focus) {
+        if (this.ref) {
+          this.ref.focus()
+        }
+        else {
+          this.setState({ edit: true })
+        }
+      }
+    }
+  }
+
   parseInput(statement) {
     fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
       this.props.updateRule(response[0], [this.props.index])
@@ -31,6 +44,12 @@ class TextBox extends Component {
   keyDown(event) {
     if (event.keyCode === 13 || event.keyCode === 9) {
       event.preventDefault()
+      if (event.shiftKey) {
+        this.props.onIncInput(-1)
+      }
+      else {
+        this.props.onIncInput(1)
+      }
       this.parseInput(event.target.value)
     }
   }
@@ -49,11 +68,12 @@ class TextBox extends Component {
               value={this.state.raw}
               onChange={(event)=>this.setState({raw: event.target.value})}
               onKeyDown={(event)=>this.keyDown(event)}
+              onFocus={()=>this.props.onFocus()}
               ref={(ref)=>this.ref=ref}
             />
           </div>
           :
-          <div className={styles.mathjax} onClick={()=>this.setState({ edit: true })}>
+          <div className={styles.mathjax} onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
             <MathJax.Provider>
               <MathJax.Node formula={translate_mathjax(rule)} />
             </MathJax.Provider>
