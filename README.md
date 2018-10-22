@@ -24,14 +24,28 @@
 
 ### Translation data structure
 ```
-{ type: 'literal', value: true }                                   (assert true)
-{ type: 'literal', value: false }                                  (assert false)
-{ type: 'literal', value: 'p' }                                    (assert p)
-{ type: 'binary', symbol: 'implies', lhs: expr1, rhs: expr2 }      (assert (=> expr1 expr2))
-{ type: 'binary', symbol: 'iff', lhs: expr1, rhs: expr2 }          (assert (iff expr1 expr2))
-{ type: 'binary', symbol: 'and', lhs: expr1, rhs: expr2 }          (assert and expr1 expr2)
-{ type: 'binary', symbol: 'or', lhs: expr1, rhs: expr2 }           (assert or expr1 expr2)
-{ type: 'unary', symbol: 'not', value: expr }                      (assert not expr)
+{ type: 'literal', value: true }                                                    (assert true)
+{ type: 'literal', value: false }                                                   (assert false)
+{ type: 'literal', value: 'p' }                                                     (assert p)
+{ type: 'binary', symbol: 'implies', lhs: expr1, rhs: expr2 }                       (assert (=> expr1 expr2))
+{ type: 'binary', symbol: 'iff', lhs: expr1, rhs: expr2 }                           (assert (iff expr1 expr2))
+{ type: 'binary', symbol: 'and', lhs: expr1, rhs: expr2 }                           (assert (and expr1 expr2))
+{ type: 'binary', symbol: 'or', lhs: expr1, rhs: expr2 }                            (assert (or expr1 expr2))
+{ type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
+
+First Order:
+{ type: 'quantifier', symbol: 'forall', variable:{literal, varType}, value: expr} 
+                                                                (assert (forall ((x varType)) (expr)))
+{ type: 'quantifier', symbol: 'exists', variable:{literal, varType}, value: expr} 
+                                                                (assert (exists ((x varType)) (expr)))
+{ type: 'variable', literal: {type:literal, value:p}, varType:{'Real/Bool/Int'}}
+{ type: 'varType', value: 'Real' }
+{ type: 'varType', value: 'Bool' }
+{ type: 'varType', value: 'Int' }
+// TODO: user defined types
+{ type: 'binaryRelation', name: '...', lhs: exp1, rhs: exp2 }                       (declare-fun name (varType varType) Bool)
+{ type: 'unaryRelation', name: '...', value: exp }                                  (declare-fun name (varType) Bool)
+{ type: 'constant', name: '...' }                                                   (declare-sort name varType)
 ```
 
 ### Steps for translation
