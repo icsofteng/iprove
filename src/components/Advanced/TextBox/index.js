@@ -35,10 +35,12 @@ class TextBox extends Component {
   }
 
   parseInput(statement) {
-    fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-      this.props.updateRule(response[0], [this.props.index])
-      this.setState({ edit: false })
-    })
+    if (statement !== '') {
+      fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
+        this.props.updateRule(response[0], [this.props.index])
+        this.setState({ edit: false })
+      })
+    }
   }
 
   keyDown(event) {
@@ -65,7 +67,7 @@ class TextBox extends Component {
             <input
               type="text"
               className={styles.textbox}
-              value={this.state.raw}
+              value={this.state.raw || ''}
               onChange={(event)=>this.setState({raw: event.target.value})}
               onKeyDown={(event)=>this.keyDown(event)}
               onFocus={()=>this.props.onFocus()}
