@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import Controls from './components/Controls'
-import ProofStepList from './components/ProofStepList'
-import DragDrop from './components/DragDrop'
-import TextBoxList from './components/TextBoxList'
-import { connect } from 'react-redux';
+import Controls from '../Controls'
+import ProofStepList from '../ProofStepList'
+import DragDrop from '../DragDrop'
+import TextBoxList from '../TextBoxList'
+import { connect } from 'react-redux'
+import styles from './styles.scss'
 
 class IProve extends Component {
   constructor(props) {
@@ -25,15 +26,15 @@ class IProve extends Component {
 
   render() {
     return (
-      this.state.simple ?
       <div className="IProve">
-        <DragDrop />
-        <Controls />
+        <div className={styles.header}>
+          <h1 className={styles.title}>iProve</h1>
+          { this.state.simple && <DragDrop /> }
+          { this.state.simple && <Controls /> }
+        </div>
+        { this.state.simple ?
         <ProofStepList z3={this.state.z3} steps={this.props.steps} />
-      </div>
-      :
-      <div className="IProve">
-        <TextBoxList steps={this.props.steps} />
+        : <TextBoxList steps={this.props.steps} /> }
       </div>
     )
   }
