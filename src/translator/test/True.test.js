@@ -2,18 +2,18 @@ const {translate} = require('../../translator/z3')
 
 const test_constants = ['p']
 const test_rules = [{
-  type: 'literal',
-  value: 'p'
-}, {
-  type: 'binary',
-  symbol: 'implies',
-  lhs: {
-    type: 'literal',
-    value: 'p'
-  },
-  rhs: {
-    type: 'true'
-  },
+  dependencies: [],
+  ast: {
+    type: 'binary',
+    symbol: 'implies',
+    lhs: {
+      type: 'literal',
+      value: 'p'
+    },
+    rhs: {
+      type: 'true'
+    }
+  }
 }]
 
 

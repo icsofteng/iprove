@@ -12,28 +12,34 @@ exports[`Snapshot test 1`] = `
   <ProofStep
     index={0}
     key="step0"
-    rule={
+    step={
       Object {
-        "lhs": Object {
-          "type": "literal",
-          "value": "p",
+        "ast": Object {
+          "lhs": Object {
+            "type": "literal",
+            "value": "p",
+          },
+          "rhs": Object {
+            "type": "literal",
+            "value": "q",
+          },
+          "symbol": "implies",
+          "type": "binary",
         },
-        "rhs": Object {
-          "type": "literal",
-          "value": "q",
-        },
-        "symbol": "implies",
-        "type": "binary",
+        "dependencies": Array [],
       }
     }
   />
   <ProofStep
     index={1}
     key="step1"
-    rule={
+    step={
       Object {
-        "type": "literal",
-        "value": "p",
+        "ast2": Object {
+          "type": "literal",
+          "value": "p",
+        },
+        "dependencies": Array [],
       }
     }
   />
