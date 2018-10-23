@@ -17,16 +17,14 @@ const components = {
 }
 
 const Rule = (props) => {
+  if (props.type === 'paren') {
+    return <Rule {...props} {...props.value} />
+  }
   const RuleType = components[props.type]
   return (
     <div className={styles.rule}>
       <RuleType {...props} />
-      <span
-        className={styles.remove}
-        onClick={() => props.removeRule(props.path)}
-      >
-        X
-      </span>
+      <span className={styles.remove} onClick={() => props.removeRule(props.path)}>X</span>
     </div>
   )
 }

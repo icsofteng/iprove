@@ -21,6 +21,9 @@ const translate_rule = (rule) => {
     else if (rule.type === 'false') {
       return 'false'
     }
+    else if (rule.type === 'paren') {
+      return translate_paren(rule)
+    }
     else {
       return translate_literal(rule)
     }
@@ -34,6 +37,7 @@ const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' implies ' 
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' iff ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => 'not ' + translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
+const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 
 const translate = (rules) =>
   rules.map(rule => translate_rule(rule))

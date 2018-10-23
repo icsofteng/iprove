@@ -6,7 +6,8 @@ class PropositionalVisitor extends ParseTreeVisitor {
     return this.visitChildren(ctx)
   }
   visitParenthesesExp(ctx) {
-    return this.visit(ctx.expression())
+    const value = this.visit(ctx.expression())
+    return { type: 'paren', value }
   }
   visitNotExp(ctx) {
     const value = this.visit(ctx.expression())

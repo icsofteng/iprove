@@ -53,6 +53,9 @@ const translate_rule = (rule) => {
   else if (rule.type === 'true' || rule.type === 'false') {
     return rule.type
   }
+  else if (rule.type === 'paren') {
+    return translate_rule(rule.value)
+  }
   else {
     return translate_literal(rule)
   }

@@ -71,6 +71,7 @@ class TextBox extends Component {
               onChange={(event)=>this.setState({raw: event.target.value})}
               onKeyDown={(event)=>this.keyDown(event)}
               onFocus={()=>this.props.onFocus()}
+              onBlur={(event)=>this.parseInput(event.target.value)}
               ref={(ref)=>this.ref=ref}
             />
           </div>
