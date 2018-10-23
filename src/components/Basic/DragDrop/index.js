@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import interact from 'interactjs'
-import { NEW_RULE } from '../../../constants'
+import { NEW_RULE, NEW_STEP } from '../../../constants'
 
 class DragDrop extends Component {
   componentDidMount() {
@@ -34,7 +34,12 @@ class DragDrop extends Component {
       },
       ondrop: function (event) {
         event.target.classList.remove('drop-target')
-        this.props.addRule(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
+        if (Array.from(event.target.classList).indexOf("wide") > -1) {
+          this.props.addStep(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
+        }
+        else {
+          this.props.addRule(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
+        }
       }.bind(this),
     })
     
@@ -59,6 +64,7 @@ class DragDrop extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    addStep: (type, path) => dispatch({ type: NEW_STEP, payload: type, path }),
     addRule: (type, path) => dispatch({ type: NEW_RULE, payload: type, path })
   }
 }

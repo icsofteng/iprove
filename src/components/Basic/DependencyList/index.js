@@ -12,7 +12,7 @@ class DependencyList extends Component {
   }
 
   render() {
-    const { rule: { dependencies }, path } = this.props
+    const { dependencies, path } = this.props
 
     return (
       <div className={styles.stepDependencies}>

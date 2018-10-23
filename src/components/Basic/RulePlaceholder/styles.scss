@@ -4,7 +4,7 @@
     width: 40px;
     height: 16px;
 
-    &.wide {
+    &:global(.wide) {
       padding: 20px;
       width: auto;
       margin-top: 15px;

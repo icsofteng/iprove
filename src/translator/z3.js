@@ -19,7 +19,7 @@ const declare_constants = (constants, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      file_contents += '(assert ' + translate_rule(element) + ')\n'
+      file_contents += '(assert ' + translate_rule(element.ast) + ')\n'
     }
   })
   return file_contents
@@ -27,7 +27,7 @@ const translate_assumptions = (assumptions, file_contents) => {
 
 const translate_goal = (goal, file_contents) => {
   if (goal) {
-    var negated_goal = '(assert (not '+ translate_rule(goal) + '))\n'
+    var negated_goal = '(assert (not '+ translate_rule(goal.ast) + '))\n'
     file_contents += negated_goal
     file_contents += '(check-sat)'
     return file_contents

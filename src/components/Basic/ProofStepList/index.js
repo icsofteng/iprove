@@ -23,8 +23,8 @@ const ProofStepList = (props) =>
       </div>
     }
     {
-      props.steps.map((rule, id) =>
-        <ProofStep key={"step"+id} rule={rule} index={id} />
+      props.steps.map((step, id) =>
+        <ProofStep key={"step"+id} step={step} index={id} />
       )
     }
     <RulePlaceholder wide path={[props.steps.length]} />
