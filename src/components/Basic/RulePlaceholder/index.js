@@ -6,7 +6,7 @@ import styles from './styles.scss'
 const RulePlaceholder = (props) =>
   <div
     className={cx('dropzone', styles.rulePlaceholder, {
-      [styles.wide]: props.wide
+      wide: props.wide
     })}
     data-path={JSON.stringify(props.path)}
     onChange={(event)=>props.dropRule(props.index, event.target.value)}

@@ -1,5 +1,6 @@
 import {
   NEW_RULE,
+  NEW_STEP,
   REMOVE_RULE,
   CHANGE_SYMBOL,
   UPDATE_RULE,
@@ -7,10 +8,11 @@ import {
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
+  SET_STEP_DEPENDENCY
 } from '../constants'
 
 const initialState = {
-  steps: [],
+  steps: [{ dependencies: [], ast: {} }],
   constants: []
 }
 
@@ -27,11 +29,14 @@ const dfs = (state, path) => {
 }
 
 const reducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state)
-  newState.steps = state.steps.slice(0)
+  const newState = JSON.parse(JSON.stringify(state))
   const { depth, index } = dfs(newState, action.path)
 
   switch (action.type) {
+    case NEW_STEP:
+      depth[index] = { dependencies: [], ast: { type: action.payload } }
+      return newState
+
     case NEW_RULE:
       depth[index] = { type: action.payload }
       return newState
@@ -53,17 +58,23 @@ const reducer = (state = initialState, action) => {
       newState.constants = newConstants.filter((item, pos) => newConstants.indexOf(item) === pos)
       return newState
 
+    case SET_STEP_DEPENDENCY:
+      if (depth[index]) {
+        depth[index] = action.payload.map(x => parseInt(x)).filter(x => !isNaN(x))
+      }
+      return newState
+
     case ADD_STEP_DEPENDENCY:
-      depth[index].dependencies = depth[index].dependencies ? [...depth[index].dependencies, null] : [null]
+      depth[index] = depth[index] ? [...depth[index], null] : [null]
       return newState
 
     case REMOVE_STEP_DEPENDENCY:
-      delete depth[index].dependencies[action.index]
-      depth[index].dependencies = depth[index].dependencies.filter(d => d || d === null)
+      delete depth[index][action.index]
+      depth[index] = depth[index].filter(d => d || d === null)
       return newState
 
     case UPDATE_STEP_DEPENDENCY:
-      depth[index].dependencies[action.index] = action.value
+      depth[index][action.index] = parseInt(action.value)
       return newState
 
     default:

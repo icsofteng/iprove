@@ -14,9 +14,9 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
 app.post('/z3', (req, res) => {
-  const rules = req.body.rules
+  const steps = req.body.steps
   const constants = req.body.constants
-  const file = translate_and_save(rules, constants)
+  const file = translate_and_save(steps, constants)
   const cmd = './z3 ' + file
   exec(cmd, (err, stdout) => {
     fs.unlink(file, () =>

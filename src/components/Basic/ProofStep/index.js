@@ -13,22 +13,22 @@ export default class ProofStep extends Component {
   }
 
   render() {
-    const { rule, index } = this.props
+    const { step, index } = this.props
     return (
       <React.Fragment>
         <div className={styles.step}>
           <div className={styles.lineNumber}>{index + 1}</div>
           <div className={cx(styles.mathjax, {[styles.showMathjax]: this.state.mathjax})}>
             <MathJax.Provider>
-              <MathJax.Node formula={translate_rule(this.props.rule)} />
+              <MathJax.Node formula={translate_rule(step.ast)} />
             </MathJax.Provider>
           </div>
           {
             !this.state.mathjax &&
-            <Rule key={"rule" + index} {...rule} path={[index]} />
+            <Rule key={"rule" + index} {...step.ast} path={[index, "ast"]} />
           }
           <button onClick={()=>this.setState(state => ({ mathjax: !state.mathjax }))}>Toggle</button>
-          <DependencyList index={index} rule={rule} path={[index]} />
+          <DependencyList index={index} dependencies={step.dependencies} path={[index, "dependencies"]} />
         </div>
       </React.Fragment>
     )

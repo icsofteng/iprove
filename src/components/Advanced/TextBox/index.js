@@ -4,24 +4,34 @@ import { translate_rule as translate_mathjax } from '../../../translator/mathjax
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
 
 class TextBox extends Component {
   constructor() {
     super()
-    this.state = { raw: '', edit: true }
+    this.state = { raw: '', edit: true, dependencies: '' }
     this.ref = null
   }
 
   componentDidMount() {
-    const translation = translate_raw(this.props.rule)
-    this.setState({ raw: translation, edit: Object.keys(this.props.rule).length === 0 })
+    const translation = translate_raw(this.props.ast)
+    this.setState({
+      raw: translation,
+      edit: Object.keys(this.props.ast).length === 0
+    })
     if (this.props.focus) {
       this.ref.focus()
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // Changing dependencies props
+    const diffDependencies = this.props.dependencies.filter((el, i) => prevProps.dependencies[i] !== el)
+    if (diffDependencies.length > 0 || prevProps.dependencies.length !== this.props.dependencies.length) {
+      this.setState({ dependencies: this.props.dependencies.join(", ") })
+    }
+
+    // Changing edit and focus props
     if (prevProps.focus !== this.props.focus || prevState.edit !== this.state.edit) {
       if (this.props.focus) {
         if (this.ref) {
@@ -38,7 +48,7 @@ class TextBox extends Component {
     if (statement !== '') {
       fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
         const { ast, constants } = response
-        this.props.updateRule(ast[0], [this.props.index])
+        this.props.updateRule(ast[0], [this.props.index, "ast"])
         this.props.addConstants(constants)
         this.setState({ edit: false })
       })
@@ -59,7 +69,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { rule, index } = this.props
+    const { ast, index } = this.props
     return (
       <div className={styles.step}>
         <div className={styles.lineNumber}>{index + 1}</div>
@@ -80,10 +90,20 @@ class TextBox extends Component {
           :
           <div className={styles.mathjax} onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
             <MathJax.Provider>
-              <MathJax.Node formula={translate_mathjax(rule)} />
+              <MathJax.Node formula={translate_mathjax(ast)} />
             </MathJax.Provider>
           </div>
         }
+        <div className={styles.dependencies}>
+          <div className={styles.using}>using</div>
+          <input
+            type="text"
+            className={styles.dependencyTextbox}
+            value={this.state.dependencies || ''}
+            onChange={(event)=>this.setState({dependencies: event.target.value})}
+            onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [index, "dependencies"])}
+          />
+        </div>
       </div>
     )
   }
@@ -91,7 +111,8 @@ class TextBox extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
-  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values })
+  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values }),
+  setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path })
 })
 
 export default connect(null, mapDispatchToProps)(TextBox)
