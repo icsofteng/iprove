@@ -19,7 +19,7 @@ const BinaryRule = (props) =>
         addConstants={props.addConstants}
         path={[...props.path, "lhs"]}
         {...props.lhs}
-      /> : <RulePlaceholder path={[...props.path, "lhs"]} />
+      /> : <RulePlaceholder path={[...props.path, "lhs"]} dropLiteral={props.dropLiteral} />
     }
     <SymbolChooser
       updateValue={props.updateValue}
@@ -34,7 +34,7 @@ const BinaryRule = (props) =>
         addConstants={props.addConstants}
         path={[...props.path, "rhs"]}
         {...props.rhs}
-      /> : <RulePlaceholder path={[...props.path, "rhs"]} />
+      /> : <RulePlaceholder path={[...props.path, "rhs"]} dropLiteral={props.dropLiteral} />
     }
   </React.Fragment>
 

@@ -43,7 +43,7 @@ exports[`Snapshot test 1`] = `
       }
     }
   />
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         2,

@@ -40,7 +40,7 @@ exports[`binary operator and q test 1`] = `
 
 exports[`nothing implies nothing 1`] = `
 <Fragment>
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "lhs",
@@ -63,7 +63,7 @@ exports[`nothing implies nothing 1`] = `
       }
     }
   />
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "rhs",
@@ -75,7 +75,7 @@ exports[`nothing implies nothing 1`] = `
 
 exports[`nothing implies p test 1`] = `
 <Fragment>
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "lhs",
@@ -214,7 +214,7 @@ exports[`p implies nothing test 1`] = `
       }
     }
   />
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "rhs",

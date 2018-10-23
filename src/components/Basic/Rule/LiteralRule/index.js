@@ -1,16 +1,27 @@
-import React from 'react'
-
+import React, { Component } from 'react'
 import styles from '../styles.scss'
 
-const LiteralRule = (props) =>
-  <input
-    type="text"
-    value={props.value}
-    onChange={(event) => {
-      props.addConstants(event.target.value)
-      props.updateValue([...props.path, "value"], event.target.value)
-    }}
-    className={styles.ruleInput}
-  />
-
+class LiteralRule extends Component {
+  componentDidMount() {
+    if (this.ref) {
+      this.ref.focus()
+    }
+  }
+  
+  render() {
+    return (
+      <input
+        type="text"
+        value={this.props.value}
+        onChange={(event) => {
+          this.props.addConstants(event.target.value)
+          this.props.updateValue([...this.props.path, "value"], event.target.value)
+        }}
+        className={styles.ruleInput}
+        ref={(ref) => this.ref = ref}
+      />
+    )
+  }
+}
+  
 export default LiteralRule

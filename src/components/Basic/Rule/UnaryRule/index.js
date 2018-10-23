@@ -22,7 +22,7 @@ const UnaryRule = (props) =>
         path={[...props.path, "value"]}
         {...props.value}
       /> :
-      <RulePlaceholder path={[...props.path, "value"]} />
+      <RulePlaceholder path={[...props.path, "value"]} dropLiteral={props.dropLiteral} />
     }
   </React.Fragment>
 
