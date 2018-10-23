@@ -2,7 +2,6 @@
 
 exports[`Not test 1`] = `
 "(declare-const p Bool)
-(assert (not p))
-(assert (not p))
+(assert (not (not p)))
 (check-sat)"
 `;

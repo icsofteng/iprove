@@ -41,6 +41,7 @@ exports[`Snapshot test 1`] = `
       path={
         Array [
           0,
+          "ast",
         ]
       }
       rhs={
@@ -58,25 +59,13 @@ exports[`Snapshot test 1`] = `
       Toggle
     </button>
     <Connect(DependencyList)
+      dependencies={Array []}
       index={0}
       path={
         Array [
           0,
+          "dependencies",
         ]
-      }
-      rule={
-        Object {
-          "lhs": Object {
-            "type": "literal",
-            "value": "p",
-          },
-          "rhs": Object {
-            "type": "literal",
-            "value": "q",
-          },
-          "symbol": "implies",
-          "type": "binary",
-        }
       }
     />
   </div>

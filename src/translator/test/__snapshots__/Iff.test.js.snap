@@ -3,7 +3,6 @@
 exports[`Iff test 1`] = `
 "(declare-const p Bool)
 (declare-const q Bool)
-(assert (iff p q))
-(assert (not p))
+(assert (not (iff p q)))
 (check-sat)"
 `;

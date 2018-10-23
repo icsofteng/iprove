@@ -3,7 +3,6 @@
 exports[`Nested test 1 1`] = `
 "(declare-const p Bool)
 (declare-const q Bool)
-(assert (and (and p q) r))
-(assert (not r))
+(assert (not (and (and p q) q)))
 (check-sat)"
 `;
