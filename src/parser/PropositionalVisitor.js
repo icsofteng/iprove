@@ -2,6 +2,10 @@ const { tree } = require('antlr4')
 const { ParseTreeVisitor } = tree
 
 class PropositionalVisitor extends ParseTreeVisitor {
+  constructor() {
+    super()
+    this.constants = []
+  }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
   }
@@ -40,7 +44,14 @@ class PropositionalVisitor extends ParseTreeVisitor {
     return { type: 'false' }
   }
   visitLiteralExp(ctx) {
-    return { type: 'literal', value: ctx.LITERAL().toString() }
+    const lit = ctx.LITERAL().toString()
+    if (this.constants.indexOf(lit) === -1) {
+      this.constants.push(lit)
+    }
+    return { type: 'literal', value: lit }
+  }
+  getConstants() {
+    return this.constants
   }
 }
 

@@ -4,7 +4,7 @@ import { translate_rule as translate_mathjax } from '../../../translator/mathjax
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import { connect } from 'react-redux'
-import { UPDATE_RULE } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS } from '../../../constants'
 
 class TextBox extends Component {
   constructor() {
@@ -37,7 +37,9 @@ class TextBox extends Component {
   parseInput(statement) {
     if (statement !== '') {
       fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-        this.props.updateRule(response[0], [this.props.index])
+        const { ast, constants } = response
+        this.props.updateRule(ast[0], [this.props.index])
+        this.props.addConstants(constants)
         this.setState({ edit: false })
       })
     }
@@ -88,7 +90,8 @@ class TextBox extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path })
+  updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
+  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values })
 })
 
 export default connect(null, mapDispatchToProps)(TextBox)

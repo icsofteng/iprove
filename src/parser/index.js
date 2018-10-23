@@ -11,7 +11,9 @@ const parse = (input) => {
   const visitor = new PropositionalVisitor()
   parser.buildParseTrees = true
   const tree = parser.statement()
-  return visitor.visitStatement(tree)
+  const ast = visitor.visitStatement(tree)
+  const constants = visitor.getConstants()
+  return { ast, constants }
 }
 
 exports.parse = parse

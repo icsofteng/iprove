@@ -7,7 +7,7 @@ const LiteralRule = (props) =>
     type="text"
     value={props.value}
     onChange={(event) => {
-      props.addConstant(event.target.value)
+      props.addConstants(event.target.value)
       props.updateValue([...props.path, "value"], event.target.value)
     }}
     className={styles.ruleInput}

@@ -3,7 +3,7 @@ import {
   REMOVE_RULE,
   CHANGE_SYMBOL,
   UPDATE_RULE,
-  ADD_CONSTANT,
+  ADD_CONSTANTS,
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
@@ -48,11 +48,10 @@ const reducer = (state = initialState, action) => {
       depth[index].symbol = action.payload
       return newState
 
-    case ADD_CONSTANT:
-      if (newState.constants.indexOf(action.payload) > -1) {
-        return newState
-      }
-      return { ...newState, constants: [...newState.constants, action.payload] }
+    case ADD_CONSTANTS:
+      const newConstants = newState.constants.concat(action.payload)
+      newState.constants = newConstants.filter((item, pos) => newConstants.indexOf(item) === pos)
+      return newState
 
     case ADD_STEP_DEPENDENCY:
       depth[index].dependencies = depth[index].dependencies ? [...depth[index].dependencies, null] : [null]

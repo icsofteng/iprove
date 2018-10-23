@@ -16,7 +16,7 @@ const BinaryRule = (props) =>
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
-        addConstant={props.addConstant}
+        addConstants={props.addConstants}
         path={[...props.path, "lhs"]}
         {...props.lhs}
       /> : <RulePlaceholder path={[...props.path, "lhs"]} />
@@ -31,7 +31,7 @@ const BinaryRule = (props) =>
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
-        addConstant={props.addConstant}
+        addConstants={props.addConstants}
         path={[...props.path, "rhs"]}
         {...props.rhs}
       /> : <RulePlaceholder path={[...props.path, "rhs"]} />
