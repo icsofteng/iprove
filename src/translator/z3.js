@@ -16,6 +16,17 @@ const declare_constants = (constants, file_contents) => {
   return file_contents
 }
 
+const declare_relations = (relations, file_contents) => {
+  file_contents += '(declare-sort Type)' 
+  relation.forEach(rel => {
+    file_contents += 'declare-fun ' + rel.name + ' ('
+    rel.vars.forEach(() => {
+      file_contents += 'Type '
+    })
+    file_contents += ') Bool)\n'
+  })
+}
+
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
@@ -34,38 +45,33 @@ const translate_goal = (goal, file_contents) => {
   }
 }
 
+const translate_binary_rule = (rule) => {
+  switch (rule.symbol) {
+    case 'and': return translate_and_rule(rule)
+    case 'or': return translate_or_rule(rule)
+    case 'iff': return translate_iff_rule(rule)
+    case 'implies': return translate_implies_rule(rule)
+    default: return translate_literal(rule)
+  }
+}
+
+
+const translate_unary_rule = (rule) => {
+  switch (rule.symbol) {
+    case 'not': return translate_not_rule(rule)
+    default: return translate_literal(rule)
+  }
+}
+
 const translate_rule = (rule) => {
-  if (rule.type === 'binary') {
-    switch (rule.symbol) {
-      case 'and': return translate_and_rule(rule)
-      case 'or': return translate_or_rule(rule)
-      case 'iff': return translate_iff_rule(rule)
-      case 'implies': return translate_implies_rule(rule)
-      default: return translate_literal(rule)
-    }
-  }
-  else if (rule.type === 'unary') {
-    switch (rule.symbol) {
-      case 'not': return translate_not_rule(rule)
-      default: return translate_literal(rule)
-    }
-  }
-  else if (rule.type === 'true' || rule.type === 'false') {
-    return rule.type
-  }
-<<<<<<< bf29608fd1713ff84d777d804b31f1457847e48f
-  else if (rule.type === 'paren') {
-    return translate_rule(rule.value)
-=======
-  else if (rule.type === 'quantifier') {
-    return translate_quantifier(rule)
->>>>>>> expanding the schema for 1st order logic
-  }
-  else if (rule.type === 'quantifier') {
-    return translate_quantifier(rule)
-  }
-  else {
-    return translate_literal(rule)
+  switch (rule.type) {
+    case 'binary': return translate_binary_rule(rule)
+    case 'unary' : return translate_unary_rule(rule)
+    case 'true':
+    case 'false': return rule.type
+    case 'paren': return translate_rule(rule.value)
+    case 'quantifier': return translate_quantifier(rule)
+    default: translate_literal(rule)
   }
 }  
 
@@ -73,34 +79,15 @@ const translate_quantifier = (rule) => {
   return '(' + rule.symbol + ' ((' + rule.variable.literal.value + ' ' + rule.variable.varType.value + '))' + translate_rule(rule.value) + ')'
 }
 
-const translate_binary_relations = (rule) => {
-  let translation = '(' + rule.name + ' '
-  if (rule.exp1.type != 'literal') {
-    translation += '(' + translate_rule(rule.exp1) + ')'
-  } else {
-    translation += translate_rule(rule.exp1)
-  }
-  translation += ' '
-  if (rule.exp2.type != 'literal') {
-    translation += '(' + translate_rule(rule.exp2) + ')'
-  } else {
-    translation += translate_rule(rule.exp2)
-  }
-  translation += ')'
+const translate_relation = (rule) => {
+  let translation = '(' + rule.name
+  rule.vars.forEach(v => {
+    translation += ' '
+    translation += v
+  })
+  tranlsation += ')'
   return translation
 }
-
-const translate_unary_relation = (rule) => {
-  let translation = '(' + rule.name + ' '
-  if (rule.exp.type != 'literal') {
-    translation += '(' + translate_rule(rule.exp) + ')'
-  } else {
-    translation += translate_rule(rule.exp)
-  }
-  translation += ')'
-  return translation
-}
-
 
 
 const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'

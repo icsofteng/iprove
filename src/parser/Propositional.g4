@@ -12,9 +12,26 @@ expression:
   | TRUE                                      # trueExp
   | FALSE                                     # falseExp
   | BRACKET_OPEN expression BRACKET_CLOSE     # parenthesesExp
+  | FORALL variable BRACKET_OPEN expression BRACKET_CLOSE     # forallExp
+  | EXISTS variable BRACKET_OPEN expression BRACKET_CLOSE     # existsExp
+  | NAME BRACKET_OPEN variable (COMMA variable)* BRACKET_CLOSE    # relation
   ;
 
-LITERAL: [a-z];
+
+
+variable:
+  | VARIABLE                                   # literalVar
+  | VARIABLE COLON varType                     # literalTypeVar
+  ;
+
+varType:
+  | TYPE_BOOL                                 # varTypeBool
+  | TYPE_INT                                  # varTypeInt
+  | TYPE_REAL                                 # varTypeReal
+  ;
+
+/* Propositional logic */
+LITERAL: [A-Z];
 NOT: 'not';
 AND: 'and';
 OR: 'or';
@@ -24,5 +41,22 @@ TRUE: 'true';
 FALSE: 'false';
 BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
+
+/* Predicate logic only */
+VARIABLE: [a-z]
+CONSTANT: LITERAL CHARACTER*
+NAME: LETTER CHARACTER*
+fragment CHARACTER: LETTER | DIGIT;
+fragment LETTER: ('a'..'z' | 'A'..'Z' | '_' | '`');
+fragment DIGIT: ('0'..'9');
+FORALL: 'forall';
+EXISTS: 'exists';
+COLON: ':';
+COMMA: ',';
+
+
+TYPE_INT: 'Int';
+TYPE_BOOL: 'Bool';
+TYPE_REAL: 'Real';
 
 WS: [ \t\r\n] -> skip;
