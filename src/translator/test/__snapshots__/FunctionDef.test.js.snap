@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`And test 1`] = `
+exports[`Function Def test 1`] = `
 "(declare-sort Type)
 (declare-const p Bool)
-(declare-const q Bool)
-(assert (and p q))
+(declare-fun F (Int Int ) Int)
 (assert (not p))
 (check-sat)"
 `;
