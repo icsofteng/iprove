@@ -34,23 +34,20 @@
 { type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
 
 First Order:
-{ type: 'quantifier', symbol: 'forall', variable:{literal, varType}, value: expr} 
-                                                                (assert (forall ((x varType)) (expr)))
-{ type: 'quantifier', symbol: 'exists', variable:{literal, varType}, value: expr} 
-                                                                (assert (exists ((x varType)) (expr)))
-{ type: 'variable', literal: {type:literal, value:p}, varType:{'Real/Bool/Int'}}
+{ type: 'quantifier', symbol: 'forall', variable:{var, varType}, value: expr} 
+                                                                (assert (forall ((var varType)) (expr)))
+{ type: 'quantifier', symbol: 'exists', variable:{var, varType}, value: expr} 
+                                                                (assert (exists ((var varType)) (expr)))
+{ type: 'variable', var: var, varType:{'Real/Bool/Int'}}
 { type: 'varType', value: 'Real' }
 { type: 'varType', value: 'Bool' }
 { type: 'varType', value: 'Int' }
-{ type: 'varType', value: 'Type } //used to define a sort 'Type' for generic constants e.g. 'Frank' in logic
+{ type: 'varType', value: 'Type } // used to define a sort 'Type' for generic constants e.g. 'Frank' in logic
 // TODO: user defined types
-{ type: 'binaryRelation', name: '...', lhs: exp1, rhs: exp2 }                    if exps literal: (name exp1 exp2)  
-                                                                                 otherwise: (name (exp1) (exp2))
-                                                                    (declare-fun name (varType varType) Bool)
 
-{ type: 'unaryRelation', name: '...', value: exp }                                  if literal: (name exp)
-                                                                                    otherwise: (name (exp))
-                                                                                (declare-fun name (varType) Bool)
+{ type: 'relation', name: '...', vars: [{variable}]}                 (name var (, var))
+                                                                    (declare-fun name (varType (, varType)*) Bool)
+
 
 { type: 'constant', name: '...' }                                               (declare-sort name varType)
 ```
