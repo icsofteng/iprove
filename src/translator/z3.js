@@ -73,6 +73,36 @@ const translate_quantifier = (rule) => {
   return '(' + rule.symbol + ' ((' + rule.variable.literal.value + ' ' + rule.variable.varType.value + '))' + translate_rule(rule.value) + ')'
 }
 
+const translate_binary_relations = (rule) => {
+  let translation = '(' + rule.name + ' '
+  if (rule.exp1.type != 'literal') {
+    translation += '(' + translate_rule(rule.exp1) + ')'
+  } else {
+    translation += translate_rule(rule.exp1)
+  }
+  translation += ' '
+  if (rule.exp2.type != 'literal') {
+    translation += '(' + translate_rule(rule.exp2) + ')'
+  } else {
+    translation += translate_rule(rule.exp2)
+  }
+  translation += ')'
+  return translation
+}
+
+const translate_unary_relation = (rule) => {
+  let translation = '(' + rule.name + ' '
+  if (rule.exp.type != 'literal') {
+    translation += '(' + translate_rule(rule.exp) + ')'
+  } else {
+    translation += translate_rule(rule.exp)
+  }
+  translation += ')'
+  return translation
+}
+
+
+
 const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_implies_rule = (rule) => '(=> ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
