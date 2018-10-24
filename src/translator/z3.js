@@ -76,7 +76,7 @@ const translate_rule = (rule) => {
 }  
 
 const translate_quantifier = (rule) => {
-  return '(' + rule.symbol + ' ((' + rule.variable.literal.value + ' ' + rule.variable.varType.value + '))' + translate_rule(rule.value) + ')'
+  return '(' + rule.symbol + ' ((' + rule.var + ' TYPE))' + translate_rule(rule.value) + ')'
 }
 
 const translate_relation = (rule) => {

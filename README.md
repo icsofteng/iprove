@@ -34,10 +34,10 @@
 { type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
 
 First Order:
-{ type: 'quantifier', symbol: 'forall', variable:{var, varType}, value: expr} 
-                                                                (assert (forall ((var varType)) (expr)))
-{ type: 'quantifier', symbol: 'exists', variable:{var, varType}, value: expr} 
-                                                                (assert (exists ((var varType)) (expr)))
+{ type: 'quantifier', symbol: 'forall', variable: var, value: expr} 
+                                                                (assert (forall ((var Type)) (expr)))
+{ type: 'quantifier', symbol: 'exists', variable: var, value: expr} 
+                                                                (assert (exists ((var Type)) (expr)))
 { type: 'variable', var: var, varType:{'Real/Bool/Int'}}
 { type: 'varType', value: 'Real' }
 { type: 'varType', value: 'Bool' }
