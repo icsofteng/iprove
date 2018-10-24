@@ -1,0 +1,26 @@
+.suggestionsBox {
+  position: absolute;
+  left: 0;
+  margin: 44px 0 0;
+  z-index: 1;
+  background: #929292;
+  font-family: Monaco, Consolas, monospace;
+  font-size: 15px;
+  width: 640px;
+}
+.suggestionItem {
+  display: flex;
+  padding: 8px 0 5px 35px;
+  &.suggestionSelected {
+    background: #757575;
+  }
+}
+.suggestionType {
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  color: #333333;
+  margin-right: 15px;
+}
+.suggestionValue {
+  font-weight: bold;
+}

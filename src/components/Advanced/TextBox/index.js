@@ -5,6 +5,7 @@ import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import { connect } from 'react-redux'
 import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
+import Suggestions from '../Suggestions'
 
 class TextBox extends Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class TextBox extends Component {
       raw: '',
       edit: true,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
-      focusDependencies: false
+      focusDependencies: false,
+      suggestions: false,
+      selectedSuggestion: 0
     }
     this.ref = null
   }
@@ -73,6 +76,18 @@ class TextBox extends Component {
       }
       this.parseInput(event.target.value)
     }
+    if (event.keyCode === 32) {
+      this.setState({ suggestions: true })
+    }
+    if (event.keyCode === 8) {
+      this.setState({ suggestions: false })
+    }
+    if (event.keyCode === 38) {
+      this.setState(state => ({ selectedSuggestion: state.selectedSuggestion - 1 }))
+    }
+    if (event.keyCode === 40) {
+      this.setState(state => ({ selectedSuggestion: state.selectedSuggestion + 1 }))
+    }
   }
 
   render() {
@@ -116,6 +131,9 @@ class TextBox extends Component {
                   this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])
                 }}
               />
+              { this.state.suggestions &&
+                <Suggestions selected={this.state.selectedSuggestion} onHover={(index) => this.setState({ selectedSuggestion: index })} />
+              }
             </div>
         }
       </div>
