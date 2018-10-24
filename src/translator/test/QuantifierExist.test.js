@@ -1,18 +1,13 @@
 const {translate} = require('../z3')
-const test_constants = ['x', 'p']
-
+const test_constants = ['p']
+const relations = []
 const test_rules = [
   {
     dependencies: [],
     ast: {
       type: 'quantifier',
-      symbol: 'forall',
-      variable: {
-        value:"x",
-        varType: {
-          value: 'Int'
-        }
-      },
+      symbol: 'exist',
+      variable: "x", 
       value: { 
         type: 'binary',
         symbol: 'implies',
@@ -26,9 +21,16 @@ const test_rules = [
         }
       }
     }
-  }
+  },
+  {
+    dependencies: [],
+    ast: {
+      type: 'literal',
+      value: 'p'
+    }
+  }  
 ]
 
-test('Quantifier test', () => {
-  // expect(translate(test_rules, test_constants)).toMatchSnapshot()
+test('Quantifier Exist test', () => {
+  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
 })

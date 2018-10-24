@@ -39,14 +39,19 @@ First Order:
 { type: 'quantifier', symbol: 'exists', variable: var, value: expr} 
                                                                 (assert (exists ((var Type)) (expr)))
 { type: 'variable', var: var, varType:{'Real/Bool/Int'}}
+
+
 { type: 'varType', value: 'Real' }
 { type: 'varType', value: 'Bool' }
 { type: 'varType', value: 'Int' }
 { type: 'varType', value: 'Type } // used to define a sort 'Type' for generic constants e.g. 'Frank' in logic
 // TODO: user defined types
 
-{ type: 'relation', name: '...', vars: [{variable}]}                 (name var (, var))
-                                                                    (declare-fun name (varType (, varType)*) Bool)
+{ type: 'relation', name: '...', vars: [{variable}]}                                 (name var (, var))
+                                                                                     (declare-fun name (Type (, Type)*) Bool)
+
+{ type: 'function', name: '...', vars: [{variable}]}                                 (name var (, var))
+{ type: 'functionDef', name: '...' inputTypes: [varTypes], outputType: varType }     (declare-fun name (varType (, varType)*), varType)
 
 
 { type: 'constant', name: '...' }                                               (declare-sort name varType)

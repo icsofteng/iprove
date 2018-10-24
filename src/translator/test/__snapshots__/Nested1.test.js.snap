@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Nested test 1 1`] = `
-"(declare-const p Bool)
+"(declare-sort Type)
+(declare-const p Bool)
 (declare-const q Bool)
 (assert (not (and (and p q) q)))
 (check-sat)"

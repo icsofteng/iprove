@@ -3,18 +3,19 @@ grammar Propositional;
 statement: expression;
 
 expression:
-    NOT expression                            # notExp
-  | expression AND expression                 # andExp
-  | expression OR expression                  # orExp
-  | expression IMPLIES expression             # impliesExp
-  | expression IFF expression                 # iffExp
-  | LITERAL                                   # literalExp
-  | TRUE                                      # trueExp
-  | FALSE                                     # falseExp
-  | BRACKET_OPEN expression BRACKET_CLOSE     # parenthesesExp
-  | FORALL variable BRACKET_OPEN expression BRACKET_CLOSE     # forallExp
-  | EXISTS variable BRACKET_OPEN expression BRACKET_CLOSE     # existsExp
-  | NAME BRACKET_OPEN variable (COMMA variable)* BRACKET_CLOSE    # relation
+    NOT expression                                                      # notExp
+  | expression AND expression                                           # andExp
+  | expression OR expression                                            # orExp
+  | expression IMPLIES expression                                       # impliesExp
+  | expression IFF expression                                           # iffExp
+  | LITERAL                                                             # literalExp
+  | TRUE                                                                # trueExp
+  | FALSE                                                               # falseExp
+  | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
+  | FORALL variable BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
+  | EXISTS variable BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
+  | NAME BRACKET_OPEN variable (COMMA variable)* BRACKET_CLOSE          # function
+  | DEFINE NAME BRACKET_OPEN varType (Comma varType)* BRACKET_CLOSE     # functionDef
   ;
 
 
@@ -53,6 +54,7 @@ FORALL: 'forall';
 EXISTS: 'exists';
 COLON: ':';
 COMMA: ',';
+DEFINE: 'define
 
 
 TYPE_INT: 'Int';

@@ -18,5 +18,5 @@ const test_rules = [{
 
 
 test('True test', () => {
-  expect(translate(test_rules, test_constants)).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
 })

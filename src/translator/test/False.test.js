@@ -15,10 +15,17 @@ const test_rules = [
         type: 'false'
       },
     }
+  },
+  {
+    dependencies: [],
+    ast: {
+      type: 'literal',
+        value: 'p'
+    }
   }
 ]
 
 
 test('False test', () => {
-  expect(translate(test_rules, test_constants)).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
 })
