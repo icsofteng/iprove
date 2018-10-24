@@ -14,7 +14,7 @@ exports[`Unary Rule empty test 1`] = `
       }
     }
   />
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "value",
@@ -39,7 +39,7 @@ exports[`Unary Rule not test 1`] = `
       }
     }
   />
-  <Connect(RulePlaceholder)
+  <RulePlaceholder
     path={
       Array [
         "value",
