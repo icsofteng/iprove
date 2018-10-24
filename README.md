@@ -42,14 +42,21 @@ First Order:
 { type: 'varType', value: 'Real' }
 { type: 'varType', value: 'Bool' }
 { type: 'varType', value: 'Int' }
+{ type: 'varType', value: 'Type } //used to define a sort 'Type' for generic constants e.g. 'Frank' in logic
 // TODO: user defined types
-{ type: 'binaryRelation', name: '...', lhs: exp1, rhs: exp2 }                       (declare-fun name (varType varType) Bool)
-{ type: 'unaryRelation', name: '...', value: exp }                                  (declare-fun name (varType) Bool)
-{ type: 'constant', name: '...' }                                                   (declare-sort name varType)
+{ type: 'binaryRelation', name: '...', lhs: exp1, rhs: exp2 }                    if exps literal: (name exp1 exp2)  
+                                                                                 otherwise: (name (exp1) (exp2))
+                                                                    (declare-fun name (varType varType) Bool)
+
+{ type: 'unaryRelation', name: '...', value: exp }                                  if literal: (name exp)
+                                                                                    otherwise: (name (exp))
+                                                                                (declare-fun name (varType) Bool)
+
+{ type: 'constant', name: '...' }                                               (declare-sort name varType)
 ```
 
 ### Steps for translation
-1. Loop through `constants` and foreach print `(declare-const [symbol] Bool)`
+1. Loop through `literals` and foreach print `(declare-const [symbol] Bool)`
 2. Loop through rules and print `(assert [rule])`
 3. Negate final rule
 4. End with (check-sat)
