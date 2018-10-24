@@ -14,7 +14,7 @@ const test_rules = [
       rhs: {
         type: 'literal',
         value: 'q'
-      },
+      }
     }
   }
 ]

@@ -71,7 +71,7 @@ const translate_rule = (rule) => {
     case 'false': return rule.type
     case 'paren': return translate_rule(rule.value)
     case 'quantifier': return translate_quantifier(rule)
-    default: translate_literal(rule)
+    default: return translate_literal(rule)
   }
 }  
 
