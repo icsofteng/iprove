@@ -46,8 +46,8 @@ BRACKET_CLOSE: ')';
 VARIABLE: [a-z]
 CONSTANT: LITERAL CHARACTER*
 NAME: LETTER CHARACTER*
-fragment CHARACTER: LETTER | DIGIT;
-fragment LETTER: ('a'..'z' | 'A'..'Z' | '_' | '`');
+fragment CHARACTER: (LETTER | DIGIT | '_' | '`');
+fragment LETTER: ('a'..'z' | 'A'..'Z');
 fragment DIGIT: ('0'..'9');
 FORALL: 'forall';
 EXISTS: 'exists';
