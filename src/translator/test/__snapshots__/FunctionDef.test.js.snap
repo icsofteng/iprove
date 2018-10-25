@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Function Def test 1`] = `
-"(declare-sort Type)
-(declare-const p Bool)
-(declare-fun F (Int Int ) Int)
-(assert (not p))
-(check-sat)"
-`;
