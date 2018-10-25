@@ -11,16 +11,53 @@ class IProve extends Component {
     super(props)
     this.state = { z3: "", simple: false }
   }
+
+  getRequiredSteps(steps) {
+    const stepToCheck = steps[steps.length - 1]
+    const { dependencies: goalDependencies } = stepToCheck
+    let dependencies = []
+
+    if (goalDependencies) {
+      const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
+
+      while (uncheckedDependencies.length > 0) {
+        const dependency = uncheckedDependencies[0]
+
+        if (dependency >= 0 || dependency <= steps.length) {
+          const step = steps[dependency - 1]
+
+          if (step.dependencies) {
+            step.dependencies.map(dep => {
+              if (!uncheckedDependencies.includes(dep)) {
+                uncheckedDependencies.push(dep)
+              }
+            })
+          }
+
+          dependencies.unshift(step)
+        }
+
+        uncheckedDependencies.shift()
+      }
+    }
+
+    const allSteps = [stepToCheck]
+    allSteps.unshift(...dependencies)
+
+    return allSteps
+  }
   
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
       const { steps, constants } = this.props
+      const requiredSteps = this.getRequiredSteps(steps)
+
       fetch('/z3', {
         method: "POST",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: JSON.stringify({steps, constants})
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ steps: requiredSteps, constants })
       }).then(r => r.text()).then(response => {
-        this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm,"") })
+        this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm, "") })
       })
     }
   }
