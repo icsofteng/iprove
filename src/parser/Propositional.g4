@@ -12,23 +12,14 @@ expression:
   | TRUE                                                                # trueExp
   | FALSE                                                               # falseExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
-  | FORALL variable BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
-  | EXISTS variable BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
-  | NAME BRACKET_OPEN variable (COMMA variable)* BRACKET_CLOSE          # function
-  | DEFINE NAME BRACKET_OPEN varType (Comma varType)* BRACKET_CLOSE     # functionDef
+  | FORALL VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
+  | EXISTS VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
+  | NAME BRACKET_OPEN parameter (COMMA parameter)* BRACKET_CLOSE        # relation
   ;
 
-
-
-variable:
-  | VARIABLE                                   # literalVar
-  | VARIABLE COLON varType                     # literalTypeVar
-  ;
-
-varType:
-  | TYPE_BOOL                                 # varTypeBool
-  | TYPE_INT                                  # varTypeInt
-  | TYPE_REAL                                 # varTypeReal
+parameter:
+    VARIABLE                                                            # paramVar
+  | CONSTANT                                                            # paramConst
   ;
 
 /* Propositional logic */
@@ -44,21 +35,12 @@ BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
 
 /* Predicate logic only */
-VARIABLE: [a-z]
-CONSTANT: LITERAL CHARACTER*
-NAME: LETTER CHARACTER*
-fragment CHARACTER: (LETTER | DIGIT | '_' | '`');
-fragment LETTER: ('a'..'z' | 'A'..'Z');
-fragment DIGIT: ('0'..'9');
+VARIABLE: [a-z];
+CONSTANT: [A-Z] [a-z]+;
+NAME: [a-z] [a-zA-Z_]+;
 FORALL: 'forall';
 EXISTS: 'exists';
-COLON: ':';
 COMMA: ',';
-DEFINE: 'define
 
-
-TYPE_INT: 'Int';
-TYPE_BOOL: 'Bool';
-TYPE_REAL: 'Real';
 
 WS: [ \t\r\n] -> skip;
