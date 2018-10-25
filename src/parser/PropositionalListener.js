@@ -20,6 +20,15 @@ PropositionalListener.prototype.exitStatement = function(ctx) {
 };
 
 
+// Enter a parse tree produced by PropositionalParser#relationExp.
+PropositionalListener.prototype.enterRelationExp = function(ctx) {
+};
+
+// Exit a parse tree produced by PropositionalParser#relationExp.
+PropositionalListener.prototype.exitRelationExp = function(ctx) {
+};
+
+
 // Enter a parse tree produced by PropositionalParser#existsExp.
 PropositionalListener.prototype.enterExistsExp = function(ctx) {
 };
@@ -116,15 +125,6 @@ PropositionalListener.prototype.enterImpliesExp = function(ctx) {
 
 // Exit a parse tree produced by PropositionalParser#impliesExp.
 PropositionalListener.prototype.exitImpliesExp = function(ctx) {
-};
-
-
-// Enter a parse tree produced by PropositionalParser#relation.
-PropositionalListener.prototype.enterRelation = function(ctx) {
-};
-
-// Exit a parse tree produced by PropositionalParser#relation.
-PropositionalListener.prototype.exitRelation = function(ctx) {
 };
 
 

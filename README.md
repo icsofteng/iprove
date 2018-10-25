@@ -34,8 +34,8 @@
 { type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
 
 First Order:
-{ type: 'quantifier', symbol: 'forall', variable: var, value: expr}                 (assert (forall ((var Type)) (expr)))
-{ type: 'quantifier', symbol: 'exists', variable: var, value: expr}                 (assert (exists ((var Type)) (expr)))
+{ type: 'quantifier', symbol: 'forall', variable: 'x', value: expr}                 (assert (forall ((x Type)) (expr)))
+{ type: 'quantifier', symbol: 'exists', variable: 'x', value: expr}                 (assert (exists ((x Type)) (expr)))
 { type: 'variable', value: 'x'}                                                     x
 { type: 'relation', name: 'animal', params: [{variable|constant}]}                  (animal x y)
 { type: 'constant', name: 'Frank' }                                                 Frank

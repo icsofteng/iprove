@@ -14,7 +14,7 @@ expression:
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
   | FORALL VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
   | EXISTS VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
-  | NAME BRACKET_OPEN parameter (COMMA parameter)* BRACKET_CLOSE        # relation
+  | NAME BRACKET_OPEN parameter (COMMA parameter)* BRACKET_CLOSE        # relationExp
   ;
 
 parameter:
@@ -22,8 +22,8 @@ parameter:
   | CONSTANT                                                            # paramConst
   ;
 
-/* Propositional logic */
-LITERAL: [A-Z];
+FORALL: 'forall';
+EXISTS: 'exists';
 NOT: 'not';
 AND: 'and';
 OR: 'or';
@@ -33,14 +33,10 @@ TRUE: 'true';
 FALSE: 'false';
 BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
-
-/* Predicate logic only */
+LITERAL: [A-Z];
 VARIABLE: [a-z];
 CONSTANT: [A-Z] [a-z]+;
 NAME: [a-z] [a-zA-Z_]+;
-FORALL: 'forall';
-EXISTS: 'exists';
 COMMA: ',';
-
 
 WS: [ \t\r\n] -> skip;

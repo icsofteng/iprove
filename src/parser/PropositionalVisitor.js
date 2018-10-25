@@ -50,6 +50,31 @@ class PropositionalVisitor extends ParseTreeVisitor {
     }
     return { type: 'literal', value: lit }
   }
+  visitForallExp(ctx) {
+    console.log("hello")
+    const value = this.visit(ctx.expression())
+    const variable = ctx.VARIABLE().toString()
+    return { type: 'quantifier', symbol: 'forall', variable, value }
+  }
+  visitExistsExp(ctx) {
+    const value = this.visit(ctx.expression())
+    const variable = ctx.VARIABLE().toString()
+    return { type: 'quantifier', symbol: 'exists', variable, value }
+  }
+  visitRelationExp(ctx) {
+    console.log("relation")
+    const name = ctx.NAME().toString()
+    const params = ctx.parameter()
+    return { type: 'relation', name, params }
+  }
+  visitParamVar(ctx) {
+    const value = ctx.VARIABLE().toString()
+    return { type: 'variable', value }
+  }
+  visitParamConst(ctx) {
+    const name =  ctx.CONSTANT().toString()
+    return { type: 'constant', name }
+  }
   getConstants() {
     return this.constants
   }
