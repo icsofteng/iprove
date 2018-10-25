@@ -66,7 +66,7 @@ class TextBox extends Component {
   }
 
   keyDown(event) {
-    if (event.keyCode === 13 || event.keyCode === 9) {
+    if (event.keyCode === 9) {
       event.preventDefault()
       if (event.shiftKey) {
         this.props.onIncInput(-1)
@@ -83,9 +83,11 @@ class TextBox extends Component {
       this.setState({ suggestions: false })
     }
     if (event.keyCode === 38) {
+      event.preventDefault()
       this.setState(state => ({ selectedSuggestion: state.selectedSuggestion - 1 }))
     }
     if (event.keyCode === 40) {
+      event.preventDefault()
       this.setState(state => ({ selectedSuggestion: state.selectedSuggestion + 1 }))
     }
   }
@@ -131,10 +133,10 @@ class TextBox extends Component {
                   this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])
                 }}
               />
-              { this.state.suggestions &&
-                <Suggestions selected={this.state.selectedSuggestion} onHover={(index) => this.setState({ selectedSuggestion: index })} />
-              }
             </div>
+        }
+        { this.state.suggestions &&
+          <Suggestions selected={this.state.selectedSuggestion} onHover={(index) => this.setState({ selectedSuggestion: index })} />
         }
       </div>
     )
