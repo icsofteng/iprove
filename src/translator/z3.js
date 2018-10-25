@@ -31,11 +31,7 @@ const declare_relations = (relations, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      if (element.ast.type === "function-def") {
-        file_contents += translate_rule(element.ast)
-      } else {
-        file_contents += '(assert ' + translate_rule(element.ast) + ')\n'
-      }
+      file_contents += '(assert ' + translate_rule(element.ast) + ')\n'
     }
   })
   return file_contents
@@ -76,8 +72,7 @@ const translate_rule = (rule) => {
     case 'false': return rule.type
     case 'paren': return translate_rule(rule.value)
     case 'quantifier': return translate_quantifier(rule)
-    case 'function-def': return translate_function_def(rule)
-    case 'funtion': return translate_function(rule)
+    case 'relation': return translate_relation(rule)
     default: return translate_literal(rule)
   }
 }  
@@ -86,25 +81,15 @@ const translate_quantifier = (rule) => {
   return '(' + rule.symbol + ' ((' + rule.variable + ' TYPE))' + translate_rule(rule.value) + ')'
 }
 
-const translate_function = (rule) => {
+const translate_relation = (rule) => {
   let translation = '(' + rule.name
-  rule.vars.forEach(v => {
+  rule.params.forEach(v => {
     translation += ' '
     translation += v
   })
   tranlsation += ')'
   return translation
 }
-
-const translate_function_def = (rule) => {
-  let translation = '(declare-fun ' + rule.name + ' (' 
-  rule.inputTypes.forEach(v => {
-    translation += v.value + ' '
-  })
-  return translation + ') ' + rule.outputType.value + ')\n'
-}
-
-
 
 const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'

@@ -26,7 +26,7 @@
 ```
 { type: 'literal', value: true }                                                    (assert true)
 { type: 'literal', value: false }                                                   (assert false)
-{ type: 'literal', value: 'p' }                                                     (assert p)
+{ type: 'literal', value: 'P' }                                                     (assert P)
 { type: 'binary', symbol: 'implies', lhs: expr1, rhs: expr2 }                       (assert (=> expr1 expr2))
 { type: 'binary', symbol: 'iff', lhs: expr1, rhs: expr2 }                           (assert (iff expr1 expr2))
 { type: 'binary', symbol: 'and', lhs: expr1, rhs: expr2 }                           (assert (and expr1 expr2))
@@ -34,35 +34,22 @@
 { type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
 
 First Order:
-{ type: 'quantifier', symbol: 'forall', variable: var, value: expr} 
-                                                                (assert (forall ((var Type)) (expr)))
-{ type: 'quantifier', symbol: 'exists', variable: var, value: expr} 
-                                                                (assert (exists ((var Type)) (expr)))
-{ type: 'variable', var: var, varType:{'Real/Bool/Int'}}
-
-
-{ type: 'varType', value: 'Real' }
-{ type: 'varType', value: 'Bool' }
-{ type: 'varType', value: 'Int' }
-{ type: 'varType', value: 'Type } // used to define a sort 'Type' for generic constants e.g. 'Frank' in logic
-// TODO: user defined types
-
-{ type: 'relation', name: '...', vars: [{variable}]}                                 (name var (, var))
-                                                                                     (declare-fun name (Type (, Type)*) Bool)
-
-{ type: 'function', name: '...', vars: [{variable}]}                                 (name var (, var))
-{ type: 'functionDef', name: '...' inputTypes: [varTypes], outputType: varType }     (declare-fun name (varType (, varType)*), varType)
-
-
-{ type: 'constant', name: '...' }                                               (declare-sort name varType)
+{ type: 'quantifier', symbol: 'forall', variable: var, value: expr}                 (assert (forall ((var Type)) (expr)))
+{ type: 'quantifier', symbol: 'exists', variable: var, value: expr}                 (assert (exists ((var Type)) (expr)))
+{ type: 'variable', value: 'x'}                                                     x
+{ type: 'relation', name: 'animal', params: [{variable|constant}]}                  (animal x y)
+{ type: 'constant', name: 'Frank' }                                                 Frank
 ```
 
 ### Steps for translation
-1. Loop through `literals` and foreach print `(declare-const [symbol] Bool)`
-2. Loop through rules and print `(assert [rule])`
-3. Negate final rule
-4. End with (check-sat)
-5. Response "unsat" if goal is true
+1. Print `declare-sort Type`
+2. Loop through `relations` and foreach print `(declare-fun name (Type (, Type)*) Bool)`
+3. Loop through `constants` and foreach print `(declare-const [symbol] Type)`
+3. Loop through `literals` and foreach print `(declare-const [symbol] Bool)`
+4. Loop through rules and print `(assert [rule])`
+5. Negate final rule
+6. End with (check-sat)
+7. Response "unsat" if goal is true
 
 ### Server
 http://iprove.eu-west-2.elasticbeanstalk.com
