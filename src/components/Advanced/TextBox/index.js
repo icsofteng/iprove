@@ -133,9 +133,11 @@ class TextBox extends Component {
       this.setState({ suggestions: false })
     }
     if (event.keyCode === 38) {
+      event.preventDefault()
       this.setState(state => ({ selectedSuggestion: state.selectedSuggestion - 1 }))
     }
     if (event.keyCode === 40) {
+      event.preventDefault()
       this.setState(state => ({ selectedSuggestion: state.selectedSuggestion + 1 }))
     }
   }
@@ -188,10 +190,10 @@ class TextBox extends Component {
                 }}
                 ref={(ref)=>this.refDef=ref}
               />
-              { this.state.suggestions &&
-                <Suggestions selected={this.state.selectedSuggestion} onHover={(index) => this.setState({ selectedSuggestion: index })} />
-              }
             </div>
+        }
+        { this.state.suggestions &&
+          <Suggestions selected={this.state.selectedSuggestion} onHover={(index) => this.setState({ selectedSuggestion: index })} />
         }
       </div>
     )

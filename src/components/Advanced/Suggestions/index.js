@@ -2,12 +2,15 @@ import React from 'react'
 import cx from 'classnames'
 import styles from './styles.scss'
 
-const SuggestionItem = ({ type, label, onHover, selected }) =>
+const SuggestionItem = ({ type, label, onHover, selected, charsTyped = 2 }) =>
   <div onMouseEnter={onHover} className={cx(styles.suggestionItem, {
     [styles.suggestionSelected]: selected
   })}>
+    <div className={styles.suggestionValue}>
+      <span className={styles.typed}>{ label.substr(0, charsTyped) }</span>
+      { label.substr(charsTyped) }
+    </div>
     <div className={styles.suggestionType}>{type}</div>
-    <div className={styles.suggestionValue}>{label}</div>
   </div>
 
 const Suggestions = ({ selected, onHover }) => {

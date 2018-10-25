@@ -4,6 +4,7 @@
   display: flex;
   padding: 0 10px;
   height: 45px;
+  position: relative;
   &.error {
     background: #f5d9d9;
   }

@@ -3,24 +3,29 @@
   left: 0;
   margin: 44px 0 0;
   z-index: 1;
-  background: #929292;
+  background: #d8d8d8;
   font-family: Monaco, Consolas, monospace;
   font-size: 15px;
-  width: 640px;
+  width: 100%;
 }
 .suggestionItem {
   display: flex;
+  justify-content: space-between;
   padding: 8px 0 5px 35px;
   &.suggestionSelected {
-    background: #757575;
+    background: #afafaf;
   }
 }
 .suggestionType {
   font-size: 12px;
   letter-spacing: -0.5px;
-  color: #333333;
+  color: #808080;
   margin-right: 15px;
 }
 .suggestionValue {
-  font-weight: bold;
+  color:#6f6f6f;
+  .typed {
+    font-weight: bold;
+    color: #0a4a9e;
+  }
 }
