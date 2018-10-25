@@ -54,8 +54,8 @@ class IProve extends Component {
 
       fetch('/z3', {
         method: "POST",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify({ steps: requiredSteps, constants })
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+        body: JSON.stringify({ steps: requiredSteps, constants, relations: [] })
       }).then(r => r.text()).then(response => {
         this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm, "") })
       })
