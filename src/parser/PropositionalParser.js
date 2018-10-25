@@ -21,35 +21,35 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0003\u0004\u0005\u0002\u0004\u0006\u0002\u0002\u0002M\u0002\b\u0003",
     "\u0002\u0002\u0002\u0004,\u0003\u0002\u0002\u0002\u0006A\u0003\u0002",
     "\u0002\u0002\b\t\u0005\u0004\u0003\u0002\t\u0003\u0003\u0002\u0002\u0002",
-    "\n\u000b\b\u0003\u0001\u0002\u000b\f\u0007\u0004\u0002\u0002\f-\u0005",
-    "\u0004\u0003\u000e\r-\u0007\u0003\u0002\u0002\u000e-\u0007\t\u0002\u0002",
-    "\u000f-\u0007\n\u0002\u0002\u0010\u0011\u0007\u000b\u0002\u0002\u0011",
-    "\u0012\u0005\u0004\u0003\u0002\u0012\u0013\u0007\f\u0002\u0002\u0013",
-    "-\u0003\u0002\u0002\u0002\u0014\u0015\u0007\u0010\u0002\u0002\u0015",
-    "\u0016\u0007\r\u0002\u0002\u0016\u0017\u0007\u000b\u0002\u0002\u0017",
-    "\u0018\u0005\u0004\u0003\u0002\u0018\u0019\u0007\f\u0002\u0002\u0019",
-    "-\u0003\u0002\u0002\u0002\u001a\u001b\u0007\u0011\u0002\u0002\u001b",
-    "\u001c\u0007\r\u0002\u0002\u001c\u001d\u0007\u000b\u0002\u0002\u001d",
-    "\u001e\u0005\u0004\u0003\u0002\u001e\u001f\u0007\f\u0002\u0002\u001f",
-    "-\u0003\u0002\u0002\u0002 !\u0007\u000f\u0002\u0002!\"\u0007\u000b\u0002",
+    "\n\u000b\b\u0003\u0001\u0002\u000b\f\u0007\u0005\u0002\u0002\f-\u0005",
+    "\u0004\u0003\u000e\r-\u0007\u000e\u0002\u0002\u000e-\u0007\n\u0002\u0002",
+    "\u000f-\u0007\u000b\u0002\u0002\u0010\u0011\u0007\f\u0002\u0002\u0011",
+    "\u0012\u0005\u0004\u0003\u0002\u0012\u0013\u0007\r\u0002\u0002\u0013",
+    "-\u0003\u0002\u0002\u0002\u0014\u0015\u0007\u0003\u0002\u0002\u0015",
+    "\u0016\u0007\u000f\u0002\u0002\u0016\u0017\u0007\f\u0002\u0002\u0017",
+    "\u0018\u0005\u0004\u0003\u0002\u0018\u0019\u0007\r\u0002\u0002\u0019",
+    "-\u0003\u0002\u0002\u0002\u001a\u001b\u0007\u0004\u0002\u0002\u001b",
+    "\u001c\u0007\u000f\u0002\u0002\u001c\u001d\u0007\f\u0002\u0002\u001d",
+    "\u001e\u0005\u0004\u0003\u0002\u001e\u001f\u0007\r\u0002\u0002\u001f",
+    "-\u0003\u0002\u0002\u0002 !\u0007\u0011\u0002\u0002!\"\u0007\f\u0002",
     "\u0002\"\'\u0005\u0006\u0004\u0002#$\u0007\u0012\u0002\u0002$&\u0005",
     "\u0006\u0004\u0002%#\u0003\u0002\u0002\u0002&)\u0003\u0002\u0002\u0002",
     "\'%\u0003\u0002\u0002\u0002\'(\u0003\u0002\u0002\u0002(*\u0003\u0002",
-    "\u0002\u0002)\'\u0003\u0002\u0002\u0002*+\u0007\f\u0002\u0002+-\u0003",
+    "\u0002\u0002)\'\u0003\u0002\u0002\u0002*+\u0007\r\u0002\u0002+-\u0003",
     "\u0002\u0002\u0002,\n\u0003\u0002\u0002\u0002,\r\u0003\u0002\u0002\u0002",
     ",\u000e\u0003\u0002\u0002\u0002,\u000f\u0003\u0002\u0002\u0002,\u0010",
     "\u0003\u0002\u0002\u0002,\u0014\u0003\u0002\u0002\u0002,\u001a\u0003",
     "\u0002\u0002\u0002, \u0003\u0002\u0002\u0002-<\u0003\u0002\u0002\u0002",
-    "./\f\r\u0002\u0002/0\u0007\u0005\u0002\u00020;\u0005\u0004\u0003\u000e",
-    "12\f\f\u0002\u000223\u0007\u0006\u0002\u00023;\u0005\u0004\u0003\r4",
-    "5\f\u000b\u0002\u000256\u0007\u0007\u0002\u00026;\u0005\u0004\u0003",
-    "\f78\f\n\u0002\u000289\u0007\b\u0002\u00029;\u0005\u0004\u0003\u000b",
-    ":.\u0003\u0002\u0002\u0002:1\u0003\u0002\u0002\u0002:4\u0003\u0002\u0002",
-    "\u0002:7\u0003\u0002\u0002\u0002;>\u0003\u0002\u0002\u0002<:\u0003\u0002",
-    "\u0002\u0002<=\u0003\u0002\u0002\u0002=\u0005\u0003\u0002\u0002\u0002",
-    "><\u0003\u0002\u0002\u0002?B\u0007\r\u0002\u0002@B\u0007\u000e\u0002",
-    "\u0002A?\u0003\u0002\u0002\u0002A@\u0003\u0002\u0002\u0002B\u0007\u0003",
-    "\u0002\u0002\u0002\u0007\',:<A"].join("");
+    "./\f\r\u0002\u0002/0\u0007\u0006\u0002\u00020;\u0005\u0004\u0003\u000e",
+    "12\f\f\u0002\u000223\u0007\u0007\u0002\u00023;\u0005\u0004\u0003\r4",
+    "5\f\u000b\u0002\u000256\u0007\b\u0002\u00026;\u0005\u0004\u0003\f78",
+    "\f\n\u0002\u000289\u0007\t\u0002\u00029;\u0005\u0004\u0003\u000b:.\u0003",
+    "\u0002\u0002\u0002:1\u0003\u0002\u0002\u0002:4\u0003\u0002\u0002\u0002",
+    ":7\u0003\u0002\u0002\u0002;>\u0003\u0002\u0002\u0002<:\u0003\u0002\u0002",
+    "\u0002<=\u0003\u0002\u0002\u0002=\u0005\u0003\u0002\u0002\u0002><\u0003",
+    "\u0002\u0002\u0002?B\u0007\u000f\u0002\u0002@B\u0007\u0010\u0002\u0002",
+    "A?\u0003\u0002\u0002\u0002A@\u0003\u0002\u0002\u0002B\u0007\u0003\u0002",
+    "\u0002\u0002\u0007\',:<A"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -58,14 +58,14 @@ var decisionsToDFA = atn.decisionToState.map( function(ds, index) { return new a
 
 var sharedContextCache = new antlr4.PredictionContextCache();
 
-var literalNames = [ null, null, "'not'", "'and'", "'or'", "'implies'", 
-                     "'iff'", "'true'", "'false'", "'('", "')'", null, null, 
-                     null, "'forall'", "'exists'", "','" ];
+var literalNames = [ null, "'forall'", "'exists'", "'not'", "'and'", "'or'", 
+                     "'implies'", "'iff'", "'true'", "'false'", "'('", "')'", 
+                     null, null, null, null, "','" ];
 
-var symbolicNames = [ null, "LITERAL", "NOT", "AND", "OR", "IMPLIES", "IFF", 
-                      "TRUE", "FALSE", "BRACKET_OPEN", "BRACKET_CLOSE", 
-                      "VARIABLE", "CONSTANT", "NAME", "FORALL", "EXISTS", 
-                      "COMMA", "WS" ];
+var symbolicNames = [ null, "FORALL", "EXISTS", "NOT", "AND", "OR", "IMPLIES", 
+                      "IFF", "TRUE", "FALSE", "BRACKET_OPEN", "BRACKET_CLOSE", 
+                      "LITERAL", "VARIABLE", "CONSTANT", "NAME", "COMMA", 
+                      "WS" ];
 
 var ruleNames =  [ "statement", "expression", "parameter" ];
 
@@ -88,21 +88,21 @@ Object.defineProperty(PropositionalParser.prototype, "atn", {
 });
 
 PropositionalParser.EOF = antlr4.Token.EOF;
-PropositionalParser.LITERAL = 1;
-PropositionalParser.NOT = 2;
-PropositionalParser.AND = 3;
-PropositionalParser.OR = 4;
-PropositionalParser.IMPLIES = 5;
-PropositionalParser.IFF = 6;
-PropositionalParser.TRUE = 7;
-PropositionalParser.FALSE = 8;
-PropositionalParser.BRACKET_OPEN = 9;
-PropositionalParser.BRACKET_CLOSE = 10;
-PropositionalParser.VARIABLE = 11;
-PropositionalParser.CONSTANT = 12;
-PropositionalParser.NAME = 13;
-PropositionalParser.FORALL = 14;
-PropositionalParser.EXISTS = 15;
+PropositionalParser.FORALL = 1;
+PropositionalParser.EXISTS = 2;
+PropositionalParser.NOT = 3;
+PropositionalParser.AND = 4;
+PropositionalParser.OR = 5;
+PropositionalParser.IMPLIES = 6;
+PropositionalParser.IFF = 7;
+PropositionalParser.TRUE = 8;
+PropositionalParser.FALSE = 9;
+PropositionalParser.BRACKET_OPEN = 10;
+PropositionalParser.BRACKET_CLOSE = 11;
+PropositionalParser.LITERAL = 12;
+PropositionalParser.VARIABLE = 13;
+PropositionalParser.CONSTANT = 14;
+PropositionalParser.NAME = 15;
 PropositionalParser.COMMA = 16;
 PropositionalParser.WS = 17;
 
@@ -198,6 +198,72 @@ ExpressionContext.prototype.constructor = ExpressionContext;
 ExpressionContext.prototype.copyFrom = function(ctx) {
     antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
 };
+
+function RelationExpContext(parser, ctx) {
+	ExpressionContext.call(this, parser);
+    ExpressionContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+RelationExpContext.prototype = Object.create(ExpressionContext.prototype);
+RelationExpContext.prototype.constructor = RelationExpContext;
+
+PropositionalParser.RelationExpContext = RelationExpContext;
+
+RelationExpContext.prototype.NAME = function() {
+    return this.getToken(PropositionalParser.NAME, 0);
+};
+
+RelationExpContext.prototype.BRACKET_OPEN = function() {
+    return this.getToken(PropositionalParser.BRACKET_OPEN, 0);
+};
+
+RelationExpContext.prototype.parameter = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(ParameterContext);
+    } else {
+        return this.getTypedRuleContext(ParameterContext,i);
+    }
+};
+
+RelationExpContext.prototype.BRACKET_CLOSE = function() {
+    return this.getToken(PropositionalParser.BRACKET_CLOSE, 0);
+};
+
+RelationExpContext.prototype.COMMA = function(i) {
+	if(i===undefined) {
+		i = null;
+	}
+    if(i===null) {
+        return this.getTokens(PropositionalParser.COMMA);
+    } else {
+        return this.getToken(PropositionalParser.COMMA, i);
+    }
+};
+
+RelationExpContext.prototype.enterRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.enterRelationExp(this);
+	}
+};
+
+RelationExpContext.prototype.exitRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.exitRelationExp(this);
+	}
+};
+
+RelationExpContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof PropositionalVisitor ) {
+        return visitor.visitRelationExp(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 function ExistsExpContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
@@ -672,72 +738,6 @@ ImpliesExpContext.prototype.accept = function(visitor) {
 };
 
 
-function RelationContext(parser, ctx) {
-	ExpressionContext.call(this, parser);
-    ExpressionContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-RelationContext.prototype = Object.create(ExpressionContext.prototype);
-RelationContext.prototype.constructor = RelationContext;
-
-PropositionalParser.RelationContext = RelationContext;
-
-RelationContext.prototype.NAME = function() {
-    return this.getToken(PropositionalParser.NAME, 0);
-};
-
-RelationContext.prototype.BRACKET_OPEN = function() {
-    return this.getToken(PropositionalParser.BRACKET_OPEN, 0);
-};
-
-RelationContext.prototype.parameter = function(i) {
-    if(i===undefined) {
-        i = null;
-    }
-    if(i===null) {
-        return this.getTypedRuleContexts(ParameterContext);
-    } else {
-        return this.getTypedRuleContext(ParameterContext,i);
-    }
-};
-
-RelationContext.prototype.BRACKET_CLOSE = function() {
-    return this.getToken(PropositionalParser.BRACKET_CLOSE, 0);
-};
-
-RelationContext.prototype.COMMA = function(i) {
-	if(i===undefined) {
-		i = null;
-	}
-    if(i===null) {
-        return this.getTokens(PropositionalParser.COMMA);
-    } else {
-        return this.getToken(PropositionalParser.COMMA, i);
-    }
-};
-
-RelationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.enterRelation(this);
-	}
-};
-
-RelationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.exitRelation(this);
-	}
-};
-
-RelationContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof PropositionalVisitor ) {
-        return visitor.visitRelation(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
 
 PropositionalParser.prototype.expression = function(_p) {
 	if(_p===undefined) {
@@ -828,7 +828,7 @@ PropositionalParser.prototype.expression = function(_p) {
             this.match(PropositionalParser.BRACKET_CLOSE);
             break;
         case PropositionalParser.NAME:
-            localctx = new RelationContext(this, localctx);
+            localctx = new RelationExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
             this.state = 30;

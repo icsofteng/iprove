@@ -2,6 +2,7 @@ const { InputStream, CommonTokenStream } = require('antlr4')
 const { PropositionalLexer } = require('./PropositionalLexer')
 const { PropositionalParser } = require('./PropositionalParser')
 const { PropositionalVisitor } = require('./PropositionalVisitor')
+const util = require('util')
 
 const parse = (input) => {
   const chars = new InputStream(input)
