@@ -5,29 +5,29 @@ const q = {type:'literal', value:"Q" }
 
 let value
 test("Visitor Test implies", ()=> {
-  expect(parse("P implies Q")).toEqual({ast:[{type:'binary', symbol:'implies', lhs: p, rhs:q}], constants:["P", "Q"]})
+  expect(parse("P implies Q")).toEqual({ast:[{type:'binary', symbol:'implies', lhs: p, rhs:q}], constants:["P", "Q"], "relations":[]})
 })
 
 test("Visitor Test and", ()=> {
-  expect(parse("P and Q")).toEqual({ast:[{type:'binary', symbol:'and', lhs:p, rhs:q}], constants:["P", "Q"]})
+  expect(parse("P and Q")).toEqual({ast:[{type:'binary', symbol:'and', lhs:p, rhs:q}], constants:["P", "Q"], "relations":[]})
 })
 
 test("Visitor Test iff", ()=> {
-  expect(parse("P iff Q")).toEqual({ast:[{type:'binary', symbol:'iff', lhs:p, rhs:q}], constants:["P", "Q"]})
+  expect(parse("P iff Q")).toEqual({ast:[{type:'binary', symbol:'iff', lhs:p, rhs:q}], constants:["P", "Q"], "relations":[]})
 })
 
 test("Visitor Test or", ()=> {
-  expect(parse("P or Q")).toEqual({ast:[{type:'binary', symbol:'or', lhs:p, rhs:q}], constants:["P", "Q"]})
+  expect(parse("P or Q")).toEqual({ast:[{type:'binary', symbol:'or', lhs:p, rhs:q}], constants:["P", "Q"], "relations":[]})
 })
 
 test("Visitor Test not", ()=> {
-  expect(parse("not P")).toEqual({ast:[{type:'unary', symbol:'not', value:p}], constants:["P"]})
+  expect(parse("not P")).toEqual({ast:[{type:'unary', symbol:'not', value:p}], constants:["P"], "relations":[]})
 })
 
 test("Visitor Test literals", ()=> {
-  expect(parse("P")).toEqual({ast:[p], constants:["P"]})
-  expect(parse("true")).toEqual( {ast:[{type:'true'}], constants:[]})
-  expect(parse("false")).toEqual( {ast:[{type:'false'}], constants:[]})
+  expect(parse("P")).toEqual({ast:[p], constants:["P"], "relations":[]})
+  expect(parse("true")).toEqual( {ast:[{type:'true'}], constants:[], "relations":[]})
+  expect(parse("false")).toEqual( {ast:[{type:'false'}], constants:[], "relations":[]})
 })
 
 test("Visitor Integrated Test", () => {
@@ -40,6 +40,6 @@ test("Visitor Integrated Test", () => {
   const bracketR = {type:"paren", value:rhs2}
 
   expect(parse("(P and Q) implies (not X or Y)")).toEqual(
-    {ast:[{type:'binary', symbol:'implies', lhs:bracketL , rhs:bracketR}], constants:["P", "Q", "X", "Y"]}
+    {ast:[{type:'binary', symbol:'implies', lhs:bracketL , rhs:bracketR}], constants:["P", "Q", "X", "Y"], "relations":[]}
   )
 })
