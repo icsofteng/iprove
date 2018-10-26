@@ -7,9 +7,13 @@ import { connect } from 'react-redux'
 import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
 
 class TextBox extends Component {
-  constructor() {
-    super()
-    this.state = { raw: '', edit: true, dependencies: '' }
+  constructor(props) {
+    super(props)
+    this.state = {
+      raw: '',
+      edit: true,
+      dependencies: props.dependencies.join(", ") || ''
+    }
     this.ref = null
   }
 
