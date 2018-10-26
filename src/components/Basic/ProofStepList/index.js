@@ -23,7 +23,7 @@ const ProofStepList = (props) =>
       </div>
     }
     {
-      props.steps.map((step, id) =>
+      props.steps.filter(Boolean).map((step, id) =>
         <ProofStep key={"step"+id} step={step} index={id} />
       )
     }

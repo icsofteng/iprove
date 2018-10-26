@@ -17,6 +17,14 @@ const components = {
 }
 
 const Rule = (props) => {
+  const removeRuleOrStep = () => {
+    let pathWithoutAst = props.path
+    if (pathWithoutAst[pathWithoutAst.length - 1] === 'ast') {
+      pathWithoutAst.splice(-1, 1)
+    }
+    props.removeRule(pathWithoutAst)
+  }
+
   if (props.type) {
     if (props.type === 'paren') {
       return <Rule {...props} {...props.value} />
@@ -25,7 +33,7 @@ const Rule = (props) => {
     return (
       <div className={styles.rule}>
         <RuleType {...props} />
-        <span className={styles.remove} onClick={() => props.removeRule(props.path)}>X</span>
+        <span className={styles.remove} onClick={removeRuleOrStep}>X</span>
       </div>
     )
   }

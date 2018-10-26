@@ -13,38 +13,42 @@ class IProve extends Component {
   }
 
   getRequiredSteps(steps) {
-    const stepToCheck = steps[steps.length - 1]
-    const { dependencies: goalDependencies } = stepToCheck
-    let dependencies = []
+    const filteredSteps = steps.filter(Boolean)
+    if (filteredSteps.length > 1) {
+      const stepToCheck = filteredSteps[filteredSteps.length - 1]
+      const { dependencies: goalDependencies } = stepToCheck
+      let dependencies = []
 
-    if (goalDependencies) {
-      const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
+      if (goalDependencies) {
+        const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
 
-      while (uncheckedDependencies.length > 0) {
-        const dependency = uncheckedDependencies[0]
+        while (uncheckedDependencies.length > 0) {
+          const dependency = uncheckedDependencies[0]
 
-        if (dependency >= 0 || dependency <= steps.length) {
-          const step = steps[dependency - 1]
+          if (dependency >= 0 || dependency <= filteredSteps.length) {
+            const step = filteredSteps[dependency - 1]
 
-          if (step.dependencies) {
-            step.dependencies.map(dep => {
-              if (!uncheckedDependencies.includes(dep)) {
-                uncheckedDependencies.push(dep)
-              }
-            })
+            if (step.dependencies) {
+              step.dependencies.map(dep => {
+                if (!uncheckedDependencies.includes(dep)) {
+                  uncheckedDependencies.push(dep)
+                }
+              })
+            }
+
+            dependencies.unshift(step)
           }
 
-          dependencies.unshift(step)
+          uncheckedDependencies.shift()
         }
-
-        uncheckedDependencies.shift()
       }
+
+      const allSteps = [stepToCheck]
+      allSteps.unshift(...dependencies)
+
+      return allSteps
     }
-
-    const allSteps = [stepToCheck]
-    allSteps.unshift(...dependencies)
-
-    return allSteps
+    return []
   }
   
   componentDidUpdate(prevProps) {
