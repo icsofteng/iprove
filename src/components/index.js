@@ -5,12 +5,17 @@ import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { is_step } from '../utils'
+import { NEW_STEP } from '../constants'
 import styles from './styles.scss'
 
 class IProve extends Component {
   constructor(props) {
     super(props)
-    this.state = { z3: "", simple: false }
+    this.state = {
+      z3: "",
+      simple: false,
+      selectedTextBox: ["givens", 0]
+    }
   }
 
   getRequiredSteps(steps) {
@@ -67,6 +72,15 @@ class IProve extends Component {
     }
   }
 
+  incrementInput = (v) => {
+    const sameSelectedType = this.state.selectedTextBox[0]
+    const newSelected = this.state.selectedTextBox[1] + v
+    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
+    if (newSelected === this.props[sameSelectedType].length) {
+      this.props.newStep([newSelected], sameSelectedType)
+    }
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -85,8 +99,8 @@ class IProve extends Component {
               <div className={styles.panelTitle}>Givens</div>
               <div className={styles.panelContent}>
                 { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} steps={this.props.steps} start={0} end={this.props.givens} />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={0} end={this.props.givens} />
+                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} />
+                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                 }
               </div>
             </div>
@@ -101,8 +115,8 @@ class IProve extends Component {
               <div className={styles.panelTitle}>Proof</div>
               <div className={styles.panelContent}>
                 { this.state.simple ?
-                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens} showDependencies />
-                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens} showDependencies />
+                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies />
+                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                 }
               </div>
             </div>
@@ -113,4 +127,8 @@ class IProve extends Component {
   }
 }
 
-export default connect(state => state)(IProve)
+const mapDispatchToProps = dispatch => ({
+  newStep: (path, key) => dispatch({ type: NEW_STEP, path, key })
+})
+
+export default connect(state => state, mapDispatchToProps)(IProve)

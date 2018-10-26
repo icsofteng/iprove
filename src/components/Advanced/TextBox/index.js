@@ -121,7 +121,7 @@ class TextBox extends Component {
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
   addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values }),
-  setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path })
+  setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
 })
 
-export default connect(null, mapDispatchToProps)(TextBox)
+export default connect(state => ({ givens: state.givens }), mapDispatchToProps)(TextBox)
