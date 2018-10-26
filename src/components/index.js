@@ -69,7 +69,7 @@ class IProve extends Component {
 
   render() {
     return (
-      <div className="IProve">
+      <div className={styles.iprove}>
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
           <p>
@@ -79,9 +79,27 @@ class IProve extends Component {
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }
         </div>
-        { this.state.simple ?
-        <ProofStepList z3={this.state.z3} steps={this.props.steps.filter(s => s.ast.type)} />
-        : <TextBoxList z3={this.state.z3} steps={this.props.steps} /> }
+        <div className={styles.panels}>
+          <div className={styles.leftPanel}>
+            <div className={styles.panelBox}>
+              <div className={styles.panelTitle}>Givens</div>
+            </div>
+            <div className={styles.panelBox}>
+              <div className={styles.panelTitle}>Goal</div>
+            </div>
+          </div>
+          <div className={styles.rightPanel}>
+            <div className={styles.panelBox}>
+              <div className={styles.panelTitle}>Proof</div>
+              <div className={styles.panelContent}>
+                { this.state.simple ?
+                    <ProofStepList z3={this.state.z3} steps={this.props.steps.filter(s => s.ast.type)} />
+                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} />
+                }
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
