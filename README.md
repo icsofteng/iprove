@@ -38,7 +38,7 @@ First Order:
 { type: 'quantifier', symbol: 'exists', variable: 'x', value: expr}                 (assert (exists ((x Type)) (expr)))
 { type: 'variable', value: 'x'}                                                     x
 { type: 'relation', name: 'animal', params: [{variable|constant}]}                  (animal x y)
-{ type: 'constant', name: 'Frank' }                                                 Frank
+{ type: 'constant', value: 'Frank' }                                                Frank
 ```
 
 ### Steps for translation

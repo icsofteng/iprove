@@ -7,49 +7,50 @@ var PropositionalVisitor = require('./PropositionalVisitor').PropositionalVisito
 var grammarFileName = "Propositional.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003\u0013D\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
-    "\u0004\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0007",
-    "\u0003&\n\u0003\f\u0003\u000e\u0003)\u000b\u0003\u0003\u0003\u0003\u0003",
-    "\u0005\u0003-\n\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0007\u0003;\n\u0003\f\u0003\u000e\u0003>\u000b",
-    "\u0003\u0003\u0004\u0003\u0004\u0005\u0004B\n\u0004\u0003\u0004\u0002",
-    "\u0003\u0004\u0005\u0002\u0004\u0006\u0002\u0002\u0002M\u0002\b\u0003",
-    "\u0002\u0002\u0002\u0004,\u0003\u0002\u0002\u0002\u0006A\u0003\u0002",
-    "\u0002\u0002\b\t\u0005\u0004\u0003\u0002\t\u0003\u0003\u0002\u0002\u0002",
-    "\n\u000b\b\u0003\u0001\u0002\u000b\f\u0007\u0005\u0002\u0002\f-\u0005",
-    "\u0004\u0003\u000e\r-\u0007\u000e\u0002\u0002\u000e-\u0007\n\u0002\u0002",
-    "\u000f-\u0007\u000b\u0002\u0002\u0010\u0011\u0007\f\u0002\u0002\u0011",
-    "\u0012\u0005\u0004\u0003\u0002\u0012\u0013\u0007\r\u0002\u0002\u0013",
-    "-\u0003\u0002\u0002\u0002\u0014\u0015\u0007\u0003\u0002\u0002\u0015",
-    "\u0016\u0007\u000f\u0002\u0002\u0016\u0017\u0007\f\u0002\u0002\u0017",
-    "\u0018\u0005\u0004\u0003\u0002\u0018\u0019\u0007\r\u0002\u0002\u0019",
-    "-\u0003\u0002\u0002\u0002\u001a\u001b\u0007\u0004\u0002\u0002\u001b",
-    "\u001c\u0007\u000f\u0002\u0002\u001c\u001d\u0007\f\u0002\u0002\u001d",
-    "\u001e\u0005\u0004\u0003\u0002\u001e\u001f\u0007\r\u0002\u0002\u001f",
-    "-\u0003\u0002\u0002\u0002 !\u0007\u0011\u0002\u0002!\"\u0007\f\u0002",
-    "\u0002\"\'\u0005\u0006\u0004\u0002#$\u0007\u0012\u0002\u0002$&\u0005",
-    "\u0006\u0004\u0002%#\u0003\u0002\u0002\u0002&)\u0003\u0002\u0002\u0002",
-    "\'%\u0003\u0002\u0002\u0002\'(\u0003\u0002\u0002\u0002(*\u0003\u0002",
-    "\u0002\u0002)\'\u0003\u0002\u0002\u0002*+\u0007\r\u0002\u0002+-\u0003",
-    "\u0002\u0002\u0002,\n\u0003\u0002\u0002\u0002,\r\u0003\u0002\u0002\u0002",
-    ",\u000e\u0003\u0002\u0002\u0002,\u000f\u0003\u0002\u0002\u0002,\u0010",
-    "\u0003\u0002\u0002\u0002,\u0014\u0003\u0002\u0002\u0002,\u001a\u0003",
-    "\u0002\u0002\u0002, \u0003\u0002\u0002\u0002-<\u0003\u0002\u0002\u0002",
-    "./\f\r\u0002\u0002/0\u0007\u0006\u0002\u00020;\u0005\u0004\u0003\u000e",
-    "12\f\f\u0002\u000223\u0007\u0007\u0002\u00023;\u0005\u0004\u0003\r4",
-    "5\f\u000b\u0002\u000256\u0007\b\u0002\u00026;\u0005\u0004\u0003\f78",
-    "\f\n\u0002\u000289\u0007\t\u0002\u00029;\u0005\u0004\u0003\u000b:.\u0003",
-    "\u0002\u0002\u0002:1\u0003\u0002\u0002\u0002:4\u0003\u0002\u0002\u0002",
-    ":7\u0003\u0002\u0002\u0002;>\u0003\u0002\u0002\u0002<:\u0003\u0002\u0002",
-    "\u0002<=\u0003\u0002\u0002\u0002=\u0005\u0003\u0002\u0002\u0002><\u0003",
-    "\u0002\u0002\u0002?B\u0007\u000f\u0002\u0002@B\u0007\u0010\u0002\u0002",
-    "A?\u0003\u0002\u0002\u0002A@\u0003\u0002\u0002\u0002B\u0007\u0003\u0002",
-    "\u0002\u0002\u0007\',:<A"].join("");
+    "\u0003\u0013E\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0004\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003\u0005\u0003\r",
+    "\n\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0007\u0004\u001a\n\u0004\f\u0004\u000e\u0004\u001d\u000b\u0004\u0005",
+    "\u0004\u001f\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0005\u00042\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
+    "\u0003\u0004\u0003\u0004\u0003\u0004\u0007\u0004@\n\u0004\f\u0004\u000e",
+    "\u0004C\u000b\u0004\u0003\u0004\u0002\u0003\u0006\u0005\u0002\u0004",
+    "\u0006\u0002\u0002\u0002O\u0002\b\u0003\u0002\u0002\u0002\u0004\f\u0003",
+    "\u0002\u0002\u0002\u00061\u0003\u0002\u0002\u0002\b\t\u0005\u0006\u0004",
+    "\u0002\t\u0003\u0003\u0002\u0002\u0002\n\r\u0007\u000f\u0002\u0002\u000b",
+    "\r\u0007\u0010\u0002\u0002\f\n\u0003\u0002\u0002\u0002\f\u000b\u0003",
+    "\u0002\u0002\u0002\r\u0005\u0003\u0002\u0002\u0002\u000e\u000f\b\u0004",
+    "\u0001\u0002\u000f\u0010\u0007\u0005\u0002\u0002\u00102\u0005\u0006",
+    "\u0004\u000e\u00112\u0007\u000e\u0002\u0002\u00122\u0007\n\u0002\u0002",
+    "\u00132\u0007\u000b\u0002\u0002\u0014\u0015\u0007\u0011\u0002\u0002",
+    "\u0015\u001e\u0007\f\u0002\u0002\u0016\u001b\u0005\u0004\u0003\u0002",
+    "\u0017\u0018\u0007\u0012\u0002\u0002\u0018\u001a\u0005\u0004\u0003\u0002",
+    "\u0019\u0017\u0003\u0002\u0002\u0002\u001a\u001d\u0003\u0002\u0002\u0002",
+    "\u001b\u0019\u0003\u0002\u0002\u0002\u001b\u001c\u0003\u0002\u0002\u0002",
+    "\u001c\u001f\u0003\u0002\u0002\u0002\u001d\u001b\u0003\u0002\u0002\u0002",
+    "\u001e\u0016\u0003\u0002\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002",
+    "\u001f \u0003\u0002\u0002\u0002 2\u0007\r\u0002\u0002!\"\u0007\f\u0002",
+    "\u0002\"#\u0005\u0006\u0004\u0002#$\u0007\r\u0002\u0002$2\u0003\u0002",
+    "\u0002\u0002%&\u0007\u0003\u0002\u0002&\'\u0007\u000f\u0002\u0002\'",
+    "(\u0007\f\u0002\u0002()\u0005\u0006\u0004\u0002)*\u0007\r\u0002\u0002",
+    "*2\u0003\u0002\u0002\u0002+,\u0007\u0004\u0002\u0002,-\u0007\u000f\u0002",
+    "\u0002-.\u0007\f\u0002\u0002./\u0005\u0006\u0004\u0002/0\u0007\r\u0002",
+    "\u000202\u0003\u0002\u0002\u00021\u000e\u0003\u0002\u0002\u00021\u0011",
+    "\u0003\u0002\u0002\u00021\u0012\u0003\u0002\u0002\u00021\u0013\u0003",
+    "\u0002\u0002\u00021\u0014\u0003\u0002\u0002\u00021!\u0003\u0002\u0002",
+    "\u00021%\u0003\u0002\u0002\u00021+\u0003\u0002\u0002\u00022A\u0003\u0002",
+    "\u0002\u000234\f\r\u0002\u000245\u0007\u0006\u0002\u00025@\u0005\u0006",
+    "\u0004\u000e67\f\f\u0002\u000278\u0007\u0007\u0002\u00028@\u0005\u0006",
+    "\u0004\r9:\f\u000b\u0002\u0002:;\u0007\b\u0002\u0002;@\u0005\u0006\u0004",
+    "\f<=\f\n\u0002\u0002=>\u0007\t\u0002\u0002>@\u0005\u0006\u0004\u000b",
+    "?3\u0003\u0002\u0002\u0002?6\u0003\u0002\u0002\u0002?9\u0003\u0002\u0002",
+    "\u0002?<\u0003\u0002\u0002\u0002@C\u0003\u0002\u0002\u0002A?\u0003\u0002",
+    "\u0002\u0002AB\u0003\u0002\u0002\u0002B\u0007\u0003\u0002\u0002\u0002",
+    "CA\u0003\u0002\u0002\u0002\b\f\u001b\u001e1?A"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -67,7 +68,7 @@ var symbolicNames = [ null, "FORALL", "EXISTS", "NOT", "AND", "OR", "IMPLIES",
                       "LITERAL", "VARIABLE", "CONSTANT", "NAME", "COMMA", 
                       "WS" ];
 
-var ruleNames =  [ "statement", "expression", "parameter" ];
+var ruleNames =  [ "statement", "parameter", "expression" ];
 
 function PropositionalParser (input) {
 	antlr4.Parser.call(this, input);
@@ -107,8 +108,8 @@ PropositionalParser.COMMA = 16;
 PropositionalParser.WS = 17;
 
 PropositionalParser.RULE_statement = 0;
-PropositionalParser.RULE_expression = 1;
-PropositionalParser.RULE_parameter = 2;
+PropositionalParser.RULE_parameter = 1;
+PropositionalParser.RULE_expression = 2;
 
 function StatementContext(parser, parent, invokingState) {
 	if(parent===undefined) {
@@ -177,6 +178,139 @@ PropositionalParser.prototype.statement = function() {
     return localctx;
 };
 
+function ParameterContext(parser, parent, invokingState) {
+	if(parent===undefined) {
+	    parent = null;
+	}
+	if(invokingState===undefined || invokingState===null) {
+		invokingState = -1;
+	}
+	antlr4.ParserRuleContext.call(this, parent, invokingState);
+    this.parser = parser;
+    this.ruleIndex = PropositionalParser.RULE_parameter;
+    return this;
+}
+
+ParameterContext.prototype = Object.create(antlr4.ParserRuleContext.prototype);
+ParameterContext.prototype.constructor = ParameterContext;
+
+
+ 
+ParameterContext.prototype.copyFrom = function(ctx) {
+    antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
+};
+
+
+function ParamConstContext(parser, ctx) {
+	ParameterContext.call(this, parser);
+    ParameterContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+ParamConstContext.prototype = Object.create(ParameterContext.prototype);
+ParamConstContext.prototype.constructor = ParamConstContext;
+
+PropositionalParser.ParamConstContext = ParamConstContext;
+
+ParamConstContext.prototype.CONSTANT = function() {
+    return this.getToken(PropositionalParser.CONSTANT, 0);
+};
+ParamConstContext.prototype.enterRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.enterParamConst(this);
+	}
+};
+
+ParamConstContext.prototype.exitRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.exitParamConst(this);
+	}
+};
+
+ParamConstContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof PropositionalVisitor ) {
+        return visitor.visitParamConst(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function ParamVarContext(parser, ctx) {
+	ParameterContext.call(this, parser);
+    ParameterContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+ParamVarContext.prototype = Object.create(ParameterContext.prototype);
+ParamVarContext.prototype.constructor = ParamVarContext;
+
+PropositionalParser.ParamVarContext = ParamVarContext;
+
+ParamVarContext.prototype.VARIABLE = function() {
+    return this.getToken(PropositionalParser.VARIABLE, 0);
+};
+ParamVarContext.prototype.enterRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.enterParamVar(this);
+	}
+};
+
+ParamVarContext.prototype.exitRule = function(listener) {
+    if(listener instanceof PropositionalListener ) {
+        listener.exitParamVar(this);
+	}
+};
+
+ParamVarContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof PropositionalVisitor ) {
+        return visitor.visitParamVar(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+
+PropositionalParser.ParameterContext = ParameterContext;
+
+PropositionalParser.prototype.parameter = function() {
+
+    var localctx = new ParameterContext(this, this._ctx, this.state);
+    this.enterRule(localctx, 2, PropositionalParser.RULE_parameter);
+    try {
+        this.state = 10;
+        this._errHandler.sync(this);
+        switch(this._input.LA(1)) {
+        case PropositionalParser.VARIABLE:
+            localctx = new ParamVarContext(this, localctx);
+            this.enterOuterAlt(localctx, 1);
+            this.state = 8;
+            this.match(PropositionalParser.VARIABLE);
+            break;
+        case PropositionalParser.CONSTANT:
+            localctx = new ParamConstContext(this, localctx);
+            this.enterOuterAlt(localctx, 2);
+            this.state = 9;
+            this.match(PropositionalParser.CONSTANT);
+            break;
+        default:
+            throw new antlr4.error.NoViableAltException(this);
+        }
+    } catch (re) {
+    	if(re instanceof antlr4.error.RecognitionException) {
+	        localctx.exception = re;
+	        this._errHandler.reportError(this, re);
+	        this._errHandler.recover(this, re);
+	    } else {
+	    	throw re;
+	    }
+    } finally {
+        this.exitRule();
+    }
+    return localctx;
+};
+
 function ExpressionContext(parser, parent, invokingState) {
 	if(parent===undefined) {
 	    parent = null;
@@ -218,6 +352,10 @@ RelationExpContext.prototype.BRACKET_OPEN = function() {
     return this.getToken(PropositionalParser.BRACKET_OPEN, 0);
 };
 
+RelationExpContext.prototype.BRACKET_CLOSE = function() {
+    return this.getToken(PropositionalParser.BRACKET_CLOSE, 0);
+};
+
 RelationExpContext.prototype.parameter = function(i) {
     if(i===undefined) {
         i = null;
@@ -227,10 +365,6 @@ RelationExpContext.prototype.parameter = function(i) {
     } else {
         return this.getTypedRuleContext(ParameterContext,i);
     }
-};
-
-RelationExpContext.prototype.BRACKET_CLOSE = function() {
-    return this.getToken(PropositionalParser.BRACKET_CLOSE, 0);
 };
 
 RelationExpContext.prototype.COMMA = function(i) {
@@ -747,12 +881,12 @@ PropositionalParser.prototype.expression = function(_p) {
     var _parentState = this.state;
     var localctx = new ExpressionContext(this, this._ctx, _parentState);
     var _prevctx = localctx;
-    var _startState = 2;
-    this.enterRecursionRule(localctx, 2, PropositionalParser.RULE_expression, _p);
+    var _startState = 4;
+    this.enterRecursionRule(localctx, 4, PropositionalParser.RULE_expression, _p);
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 42;
+        this.state = 47;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case PropositionalParser.NOT:
@@ -760,172 +894,178 @@ PropositionalParser.prototype.expression = function(_p) {
             this._ctx = localctx;
             _prevctx = localctx;
 
-            this.state = 9;
+            this.state = 13;
             this.match(PropositionalParser.NOT);
-            this.state = 10;
+            this.state = 14;
             this.expression(12);
             break;
         case PropositionalParser.LITERAL:
             localctx = new LiteralExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 11;
+            this.state = 15;
             this.match(PropositionalParser.LITERAL);
             break;
         case PropositionalParser.TRUE:
             localctx = new TrueExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 12;
+            this.state = 16;
             this.match(PropositionalParser.TRUE);
             break;
         case PropositionalParser.FALSE:
             localctx = new FalseExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 13;
+            this.state = 17;
             this.match(PropositionalParser.FALSE);
+            break;
+        case PropositionalParser.NAME:
+            localctx = new RelationExpContext(this, localctx);
+            this._ctx = localctx;
+            _prevctx = localctx;
+            this.state = 18;
+            this.match(PropositionalParser.NAME);
+            this.state = 19;
+            this.match(PropositionalParser.BRACKET_OPEN);
+            this.state = 28;
+            this._errHandler.sync(this);
+            _la = this._input.LA(1);
+            if(_la===PropositionalParser.VARIABLE || _la===PropositionalParser.CONSTANT) {
+                this.state = 20;
+                this.parameter();
+                this.state = 25;
+                this._errHandler.sync(this);
+                _la = this._input.LA(1);
+                while(_la===PropositionalParser.COMMA) {
+                    this.state = 21;
+                    this.match(PropositionalParser.COMMA);
+                    this.state = 22;
+                    this.parameter();
+                    this.state = 27;
+                    this._errHandler.sync(this);
+                    _la = this._input.LA(1);
+                }
+            }
+
+            this.state = 30;
+            this.match(PropositionalParser.BRACKET_CLOSE);
             break;
         case PropositionalParser.BRACKET_OPEN:
             localctx = new ParenthesesExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 14;
+            this.state = 31;
             this.match(PropositionalParser.BRACKET_OPEN);
-            this.state = 15;
+            this.state = 32;
             this.expression(0);
-            this.state = 16;
+            this.state = 33;
             this.match(PropositionalParser.BRACKET_CLOSE);
             break;
         case PropositionalParser.FORALL:
             localctx = new ForallExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 18;
+            this.state = 35;
             this.match(PropositionalParser.FORALL);
-            this.state = 19;
+            this.state = 36;
             this.match(PropositionalParser.VARIABLE);
-            this.state = 20;
+            this.state = 37;
             this.match(PropositionalParser.BRACKET_OPEN);
-            this.state = 21;
+            this.state = 38;
             this.expression(0);
-            this.state = 22;
+            this.state = 39;
             this.match(PropositionalParser.BRACKET_CLOSE);
             break;
         case PropositionalParser.EXISTS:
             localctx = new ExistsExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 24;
+            this.state = 41;
             this.match(PropositionalParser.EXISTS);
-            this.state = 25;
+            this.state = 42;
             this.match(PropositionalParser.VARIABLE);
-            this.state = 26;
+            this.state = 43;
             this.match(PropositionalParser.BRACKET_OPEN);
-            this.state = 27;
+            this.state = 44;
             this.expression(0);
-            this.state = 28;
-            this.match(PropositionalParser.BRACKET_CLOSE);
-            break;
-        case PropositionalParser.NAME:
-            localctx = new RelationExpContext(this, localctx);
-            this._ctx = localctx;
-            _prevctx = localctx;
-            this.state = 30;
-            this.match(PropositionalParser.NAME);
-            this.state = 31;
-            this.match(PropositionalParser.BRACKET_OPEN);
-            this.state = 32;
-            this.parameter();
-            this.state = 37;
-            this._errHandler.sync(this);
-            _la = this._input.LA(1);
-            while(_la===PropositionalParser.COMMA) {
-                this.state = 33;
-                this.match(PropositionalParser.COMMA);
-                this.state = 34;
-                this.parameter();
-                this.state = 39;
-                this._errHandler.sync(this);
-                _la = this._input.LA(1);
-            }
-            this.state = 40;
+            this.state = 45;
             this.match(PropositionalParser.BRACKET_CLOSE);
             break;
         default:
             throw new antlr4.error.NoViableAltException(this);
         }
         this._ctx.stop = this._input.LT(-1);
-        this.state = 58;
+        this.state = 63;
         this._errHandler.sync(this);
-        var _alt = this._interp.adaptivePredict(this._input,3,this._ctx)
+        var _alt = this._interp.adaptivePredict(this._input,5,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
             if(_alt===1) {
                 if(this._parseListeners!==null) {
                     this.triggerExitRuleEvent();
                 }
                 _prevctx = localctx;
-                this.state = 56;
+                this.state = 61;
                 this._errHandler.sync(this);
-                var la_ = this._interp.adaptivePredict(this._input,2,this._ctx);
+                var la_ = this._interp.adaptivePredict(this._input,4,this._ctx);
                 switch(la_) {
                 case 1:
                     localctx = new AndExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, PropositionalParser.RULE_expression);
-                    this.state = 44;
+                    this.state = 49;
                     if (!( this.precpred(this._ctx, 11))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 11)");
                     }
-                    this.state = 45;
+                    this.state = 50;
                     this.match(PropositionalParser.AND);
-                    this.state = 46;
+                    this.state = 51;
                     this.expression(12);
                     break;
 
                 case 2:
                     localctx = new OrExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, PropositionalParser.RULE_expression);
-                    this.state = 47;
+                    this.state = 52;
                     if (!( this.precpred(this._ctx, 10))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
                     }
-                    this.state = 48;
+                    this.state = 53;
                     this.match(PropositionalParser.OR);
-                    this.state = 49;
+                    this.state = 54;
                     this.expression(11);
                     break;
 
                 case 3:
                     localctx = new ImpliesExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, PropositionalParser.RULE_expression);
-                    this.state = 50;
+                    this.state = 55;
                     if (!( this.precpred(this._ctx, 9))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
                     }
-                    this.state = 51;
+                    this.state = 56;
                     this.match(PropositionalParser.IMPLIES);
-                    this.state = 52;
+                    this.state = 57;
                     this.expression(10);
                     break;
 
                 case 4:
                     localctx = new IffExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, PropositionalParser.RULE_expression);
-                    this.state = 53;
+                    this.state = 58;
                     if (!( this.precpred(this._ctx, 8))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 8)");
                     }
-                    this.state = 54;
+                    this.state = 59;
                     this.match(PropositionalParser.IFF);
-                    this.state = 55;
+                    this.state = 60;
                     this.expression(9);
                     break;
 
                 } 
             }
-            this.state = 60;
+            this.state = 65;
             this._errHandler.sync(this);
-            _alt = this._interp.adaptivePredict(this._input,3,this._ctx);
+            _alt = this._interp.adaptivePredict(this._input,5,this._ctx);
         }
 
     } catch( error) {
@@ -942,143 +1082,10 @@ PropositionalParser.prototype.expression = function(_p) {
     return localctx;
 };
 
-function ParameterContext(parser, parent, invokingState) {
-	if(parent===undefined) {
-	    parent = null;
-	}
-	if(invokingState===undefined || invokingState===null) {
-		invokingState = -1;
-	}
-	antlr4.ParserRuleContext.call(this, parent, invokingState);
-    this.parser = parser;
-    this.ruleIndex = PropositionalParser.RULE_parameter;
-    return this;
-}
-
-ParameterContext.prototype = Object.create(antlr4.ParserRuleContext.prototype);
-ParameterContext.prototype.constructor = ParameterContext;
-
-
- 
-ParameterContext.prototype.copyFrom = function(ctx) {
-    antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
-};
-
-
-function ParamConstContext(parser, ctx) {
-	ParameterContext.call(this, parser);
-    ParameterContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-ParamConstContext.prototype = Object.create(ParameterContext.prototype);
-ParamConstContext.prototype.constructor = ParamConstContext;
-
-PropositionalParser.ParamConstContext = ParamConstContext;
-
-ParamConstContext.prototype.CONSTANT = function() {
-    return this.getToken(PropositionalParser.CONSTANT, 0);
-};
-ParamConstContext.prototype.enterRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.enterParamConst(this);
-	}
-};
-
-ParamConstContext.prototype.exitRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.exitParamConst(this);
-	}
-};
-
-ParamConstContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof PropositionalVisitor ) {
-        return visitor.visitParamConst(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function ParamVarContext(parser, ctx) {
-	ParameterContext.call(this, parser);
-    ParameterContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-ParamVarContext.prototype = Object.create(ParameterContext.prototype);
-ParamVarContext.prototype.constructor = ParamVarContext;
-
-PropositionalParser.ParamVarContext = ParamVarContext;
-
-ParamVarContext.prototype.VARIABLE = function() {
-    return this.getToken(PropositionalParser.VARIABLE, 0);
-};
-ParamVarContext.prototype.enterRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.enterParamVar(this);
-	}
-};
-
-ParamVarContext.prototype.exitRule = function(listener) {
-    if(listener instanceof PropositionalListener ) {
-        listener.exitParamVar(this);
-	}
-};
-
-ParamVarContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof PropositionalVisitor ) {
-        return visitor.visitParamVar(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-
-PropositionalParser.ParameterContext = ParameterContext;
-
-PropositionalParser.prototype.parameter = function() {
-
-    var localctx = new ParameterContext(this, this._ctx, this.state);
-    this.enterRule(localctx, 4, PropositionalParser.RULE_parameter);
-    try {
-        this.state = 63;
-        this._errHandler.sync(this);
-        switch(this._input.LA(1)) {
-        case PropositionalParser.VARIABLE:
-            localctx = new ParamVarContext(this, localctx);
-            this.enterOuterAlt(localctx, 1);
-            this.state = 61;
-            this.match(PropositionalParser.VARIABLE);
-            break;
-        case PropositionalParser.CONSTANT:
-            localctx = new ParamConstContext(this, localctx);
-            this.enterOuterAlt(localctx, 2);
-            this.state = 62;
-            this.match(PropositionalParser.CONSTANT);
-            break;
-        default:
-            throw new antlr4.error.NoViableAltException(this);
-        }
-    } catch (re) {
-    	if(re instanceof antlr4.error.RecognitionException) {
-	        localctx.exception = re;
-	        this._errHandler.reportError(this, re);
-	        this._errHandler.recover(this, re);
-	    } else {
-	    	throw re;
-	    }
-    } finally {
-        this.exitRule();
-    }
-    return localctx;
-};
-
 
 PropositionalParser.prototype.sempred = function(localctx, ruleIndex, predIndex) {
 	switch(ruleIndex) {
-	case 1:
+	case 2:
 			return this.expression_sempred(localctx, predIndex);
     default:
         throw "No predicate with index:" + ruleIndex;

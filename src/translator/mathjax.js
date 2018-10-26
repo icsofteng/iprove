@@ -21,10 +21,7 @@ const translate_quantifier = (rule) => {
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  rule.params.forEach(v => {
-    translation += ', '
-    translation += translate_rule(v)
-  })
+  translation += rule.params.map(v => translate_rule(v)).join(", ")
   translation += ')'
   return translation
 }

@@ -20,6 +20,24 @@ PropositionalListener.prototype.exitStatement = function(ctx) {
 };
 
 
+// Enter a parse tree produced by PropositionalParser#paramVar.
+PropositionalListener.prototype.enterParamVar = function(ctx) {
+};
+
+// Exit a parse tree produced by PropositionalParser#paramVar.
+PropositionalListener.prototype.exitParamVar = function(ctx) {
+};
+
+
+// Enter a parse tree produced by PropositionalParser#paramConst.
+PropositionalListener.prototype.enterParamConst = function(ctx) {
+};
+
+// Exit a parse tree produced by PropositionalParser#paramConst.
+PropositionalListener.prototype.exitParamConst = function(ctx) {
+};
+
+
 // Enter a parse tree produced by PropositionalParser#relationExp.
 PropositionalListener.prototype.enterRelationExp = function(ctx) {
 };
@@ -125,24 +143,6 @@ PropositionalListener.prototype.enterImpliesExp = function(ctx) {
 
 // Exit a parse tree produced by PropositionalParser#impliesExp.
 PropositionalListener.prototype.exitImpliesExp = function(ctx) {
-};
-
-
-// Enter a parse tree produced by PropositionalParser#paramVar.
-PropositionalListener.prototype.enterParamVar = function(ctx) {
-};
-
-// Exit a parse tree produced by PropositionalParser#paramVar.
-PropositionalListener.prototype.exitParamVar = function(ctx) {
-};
-
-
-// Enter a parse tree produced by PropositionalParser#paramConst.
-PropositionalListener.prototype.enterParamConst = function(ctx) {
-};
-
-// Exit a parse tree produced by PropositionalParser#paramConst.
-PropositionalListener.prototype.exitParamConst = function(ctx) {
 };
 
 

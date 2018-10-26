@@ -2,6 +2,11 @@ grammar Propositional;
 
 statement: expression;
 
+parameter:
+    VARIABLE                                                            # paramVar
+  | CONSTANT                                                            # paramConst
+  ;
+
 expression:
     NOT expression                                                      # notExp
   | expression AND expression                                           # andExp
@@ -11,15 +16,10 @@ expression:
   | LITERAL                                                             # literalExp
   | TRUE                                                                # trueExp
   | FALSE                                                               # falseExp
+  | NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE     # relationExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
   | FORALL VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
   | EXISTS VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
-  | NAME BRACKET_OPEN parameter (COMMA parameter)* BRACKET_CLOSE        # relationExp
-  ;
-
-parameter:
-    VARIABLE                                                            # paramVar
-  | CONSTANT                                                            # paramConst
   ;
 
 FORALL: 'forall';
