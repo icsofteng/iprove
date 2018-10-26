@@ -12,3 +12,34 @@
   background: #ebebeb;
   padding: 20px;
 }
+.panels {
+  display: flex;
+  flex: 1;
+}
+.leftPanel {
+  width: 50%;
+}
+.rightPanel {
+  width: 50%;
+  border-left: 1px solid #ccc;
+}
+.panelBox {
+  box-sizing: border-box;
+  padding: 40px 25px 50px;
+  border-bottom: 1px solid #ccc;
+}
+.panelTitle {
+  font-size: 23px;
+  font-weight: bold;
+}
+.panelContent {
+  margin-top: 15px;
+}
+.iprove {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
