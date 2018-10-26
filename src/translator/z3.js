@@ -78,14 +78,14 @@ const translate_rule = (rule) => {
 }  
 
 const translate_quantifier = (rule) => {
-  return '(' + rule.symbol + ' ((' + rule.variable + ' TYPE))' + translate_rule(rule.value) + ')'
+  return '(' + rule.symbol + ' ((' + rule.variable + ' Type))' + translate_rule(rule.value) + ')'
 }
 
 const translate_relation = (rule) => {
   let translation = '(' + rule.name
   rule.params.forEach(v => {
     translation += ' '
-    translation += v
+    translation += v.value
   })
   translation += ')'
   return translation
@@ -107,6 +107,7 @@ const translate = (rules, constants, relations) => {
   file_contents = declare_constants(constants, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
+  console.log(file_contents)
   return file_contents
 }
 
