@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import TextBox from '../TextBox'
 import styles from './styles.scss'
-import { NEW_STEP } from '../../../constants';
-import { connect } from 'react-redux';
+import Feedback from '../../Feedback'
+import { NEW_STEP } from '../../../constants'
+import { connect } from 'react-redux'
 
 class TextBoxList extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class TextBoxList extends Component {
   render() { 
     return (
       <div className={styles.steps}>
+        <Feedback z3={this.props.z3} steps={this.props.steps} />
         {
           this.props.steps.map((step, id) =>
             <TextBox

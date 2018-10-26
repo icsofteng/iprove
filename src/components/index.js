@@ -15,7 +15,6 @@ class IProve extends Component {
 
   getRequiredSteps(steps) {
     const filteredSteps = steps.filter(is_step)
-    console.log(filteredSteps)
     if (filteredSteps.length > 1) {
       const stepToCheck = filteredSteps[filteredSteps.length - 1]
       const { dependencies: goalDependencies } = stepToCheck
@@ -82,7 +81,7 @@ class IProve extends Component {
         </div>
         { this.state.simple ?
         <ProofStepList z3={this.state.z3} steps={this.props.steps.filter(s => s.ast.type)} />
-        : <TextBoxList steps={this.props.steps} /> }
+        : <TextBoxList z3={this.state.z3} steps={this.props.steps} /> }
       </div>
     )
   }
