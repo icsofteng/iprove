@@ -87,7 +87,7 @@ const translate_relation = (rule) => {
     translation += ' '
     translation += v
   })
-  tranlsation += ')'
+  translation += ')'
   return translation
 }
 

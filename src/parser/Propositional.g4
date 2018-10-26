@@ -35,8 +35,8 @@ BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
 LITERAL: [A-Z];
 VARIABLE: [a-z];
-CONSTANT: [A-Z] [a-z]+;
-NAME: [a-z] [a-zA-Z_]+;
+CONSTANT: [A-Z][a-z]+;
+NAME: [a-z][a-zA-Z_]+;
 COMMA: ',';
 
 WS: [ \t\r\n] -> skip;

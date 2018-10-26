@@ -1,35 +1,48 @@
+const translate_binary_rule = (rule) => {
+  switch (rule.symbol) {
+    case 'and': return translate_and_rule(rule)
+    case 'or': return translate_or_rule(rule)
+    case 'iff': return translate_iff_rule(rule)
+    case 'implies': return translate_implies_rule(rule)
+    default: return translate_literal(rule)
+  }
+}
+
+const translate_unary_rule = (rule) => {
+  switch (rule.symbol) {
+    case 'not': return translate_not_rule(rule)
+    default: return translate_literal(rule)
+  }
+}
+
+const translate_quantifier = (rule) => {
+  return '\\' + rule.symbol + ' ' + rule.variable + ' (' + translate_rule(rule.value) + ')'
+}
+
+const translate_relation = (rule) => {
+  let translation = rule.name + '('
+  rule.params.forEach(v => {
+    translation += ', '
+    translation += translate_rule(v)
+  })
+  translation += ')'
+  return translation
+}
+
 const translate_rule = (rule) => {
   if (rule) {
-    if (rule.type === 'binary') {
-      switch (rule.symbol) {
-        case 'and': return translate_and_rule(rule)
-        case 'or': return translate_or_rule(rule)
-        case 'iff': return translate_iff_rule(rule)
-        case 'implies': return translate_implies_rule(rule)
-        default: return translate_literal(rule)
-      }
-    }
-    else if (rule.type === 'unary') {
-      switch (rule.symbol) {
-        case 'not': return translate_not_rule(rule)
-        default: return translate_literal(rule)
-      }
-    }
-    else if (rule.type === 'true') {
-      return '\\top'
-    }
-    else if (rule.type === 'false') {
-      return '\\bot'
-    }
-    else if (rule.type === 'paren') {
-      return translate_paren(rule)
-    }
-    else {
-      return translate_literal(rule)
+    switch (rule.type) {
+      case 'binary': return translate_binary_rule(rule)
+      case 'unary' : return translate_unary_rule(rule)
+      case 'true': return '\\top'
+      case 'false': return '\\bot'
+      case 'paren': return translate_paren(rule)
+      case 'quantifier': return translate_quantifier(rule)
+      case 'relation': return translate_relation(rule)
+      default: return translate_literal(rule)
     }
   }
-  return ''
-}   
+} 
 
 const translate_and_rule = (rule) => translate_rule(rule.lhs) + ' \\land ' + translate_rule(rule.rhs)
 const translate_or_rule = (rule) => translate_rule(rule.lhs) + ' \\lor ' + translate_rule(rule.rhs)
