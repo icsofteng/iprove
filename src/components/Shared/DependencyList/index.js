@@ -18,8 +18,8 @@ class DependencyList extends Component {
       <div className={styles.stepDependencies}>
         { dependencies && dependencies.map((dependency, index) => (
           <Dependency
-            dependency={dependency}
-            key={"dependency" + index}
+            value={dependency}
+            key={`dependency-${index}-${dependencies.length}`}
             index={index}
             path={path}
           />

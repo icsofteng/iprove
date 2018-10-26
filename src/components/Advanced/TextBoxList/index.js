@@ -11,28 +11,28 @@ class TextBoxList extends Component {
     this.state = { selected: 0 }
   }
 
-  incrementInput = (v) => {
-    const newSelected = this.state.selected + v
+  incrementInput = (value) => {
+    const newSelected = this.state.selected + value
     this.setState({ selected: newSelected })
     if (newSelected === this.props.steps.length) {
       this.props.newStep([newSelected])
     }
   }
-  
-  render() { 
+
+  render() {
     return (
       <div className={styles.steps}>
         <Feedback z3={this.props.z3} steps={this.props.steps} />
         {
           this.props.steps.map((step, id) =>
             <TextBox
-              key={"step"+id}
+              key={"step" + id}
               ast={step.ast}
-              dependencies={step.dependencies}
+              step={step}
               index={id}
               focus={id === this.state.selected}
               onIncInput={this.incrementInput}
-              onFocus={()=>this.setState({ selected: id })}
+              onFocus={() => this.setState({ selected: id })}
             />
           )
         }

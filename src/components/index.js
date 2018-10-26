@@ -15,43 +15,44 @@ class IProve extends Component {
 
   getRequiredSteps(steps) {
     const filteredSteps = steps.filter(is_step)
-    if (filteredSteps.length > 1) {
-      const stepToCheck = filteredSteps[filteredSteps.length - 1]
-      const { dependencies: goalDependencies } = stepToCheck
-      let dependencies = []
+    if (filteredSteps.length === 0) {
+      return []
+    }
 
-      if (goalDependencies) {
-        const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
+    const stepToCheck = filteredSteps[filteredSteps.length - 1]
+    const { dependencies: goalDependencies } = stepToCheck
+    let dependencies = []
 
-        while (uncheckedDependencies.length > 0) {
-          const dependency = uncheckedDependencies[0]
+    if (goalDependencies) {
+      const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
 
-          if (dependency >= 0 || dependency <= filteredSteps.length) {
-            const step = filteredSteps[dependency - 1]
+      while (uncheckedDependencies.length > 0) {
+        const dependency = uncheckedDependencies[0]
 
-            if (step.dependencies) {
-              step.dependencies.map(dep => {
-                if (!uncheckedDependencies.includes(dep)) {
-                  uncheckedDependencies.push(dep)
-                }
-              })
-            }
+        if (dependency >= 0 && dependency <= filteredSteps.length) {
+          const step = filteredSteps[dependency - 1]
 
-            dependencies.unshift(step)
+          if (step.dependencies) {
+            step.dependencies.map(dep => {
+              if (!uncheckedDependencies.includes(dep) && Number.isInteger(dep)) {
+                uncheckedDependencies.push(dep)
+              }
+            })
           }
 
-          uncheckedDependencies.shift()
+          dependencies.unshift(step)
         }
+
+        uncheckedDependencies.shift()
       }
-
-      const allSteps = [stepToCheck]
-      allSteps.unshift(...dependencies)
-
-      return allSteps
     }
-    return []
+
+    const allSteps = [stepToCheck]
+    allSteps.unshift(...dependencies)
+
+    return allSteps
   }
-  
+
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
       const { steps, constants } = this.props

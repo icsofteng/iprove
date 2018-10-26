@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import cx from 'classnames'
-import { REMOVE_STEP_DEPENDENCY, UPDATE_STEP_DEPENDENCY } from '../../../constants'
+
+import {
+  REMOVE_STEP_DEPENDENCY,
+  UPDATE_STEP_DEPENDENCY,
+  ADD_STEP_DEPENDENCY_INDEX,
+} from '../../../constants'
+
 import styles from './styles.scss'
 
 class Dependency extends Component {
@@ -9,17 +15,30 @@ class Dependency extends Component {
     super(props)
 
     this.state = {
-      value: this.props.dependency || ''
+      value: this.props.value || ''
     }
   }
 
   onKeyDown(event) {
-    const { path, index, removeDependency } = this.props
+    const { path, index, removeDependency, addDependencyAtIndex } = this.props
     const charCode = event.charCode || event.keyCode
+    const backspaceCode = 8
+    const enterCode = 13
 
-    if (charCode === 8 && event.target.value === '') {
-      event.preventDefault()
-      removeDependency(path, index)
+    switch (charCode) {
+      case backspaceCode:
+        if (event.target.value === '') {
+          event.preventDefault()
+          removeDependency(path, index)
+        }
+        break
+
+      case enterCode:
+        event.preventDefault()
+        addDependencyAtIndex(path, index)
+        break
+
+      default: break
     }
   }
 
@@ -45,6 +64,7 @@ class Dependency extends Component {
 const mapDispatchToProps = dispatch => ({
   removeDependency: (path, index) => dispatch({ type: REMOVE_STEP_DEPENDENCY, path, index }),
   updateDependency: (path, index, value) => dispatch({ type: UPDATE_STEP_DEPENDENCY, path, index, value }),
+  addDependencyAtIndex: (path, index) => dispatch({ type: ADD_STEP_DEPENDENCY_INDEX, path, index })
 })
 
 export default connect(null, mapDispatchToProps)(Dependency)

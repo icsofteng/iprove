@@ -3,7 +3,7 @@ import MathJax from 'react-mathjax'
 import cx from 'classnames'
 import { translate_rule } from '../../../translator/mathjax'
 import Rule from '../Rule'
-import DependencyList from '../DependencyList'
+import DependencyList from '../../Shared/DependencyList'
 import styles from './styles.scss'
 
 export default class ProofStep extends Component {
@@ -14,6 +14,7 @@ export default class ProofStep extends Component {
 
   render() {
     const { step, index } = this.props
+
     return (
       <React.Fragment>
         <div className={styles.step}>

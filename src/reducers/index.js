@@ -6,6 +6,7 @@ import {
   UPDATE_RULE,
   ADD_CONSTANTS,
   ADD_STEP_DEPENDENCY,
+  ADD_STEP_DEPENDENCY_INDEX,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
   SET_STEP_DEPENDENCY
@@ -66,6 +67,10 @@ const reducer = (state = initialState, action) => {
 
     case ADD_STEP_DEPENDENCY:
       depth[index] = depth[index] ? [...depth[index], null] : [null]
+      return newState
+
+    case ADD_STEP_DEPENDENCY_INDEX:
+      depth[index].splice(action.index + 1, 0, null)
       return newState
 
     case REMOVE_STEP_DEPENDENCY:
