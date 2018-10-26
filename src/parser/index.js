@@ -13,7 +13,8 @@ const parse = (input) => {
   const tree = parser.statement()
   const ast = visitor.visitStatement(tree)
   const constants = visitor.getConstants()
-  return { ast, constants }
+  const relations = visitor.getRelations()
+  return { ast, constants, relations }
 }
 
 exports.parse = parse

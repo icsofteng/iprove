@@ -5,6 +5,7 @@ class PropositionalVisitor extends ParseTreeVisitor {
   constructor() {
     super()
     this.constants = []
+    this.relations = []
   }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
@@ -63,6 +64,9 @@ class PropositionalVisitor extends ParseTreeVisitor {
   visitRelationExp(ctx) {
     const name = ctx.NAME().toString()
     const params = ctx.parameter().map(param => this.visit(param))
+    if (this.relations.indexOf(name) === -1) {
+      this.relations.push(name)
+    }
     return { type: 'relation', name, params }
   }
   visitParamVar(ctx) {
@@ -75,6 +79,9 @@ class PropositionalVisitor extends ParseTreeVisitor {
   }
   getConstants() {
     return this.constants
+  }
+  getRelations() {
+    return this.relations
   }
 }
 
