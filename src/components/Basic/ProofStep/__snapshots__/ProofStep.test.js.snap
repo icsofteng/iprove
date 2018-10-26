@@ -30,29 +30,33 @@ exports[`Snapshot test 1`] = `
         />
       </MathJaxProvider>
     </div>
-    <Connect(Rule)
-      key="rule0"
-      lhs={
-        Object {
-          "type": "literal",
-          "value": "p",
+    <div
+      className="proofStep"
+    >
+      <Connect(Rule)
+        key="rule0"
+        lhs={
+          Object {
+            "type": "literal",
+            "value": "p",
+          }
         }
-      }
-      path={
-        Array [
-          0,
-          "ast",
-        ]
-      }
-      rhs={
-        Object {
-          "type": "literal",
-          "value": "q",
+        path={
+          Array [
+            0,
+            "ast",
+          ]
         }
-      }
-      symbol="implies"
-      type="binary"
-    />
+        rhs={
+          Object {
+            "type": "literal",
+            "value": "q",
+          }
+        }
+        symbol="implies"
+        type="binary"
+      />
+    </div>
     <button
       onClick={[Function]}
     >
