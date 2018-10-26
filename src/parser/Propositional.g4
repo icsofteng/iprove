@@ -35,7 +35,7 @@ BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
 LITERAL: [A-Z];
 VARIABLE: [a-z];
-CONSTANT: [A-Z][a-z]+;
+CONSTANT: [A-Z][A-Za-z]+;
 NAME: [a-z][a-zA-Z_]+;
 COMMA: ',';
 
