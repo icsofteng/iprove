@@ -25,7 +25,9 @@ export default class ProofStep extends Component {
           </div>
           {
             !this.state.mathjax &&
-            <Rule key={"rule" + index} {...step.ast} path={[index, "ast"]} />
+            <div className={styles.proofStep}>
+              <Rule key={"rule" + index} {...step.ast} path={[index, "ast"]} />
+            </div>
           }
           <button onClick={()=>this.setState(state => ({ mathjax: !state.mathjax }))}>Toggle</button>
           <DependencyList index={index} dependencies={step.dependencies} path={[index, "dependencies"]} />

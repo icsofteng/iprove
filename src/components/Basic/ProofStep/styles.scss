@@ -12,5 +12,10 @@
   display:none;
 }
 .showMathjax {
-  display:block;
+  display: flex;
+  align-items: center;
+  flex:1;
+}
+.proofStep {
+  flex: 1;
 }

@@ -4,6 +4,7 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
+import { is_step } from '../utils'
 import styles from './styles.scss'
 
 class IProve extends Component {
@@ -13,7 +14,8 @@ class IProve extends Component {
   }
 
   getRequiredSteps(steps) {
-    const filteredSteps = steps.filter(Boolean)
+    const filteredSteps = steps.filter(is_step)
+    console.log(filteredSteps)
     if (filteredSteps.length > 1) {
       const stepToCheck = filteredSteps[filteredSteps.length - 1]
       const { dependencies: goalDependencies } = stepToCheck
