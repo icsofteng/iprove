@@ -20,11 +20,15 @@ class TextBoxList extends Component {
   }
   
   render() { 
+    let steps = this.props.steps.slice(this.props.start)
+    if (this.props.end) {
+      steps = steps.slice(0, this.props.end)
+    }
     return (
       <div className={styles.steps}>
         <Feedback z3={this.props.z3} steps={this.props.steps} />
         {
-          this.props.steps.map((step, id) =>
+          steps.map((step, id) =>
             <TextBox
               key={"step"+id}
               ast={step.ast}
@@ -33,6 +37,8 @@ class TextBoxList extends Component {
               focus={id === this.state.selected}
               onIncInput={this.incrementInput}
               onFocus={()=>this.setState({ selected: id })}
+              showDependencies={this.props.showDependencies}
+              offset={this.props.start}
             />
           )
         }

@@ -12,7 +12,7 @@ class TextBox extends Component {
     this.state = {
       raw: '',
       edit: true,
-      dependencies: props.dependencies.join(", ") || ''
+      dependencies: (props.dependencies && props.dependencies.join(", ")) || ''
     }
     this.ref = null
   }
@@ -30,9 +30,11 @@ class TextBox extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Changing dependencies props
-    const diffDependencies = this.props.dependencies.filter((el, i) => prevProps.dependencies[i] !== el)
-    if (diffDependencies.length > 0 || prevProps.dependencies.length !== this.props.dependencies.length) {
-      this.setState({ dependencies: this.props.dependencies.join(", ") })
+    if (this.props.dependencies) {
+      const diffDependencies = this.props.dependencies.filter((el, i) => prevProps.dependencies[i] !== el)
+      if (diffDependencies.length > 0 || prevProps.dependencies.length !== this.props.dependencies.length) {
+        this.setState({ dependencies: this.props.dependencies.join(", ") })
+      }
     }
 
     // Changing edit and focus props
@@ -73,10 +75,10 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index } = this.props
+    const { ast, index, offset } = this.props
     return (
       <div className={styles.step}>
-        <div className={styles.lineNumber}>{index + 1}</div>
+        <div className={styles.lineNumber}>{offset + index + 1}</div>
         {
           this.state.edit ?
           <div className={styles.textboxContainer}>
@@ -98,16 +100,19 @@ class TextBox extends Component {
             </MathJax.Provider>
           </div>
         }
-        <div className={styles.dependencies}>
-          <div className={styles.using}>using</div>
-          <input
-            type="text"
-            className={styles.dependencyTextbox}
-            value={this.state.dependencies || ''}
-            onChange={(event)=>this.setState({dependencies: event.target.value})}
-            onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [index, "dependencies"])}
-          />
-        </div>
+        {
+          this.props.showDependencies &&
+            <div className={styles.dependencies}>
+              <div className={styles.using}>using</div>
+              <input
+                type="text"
+                className={styles.dependencyTextbox}
+                value={this.state.dependencies || ''}
+                onChange={(event)=>this.setState({dependencies: event.target.value})}
+                onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [index, "dependencies"])}
+              />
+            </div>
+        }
       </div>
     )
   }

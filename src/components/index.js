@@ -83,9 +83,17 @@ class IProve extends Component {
           <div className={styles.leftPanel}>
             <div className={styles.panelBox}>
               <div className={styles.panelTitle}>Givens</div>
+              <div className={styles.panelContent}>
+                { this.state.simple ?
+                      <ProofStepList z3={this.state.z3} steps={this.props.steps} start={0} end={this.props.givens} />
+                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={0} end={this.props.givens} />
+                }
+              </div>
             </div>
             <div className={styles.panelBox}>
               <div className={styles.panelTitle}>Goal</div>
+              <div className={styles.panelContent}>
+              </div>
             </div>
           </div>
           <div className={styles.rightPanel}>
@@ -93,8 +101,8 @@ class IProve extends Component {
               <div className={styles.panelTitle}>Proof</div>
               <div className={styles.panelContent}>
                 { this.state.simple ?
-                    <ProofStepList z3={this.state.z3} steps={this.props.steps.filter(s => s.ast.type)} />
-                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} />
+                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens} showDependencies />
+                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens} showDependencies />
                 }
               </div>
             </div>

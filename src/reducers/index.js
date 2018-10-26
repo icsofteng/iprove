@@ -12,8 +12,9 @@ import {
 } from '../constants'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {} }],
-  constants: []
+  steps: [{ ast: {} }, { dependencies: [], ast: {} }],
+  constants: [],
+  givens: 1
 }
 
 const dfs = (state, path) => {

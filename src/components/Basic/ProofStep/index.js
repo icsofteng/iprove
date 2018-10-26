@@ -13,7 +13,7 @@ export default class ProofStep extends Component {
   }
 
   render() {
-    const { step, index } = this.props
+    const { step, index, showDependencies } = this.props
     return (
       <React.Fragment>
         <div className={styles.step}>
@@ -30,7 +30,7 @@ export default class ProofStep extends Component {
             </div>
           }
           <button onClick={()=>this.setState(state => ({ mathjax: !state.mathjax }))}>Toggle</button>
-          <DependencyList index={index} dependencies={step.dependencies} path={[index, "dependencies"]} />
+        { showDependencies && <DependencyList index={index} dependencies={step.dependencies} path={[index, "dependencies"]} /> }
         </div>
       </React.Fragment>
     )
