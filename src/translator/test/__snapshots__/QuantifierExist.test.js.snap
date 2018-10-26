@@ -10,7 +10,7 @@ Array [
 exports[`Quantifier Exist test 1`] = `
 "(declare-sort Type)
 (declare-const p Bool)
-(assert (exist ((x TYPE))(=> x p)))
+(assert (exist ((x Type))(=> x p)))
 (assert (not p))
 (check-sat)"
 `;
