@@ -12,14 +12,14 @@ import {
 } from '../constants'
 
 const initialState = {
-  steps: [{ ast: {} }, { dependencies: [], ast: {} }],
+  steps: [{ dependencies: [], ast: {} }],
+  givens: [{ ast: {} }],
   constants: [],
-  givens: 1
 }
 
-const dfs = (state, path) => {
+const dfs = (state, path, key = "steps") => {
   if (path) {
-    let depth = state.steps
+    let depth = state[key]
     let i = 0
     for (; i < path.length - 1; i++) {
       depth = depth[path[i]]
@@ -31,7 +31,7 @@ const dfs = (state, path) => {
 
 const reducer = (state = initialState, action) => {
   const newState = JSON.parse(JSON.stringify(state))
-  const { depth, index } = dfs(newState, action.path)
+  const { depth, index } = dfs(newState, action.path, action.key)
 
   switch (action.type) {
     case NEW_STEP:
