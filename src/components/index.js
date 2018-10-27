@@ -5,6 +5,7 @@ import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { NEW_STEP } from '../constants'
+import Feedback from './Feedback'
 import styles from './styles.scss'
 
 class IProve extends Component {
@@ -93,6 +94,7 @@ class IProve extends Component {
             <div className={styles.panelBox}>
               <div className={styles.panelTitle}>Proof</div>
               <div className={styles.panelContent}>
+                <Feedback z3={this.state.z3} />
                 { this.state.simple ?
                     <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies />
                   : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
