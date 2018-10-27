@@ -3,82 +3,70 @@ const {translate} = require('../../translator/z3')
 const test_constants = ['p', 'q']
 const test_rules = [
   {
-    dependencies: [],
-    ast: {
+    type: 'unary',
+    symbol: 'not',
+    value: {
+      type: 'literal',
+      value: 't'
+    }
+  },
+  {
+    type: 'binary',
+    symbol: 'implies',
+    lhs: {
+      type: 'literal',
+      value: 'p'
+    },
+    rhs: {
       type: 'unary',
       symbol: 'not',
       value: {
-        type: 'literal',
-        value: 't'
-      }
-    }
-  },
-  {
-    dependencies: [],
-    ast: {
-      type: 'binary',
-      symbol: 'implies',
-      lhs: {
-        type: 'literal',
-        value: 'p'
-      },
-      rhs: {
-        type: 'unary',
-        symbol: 'not',
-        value: {
-          type: 'binary',
-          symbol: 'and',
-          lhs: {
-            type: 'literal',
-            value: 'r'
-          },
-          rhs: {
-            type: 'literal',
-            value: 'q'
-          }
-        }
-      }
-    }
-  },
-  {
-    dependencies: [],
-    ast: {
-      type: 'binary',
-      symbol: 'implies',
-      lhs: {
-        type: 'literal',
-        value: 'p'
-      },
-      rhs: {
         type: 'binary',
-        symbol: 'or',
+        symbol: 'and',
         lhs: {
           type: 'literal',
           value: 'r'
         },
         rhs: {
           type: 'literal',
-          value: 't'
+          value: 'q'
         }
       }
     }
   },
   {
-    dependencies: [],
-    ast: {
+    type: 'binary',
+    symbol: 'implies',
+    lhs: {
+      type: 'literal',
+      value: 'p'
+    },
+    rhs: {
       type: 'binary',
-      symbol: 'implies',
+      symbol: 'or',
       lhs: {
         type: 'literal',
-        value: 'p'
+        value: 'r'
       },
       rhs: {
-        type: 'unary',
-        symbol: 'not',
-        value: {
-          type: 'literal',
-          value: 'q'
-        }
+        type: 'literal',
+        value: 't'
+      }
+    }
+  },
+  {
+    type: 'binary',
+    symbol: 'implies',
+    lhs: {
+      type: 'literal',
+      value: 'p'
+    },
+    rhs: {
+      type: 'unary',
+      symbol: 'not',
+      value: {
+        type: 'literal',
+        value: 'q'
       }
     }
   }]

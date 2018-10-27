@@ -4,38 +4,10 @@ exports[`Snapshot test 1`] = `
 <div
   className="steps"
 >
-  <Feedback
-    steps={
-      Array [
-        Object {
-          "ast": Object {
-            "lhs": Object {
-              "type": "literal",
-              "value": "p",
-            },
-            "rhs": Object {
-              "type": "literal",
-              "value": "q",
-            },
-            "symbol": "implies",
-            "type": "binary",
-          },
-          "dependencies": Array [],
-        },
-        Object {
-          "ast2": Object {
-            "type": "literal",
-            "value": "p",
-          },
-          "dependencies": Array [],
-        },
-      ]
-    }
-    z3="(unsat)"
-  />
   <ProofStep
     index={0}
     key="step0"
+    offset={0}
     step={
       Object {
         "ast": Object {
@@ -53,24 +25,13 @@ exports[`Snapshot test 1`] = `
         "dependencies": Array [],
       }
     }
-  />
-  <ProofStep
-    index={1}
-    key="step1"
-    step={
-      Object {
-        "ast2": Object {
-          "type": "literal",
-          "value": "p",
-        },
-        "dependencies": Array [],
-      }
-    }
+    type="givens"
   />
   <RulePlaceholder
     path={
       Array [
-        2,
+        "givens",
+        1,
       ]
     }
     wide={true}
