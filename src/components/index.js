@@ -6,6 +6,7 @@ import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { NEW_STEP } from '../constants'
 import Feedback from './Feedback'
+import { is_step } from '../utils'
 import styles from './styles.scss'
 
 class IProve extends Component {
@@ -32,7 +33,7 @@ class IProve extends Component {
     const { constants, steps, givens } = this.props
     steps.forEach(step => {
       if (step.dependencies && step.dependencies.length > 0) {
-        let requiredSteps = step.dependencies.map(d => {
+        let requiredSteps = step.dependencies.filter(Boolean).map(d => {
           if (d <= givens.length) {
             return givens[d-1].ast
           }
@@ -79,7 +80,7 @@ class IProve extends Component {
               <div className={styles.panelTitle}>Givens</div>
               <div className={styles.panelContent}>
                 { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} />
+                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
                     : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                 }
               </div>
@@ -96,7 +97,7 @@ class IProve extends Component {
               <div className={styles.panelContent}>
                 <Feedback z3={this.state.z3} />
                 { this.state.simple ?
-                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies />
+                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
                   : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                 }
               </div>
