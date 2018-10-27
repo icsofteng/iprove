@@ -43,6 +43,7 @@ exports[`Snapshot test 1`] = `
         }
         path={
           Array [
+            "steps",
             0,
             "ast",
           ]
@@ -67,6 +68,7 @@ exports[`Snapshot test 1`] = `
       index={0}
       path={
         Array [
+          "steps",
           0,
           "dependencies",
         ]
