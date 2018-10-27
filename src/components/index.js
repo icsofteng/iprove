@@ -4,7 +4,6 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
-import { is_step } from '../utils'
 import { NEW_STEP } from '../constants'
 import styles from './styles.scss'
 
