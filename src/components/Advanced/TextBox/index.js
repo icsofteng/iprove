@@ -12,7 +12,8 @@ class TextBox extends Component {
     this.state = {
       raw: '',
       edit: true,
-      dependencies: (props.dependencies && props.dependencies.join(", ")) || ''
+      dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
+      focusDependencies: false
     }
     this.ref = null
   }
@@ -23,7 +24,7 @@ class TextBox extends Component {
       raw: translation,
       edit: Object.keys(this.props.ast).length === 0
     })
-    if (this.props.focus) {
+    if (this.props.focus && !this.state.focusDependencies) {
       this.ref.focus()
     }
   }
@@ -39,7 +40,7 @@ class TextBox extends Component {
 
     // Changing edit and focus props
     if (prevProps.focus !== this.props.focus || prevState.edit !== this.state.edit) {
-      if (this.props.focus) {
+      if (this.props.focus && !this.state.focusDependencies) {
         if (this.ref) {
           this.ref.focus()
         }
@@ -109,7 +110,11 @@ class TextBox extends Component {
                 className={styles.dependencyTextbox}
                 value={this.state.dependencies || ''}
                 onChange={(event)=>this.setState({dependencies: event.target.value})}
-                onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])}
+                onFocus={()=>this.setState({ focusDependencies: true })}
+                onBlur={(event)=>{
+                  this.setState({ focusDependencies: false })
+                  this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])
+                }}
               />
             </div>
         }
