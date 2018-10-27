@@ -18,57 +18,37 @@ class IProve extends Component {
     }
   }
 
-  getRequiredSteps(steps) {
-    const filteredSteps = steps.filter(is_step)
-    if (filteredSteps.length > 1) {
-      const stepToCheck = filteredSteps[filteredSteps.length - 1]
-      const { dependencies: goalDependencies } = stepToCheck
-      let dependencies = []
+  callZ3(steps, constants) {
+    fetch('/z3', {
+      method: "POST",
+      headers: {"Content-Type": "application/json; charset=utf-8"},
+      body: JSON.stringify({ steps, constants, relations: [] })
+    }).then(r => r.text()).then(response => {
+      this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm, "") })
+    })
+  }
 
-      if (goalDependencies) {
-        const uncheckedDependencies = goalDependencies.slice(0).filter(Boolean)
-
-        while (uncheckedDependencies.length > 0) {
-          const dependency = uncheckedDependencies[0]
-
-          if (dependency >= 0 || dependency <= filteredSteps.length) {
-            const step = filteredSteps[dependency - 1]
-
-            if (step.dependencies) {
-              step.dependencies.map(dep => {
-                if (!uncheckedDependencies.includes(dep)) {
-                  uncheckedDependencies.push(dep)
-                }
-              })
-            }
-
-            dependencies.unshift(step)
+  getRequiredSteps() {
+    const { constants, steps, givens } = this.props
+    steps.forEach(step => {
+      if (step.dependencies && step.dependencies.length > 0) {
+        let requiredSteps = step.dependencies.map(d => {
+          if (d <= givens.length) {
+            return givens[d-1].ast
           }
-
-          uncheckedDependencies.shift()
-        }
+          else {
+            return steps[d-givens.length-1].ast
+          }
+        })
+        requiredSteps.push(step.ast)
+        this.callZ3(requiredSteps, constants)
       }
-
-      const allSteps = [stepToCheck]
-      allSteps.unshift(...dependencies)
-
-      return allSteps
-    }
-    return []
+    })
   }
   
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
-      const { steps, constants } = this.props
-      const requiredSteps = this.getRequiredSteps(steps)
-
-      fetch('/z3', {
-        method: "POST",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: JSON.stringify({ steps: requiredSteps, constants, relations: [] })
-      }).then(r => r.text()).then(response => {
-        this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm, "") })
-      })
+      this.getRequiredSteps()
     }
   }
 

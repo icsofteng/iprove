@@ -120,7 +120,7 @@ class TextBox extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
-  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values }),
+  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
 })
 
