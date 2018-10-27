@@ -1,11 +1,9 @@
 import React from 'react'
 import TextBox from '../TextBox'
 import styles from './styles.scss'
-import Feedback from '../../Feedback'
 
 const TextBoxList = (props) =>
   <div className={styles.steps}>
-    <Feedback z3={props.z3} steps={props.steps} />
     {
       props.steps.map((step, id) =>
         <TextBox
