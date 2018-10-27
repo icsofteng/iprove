@@ -77,7 +77,7 @@ class IProve extends Component {
     const newSelected = this.state.selectedTextBox[1] + v
     this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     if (newSelected === this.props[sameSelectedType].length) {
-      this.props.newStep([newSelected], sameSelectedType)
+      this.props.newStep([sameSelectedType, newSelected])
     }
   }
 
@@ -128,7 +128,7 @@ class IProve extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  newStep: (path, key) => dispatch({ type: NEW_STEP, path, key })
+  newStep: (path) => dispatch({ type: NEW_STEP, path })
 })
 
 export default connect(state => state, mapDispatchToProps)(IProve)
