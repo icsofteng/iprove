@@ -54,7 +54,7 @@ class TextBox extends Component {
     if (statement !== '') {
       fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
         const { ast, constants } = response
-        this.props.updateRule(ast[0], [this.props.index, "ast"])
+        this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
         this.props.addConstants(constants)
         this.setState({ edit: false })
       })
@@ -109,7 +109,7 @@ class TextBox extends Component {
                 className={styles.dependencyTextbox}
                 value={this.state.dependencies || ''}
                 onChange={(event)=>this.setState({dependencies: event.target.value})}
-                onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [index, "dependencies"])}
+                onBlur={(event)=>this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])}
               />
             </div>
         }

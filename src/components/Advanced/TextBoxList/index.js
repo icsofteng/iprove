@@ -16,6 +16,7 @@ const TextBoxList = (props) =>
           focus={props.type === props.selectedTextBox[0] && id === props.selectedTextBox[1]}
           onIncInput={props.incrementInput}
           onFocus={()=>props.setSelected([props.type, id])}
+          type={props.type}
           showDependencies={props.showDependencies}
           offset={props.start}
         />
