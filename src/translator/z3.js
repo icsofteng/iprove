@@ -17,7 +17,7 @@ const declare_constants = (constants, file_contents) => {
 }
 
 const declare_relations = (relations, file_contents) => {
-  file_contents += '(declare-sort Type)\n'  // under the hood TYPE
+  file_contents += '(declare-sort Type)\n'
   relations.forEach(rel => {
     file_contents += 'declare-fun ' + rel.name + ' ('
     rel.vars.forEach(() => {
@@ -31,7 +31,7 @@ const declare_relations = (relations, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      file_contents += '(assert ' + translate_rule(element.ast) + ')\n'
+      file_contents += '(assert ' + translate_rule(element) + ')\n'
     }
   })
   return file_contents
@@ -39,7 +39,7 @@ const translate_assumptions = (assumptions, file_contents) => {
 
 const translate_goal = (goal, file_contents) => {
   if (goal) {
-    var negated_goal = '(assert (not '+ translate_rule(goal.ast) + '))\n'
+    var negated_goal = '(assert (not '+ translate_rule(goal) + '))\n'
     file_contents += negated_goal
     file_contents += '(check-sat)'
     return file_contents
@@ -99,9 +99,7 @@ const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_literal = (rule) => rule.value
 
 const translate = (rules, constants, relations) => {
-  // TODO only translate the dependencies
   let file_contents = ""
-  // split goal and assumptions
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)

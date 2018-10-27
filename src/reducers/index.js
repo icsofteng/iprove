@@ -58,7 +58,7 @@ const reducer = (state = initialState, action) => {
 
       case ADD_CONSTANTS:
         const newConstants = newState.constants.concat(action.payload)
-        newState.constants = newConstants.filter((item, pos) => newConstants.indexOf(item) === pos)
+        newState.constants = [...new Set(newConstants)]
         return newState
 
       case SET_STEP_DEPENDENCY:
