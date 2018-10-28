@@ -17,6 +17,7 @@ const TextBoxList = (props) =>
           type={props.type}
           showDependencies={props.showDependencies}
           offset={props.start}
+          z3={props.z3[id]}
         />
       )
     }

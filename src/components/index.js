@@ -5,7 +5,6 @@ import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { NEW_STEP } from '../constants'
-import Feedback from './Feedback'
 import { is_step } from '../utils'
 import styles from './styles.scss'
 
@@ -13,25 +12,27 @@ class IProve extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      z3: "",
+      z3: [],
       simple: false,
       selectedTextBox: ["givens", 0]
     }
   }
 
-  callZ3(steps, constants) {
+  callZ3(steps, constants, i) {
     fetch('/z3', {
       method: "POST",
       headers: {"Content-Type": "application/json; charset=utf-8"},
       body: JSON.stringify({ steps, constants, relations: [] })
     }).then(r => r.text()).then(response => {
-      this.setState({ z3: response.replace(/(\r\n\t|\n|\r\t)/gm, "") })
+      const currentZ3 = this.state.z3
+      currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
+      this.setState({ z3: currentZ3 })
     })
   }
 
   getRequiredSteps() {
     const { constants, steps, givens } = this.props
-    steps.forEach(step => {
+    steps.forEach((step, i) => {
       if (step.dependencies && step.dependencies.length > 0) {
         let requiredSteps = step.dependencies.filter(Boolean).map(d => {
           if (d <= givens.length) {
@@ -42,7 +43,7 @@ class IProve extends Component {
           }
         })
         requiredSteps.push(step.ast)
-        this.callZ3(requiredSteps, constants)
+        this.callZ3(requiredSteps, constants, i)
       }
     })
   }
@@ -95,7 +96,6 @@ class IProve extends Component {
             <div className={styles.panelBox}>
               <div className={styles.panelTitle}>Proof</div>
               <div className={styles.panelContent}>
-                <Feedback z3={this.state.z3} />
                 { this.state.simple ?
                     <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
                   : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />

@@ -3,6 +3,7 @@ import MathJax from 'react-mathjax'
 import { translate_rule as translate_mathjax } from '../../../translator/mathjax'
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
+import cx from 'classnames'
 import { connect } from 'react-redux'
 import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
 
@@ -21,7 +22,7 @@ class TextBox extends Component {
   componentDidMount() {
     const translation = translate_raw(this.props.ast)
     this.setState({
-      raw: translation,
+      raw: translation || '',
       edit: Object.keys(this.props.ast).length === 0
     })
     if (this.props.focus && !this.state.focusDependencies) {
@@ -76,9 +77,12 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index, offset } = this.props
+    const { ast, index, offset, z3, type } = this.props
     return (
-      <div className={styles.step}>
+      <div className={cx(styles.step, {
+        [styles.correct]: type === 'steps' && z3 === 'unsat',
+        [styles.error]: this.state.raw !== '' && type === 'steps' && z3 !== 'unsat'
+      })}>
         <div className={styles.lineNumber}>{offset + index + 1}</div>
         {
           this.state.edit ?
