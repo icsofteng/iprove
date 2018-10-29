@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`And test 1`] = `
+exports[`And test mathjax 1`] = `
+Array [
+  "p \\\\land q",
+  "p",
+]
+`;
+
+exports[`And test z3 1`] = `
 "(declare-sort Type)
 (declare-const p Bool)
 (declare-const q Bool)

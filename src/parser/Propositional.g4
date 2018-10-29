@@ -18,8 +18,8 @@ expression:
   | FALSE                                                               # falseExp
   | NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE     # relationExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
-  | FORALL VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # forallExp
-  | EXISTS VARIABLE BRACKET_OPEN expression BRACKET_CLOSE               # existsExp
+  | FORALL VARIABLE expression                                          # forallExp
+  | EXISTS VARIABLE expression                                          # existsExp
   ;
 
 FORALL: 'forall';

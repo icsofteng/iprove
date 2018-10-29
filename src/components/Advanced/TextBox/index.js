@@ -66,6 +66,7 @@ class TextBox extends Component {
 
   keyDown(event, parse = false) {
     if (event.keyCode === 9) {
+      // TAB key
       event.preventDefault()
       if (event.shiftKey) {
         if (this.state.focusDependencies) {
@@ -86,13 +87,17 @@ class TextBox extends Component {
           this.refDef.focus()
         }
       }
+      if (parse) {
+        this.parseInput(event.target.value)
+      }
     }
     else if (event.keyCode === 13) {
+      // ENTER key
       event.preventDefault()
       this.props.onIncInput(1)
-    }
-    if (parse) {
-      this.parseInput(event.target.value)
+      if (parse) {
+        this.parseInput(event.target.value)
+      }
     }
   }
 
