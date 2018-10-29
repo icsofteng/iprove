@@ -67,6 +67,11 @@ const reducer = (state = initialState, action) => {
         newState.constants = [...new Set(newConstants)]
         return newState
 
+      case ADD_RELATIONS:
+        const newRelations = newState.relations.concat(action.payload)
+        newState.relations = [...new Set(newRelations)]
+        return newState
+
       case SET_STEP_DEPENDENCY:
         if (depth[index]) {
           depth[index] = action.payload.map(x => parseInt(x)).filter(x => !isNaN(x))
