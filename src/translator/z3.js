@@ -19,9 +19,8 @@ const declare_constants = (constants, file_contents) => {
 const declare_relations = (relations, file_contents) => {
   file_contents += '(declare-sort Type)\n'
   relations.forEach(rel => {
-    file_contents += 'declare-fun ' + rel.name + ' ('
-    let i
-    for (i=0; i<rel.numParam; i++) {
+    file_contents += '(declare-fun ' + rel.name + ' ('
+    for (let i=0; i<rel.numParam; i++){
       file_contents += 'Type '  
     }
     file_contents += ') Bool)\n'
