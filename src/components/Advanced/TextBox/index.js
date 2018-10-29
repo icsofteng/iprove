@@ -17,6 +17,7 @@ class TextBox extends Component {
       focusDependencies: false
     }
     this.ref = null
+    this.refDef = null
   }
 
   componentDidMount() {
@@ -64,14 +65,32 @@ class TextBox extends Component {
   }
 
   keyDown(event) {
-    if (event.keyCode === 13 || event.keyCode === 9) {
+    if (event.keyCode === 9) {
       event.preventDefault()
       if (event.shiftKey) {
-        this.props.onIncInput(-1)
+        if (this.state.focusDependencies) {
+          this.setState({ focusDependencies: false })
+          this.ref.focus()
+        }
+        else {
+          this.props.onIncInput(-1)
+        }
       }
       else {
-        this.props.onIncInput(1)
+        if (this.state.focusDependencies || this.props.type === 'givens') {
+          this.setState({ focusDependencies: false })
+          this.props.onIncInput(1)
+        }
+        else {
+          this.setState({ focusDependencies: true })
+          this.refDef.focus()
+        }
       }
+      this.parseInput(event.target.value)
+    }
+    else if (event.keyCode === 13) {
+      event.preventDefault()
+      this.props.onIncInput(1)
       this.parseInput(event.target.value)
     }
   }
@@ -114,11 +133,13 @@ class TextBox extends Component {
                 className={styles.dependencyTextbox}
                 value={this.state.dependencies || ''}
                 onChange={(event)=>this.setState({dependencies: event.target.value})}
+                onKeyDown={(event)=>this.keyDown(event)}
                 onFocus={()=>this.setState({ focusDependencies: true })}
                 onBlur={(event)=>{
                   this.setState({ focusDependencies: false })
                   this.props.setDependency(event.target.value.replace(/\s/g, "").split(","), [this.props.type, index, "dependencies"])
                 }}
+                ref={(ref)=>this.refDef=ref}
               />
             </div>
         }

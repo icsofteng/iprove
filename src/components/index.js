@@ -26,7 +26,9 @@ class IProve extends Component {
     }).then(r => r.text()).then(response => {
       const currentZ3 = this.state.z3
       currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
-      this.setState({ z3: currentZ3 })
+      if (currentZ3 !== "") {
+        this.setState({ z3: currentZ3 })
+      }
     })
   }
 
