@@ -2,7 +2,7 @@ grammar Propositional;
 
 statement: expression;
 
-parameter:
+  parameter:
     VARIABLE                                                            # paramVar
   | CONSTANT                                                            # paramConst
   ;

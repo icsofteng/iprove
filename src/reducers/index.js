@@ -5,6 +5,7 @@ import {
   CHANGE_SYMBOL,
   UPDATE_RULE,
   ADD_CONSTANTS,
+  ADD_RELATIONS,
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
@@ -17,6 +18,7 @@ const initialState = {
   givens: [{ ast: {} }],
   goal: [{ ast: {} }],
   constants: [],
+  relations: [],
 }
 
 const dfs = (state, path, key) => {

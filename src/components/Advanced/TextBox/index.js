@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY } from '../../../constants'
 
 class TextBox extends Component {
   constructor(props) {
