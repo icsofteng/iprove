@@ -1,4 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Qualifier Exist test mathjax 1`] = `
+Array [
+  "\\\\exist x (x \\\\Longrightarrow p)",
+  "p",
+]
+`;
+
 exports[`Quantifier Exist test 1`] = `
 "(declare-sort Type)
 (declare-const p Bool)

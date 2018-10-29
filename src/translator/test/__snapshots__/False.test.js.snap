@@ -7,3 +7,10 @@ exports[`False test 1`] = `
 (assert (not p))
 (check-sat)"
 `;
+
+exports[`False test mathjax 1`] = `
+Array [
+  "p \\\\lor \\\\bot",
+  "p",
+]
+`;

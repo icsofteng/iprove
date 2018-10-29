@@ -1,4 +1,5 @@
 const {translate} = require('../../translator/z3')
+const {translate: translate_mathjax} = require('../../translator/mathjax')
 
 const test_constants = ['p', 'q']
 const test_rules = [
@@ -71,6 +72,11 @@ const test_rules = [
     }
   }]
 
-test('Nested test 2', () => {
+test('Nested 2 test', () => {
   expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
+})
+
+
+test('Nested 2 test mathjax', () => {
+  expect(translate_mathjax(test_rules, test_constants,[])).toMatchSnapshot()
 })
