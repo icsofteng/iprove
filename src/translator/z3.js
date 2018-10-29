@@ -113,7 +113,7 @@ const translate = (rules, constants, relations) => {
 const translate_and_save = (rules, constants, relations) => {
   const file_contents = translate(rules, constants, relations)
   const proof_file_name = random_file_name()
-  fs.writeFile(proof_file_name, file_contents, (err)=>{})
+  fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name
 }
 
