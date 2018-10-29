@@ -12,7 +12,10 @@ const ProofStepList = (props) => {
           <ProofStep key={"step"+id} step={step} index={id} showDependencies={props.showDependencies} offset={props.start} type={props.type} />
         )
       }
-      <RulePlaceholder wide path={[props.type, props.steps.filter(is_step).length]} />
+      {
+        ((props.type === 'goal' && props.steps.filter(is_step).length === 0) || props.type !== 'goal') &&
+          <RulePlaceholder wide path={[props.type, props.steps.filter(is_step).length]} />
+      }
     </div>
   )
 }
