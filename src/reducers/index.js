@@ -8,7 +8,8 @@ import {
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
-  SET_STEP_DEPENDENCY
+  SET_STEP_DEPENDENCY,
+  LOAD_PROOF
 } from '../constants'
 
 const initialState = {
@@ -31,12 +32,16 @@ const dfs = (state, path, key) => {
 }
 
 const reducer = (state = initialState, action) => {
-  const newState = JSON.parse(JSON.stringify(state))
+  let newState = JSON.parse(JSON.stringify(state))
   if (action.path) {
     const [key, ...path] = action.path
     const { depth, index } = dfs(newState, path, key)
 
     switch (action.type) {
+      case LOAD_PROOF:
+        newState = {...newState, ...action.payload}
+        return newState
+
       case NEW_STEP:
         depth[index] = { dependencies: [], ast: { type: action.payload } }
         return newState
