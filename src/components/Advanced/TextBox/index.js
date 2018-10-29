@@ -61,9 +61,10 @@ class TextBox extends Component {
   parseInput(statement) {
     if (statement !== '') {
       fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-        const { ast, constants } = response
+        const { ast, constants, relations } = response
         this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
         this.props.addConstants(constants)
+        this.props.addRelations(relations)
         this.setState({ edit: false })
       })
     }
@@ -162,6 +163,7 @@ class TextBox extends Component {
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
   addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
+  addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
 })
 

@@ -65,7 +65,7 @@ class PropositionalVisitor extends ParseTreeVisitor {
     const name = ctx.NAME().toString()
     const params = ctx.parameter().map(param => this.visit(param))
     if (this.relations.indexOf(name) === -1) {
-      this.relations.push(name)
+      this.relations.push({name, numParam: params.length})
     }
     return { type: 'relation', name, params }
   }

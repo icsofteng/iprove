@@ -20,9 +20,9 @@ const declare_relations = (relations, file_contents) => {
   file_contents += '(declare-sort Type)\n'
   relations.forEach(rel => {
     file_contents += 'declare-fun ' + rel.name + ' ('
-    rel.vars.forEach(() => {
+    for (i=0; i<rel.numParam; i++) {
       file_contents += 'Type '  
-    })
+    }
     file_contents += ') Bool)\n'
   })
   return file_contents
@@ -107,7 +107,7 @@ const translate = (rules, constants, relations) => {
   file_contents = declare_constants(constants, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
-  console.log(file_contents)
+  console.log('file contents: ', file_contents)
   return file_contents
 }
 
