@@ -28,6 +28,7 @@
     "redux": "^4.0.0",
     "sass-loader": "^7.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
+    "underscore": "^1.9.1",
     "webpack": "^4.20.2",
     "webpack-merge": "^4.1.4"
   },

@@ -6,12 +6,14 @@ import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { NEW_STEP } from '../constants'
 import { is_step } from '../utils'
+import _ from 'underscore'
 import styles from './styles.scss'
 
 class IProve extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      goalAchieved: [],
       z3: [],
       simple: false,
       selectedTextBox: ["givens", 0]
@@ -28,12 +30,17 @@ class IProve extends Component {
       currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
       if (currentZ3 !== "") {
         this.setState({ z3: currentZ3 })
+        // Check goal
+        if (_.isEqual(this.props.goal[0].ast, steps[steps.length-1])) {
+          this.setState({ goalAchieved: [currentZ3[currentZ3.length-1]] })
+        }
       }
     })
   }
 
   getRequiredSteps() {
     const { constants, steps, givens } = this.props
+    this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
       if (step.dependencies && step.dependencies.length > 0) {
         let requiredSteps = step.dependencies.filter(Boolean).map(d => {
@@ -83,14 +90,18 @@ class IProve extends Component {
               <div className={styles.panelTitle}>Givens</div>
               <div className={styles.panelContent}>
                 { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
+                  : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                 }
               </div>
             </div>
             <div className={styles.panelBox}>
               <div className={styles.panelTitle}>Goal</div>
               <div className={styles.panelContent}>
+                { this.state.simple ?
+                    <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
+                  : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                }
               </div>
             </div>
           </div>

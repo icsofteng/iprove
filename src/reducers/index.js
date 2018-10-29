@@ -14,6 +14,7 @@ import {
 const initialState = {
   steps: [{ dependencies: [], ast: {} }],
   givens: [{ ast: {} }],
+  goal: [{ ast: {} }],
   constants: [],
 }
 
