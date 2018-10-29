@@ -64,6 +64,7 @@ class TextBox extends Component {
         const { ast, constants, relations } = response
         this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
         this.props.addConstants(constants)
+        console.log('parse INput', relations)
         this.props.addRelations(relations)
         this.setState({ edit: false })
       })
