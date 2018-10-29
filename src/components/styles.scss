@@ -22,6 +22,7 @@
 .rightPanel {
   width: 50%;
   border-left: 1px solid #ccc;
+  overflow-y: scroll;
 }
 .panelBox {
   box-sizing: border-box;

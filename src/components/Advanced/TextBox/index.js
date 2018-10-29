@@ -82,7 +82,7 @@ class TextBox extends Component {
           this.setState({ focusDependencies: false })
           this.props.onIncInput(1)
         }
-        else {
+        else if (this.props.type !== 'goal') {
           this.setState({ focusDependencies: true })
           this.refDef.focus()
         }
@@ -105,10 +105,10 @@ class TextBox extends Component {
     const { ast, index, offset, z3, type } = this.props
     return (
       <div className={cx(styles.step, {
-        [styles.correct]: type === 'steps' && z3 === 'unsat',
-        [styles.error]: this.state.raw !== '' && type === 'steps' && z3 !== 'unsat'
+        [styles.correct]: type !== 'givens' && z3 === 'unsat',
+        [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat'
       })}>
-        <div className={styles.lineNumber}>{offset + index + 1}</div>
+        { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
         {
           this.state.edit ?
           <div className={styles.textboxContainer}>
