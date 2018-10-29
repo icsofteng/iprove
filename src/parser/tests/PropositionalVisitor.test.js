@@ -1,4 +1,4 @@
-import {parse} from './'
+import {parse} from '..'
 
 const p = {type:'literal', value:"P" }
 const q = {type:'literal', value:"Q" }
