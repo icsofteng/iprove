@@ -1,7 +1,8 @@
 const {translate} = require('../../translator/z3')
+const {translate: translate_mathjax} = require('../../translator/mathjax')
 
 const test_constants = ['p', 'q']
-const test_steps = [
+const test_rules = [
   {
     type: 'binary',
     symbol: 'iff',
@@ -21,5 +22,9 @@ const test_steps = [
 ]
 
 test('Iff test', () => {
-  expect(translate(test_steps, test_constants, [])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
+})
+
+test('Iff test mathjax', () => {
+  expect(translate_mathjax(test_rules, test_constants,[])).toMatchSnapshot()
 })

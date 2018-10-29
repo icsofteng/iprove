@@ -6,3 +6,9 @@ exports[`True test 1`] = `
 (assert (not (=> p true)))
 (check-sat)"
 `;
+
+exports[`True test mathjax 1`] = `
+Array [
+  "p \\\\Longrightarrow \\\\top",
+]
+`;

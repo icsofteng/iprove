@@ -7,3 +7,9 @@ exports[`Nested test 1 1`] = `
 (assert (not (and (and p q) q)))
 (check-sat)"
 `;
+
+exports[`Nested test mathjax 1`] = `
+Array [
+  "p \\\\land q \\\\land q",
+]
+`;

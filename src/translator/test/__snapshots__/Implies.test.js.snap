@@ -7,3 +7,9 @@ exports[`Implies test 1`] = `
 (assert (not (=> p q)))
 (check-sat)"
 `;
+
+exports[`Implies test mathjax 1`] = `
+Array [
+  "p \\\\Longrightarrow q",
+]
+`;

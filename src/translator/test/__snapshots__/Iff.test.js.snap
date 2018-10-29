@@ -8,3 +8,10 @@ exports[`Iff test 1`] = `
 (assert (not p))
 (check-sat)"
 `;
+
+exports[`Iff test mathjax 1`] = `
+Array [
+  "p \\\\Longleftrightarrow q",
+  "p",
+]
+`;

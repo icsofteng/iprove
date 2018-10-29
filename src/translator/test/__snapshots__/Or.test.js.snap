@@ -8,3 +8,10 @@ exports[`Or test 1`] = `
 (assert (not p))
 (check-sat)"
 `;
+
+exports[`Or test mathjax 1`] = `
+Array [
+  "p \\\\lor q",
+  "p",
+]
+`;

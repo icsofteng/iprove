@@ -6,3 +6,9 @@ exports[`Not test 1`] = `
 (assert (not (not p)))
 (check-sat)"
 `;
+
+exports[`Not test mathjax 1`] = `
+Array [
+  "\\\\lnot p",
+]
+`;
