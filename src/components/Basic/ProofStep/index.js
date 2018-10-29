@@ -17,7 +17,7 @@ export default class ProofStep extends Component {
     return (
       <React.Fragment>
         <div className={styles.step}>
-          <div className={styles.lineNumber}>{offset + index + 1}</div>
+          { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
           <div className={cx(styles.mathjax, {[styles.showMathjax]: this.state.mathjax})}>
             <MathJax.Provider>
               <MathJax.Node formula={translate_rule(step.ast)} />
