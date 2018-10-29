@@ -4,8 +4,10 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
-import { NEW_STEP } from '../constants'
+import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step } from '../utils'
+import save from 'save-file'
+import dialog from 'open-file-dialog'
 import _ from 'underscore'
 import styles from './styles.scss'
 
@@ -72,6 +74,30 @@ class IProve extends Component {
     }
   }
 
+  downloadProof = () => {
+    const data = JSON.stringify({ props: this.props, state: this.state })
+    const d = new Date()
+    const date = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString()
+    save(data, date + '.proof', (err, data) => {
+      alert("File saved")
+    })
+  }
+
+  loadProof = () => {
+    dialog({
+      multiple: false,
+      accept: '.proof'
+    }, (files) => {
+      const reader = new FileReader()
+      reader.readAsText(files[0])
+      reader.onload = () => {
+        const { props, state } = JSON.parse(reader.result)
+        this.props.loadProof(props)
+        this.setState(state)
+      }
+    })
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -80,6 +106,7 @@ class IProve extends Component {
           <p>
             Mode: <strong>{this.state.simple ? "Basic" : "Advanced"}</strong>
             <button onClick={()=>this.setState(state => ({ simple: !state.simple}))}>Switch</button>
+            <button onClick={this.loadProof}>Load</button> <button onClick={this.downloadProof}>Save</button>
           </p>
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }
@@ -123,7 +150,8 @@ class IProve extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  newStep: (path) => dispatch({ type: NEW_STEP, path })
+  newStep: (path) => dispatch({ type: NEW_STEP, path }),
+  loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] })
 })
 
 export default connect(state => state, mapDispatchToProps)(IProve)

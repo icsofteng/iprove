@@ -4,6 +4,7 @@ import { translate_rule as translate_mathjax } from '../../../translator/mathjax
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import cx from 'classnames'
+import _ from 'underscore'
 import { connect } from 'react-redux'
 import { UPDATE_RULE, ADD_CONSTANTS, SET_STEP_DEPENDENCY } from '../../../constants'
 
@@ -11,8 +12,8 @@ class TextBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      raw: '',
-      edit: true,
+      raw: (props.ast && translate_raw(props.ast)) || '',
+      edit: Object.keys(props.ast).length === 0,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
       focusDependencies: false
     }
@@ -21,11 +22,6 @@ class TextBox extends Component {
   }
 
   componentDidMount() {
-    const translation = translate_raw(this.props.ast)
-    this.setState({
-      raw: translation || '',
-      edit: Object.keys(this.props.ast).length === 0
-    })
     if (this.props.focus && !this.state.focusDependencies) {
       this.ref.focus()
     }
@@ -39,6 +35,15 @@ class TextBox extends Component {
         this.setState({ dependencies: this.props.dependencies.join(", ") })
       }
     }
+
+    // Change ast
+    if (!_.isEqual(prevProps.ast, this.props.ast)) {
+      const translation = translate_raw(this.props.ast)
+      this.setState({
+        raw: translation || '',
+        edit: Object.keys(this.props.ast).length === 0
+      })
+    } 
 
     // Changing edit and focus props
     if (prevProps.focus !== this.props.focus || prevState.edit !== this.state.edit) {
