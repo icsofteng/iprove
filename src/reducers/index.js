@@ -12,7 +12,6 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF
 } from '../constants'
-import _ from 'lodash'
 
 const initialState = {
   steps: [{ dependencies: [], ast: {} }],
@@ -72,7 +71,7 @@ const reducer = (state = initialState, action) => {
 
       case ADD_RELATIONS:
         const newRelations = newState.relations.concat(action.payload)
-        newState.relations = _.uniqWith([...newRelations], _.isEqual)
+        newState.relations = _.uniq(newRelations, false, _.iteratee('name'))
         return newState
 
       case SET_STEP_DEPENDENCY:
