@@ -13,7 +13,7 @@ class TextBox extends Component {
     super(props)
     this.state = {
       raw: (props.ast && translate_raw(props.ast)) || '',
-      edit: Object.keys(props.ast).length === 0,
+      edit: Object.keys(props.ast).filter(k => props.ast[k]).length === 0,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
       focusDependencies: false
     }
@@ -100,7 +100,9 @@ class TextBox extends Component {
     else if (event.keyCode === 13) {
       // ENTER key
       event.preventDefault()
-      this.props.onIncInput(1)
+      if (this.props.type !== 'goal') {
+        this.props.onIncInput(1)
+      }
       if (parse) {
         this.parseInput(event.target.value)
       }
