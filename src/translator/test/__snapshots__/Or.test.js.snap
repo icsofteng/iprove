@@ -2,16 +2,16 @@
 
 exports[`Or test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(declare-const q Bool)
-(assert (or p q))
-(assert (not p))
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (or P Q))
+(assert (not P))
 (check-sat)"
 `;
 
 exports[`Or test mathjax 1`] = `
 Array [
-  "p \\\\lor q",
-  "p",
+  "P \\\\lor Q",
+  "P",
 ]
 `;

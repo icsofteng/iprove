@@ -1,14 +1,14 @@
 const {translate} = require('../../translator/z3')
 const {translate: translate_mathjax} = require('../../translator/mathjax')
 
-const test_constants = ['p', 'q']
+const test_constants = ['P', 'Q', 'R', 'T']
 const test_rules = [
   {
     type: 'unary',
     symbol: 'not',
     value: {
       type: 'literal',
-      value: 't'
+      value: 'T'
     }
   },
   {
@@ -16,7 +16,7 @@ const test_rules = [
     symbol: 'implies',
     lhs: {
       type: 'literal',
-      value: 'p'
+      value: 'P'
     },
     rhs: {
       type: 'unary',
@@ -26,11 +26,11 @@ const test_rules = [
         symbol: 'and',
         lhs: {
           type: 'literal',
-          value: 'r'
+          value: 'R'
         },
         rhs: {
           type: 'literal',
-          value: 'q'
+          value: 'Q'
         }
       }
     }
@@ -40,18 +40,18 @@ const test_rules = [
     symbol: 'implies',
     lhs: {
       type: 'literal',
-      value: 'p'
+      value: 'P'
     },
     rhs: {
       type: 'binary',
       symbol: 'or',
       lhs: {
         type: 'literal',
-        value: 'r'
+        value: 'R'
       },
       rhs: {
         type: 'literal',
-        value: 't'
+        value: 'T'
       }
     }
   },
@@ -60,23 +60,23 @@ const test_rules = [
     symbol: 'implies',
     lhs: {
       type: 'literal',
-      value: 'p'
+      value: 'P'
     },
     rhs: {
       type: 'unary',
       symbol: 'not',
       value: {
         type: 'literal',
-        value: 'q'
+        value: 'Q'
       }
     }
   }]
 
 test('Nested 2 test', () => {
-  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
+  expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
 })
 
 
 test('Nested 2 test mathjax', () => {
-  expect(translate_mathjax(test_rules, test_constants,[])).toMatchSnapshot()
+  expect(translate_mathjax(test_rules, [],[], test_constants)).toMatchSnapshot()
 })

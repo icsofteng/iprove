@@ -2,16 +2,16 @@
 
 exports[`And test mathjax 1`] = `
 Array [
-  "p \\\\land q",
-  "p",
+  "P \\\\land Q",
+  "P",
 ]
 `;
 
 exports[`And test z3 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(declare-const q Bool)
-(assert (and p q))
-(assert (not p))
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (and P Q))
+(assert (not P))
 (check-sat)"
 `;

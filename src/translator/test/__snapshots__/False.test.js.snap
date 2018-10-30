@@ -2,15 +2,15 @@
 
 exports[`False test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(assert (or p false))
-(assert (not p))
+(declare-const P Bool)
+(assert (or P false))
+(assert (not P))
 (check-sat)"
 `;
 
 exports[`False test mathjax 1`] = `
 Array [
-  "p \\\\lor \\\\bot",
-  "p",
+  "P \\\\lor \\\\bot",
+  "P",
 ]
 `;

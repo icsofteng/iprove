@@ -2,16 +2,16 @@
 
 exports[`Iff test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(declare-const q Bool)
-(assert (iff p q))
-(assert (not p))
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (iff P Q))
+(assert (not P))
 (check-sat)"
 `;
 
 exports[`Iff test mathjax 1`] = `
 Array [
-  "p \\\\Longleftrightarrow q",
-  "p",
+  "P \\\\Longleftrightarrow Q",
+  "P",
 ]
 `;

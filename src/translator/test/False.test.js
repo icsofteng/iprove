@@ -1,14 +1,14 @@
 const {translate} = require('../../translator/z3')
 const {translate: translate_mathjax} = require('../../translator/mathjax')
 
-const test_constants = ['p']
+const test_constants = ['P']
 const test_rules = [
  {
     type: 'binary',
     symbol: 'or',
     lhs: {
       type: 'literal',
-      value: 'p'
+      value: 'P'
     },
     rhs: {
       type: 'false'
@@ -16,15 +16,15 @@ const test_rules = [
   },
   {
     type: 'literal',
-    value: 'p'
+    value: 'P'
   }
 ]
 
 
 test('False test', () => {
-  expect(translate(test_rules, test_constants, [])).toMatchSnapshot()
+  expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
 })
 
 test('False test mathjax', () => {
-  expect(translate_mathjax(test_rules, test_constants,[])).toMatchSnapshot()
+  expect(translate_mathjax(test_rules, [],[], test_constants)).toMatchSnapshot()
 })

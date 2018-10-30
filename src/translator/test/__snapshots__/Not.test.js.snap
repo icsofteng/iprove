@@ -2,13 +2,13 @@
 
 exports[`Not test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(assert (not (not p)))
+(declare-const P Bool)
+(assert (not (not P)))
 (check-sat)"
 `;
 
 exports[`Not test mathjax 1`] = `
 Array [
-  "\\\\lnot p",
+  "\\\\lnot P",
 ]
 `;

@@ -2,14 +2,14 @@
 
 exports[`Implies test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(declare-const q Bool)
-(assert (not (=> p q)))
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (not (=> P Q)))
 (check-sat)"
 `;
 
 exports[`Implies test mathjax 1`] = `
 Array [
-  "p \\\\Longrightarrow q",
+  "P \\\\Longrightarrow Q",
 ]
 `;

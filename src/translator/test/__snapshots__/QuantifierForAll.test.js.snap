@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quantifier Forall test 1`] = `
+"(declare-sort Type)
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (not (forall ((x Type))(=> P Q))))
+(check-sat)"
+`;
+
+exports[`Quantifier Forall test mathjax 1`] = `
+Array [
+  "\\\\forall x (P \\\\Longrightarrow Q)",
+]
+`;

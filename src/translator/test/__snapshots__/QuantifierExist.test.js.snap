@@ -2,15 +2,16 @@
 
 exports[`Qualifier Exist test mathjax 1`] = `
 Array [
-  "\\\\exist x (x \\\\Longrightarrow p)",
-  "p",
+  "\\\\exist x (P \\\\Longrightarrow Q)",
+  "P",
 ]
 `;
 
 exports[`Quantifier Exist test 1`] = `
 "(declare-sort Type)
-(declare-const p Bool)
-(assert (exist ((x Type))(=> x p)))
-(assert (not p))
+(declare-const P Bool)
+(declare-const Q Bool)
+(assert (exist ((x Type))(=> P Q)))
+(assert (not P))
 (check-sat)"
 `;
