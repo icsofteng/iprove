@@ -1,9 +1,8 @@
-import {parse} from './'
+import {parse} from '../'
 
 const dragonX = { type: 'relation', name:"dragon", params:[{type:"variable", value:"x"}] }
 const humanXYZ = { type: 'relation', name:"human", params:[{type:"variable", value:"x"}, {type:"variable", value:"y"}, {type:"variable", value:"z"}] }
 const Frank = { type: 'relation', name:"person", params:[{type:"constant", value:"Frank"}]}
-
 
 test("Visitor Test relations", ()=> {
   expect(parse("dragon(x)")).toEqual({ast:[dragonX], constants:[],relations: [{name: "dragon", numParam: 1}]})

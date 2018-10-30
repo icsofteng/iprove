@@ -1,9 +1,8 @@
-import {parse} from '..'
+import {parse} from '../'
 
 const p = {type:'literal', value:"P" }
 const q = {type:'literal', value:"Q" }
 
-let value
 test("Visitor Test implies", ()=> {
   expect(parse("P implies Q")).toEqual({ast:[{type:'binary', symbol:'implies', lhs: p, rhs:q}], constants:["P", "Q"], "relations":[]})
 })
@@ -33,7 +32,6 @@ test("Visitor Test literals", ()=> {
 test("Visitor Integrated Test", () => {
   const x = {type:'literal', value:"X" }
   const y = {type:'literal', value:"Y" }
-  value = x
   const lhs2 = {type:'binary', symbol:'and', lhs:p, rhs:q}
   const rhs2 = {type:'binary', symbol:'or', lhs:{type:"unary", symbol:"not", value:x }, rhs:y}
   const bracketL = {type:"paren", value:lhs2}

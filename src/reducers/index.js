@@ -1,3 +1,4 @@
+import _ from 'underscore'
 import {
   NEW_RULE,
   NEW_STEP,
@@ -12,8 +13,6 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF
 } from '../constants'
-import _ from 'underscore'
-
 
 const initialState = {
   steps: [{ dependencies: [], ast: {} }],
