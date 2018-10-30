@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS } from '../../../constants'
 
 class TextBox extends Component {
   constructor(props) {
@@ -61,9 +61,10 @@ class TextBox extends Component {
   parseInput(statement) {
     if (statement !== '') {
       fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-        const { ast, constants, relations } = response
+        const { ast, constants, relations, atoms } = response
         this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
         this.props.addConstants(constants)
+        this.props.addAtoms(atoms)
         this.props.addRelations(relations)
         this.setState({ edit: false })
       })
@@ -166,6 +167,7 @@ const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
   addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
+  addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
 })
 

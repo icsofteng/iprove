@@ -4,6 +4,7 @@ const { ParseTreeVisitor } = tree
 class PropositionalVisitor extends ParseTreeVisitor {
   constructor() {
     super()
+    this.atoms = []
     this.constants = []
     this.relations = []
   }
@@ -46,8 +47,8 @@ class PropositionalVisitor extends ParseTreeVisitor {
   }
   visitLiteralExp(ctx) {
     const lit = ctx.LITERAL().toString()
-    if (this.constants.indexOf(lit) === -1) {
-      this.constants.push(lit)
+    if (this.atoms.indexOf(lit) === -1) {
+      this.atoms.push(lit)
     }
     return { type: 'literal', value: lit }
   }
@@ -75,7 +76,13 @@ class PropositionalVisitor extends ParseTreeVisitor {
   }
   visitParamConst(ctx) {
     const value =  ctx.CONSTANT().toString()
+    if (this.constants.indexOf(value) === -1) {
+      this.constants.push(value)
+    }
     return { type: 'constant', value }
+  }
+  getAtoms() {
+    return this.atoms
   }
   getConstants() {
     return this.constants

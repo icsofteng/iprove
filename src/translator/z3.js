@@ -7,10 +7,19 @@ const random_file_name = () => {
   return crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
 }
 
+const declare_atoms = (atoms, file_contents) => {
+  atoms.forEach(element => {
+    if (element) {
+      file_contents += '(declare-const ' + element + ' Bool)\n'
+    }
+  });
+  return file_contents
+}
+
 const declare_constants = (constants, file_contents) => {
   constants.forEach(element => {
     if (element) {
-      file_contents += '(declare-const ' + element + ' Bool)\n'
+      file_contents += '(declare-const ' + element + ' Type)\n'
     }
   });
   return file_contents
@@ -19,11 +28,9 @@ const declare_constants = (constants, file_contents) => {
 const declare_relations = (relations, file_contents) => {
   file_contents += '(declare-sort Type)\n'
   relations.forEach(rel => {
-    file_contents += '(declare-fun ' + rel.name + ' ('
-    for (let i=0; i<rel.numParam; i++){
-      file_contents += 'Type '  
-    }
-    file_contents += ') Bool)\n'
+    file_contents += '(declare-fun ' + rel.name + ' '
+    file_contents += [...Array(rel.numParam)].map(r => '(Type)').join(" ")
+    file_contents += ' Bool)\n'
   })
   return file_contents
 }
@@ -82,11 +89,8 @@ const translate_quantifier = (rule) => {
 }
 
 const translate_relation = (rule) => {
-  let translation = '(' + rule.name
-  rule.params.forEach(v => {
-    translation += ' '
-    translation += v.value
-  })
+  let translation = '(' + rule.name + ' '
+  translation += rule.params.map(v => translate_rule(v)).join(" ")
   translation += ')'
   return translation
 }
@@ -98,21 +102,23 @@ const translate_iff_rule = (rule) => '(iff '+ translate_rule(rule.lhs) + ' ' + t
 const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_literal = (rule) => rule.value
 
-const translate = (rules, constants, relations) => {
+const translate = (rules, constants, relations, atoms) => {
   let file_contents = ""
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)
   file_contents = declare_relations(relations, file_contents)
   file_contents = declare_constants(constants, file_contents)
+  file_contents = declare_atoms(atoms, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
   return file_contents
 }
 
-const translate_and_save = (rules, constants, relations) => {
-  const file_contents = translate(rules, constants, relations)
+const translate_and_save = (rules, constants, relations, atoms) => {
+  const file_contents = translate(rules, constants, relations, atoms)
   const proof_file_name = random_file_name()
+  console.log(file_contents)
   fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name
 }

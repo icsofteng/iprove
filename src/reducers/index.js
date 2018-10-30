@@ -6,6 +6,7 @@ import {
   CHANGE_SYMBOL,
   UPDATE_RULE,
   ADD_CONSTANTS,
+  ADD_ATOMS,
   ADD_RELATIONS,
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
@@ -18,6 +19,7 @@ const initialState = {
   steps: [{ dependencies: [], ast: {} }],
   givens: [{ ast: {} }],
   goal: [{ ast: {} }],
+  atoms: [],
   constants: [],
   relations: [],
 }
@@ -68,6 +70,11 @@ const reducer = (state = initialState, action) => {
       case ADD_CONSTANTS:
         const newConstants = newState.constants.concat(action.payload)
         newState.constants = _.uniq(newConstants)
+        return newState
+
+      case ADD_ATOMS:
+        const newAtoms = newState.atoms.concat(action.payload)
+        newState.atoms = _.uniq(newAtoms)
         return newState
 
       case ADD_RELATIONS:

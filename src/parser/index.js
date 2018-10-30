@@ -14,7 +14,8 @@ const parse = (input) => {
   const ast = visitor.visitStatement(tree)
   const constants = visitor.getConstants()
   const relations = visitor.getRelations()
-  return { ast, constants, relations }
+  const atoms = visitor.getAtoms()
+  return { ast, atoms, constants, relations }
 }
 
 exports.parse = parse

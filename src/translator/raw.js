@@ -16,15 +16,12 @@ const translate_unary_rule = (rule) => {
 }
 
 const translate_quantifier = (rule) => {
-  return rule.symbol + ' ' + rule.variable + ' (' + translate_rule(rule.value) + ')'
+  return rule.symbol + ' ' + rule.variable + ' ' + translate_rule(rule.value)
 }
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  rule.params.forEach(v => {
-    translation += ', '
-    translation += v
-  })
+  translation += rule.params.map(v => translate_rule(v)).join(", ")
   translation += ')'
   return translation
 }
