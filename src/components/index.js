@@ -22,11 +22,11 @@ class IProve extends Component {
     }
   }
 
-  callZ3(steps, constants, relations) {
+  callZ3(steps, constants, relations, i) {
     fetch('/z3', {
       method: "POST",
       headers: {"Content-Type": "application/json; charset=utf-8"},
-      body: JSON.stringify({ steps, constants, relations})
+      body: JSON.stringify({steps, constants, relations})
     }).then(r => r.text()).then(response => {
       const currentZ3 = this.state.z3
       currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
@@ -55,12 +55,6 @@ class IProve extends Component {
         })
         requiredSteps.push(step.ast)
         this.callZ3(requiredSteps, constants, relations, i)
-      } else {
-       // if there are no dependencies change the box to red
-       if (step.type !== "goal") {
-          // this.callZ3(step.ast, constants, relations, i)
-          this.setState({z3: "sat"})
-       }
       }
     })
   }
