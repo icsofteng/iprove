@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'))
 app.post('/z3', (req, res) => {
   const { steps, constants, relations } = req.body
   const file = translate_and_save(steps, constants, relations)
-  const cmd = 'z3 ' + file
+  const cmd = './z3 ' + file
   exec(cmd, (err, stdout) => {
     fs.unlink(file, () =>
       res.send(stdout)
