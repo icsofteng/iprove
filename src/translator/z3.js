@@ -118,7 +118,6 @@ const translate = (rules, constants, relations, atoms) => {
 const translate_and_save = (rules, constants, relations, atoms) => {
   const file_contents = translate(rules, constants, relations, atoms)
   const proof_file_name = random_file_name()
-  console.log(file_contents)
   fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name
 }
