@@ -12,6 +12,8 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF
 } from '../constants'
+import _ from 'underscore'
+
 
 const initialState = {
   steps: [{ dependencies: [], ast: {} }],
@@ -66,7 +68,7 @@ const reducer = (state = initialState, action) => {
 
       case ADD_CONSTANTS:
         const newConstants = newState.constants.concat(action.payload)
-        newState.constants = [...new Set(newConstants)]
+        newState.constants = _.uniq(newConstants)
         return newState
 
       case ADD_RELATIONS:
