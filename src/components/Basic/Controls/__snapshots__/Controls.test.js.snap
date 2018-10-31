@@ -19,7 +19,7 @@ exports[`Snapshot test 1`] = `
   />
   <ControlBlock
     label="Literal"
-    symbol="x"
+    symbol="P"
     type="literal"
   />
   <ControlBlock

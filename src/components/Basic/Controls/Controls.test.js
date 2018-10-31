@@ -1,5 +1,5 @@
 import React from 'react'
-import Controls from './'
+import {Controls} from './'
 
 const wrapper = shallow(<Controls />)
 
