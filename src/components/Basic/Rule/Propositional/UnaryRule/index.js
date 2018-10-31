@@ -1,7 +1,8 @@
 import React from 'react'
-import Rule from '../'
+
+import Rule from '../../'
 import SymbolChooser from '../SymbolChooser'
-import RulePlaceholder from '../../RulePlaceholder'
+import RulePlaceholder from '../../../RulePlaceholder'
 
 const unSymbols = {
   not: '¬'

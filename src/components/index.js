@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import _ from 'underscore'
 import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { connect } from 'react-redux'
 import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
-import _ from 'underscore'
 import styles from './styles.scss'
 
 class IProve extends Component {
@@ -70,7 +70,7 @@ class IProve extends Component {
       }
     })
   }
-  
+
   componentDidUpdate(prevProps) {
     if (prevProps.steps !== this.props.steps) {
       this.getRequiredSteps()

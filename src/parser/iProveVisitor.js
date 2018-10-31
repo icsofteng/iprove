@@ -65,12 +65,12 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitForallExp(ctx) {
     const value = this.visit(ctx.expression())
-    const variable = ctx.VARIABLE().toString()
+    const variable = { type: 'variable', value: ctx.VARIABLE().toString() }
     return { type: 'quantifier', symbol: 'forall', variable, value }
   }
   visitExistsExp(ctx) {
     const value = this.visit(ctx.expression())
-    const variable = ctx.VARIABLE().toString()
+    const variable = { type: 'variable', value: ctx.VARIABLE().toString() }
     return { type: 'quantifier', symbol: 'exists', variable, value }
   }
   visitRelationExp(ctx) {

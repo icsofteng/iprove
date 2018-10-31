@@ -15,8 +15,8 @@ const translate_unary_rule = (rule) => {
   }
 }
 
-const translate_quantifier = (rule) => {
-  return '\\' + rule.symbol + ' ' + rule.variable + ' (' + translate_rule(rule.value) + ')'
+const translate_quantifier = ({ symbol, variable, value }) => {
+  return '\\' + symbol + ' ' + translate_rule(variable) + ' (' + translate_rule(value) + ')'
 }
 
 const translate_relation = (rule) => {
@@ -39,10 +39,11 @@ const translate_rule = (rule) => {
       case 'quantifier': return translate_quantifier(rule)
       case 'relation': return translate_relation(rule)
       case 'assume': return translate_assume(rule)
+      case 'variable': return translate_variable(rule)
       default: return translate_literal(rule)
     }
   }
-} 
+}
 
 const translate_and_rule = (rule) => translate_rule(rule.lhs) + ' \\land ' + translate_rule(rule.rhs)
 const translate_or_rule = (rule) => translate_rule(rule.lhs) + ' \\lor ' + translate_rule(rule.rhs)
@@ -50,11 +51,11 @@ const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' \\Longrigh
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' \\Longleftrightarrow ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => '\\lnot ' + translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
+const translate_variable = (rule) => rule.value
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
 const translate_assume = (rule) => 'assume \\ ' + translate_rule(rule.value)
 
-const translate = (rules) =>
-  rules.map(rule => translate_rule(rule))
+const translate = (rules) => rules.map(rule => translate_rule(rule))
 
 module.exports = { translate, translate_rule }
