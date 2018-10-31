@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from '../styles.scss'
+import styles from '../../styles.scss'
 
 class LiteralRule extends Component {
   componentDidMount() {
@@ -7,7 +7,7 @@ class LiteralRule extends Component {
       this.ref.focus()
     }
   }
-  
+
   render() {
     return (
       <input
@@ -24,5 +24,5 @@ class LiteralRule extends Component {
     )
   }
 }
-  
+
 export default LiteralRule

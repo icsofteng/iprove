@@ -1,11 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANTS, NEW_RULE } from '../../../constants'
-import BinaryRule from './BinaryRule'
-import UnaryRule from './UnaryRule'
-import LiteralRule from './LiteralRule'
-import TrueRule from './TrueRule'
-import FalseRule from './FalseRule'
+
+/* Propositional */
+import BinaryRule from './Propositional/BinaryRule'
+import UnaryRule from './Propositional/UnaryRule'
+import LiteralRule from './Propositional/LiteralRule'
+import TrueRule from './Propositional/TrueRule'
+import FalseRule from './Propositional/FalseRule'
+
+/* First Order */
+import Quantifier from './FirstOrder/Quantifier'
+import Variable from './FirstOrder/Variable'
+import Relation from './FirstOrder/Relation'
+import Constant from './FirstOrder/Constant'
+
 import styles from './styles.scss'
 
 const components = {
@@ -13,7 +23,11 @@ const components = {
   unary: UnaryRule,
   literal: LiteralRule,
   true: TrueRule,
-  false: FalseRule
+  false: FalseRule,
+  quantifier: Quantifier,
+  variable: Variable,
+  constant: Constant,
+  relation: Relation,
 }
 
 const Rule = (props) => {
@@ -25,19 +39,28 @@ const Rule = (props) => {
     props.removeRule(pathWithoutAst)
   }
 
-  if (props.type) {
-    if (props.type === 'paren') {
-      return <Rule {...props} {...props.value} />
-    }
-    const RuleType = components[props.type]
-    return (
-      <div className={styles.rule}>
-        <RuleType {...props} />
-        <span className={styles.remove} onClick={removeRuleOrStep}>X</span>
-      </div>
-    )
+  console.log('props', props)
+
+  if (!props.type) {
+    return null
   }
-  return null
+
+  if (props.type === 'paren') {
+    return <Rule {...props} {...props.value} />
+  }
+
+  const RuleType = components[props.type]
+
+  if (!RuleType) {
+    return null
+  }
+
+  return (
+    <div className={styles.rule}>
+      <RuleType {...props} />
+      <span className={styles.remove} onClick={removeRuleOrStep}>X</span>
+    </div>
+  )
 }
 
 const mapDispatchToProps = dispatch => ({
