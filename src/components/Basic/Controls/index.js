@@ -12,13 +12,13 @@ const ControlBlock = ({ type, label, symbol, exprLeft=false, exprRight }) =>
     </div>
   </div>
 
-const Controls = () =>
+const Controls = (props) =>
   <div className={styles.controlList}>
-    <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight />
-    <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight />
-    <ControlBlock type="literal" label="Literal" symbol="P" />
-    <ControlBlock type="true" label="True" symbol="⊤" />
-    <ControlBlock type="false" label="False" symbol="⊥" />
+    <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight {...props} />
+    <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight {...props}/>
+    <ControlBlock type="literal" label="Literal" symbol="P" {...props}/>
+    <ControlBlock type="true" label="True" symbol="⊤" {...props}/>
+    <ControlBlock type="false" label="False" symbol="⊥" {...props}/>
   </div>
 
 export default Controls

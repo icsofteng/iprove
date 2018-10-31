@@ -1,14 +1,14 @@
 const { InputStream, CommonTokenStream } = require('antlr4')
-const { PropositionalLexer } = require('./PropositionalLexer')
-const { PropositionalParser } = require('./PropositionalParser')
-const { PropositionalVisitor } = require('./PropositionalVisitor')
+const { iProveLexer } = require('./iProveLexer')
+const { iProveParser } = require('./iProveParser')
+const { iProveVisitor } = require('./iProveVisitor')
 
 const parse = (input) => {
   const chars = new InputStream(input)
-  const lexer = new PropositionalLexer(chars)
+  const lexer = new iProveLexer(chars)
   const tokens  = new CommonTokenStream(lexer)
-  const parser = new PropositionalParser(tokens)
-  const visitor = new PropositionalVisitor()
+  const parser = new iProveParser(tokens)
+  const visitor = new iProveVisitor()
   parser.buildParseTrees = true
   const tree = parser.statement()
   const ast = visitor.visitStatement(tree)

@@ -1,7 +1,7 @@
 const { tree } = require('antlr4')
 const { ParseTreeVisitor } = tree
 
-class PropositionalVisitor extends ParseTreeVisitor {
+class iProveVisitor extends ParseTreeVisitor {
   constructor() {
     super()
     this.atoms = []
@@ -14,6 +14,10 @@ class PropositionalVisitor extends ParseTreeVisitor {
   visitParenthesesExp(ctx) {
     const value = this.visit(ctx.expression())
     return { type: 'paren', value }
+  }
+  visitSqParenthesesExp(ctx) {
+    const value = this.visit(ctx.expression())
+    return { type: 'sq_paren', value }
   }
   visitNotExp(ctx) {
     const value = this.visit(ctx.expression())
@@ -92,4 +96,4 @@ class PropositionalVisitor extends ParseTreeVisitor {
   }
 }
 
-exports.PropositionalVisitor = PropositionalVisitor
+exports.iProveVisitor = iProveVisitor

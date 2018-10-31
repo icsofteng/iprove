@@ -78,6 +78,7 @@ const translate_rule = (rule) => {
     case 'true':
     case 'false': return rule.type
     case 'paren': return translate_rule(rule.value)
+    case 'sq_paren': return translate_rule(rule)
     case 'quantifier': return translate_quantifier(rule)
     case 'relation': return translate_relation(rule)
     default: return translate_literal(rule)

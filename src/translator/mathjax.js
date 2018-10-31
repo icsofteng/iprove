@@ -34,6 +34,7 @@ const translate_rule = (rule) => {
       case 'true': return '\\top'
       case 'false': return '\\bot'
       case 'paren': return translate_paren(rule)
+      case 'sq_paren': return translate_sq_paren(rule)
       case 'quantifier': return translate_quantifier(rule)
       case 'relation': return translate_relation(rule)
       default: return translate_literal(rule)
@@ -48,6 +49,7 @@ const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' \\Longleftrigh
 const translate_not_rule = (rule) => '\\lnot ' + translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
+const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
 
 const translate = (rules) =>
   rules.map(rule => translate_rule(rule))

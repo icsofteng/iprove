@@ -1,4 +1,4 @@
-grammar Propositional;
+grammar iProve;
 
 statement: expression;
 
@@ -18,6 +18,7 @@ expression:
   | FALSE                                                               # falseExp
   | NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE     # relationExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
+  | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                         # sqParenthesesExp
   | FORALL VARIABLE expression                                          # forallExp
   | EXISTS VARIABLE expression                                          # existsExp
   ;
@@ -33,6 +34,8 @@ TRUE: 'true';
 FALSE: 'false';
 BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
+SQ_BRACKET_OPEN: '[';
+SQ_BRACKET_CLOSE: ']';
 LITERAL: [A-Z];
 VARIABLE: [a-z];
 CONSTANT: [A-Z][A-Za-z]+;
