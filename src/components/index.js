@@ -8,6 +8,7 @@ import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step } from '../utils'
 import save from 'save-file'
 import dialog from 'open-file-dialog'
+import Menu from './Shared/Menu'
 import _ from 'underscore'
 import styles from './styles.scss'
 
@@ -101,6 +102,7 @@ class IProve extends Component {
   render() {
     return (
       <div className={styles.iprove}>
+        <Menu />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
           <p>

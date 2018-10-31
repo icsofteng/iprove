@@ -145,7 +145,7 @@ class TextBox extends Component {
         {
           this.props.showDependencies &&
             <div className={styles.dependencies}>
-              <div className={styles.using}>using</div>
+              <div className={styles.using} onClick={()=>this.refDef.focus()}>using</div>
               <input
                 type="text"
                 className={styles.dependencyTextbox}

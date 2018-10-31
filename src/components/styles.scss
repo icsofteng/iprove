@@ -1,6 +1,7 @@
 :global body {
   margin:0;
-  font-family: 'Helvetica Neue', 'Segoe UI', Arial, Helvetica, sans-serif
+  font-family: 'cmr12', 'Helvetica Neue', 'Segoe UI', Arial, Helvetica, sans-serif;
+  line-height: 1;
 }
 .title {
   display: inline-block;
@@ -32,7 +33,6 @@
 }
 .panelTitle {
   font-size: 23px;
-  font-weight: bold;
 }
 .panelContent {
   margin-top: 15px;

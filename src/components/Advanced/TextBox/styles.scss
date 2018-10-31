@@ -13,7 +13,6 @@
 }
 .lineNumber {
   color: #999;
-  font-weight: bold;
   margin: 15px 2px;
 }
 .textboxContainer {
@@ -28,6 +27,7 @@
   margin: 0 0 0 15px;
   height: 100%;
   width: 100%;
+  font-family: 'cmr12';
 }
 .mathjax {
   margin: 0px 0 0px 15px;
@@ -55,6 +55,7 @@
   margin: 0 0 0 20px;
   height: 100%;
   color: #333;
+  font-family: 'cmr12';
 }
 :global .mjx-chtml.MJXc-display {
   text-align: left !important;
