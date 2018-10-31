@@ -48,12 +48,12 @@ class IProve extends Component {
       if (step.dependencies && step.dependencies.length > 0) {
         let requiredSteps = step.dependencies.filter(Boolean).map(d => {
           if (d <= givens.length) {
-            return givens[d-1].ast
+            return (givens[d-1] && givens[d-1].ast) || null
           }
           else {
-            return steps[d-givens.length-1].ast
+            return (steps[d-givens.length-1] && steps[d-givens.length-1].ast) || null
           }
-        })
+        }).filter(Boolean)
         requiredSteps.push(step.ast)
         this.callZ3(requiredSteps, constants, relations, atoms, i)
       }
