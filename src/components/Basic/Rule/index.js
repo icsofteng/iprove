@@ -6,6 +6,7 @@ import UnaryRule from './UnaryRule'
 import LiteralRule from './LiteralRule'
 import TrueRule from './TrueRule'
 import FalseRule from './FalseRule'
+import OrRule from './OrRule'
 import styles from './styles.scss'
 
 const components = {
@@ -13,7 +14,8 @@ const components = {
   unary: UnaryRule,
   literal: LiteralRule,
   true: TrueRule,
-  false: FalseRule
+  false: FalseRule,
+  or: OrRule
 }
 
 const Rule = (props) => {

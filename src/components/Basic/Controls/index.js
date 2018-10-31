@@ -19,6 +19,7 @@ const Controls = () =>
     <ControlBlock type="literal" label="Literal" symbol="P" />
     <ControlBlock type="true" label="True" symbol="⊤" />
     <ControlBlock type="false" label="False" symbol="⊥" />
+    <ControlBlock type="or" label="Or Rule" symbol="A V B" />
   </div>
 
 export default Controls
