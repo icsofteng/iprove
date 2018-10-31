@@ -6,9 +6,8 @@ import TextBoxList from './Advanced/TextBoxList'
 import { connect } from 'react-redux'
 import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step } from '../utils'
-import save from 'save-file'
-import dialog from 'open-file-dialog'
-import Menu from './Shared/Menu'
+import Toolbar from './Shared/Toolbar'
+import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import _ from 'underscore'
 import styles from './styles.scss'
 
@@ -75,40 +74,18 @@ class IProve extends Component {
     }
   }
 
-  downloadProof = () => {
-    const data = JSON.stringify({ props: this.props, state: this.state })
-    const d = new Date()
-    const date = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString()
-    save(data, date + '.proof', (err, data) => {
-      alert("File saved")
-    })
-  }
-
-  loadProof = () => {
-    dialog({
-      multiple: false,
-      accept: '.proof'
-    }, (files) => {
-      const reader = new FileReader()
-      reader.readAsText(files[0])
-      reader.onload = () => {
-        const { props, state } = JSON.parse(reader.result)
-        this.props.loadProof(props)
-        this.setState(state)
-      }
-    })
-  }
-
   render() {
     return (
       <div className={styles.iprove}>
-        <Menu />
+        <Toolbar
+          onSave={()=>saveDialog(this.props, this.state)}
+          onOpen={()=>openDialog((p, s)=>{this.props.loadProof(p); this.setState(s)})}
+        />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
           <p>
             Mode: <strong>{this.state.simple ? "Basic" : "Advanced"}</strong>
             <button onClick={()=>this.setState(state => ({ simple: !state.simple}))}>Switch</button>
-            <button onClick={this.loadProof}>Load</button> <button onClick={this.downloadProof}>Save</button>
           </p>
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }

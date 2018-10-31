@@ -2,22 +2,22 @@ import React, { Component } from "react"
 import { Menu, Menubar, MenuItem, Divider } from "react-desktop-menus"
 import { MdInsertDriveFile, MdFolder, MdSave, MdPrint, MdInput, MdHelp, MdUndo, MdRedo, MdSync } from 'react-icons/md'
 
-export default class MenuBar extends Component {
-  onClick() {
-    console.log("hello world")
+export default class Toolbar extends Component {
+  dispatch = (fn) => () => {
+    fn()
     this.menubar.close()
   }
 
   render() {
-    const action = this.onClick.bind(this)
+    const action = null
     return (
-      <Menubar ref={ elmt => this.menubar = elmt } style={ { border : "1px solid #eee" } } { ...this.props }>
+      <Menubar ref={ el => this.menubar = el } style={ { border : "1px solid #eee" } }>
         <Menu label="File">
           <MenuItem action={ action } icon={ <MdInsertDriveFile /> } label="New"/>
-          <MenuItem action={ action } icon={ <MdFolder /> } label="Open"/>
+          <MenuItem action={this.dispatch(this.props.onOpen)} icon={ <MdFolder /> } label="Open"/>
           <Divider />
           <MenuItem action={ action } icon={ <MdSave /> } label="Save"/>
-          <MenuItem action={ action } label="Save As..."/>
+          <MenuItem action={this.dispatch(this.props.onSave)} label="Save As..."/>
           <Divider />
           <MenuItem action={ action } icon={ <MdPrint /> } label="Print"/>
           <MenuItem action={ action } icon={ <MdInput /> } label="Export">
