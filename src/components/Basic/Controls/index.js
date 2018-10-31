@@ -16,7 +16,7 @@ const Controls = () =>
   <div className={styles.controlList}>
     <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight />
     <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight />
-    <ControlBlock type="literal" label="Literal" symbol="x" />
+    <ControlBlock type="literal" label="Literal" symbol="P" />
     <ControlBlock type="true" label="True" symbol="⊤" />
     <ControlBlock type="false" label="False" symbol="⊥" />
   </div>

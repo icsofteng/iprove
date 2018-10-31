@@ -35,7 +35,7 @@ export default class Toolbar extends Component {
           <MenuItem action={ action } icon={ <MdRedo /> } label="Redo"/>
         </Menu>
         <Menu label="View">
-          <MenuItem action={ action } icon={ <MdSync /> } label="Switch to Basic Mode"/>
+          <MenuItem action={this.dispatch(this.props.onSwitch)} icon={ <MdSync /> } label={this.props.simple ? "Switch to Advanced Mode" : "Switch to Basic Mode"} />
         </Menu>
         <Menu label="Help">
           <MenuItem action={ action } icon={ <MdHelp /> } label="About iProve" />

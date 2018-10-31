@@ -16,6 +16,11 @@
 .panels {
   display: flex;
   flex: 1;
+  flex-direction: column;
+}
+.leftRightPanel {
+  display: flex;
+  flex: 1;
 }
 .leftPanel {
   width: 50%;
@@ -33,9 +38,6 @@
 }
 .panelTitle {
   font-size: 23px;
-}
-.panelContent {
-  margin-top: 15px;
 }
 .iprove {
   height: 100%;

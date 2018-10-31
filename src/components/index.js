@@ -78,50 +78,50 @@ class IProve extends Component {
     return (
       <div className={styles.iprove}>
         <Toolbar
+          simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
           onOpen={()=>openDialog((p, s)=>{this.props.loadProof(p); this.setState(s)})}
+          onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
-          <p>
-            Mode: <strong>{this.state.simple ? "Basic" : "Advanced"}</strong>
-            <button onClick={()=>this.setState(state => ({ simple: !state.simple}))}>Switch</button>
-          </p>
-          { this.state.simple && <DragDrop /> }
-          { this.state.simple && <Controls /> }
         </div>
         <div className={styles.panels}>
-          <div className={styles.leftPanel}>
-            <div className={styles.panelBox}>
-              <div className={styles.panelTitle}>Givens</div>
-              <div className={styles.panelContent}>
-                { this.state.simple ?
-                    <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                  : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
-                }
+          <div className={styles.leftRightPanel}>
+            <div className={styles.leftPanel}>
+              <div className={styles.panelBox}>
+                <div className={styles.panelTitle}>Givens</div>
+                <div className={styles.panelContent}>
+                  { this.state.simple ?
+                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
+                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                  }
+                </div>
+              </div>
+              <div className={styles.panelBox}>
+                <div className={styles.panelTitle}>Goal</div>
+                <div className={styles.panelContent}>
+                  { this.state.simple ?
+                      <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
+                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                  }
+                </div>
               </div>
             </div>
-            <div className={styles.panelBox}>
-              <div className={styles.panelTitle}>Goal</div>
-              <div className={styles.panelContent}>
-                { this.state.simple ?
-                    <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-                  : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
-                }
+            <div className={styles.rightPanel}>
+              <div className={styles.panelBox}>
+                <div className={styles.panelTitle}>Proof</div>
+                <div className={styles.panelContent}>
+                  { this.state.simple ?
+                      <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
+                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                  }
+                </div>
               </div>
             </div>
           </div>
-          <div className={styles.rightPanel}>
-            <div className={styles.panelBox}>
-              <div className={styles.panelTitle}>Proof</div>
-              <div className={styles.panelContent}>
-                { this.state.simple ?
-                    <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                  : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
-                }
-              </div>
-            </div>
-          </div>
+          { this.state.simple && <DragDrop /> }
+          { this.state.simple && <Controls /> }
         </div>
       </div>
     )
