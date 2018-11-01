@@ -11,7 +11,7 @@ export default class Toolbar extends Component {
   render() {
     const action = null
     return (
-      <Menubar ref={ el => this.menubar = el } style={ { border : "1px solid #eee" } }>
+      <Menubar ref={ el => this.menubar = el } style={{ border : "1px solid #eee", zIndex: 1 }}>
         <Menu label="File">
           <MenuItem action={ action } icon={ <MdInsertDriveFile /> } label="New"/>
           <MenuItem action={this.dispatch(this.props.onOpen)} icon={ <MdFolder /> } label="Open"/>

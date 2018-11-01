@@ -7,7 +7,7 @@ var iProveVisitor = require('./iProveVisitor').iProveVisitor;
 var grammarFileName = "iProve.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003\u0015C\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0003\u0016C\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003\u0005\u0003\r",
     "\n\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
     "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
@@ -18,39 +18,39 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "0\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
     "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
     "\u0003\u0004\u0007\u0004>\n\u0004\f\u0004\u000e\u0004A\u000b\u0004\u0003",
-    "\u0004\u0002\u0003\u0006\u0005\u0002\u0004\u0006\u0002\u0002\u0002N",
-    "\u0002\b\u0003\u0002\u0002\u0002\u0004\f\u0003\u0002\u0002\u0002\u0006",
-    "/\u0003\u0002\u0002\u0002\b\t\u0005\u0006\u0004\u0002\t\u0003\u0003",
-    "\u0002\u0002\u0002\n\r\u0007\u0011\u0002\u0002\u000b\r\u0007\u0012\u0002",
-    "\u0002\f\n\u0003\u0002\u0002\u0002\f\u000b\u0003\u0002\u0002\u0002\r",
-    "\u0005\u0003\u0002\u0002\u0002\u000e\u000f\b\u0004\u0001\u0002\u000f",
-    "\u0010\u0007\u0005\u0002\u0002\u00100\u0005\u0006\u0004\u000f\u0011",
-    "0\u0007\u0010\u0002\u0002\u00120\u0007\n\u0002\u0002\u00130\u0007\u000b",
-    "\u0002\u0002\u0014\u0015\u0007\u0013\u0002\u0002\u0015\u001e\u0007\f",
-    "\u0002\u0002\u0016\u001b\u0005\u0004\u0003\u0002\u0017\u0018\u0007\u0014",
-    "\u0002\u0002\u0018\u001a\u0005\u0004\u0003\u0002\u0019\u0017\u0003\u0002",
-    "\u0002\u0002\u001a\u001d\u0003\u0002\u0002\u0002\u001b\u0019\u0003\u0002",
-    "\u0002\u0002\u001b\u001c\u0003\u0002\u0002\u0002\u001c\u001f\u0003\u0002",
-    "\u0002\u0002\u001d\u001b\u0003\u0002\u0002\u0002\u001e\u0016\u0003\u0002",
-    "\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f \u0003\u0002",
-    "\u0002\u0002 0\u0007\r\u0002\u0002!\"\u0007\f\u0002\u0002\"#\u0005\u0006",
-    "\u0004\u0002#$\u0007\r\u0002\u0002$0\u0003\u0002\u0002\u0002%&\u0007",
-    "\u000e\u0002\u0002&\'\u0005\u0006\u0004\u0002\'(\u0007\u000f\u0002\u0002",
-    "(0\u0003\u0002\u0002\u0002)*\u0007\u0003\u0002\u0002*+\u0007\u0011\u0002",
-    "\u0002+0\u0005\u0006\u0004\u0004,-\u0007\u0004\u0002\u0002-.\u0007\u0011",
-    "\u0002\u0002.0\u0005\u0006\u0004\u0003/\u000e\u0003\u0002\u0002\u0002",
-    "/\u0011\u0003\u0002\u0002\u0002/\u0012\u0003\u0002\u0002\u0002/\u0013",
-    "\u0003\u0002\u0002\u0002/\u0014\u0003\u0002\u0002\u0002/!\u0003\u0002",
-    "\u0002\u0002/%\u0003\u0002\u0002\u0002/)\u0003\u0002\u0002\u0002/,\u0003",
-    "\u0002\u0002\u00020?\u0003\u0002\u0002\u000212\f\u000e\u0002\u00022",
-    "3\u0007\u0006\u0002\u00023>\u0005\u0006\u0004\u000f45\f\r\u0002\u0002",
-    "56\u0007\u0007\u0002\u00026>\u0005\u0006\u0004\u000e78\f\f\u0002\u0002",
-    "89\u0007\b\u0002\u00029>\u0005\u0006\u0004\r:;\f\u000b\u0002\u0002;",
-    "<\u0007\t\u0002\u0002<>\u0005\u0006\u0004\f=1\u0003\u0002\u0002\u0002",
-    "=4\u0003\u0002\u0002\u0002=7\u0003\u0002\u0002\u0002=:\u0003\u0002\u0002",
-    "\u0002>A\u0003\u0002\u0002\u0002?=\u0003\u0002\u0002\u0002?@\u0003\u0002",
-    "\u0002\u0002@\u0007\u0003\u0002\u0002\u0002A?\u0003\u0002\u0002\u0002",
-    "\b\f\u001b\u001e/=?"].join("");
+    "\u0004\u0002\u0003\u0006\u0005\u0002\u0004\u0006\u0002\u0003\u0003\u0002",
+    "\b\t\u0002N\u0002\b\u0003\u0002\u0002\u0002\u0004\f\u0003\u0002\u0002",
+    "\u0002\u0006/\u0003\u0002\u0002\u0002\b\t\u0005\u0006\u0004\u0002\t",
+    "\u0003\u0003\u0002\u0002\u0002\n\r\u0007\u0012\u0002\u0002\u000b\r\u0007",
+    "\u0013\u0002\u0002\f\n\u0003\u0002\u0002\u0002\f\u000b\u0003\u0002\u0002",
+    "\u0002\r\u0005\u0003\u0002\u0002\u0002\u000e\u000f\b\u0004\u0001\u0002",
+    "\u000f\u0010\u0007\u0005\u0002\u0002\u00100\u0005\u0006\u0004\u000f",
+    "\u00110\u0007\u0011\u0002\u0002\u00120\u0007\u000b\u0002\u0002\u0013",
+    "0\u0007\f\u0002\u0002\u0014\u0015\u0007\u0014\u0002\u0002\u0015\u001e",
+    "\u0007\r\u0002\u0002\u0016\u001b\u0005\u0004\u0003\u0002\u0017\u0018",
+    "\u0007\u0015\u0002\u0002\u0018\u001a\u0005\u0004\u0003\u0002\u0019\u0017",
+    "\u0003\u0002\u0002\u0002\u001a\u001d\u0003\u0002\u0002\u0002\u001b\u0019",
+    "\u0003\u0002\u0002\u0002\u001b\u001c\u0003\u0002\u0002\u0002\u001c\u001f",
+    "\u0003\u0002\u0002\u0002\u001d\u001b\u0003\u0002\u0002\u0002\u001e\u0016",
+    "\u0003\u0002\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f ",
+    "\u0003\u0002\u0002\u0002 0\u0007\u000e\u0002\u0002!\"\u0007\r\u0002",
+    "\u0002\"#\u0005\u0006\u0004\u0002#$\u0007\u000e\u0002\u0002$0\u0003",
+    "\u0002\u0002\u0002%&\u0007\u000f\u0002\u0002&\'\u0005\u0006\u0004\u0002",
+    "\'(\u0007\u0010\u0002\u0002(0\u0003\u0002\u0002\u0002)*\u0007\u0003",
+    "\u0002\u0002*+\u0007\u0012\u0002\u0002+0\u0005\u0006\u0004\u0004,-\u0007",
+    "\u0004\u0002\u0002-.\u0007\u0012\u0002\u0002.0\u0005\u0006\u0004\u0003",
+    "/\u000e\u0003\u0002\u0002\u0002/\u0011\u0003\u0002\u0002\u0002/\u0012",
+    "\u0003\u0002\u0002\u0002/\u0013\u0003\u0002\u0002\u0002/\u0014\u0003",
+    "\u0002\u0002\u0002/!\u0003\u0002\u0002\u0002/%\u0003\u0002\u0002\u0002",
+    "/)\u0003\u0002\u0002\u0002/,\u0003\u0002\u0002\u00020?\u0003\u0002\u0002",
+    "\u000212\f\u000e\u0002\u000223\u0007\u0006\u0002\u00023>\u0005\u0006",
+    "\u0004\u000f45\f\r\u0002\u000256\u0007\u0007\u0002\u00026>\u0005\u0006",
+    "\u0004\u000e78\f\f\u0002\u000289\t\u0002\u0002\u00029>\u0005\u0006\u0004",
+    "\r:;\f\u000b\u0002\u0002;<\u0007\n\u0002\u0002<>\u0005\u0006\u0004\f",
+    "=1\u0003\u0002\u0002\u0002=4\u0003\u0002\u0002\u0002=7\u0003\u0002\u0002",
+    "\u0002=:\u0003\u0002\u0002\u0002>A\u0003\u0002\u0002\u0002?=\u0003\u0002",
+    "\u0002\u0002?@\u0003\u0002\u0002\u0002@\u0007\u0003\u0002\u0002\u0002",
+    "A?\u0003\u0002\u0002\u0002\b\f\u001b\u001e/=?"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -60,13 +60,15 @@ var decisionsToDFA = atn.decisionToState.map( function(ds, index) { return new a
 var sharedContextCache = new antlr4.PredictionContextCache();
 
 var literalNames = [ null, "'forall'", "'exists'", "'not'", "'and'", "'or'", 
-                     "'implies'", "'iff'", "'true'", "'false'", "'('", "')'", 
-                     "'['", "']'", null, null, null, null, "','" ];
+                     "'implies'", "'=>'", "'iff'", "'true'", "'false'", 
+                     "'('", "')'", "'['", "']'", null, null, null, null, 
+                     "','" ];
 
 var symbolicNames = [ null, "FORALL", "EXISTS", "NOT", "AND", "OR", "IMPLIES", 
-                      "IFF", "TRUE", "FALSE", "BRACKET_OPEN", "BRACKET_CLOSE", 
-                      "SQ_BRACKET_OPEN", "SQ_BRACKET_CLOSE", "LITERAL", 
-                      "VARIABLE", "CONSTANT", "NAME", "COMMA", "WS" ];
+                      "IMPLIES2", "IFF", "TRUE", "FALSE", "BRACKET_OPEN", 
+                      "BRACKET_CLOSE", "SQ_BRACKET_OPEN", "SQ_BRACKET_CLOSE", 
+                      "LITERAL", "VARIABLE", "CONSTANT", "NAME", "COMMA", 
+                      "WS" ];
 
 var ruleNames =  [ "statement", "parameter", "expression" ];
 
@@ -95,19 +97,20 @@ iProveParser.NOT = 3;
 iProveParser.AND = 4;
 iProveParser.OR = 5;
 iProveParser.IMPLIES = 6;
-iProveParser.IFF = 7;
-iProveParser.TRUE = 8;
-iProveParser.FALSE = 9;
-iProveParser.BRACKET_OPEN = 10;
-iProveParser.BRACKET_CLOSE = 11;
-iProveParser.SQ_BRACKET_OPEN = 12;
-iProveParser.SQ_BRACKET_CLOSE = 13;
-iProveParser.LITERAL = 14;
-iProveParser.VARIABLE = 15;
-iProveParser.CONSTANT = 16;
-iProveParser.NAME = 17;
-iProveParser.COMMA = 18;
-iProveParser.WS = 19;
+iProveParser.IMPLIES2 = 7;
+iProveParser.IFF = 8;
+iProveParser.TRUE = 9;
+iProveParser.FALSE = 10;
+iProveParser.BRACKET_OPEN = 11;
+iProveParser.BRACKET_CLOSE = 12;
+iProveParser.SQ_BRACKET_OPEN = 13;
+iProveParser.SQ_BRACKET_CLOSE = 14;
+iProveParser.LITERAL = 15;
+iProveParser.VARIABLE = 16;
+iProveParser.CONSTANT = 17;
+iProveParser.NAME = 18;
+iProveParser.COMMA = 19;
+iProveParser.WS = 20;
 
 iProveParser.RULE_statement = 0;
 iProveParser.RULE_parameter = 1;
@@ -880,6 +883,10 @@ ImpliesExpContext.prototype.expression = function(i) {
 ImpliesExpContext.prototype.IMPLIES = function() {
     return this.getToken(iProveParser.IMPLIES, 0);
 };
+
+ImpliesExpContext.prototype.IMPLIES2 = function() {
+    return this.getToken(iProveParser.IMPLIES2, 0);
+};
 ImpliesExpContext.prototype.enterRule = function(listener) {
     if(listener instanceof iProveListener ) {
         listener.enterImpliesExp(this);
@@ -1075,7 +1082,14 @@ iProveParser.prototype.expression = function(_p) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
                     }
                     this.state = 54;
-                    this.match(iProveParser.IMPLIES);
+                    _la = this._input.LA(1);
+                    if(!(_la===iProveParser.IMPLIES || _la===iProveParser.IMPLIES2)) {
+                    this._errHandler.recoverInline(this);
+                    }
+                    else {
+                    	this._errHandler.reportMatch(this);
+                        this.consume();
+                    }
                     this.state = 55;
                     this.expression(11);
                     break;

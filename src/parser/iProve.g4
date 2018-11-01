@@ -11,7 +11,7 @@ expression:
     NOT expression                                                      # notExp
   | expression AND expression                                           # andExp
   | expression OR expression                                            # orExp
-  | expression IMPLIES expression                                       # impliesExp
+  | expression (IMPLIES|IMPLIES2) expression                            # impliesExp
   | expression IFF expression                                           # iffExp
   | LITERAL                                                             # literalExp
   | TRUE                                                                # trueExp
@@ -29,6 +29,7 @@ NOT: 'not';
 AND: 'and';
 OR: 'or';
 IMPLIES: 'implies';
+IMPLIES2: '=>';
 IFF: 'iff';
 TRUE: 'true';
 FALSE: 'false';
