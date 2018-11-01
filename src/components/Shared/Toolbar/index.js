@@ -31,8 +31,8 @@ export default class Toolbar extends Component {
           <MenuItem action={ action } label="Exit" />
         </Menu>
         <Menu label="Edit">
-          <MenuItem action={ action } icon={ <MdUndo /> } label="Undo"/>
-          <MenuItem action={ action } icon={ <MdRedo /> } label="Redo"/>
+          <MenuItem action={this.dispatch(this.props.onUndo)} icon={ <MdUndo /> } label="Undo"/>
+          <MenuItem action={this.dispatch(this.props.onRedo)} icon={ <MdRedo /> } label="Redo"/>
         </Menu>
         <Menu label="View">
           <MenuItem action={this.dispatch(this.props.onSwitch)} icon={ <MdSync /> } label={this.props.simple ? "Switch to Advanced Mode" : "Switch to Basic Mode"} />
