@@ -13,16 +13,18 @@ import {
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
   SET_STEP_DEPENDENCY,
-  LOAD_PROOF
+  LOAD_PROOF,
+  PUSH_SCOPE
 } from '../constants'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {} }],
+  steps: [{ dependencies: [], ast: {}, scope: [] }],
   givens: [{ ast: {} }],
   goal: [{ ast: {} }],
   atoms: [],
   constants: [],
   relations: [],
+  currentScope: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,7 +39,7 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        depth[index] = { dependencies: [], ast: { type: action.payload } }
+        depth[index] = { scope: newState.currentScope, dependencies: [], ast: { type: action.payload } }
         return newState
 
       case NEW_RULE:
@@ -88,6 +90,11 @@ const reducer = (state = initialState, action) => {
 
       case UPDATE_STEP_DEPENDENCY:
         depth[index][action.index] = parseInt(action.value)
+        return newState
+
+      case PUSH_SCOPE:
+        newState.currentScope.push(action.payload)
+        newState.currentScope = _.uniq(newState.currentScope)
         return newState
 
       default:

@@ -9,6 +9,7 @@ const TextBoxList = (props) =>
         <TextBox
           key={"step"+id}
           ast={step.ast}
+          scope={step.scope || []}
           dependencies={step.dependencies}
           index={id}
           focus={props.type === props.selectedTextBox[0] && id === props.selectedTextBox[1]}
