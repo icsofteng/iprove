@@ -8,6 +8,7 @@ import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
+import { ActionCreators } from 'redux-undo'
 import _ from 'underscore'
 import styles from './styles.scss'
 
@@ -82,6 +83,8 @@ class IProve extends Component {
           onSave={()=>saveDialog(this.props, this.state)}
           onOpen={()=>openDialog((p, s)=>{this.props.loadProof(p); this.setState(s)})}
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
+          onUndo={this.props.undo}
+          onRedo={this.props.redo}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
@@ -130,7 +133,9 @@ class IProve extends Component {
 
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
-  loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] })
+  loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
+  undo: () => dispatch(ActionCreators.undo()),
+  redo: () => dispatch(ActionCreators.redo()),
 })
 
-export default connect(state => state, mapDispatchToProps)(IProve)
+export default connect(state => state.present, mapDispatchToProps)(IProve)

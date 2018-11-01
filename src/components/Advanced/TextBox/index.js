@@ -175,4 +175,4 @@ const mapDispatchToProps = dispatch => ({
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
 })
 
-export default connect(state => ({ givens: state.givens }), mapDispatchToProps)(TextBox)
+export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
