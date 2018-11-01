@@ -65,6 +65,15 @@ iProveListener.prototype.exitAssumeExp = function(ctx) {
 };
 
 
+// Enter a parse tree produced by iProveParser#exitExp.
+iProveListener.prototype.enterExitExp = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#exitExp.
+iProveListener.prototype.exitExitExp = function(ctx) {
+};
+
+
 // Enter a parse tree produced by iProveParser#orExp.
 iProveListener.prototype.enterOrExp = function(ctx) {
 };
