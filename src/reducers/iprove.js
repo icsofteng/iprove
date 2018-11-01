@@ -26,7 +26,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log(action)
   let newState = JSON.parse(JSON.stringify(state))
   if (action.path) {
     const [key, ...path] = action.path

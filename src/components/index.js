@@ -23,6 +23,17 @@ class IProve extends Component {
     }
   }
 
+  componentDidMount() {
+    document.addEventListener('keypress', (e) => {
+      if (e.code === 'KeyZ' && e.ctrlKey) {
+        this.props.undo()
+      }
+      else if (e.code === 'KeyY' && e.ctrlKey) {
+        this.props.redo()
+      }
+    })
+  }
+
   callZ3(steps, constants, relations, atoms, i) {
     fetch('/z3', {
       method: "POST",
