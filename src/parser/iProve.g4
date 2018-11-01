@@ -17,6 +17,7 @@ expression:
   | LITERAL                                                             # literalExp
   | TRUE                                                                # trueExp
   | FALSE                                                               # falseExp
+  | EXIT                                                                # exitExp
   | NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE     # relationExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
   | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                         # sqParenthesesExp
@@ -27,6 +28,7 @@ expression:
 ASSUME: 'assume';
 FORALL: 'forall';
 EXISTS: 'exists';
+EXIT: 'exit';
 NOT: 'not';
 AND: 'and';
 OR: 'or';

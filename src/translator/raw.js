@@ -33,6 +33,7 @@ const translate_rule = (rule) => {
       case 'unary' : return translate_unary_rule(rule)
       case 'true':
       case 'false': return rule.type
+      case 'exit': return 'exit'
       case 'paren': return translate_paren(rule)
       case 'sq_paren': return translate_sq_paren(rule)
       case 'quantifier': return translate_quantifier(rule)
