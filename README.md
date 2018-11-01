@@ -32,6 +32,7 @@
 { type: 'binary', symbol: 'and', lhs: expr1, rhs: expr2 }                           (assert (and expr1 expr2))
 { type: 'binary', symbol: 'or', lhs: expr1, rhs: expr2 }                            (assert (or expr1 expr2))
 { type: 'unary', symbol: 'not', value: expr }                                       (assert (not expr))
+{ type: 'assume', value: expr }                                                     (assert (expr))
 
 First Order:
 { type: 'quantifier', symbol: 'forall', variable: 'x', value: expr}                 (assert (forall ((x Type)) (expr)))

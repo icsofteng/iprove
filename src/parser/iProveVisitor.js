@@ -11,6 +11,10 @@ class iProveVisitor extends ParseTreeVisitor {
   visitStatement(ctx) {
     return this.visitChildren(ctx)
   }
+  visitAssumeExp(ctx) {
+    const value = this.visit(ctx.expression())
+    return { type: 'assume', value }
+  }
   visitParenthesesExp(ctx) {
     const value = this.visit(ctx.expression())
     return { type: 'paren', value }

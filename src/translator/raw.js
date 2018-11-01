@@ -37,6 +37,7 @@ const translate_rule = (rule) => {
       case 'sq_paren': return translate_sq_paren(rule)
       case 'quantifier': return translate_quantifier(rule)
       case 'relation': return translate_relation(rule)
+      case 'assume': return translate_assume(rule)
       default: return translate_literal(rule)
     }
   }
@@ -50,6 +51,7 @@ const translate_not_rule = (rule) => 'not ' + translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
+const translate_assume = (rule) => 'assume '+ translate_rule(rule.value)
 
 const translate = (rules) =>
   rules.map(rule => translate_rule(rule))
