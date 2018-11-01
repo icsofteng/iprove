@@ -7,50 +7,51 @@ var iProveVisitor = require('./iProveVisitor').iProveVisitor;
 var grammarFileName = "iProve.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003\u0016C\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0003\u0017E\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003\u0005\u0003\r",
     "\n\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
     "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
-    "\u0007\u0004\u001a\n\u0004\f\u0004\u000e\u0004\u001d\u000b\u0004\u0005",
-    "\u0004\u001f\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
-    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
-    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0005\u0004",
-    "0\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
-    "\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004",
-    "\u0003\u0004\u0007\u0004>\n\u0004\f\u0004\u000e\u0004A\u000b\u0004\u0003",
-    "\u0004\u0002\u0003\u0006\u0005\u0002\u0004\u0006\u0002\u0003\u0003\u0002",
-    "\b\t\u0002N\u0002\b\u0003\u0002\u0002\u0002\u0004\f\u0003\u0002\u0002",
-    "\u0002\u0006/\u0003\u0002\u0002\u0002\b\t\u0005\u0006\u0004\u0002\t",
-    "\u0003\u0003\u0002\u0002\u0002\n\r\u0007\u0012\u0002\u0002\u000b\r\u0007",
-    "\u0013\u0002\u0002\f\n\u0003\u0002\u0002\u0002\f\u000b\u0003\u0002\u0002",
-    "\u0002\r\u0005\u0003\u0002\u0002\u0002\u000e\u000f\b\u0004\u0001\u0002",
-    "\u000f\u0010\u0007\u0005\u0002\u0002\u00100\u0005\u0006\u0004\u000f",
-    "\u00110\u0007\u0011\u0002\u0002\u00120\u0007\u000b\u0002\u0002\u0013",
-    "0\u0007\f\u0002\u0002\u0014\u0015\u0007\u0014\u0002\u0002\u0015\u001e",
-    "\u0007\r\u0002\u0002\u0016\u001b\u0005\u0004\u0003\u0002\u0017\u0018",
-    "\u0007\u0015\u0002\u0002\u0018\u001a\u0005\u0004\u0003\u0002\u0019\u0017",
-    "\u0003\u0002\u0002\u0002\u001a\u001d\u0003\u0002\u0002\u0002\u001b\u0019",
-    "\u0003\u0002\u0002\u0002\u001b\u001c\u0003\u0002\u0002\u0002\u001c\u001f",
-    "\u0003\u0002\u0002\u0002\u001d\u001b\u0003\u0002\u0002\u0002\u001e\u0016",
-    "\u0003\u0002\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f ",
-    "\u0003\u0002\u0002\u0002 0\u0007\u000e\u0002\u0002!\"\u0007\r\u0002",
-    "\u0002\"#\u0005\u0006\u0004\u0002#$\u0007\u000e\u0002\u0002$0\u0003",
-    "\u0002\u0002\u0002%&\u0007\u000f\u0002\u0002&\'\u0005\u0006\u0004\u0002",
-    "\'(\u0007\u0010\u0002\u0002(0\u0003\u0002\u0002\u0002)*\u0007\u0003",
-    "\u0002\u0002*+\u0007\u0012\u0002\u0002+0\u0005\u0006\u0004\u0004,-\u0007",
-    "\u0004\u0002\u0002-.\u0007\u0012\u0002\u0002.0\u0005\u0006\u0004\u0003",
-    "/\u000e\u0003\u0002\u0002\u0002/\u0011\u0003\u0002\u0002\u0002/\u0012",
-    "\u0003\u0002\u0002\u0002/\u0013\u0003\u0002\u0002\u0002/\u0014\u0003",
-    "\u0002\u0002\u0002/!\u0003\u0002\u0002\u0002/%\u0003\u0002\u0002\u0002",
-    "/)\u0003\u0002\u0002\u0002/,\u0003\u0002\u0002\u00020?\u0003\u0002\u0002",
-    "\u000212\f\u000e\u0002\u000223\u0007\u0006\u0002\u00023>\u0005\u0006",
-    "\u0004\u000f45\f\r\u0002\u000256\u0007\u0007\u0002\u00026>\u0005\u0006",
-    "\u0004\u000e78\f\f\u0002\u000289\t\u0002\u0002\u00029>\u0005\u0006\u0004",
-    "\r:;\f\u000b\u0002\u0002;<\u0007\n\u0002\u0002<>\u0005\u0006\u0004\f",
-    "=1\u0003\u0002\u0002\u0002=4\u0003\u0002\u0002\u0002=7\u0003\u0002\u0002",
-    "\u0002=:\u0003\u0002\u0002\u0002>A\u0003\u0002\u0002\u0002?=\u0003\u0002",
-    "\u0002\u0002?@\u0003\u0002\u0002\u0002@\u0007\u0003\u0002\u0002\u0002",
-    "A?\u0003\u0002\u0002\u0002\b\f\u001b\u001e/=?"].join("");
+    "\u0003\u0004\u0003\u0004\u0007\u0004\u001c\n\u0004\f\u0004\u000e\u0004",
+    "\u001f\u000b\u0004\u0005\u0004!\n\u0004\u0003\u0004\u0003\u0004\u0003",
+    "\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003",
+    "\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003",
+    "\u0004\u0005\u00042\n\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003",
+    "\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003",
+    "\u0004\u0003\u0004\u0003\u0004\u0007\u0004@\n\u0004\f\u0004\u000e\u0004",
+    "C\u000b\u0004\u0003\u0004\u0002\u0003\u0006\u0005\u0002\u0004\u0006",
+    "\u0002\u0003\u0003\u0002\t\n\u0002Q\u0002\b\u0003\u0002\u0002\u0002",
+    "\u0004\f\u0003\u0002\u0002\u0002\u00061\u0003\u0002\u0002\u0002\b\t",
+    "\u0005\u0006\u0004\u0002\t\u0003\u0003\u0002\u0002\u0002\n\r\u0007\u0013",
+    "\u0002\u0002\u000b\r\u0007\u0014\u0002\u0002\f\n\u0003\u0002\u0002\u0002",
+    "\f\u000b\u0003\u0002\u0002\u0002\r\u0005\u0003\u0002\u0002\u0002\u000e",
+    "\u000f\b\u0004\u0001\u0002\u000f\u0010\u0007\u0006\u0002\u0002\u0010",
+    "2\u0005\u0006\u0004\u0010\u0011\u0012\u0007\u0003\u0002\u0002\u0012",
+    "2\u0005\u0006\u0004\u000f\u00132\u0007\u0012\u0002\u0002\u00142\u0007",
+    "\f\u0002\u0002\u00152\u0007\r\u0002\u0002\u0016\u0017\u0007\u0015\u0002",
+    "\u0002\u0017 \u0007\u000e\u0002\u0002\u0018\u001d\u0005\u0004\u0003",
+    "\u0002\u0019\u001a\u0007\u0016\u0002\u0002\u001a\u001c\u0005\u0004\u0003",
+    "\u0002\u001b\u0019\u0003\u0002\u0002\u0002\u001c\u001f\u0003\u0002\u0002",
+    "\u0002\u001d\u001b\u0003\u0002\u0002\u0002\u001d\u001e\u0003\u0002\u0002",
+    "\u0002\u001e!\u0003\u0002\u0002\u0002\u001f\u001d\u0003\u0002\u0002",
+    "\u0002 \u0018\u0003\u0002\u0002\u0002 !\u0003\u0002\u0002\u0002!\"\u0003",
+    "\u0002\u0002\u0002\"2\u0007\u000f\u0002\u0002#$\u0007\u000e\u0002\u0002",
+    "$%\u0005\u0006\u0004\u0002%&\u0007\u000f\u0002\u0002&2\u0003\u0002\u0002",
+    "\u0002\'(\u0007\u0010\u0002\u0002()\u0005\u0006\u0004\u0002)*\u0007",
+    "\u0011\u0002\u0002*2\u0003\u0002\u0002\u0002+,\u0007\u0004\u0002\u0002",
+    ",-\u0007\u0013\u0002\u0002-2\u0005\u0006\u0004\u0004./\u0007\u0005\u0002",
+    "\u0002/0\u0007\u0013\u0002\u000202\u0005\u0006\u0004\u00031\u000e\u0003",
+    "\u0002\u0002\u00021\u0011\u0003\u0002\u0002\u00021\u0013\u0003\u0002",
+    "\u0002\u00021\u0014\u0003\u0002\u0002\u00021\u0015\u0003\u0002\u0002",
+    "\u00021\u0016\u0003\u0002\u0002\u00021#\u0003\u0002\u0002\u00021\'\u0003",
+    "\u0002\u0002\u00021+\u0003\u0002\u0002\u00021.\u0003\u0002\u0002\u0002",
+    "2A\u0003\u0002\u0002\u000234\f\u000e\u0002\u000245\u0007\u0007\u0002",
+    "\u00025@\u0005\u0006\u0004\u000f67\f\r\u0002\u000278\u0007\b\u0002\u0002",
+    "8@\u0005\u0006\u0004\u000e9:\f\f\u0002\u0002:;\t\u0002\u0002\u0002;",
+    "@\u0005\u0006\u0004\r<=\f\u000b\u0002\u0002=>\u0007\u000b\u0002\u0002",
+    ">@\u0005\u0006\u0004\f?3\u0003\u0002\u0002\u0002?6\u0003\u0002\u0002",
+    "\u0002?9\u0003\u0002\u0002\u0002?<\u0003\u0002\u0002\u0002@C\u0003\u0002",
+    "\u0002\u0002A?\u0003\u0002\u0002\u0002AB\u0003\u0002\u0002\u0002B\u0007",
+    "\u0003\u0002\u0002\u0002CA\u0003\u0002\u0002\u0002\b\f\u001d 1?A"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -59,16 +60,16 @@ var decisionsToDFA = atn.decisionToState.map( function(ds, index) { return new a
 
 var sharedContextCache = new antlr4.PredictionContextCache();
 
-var literalNames = [ null, "'forall'", "'exists'", "'not'", "'and'", "'or'", 
-                     "'implies'", "'=>'", "'iff'", "'true'", "'false'", 
-                     "'('", "')'", "'['", "']'", null, null, null, null, 
-                     "','" ];
+var literalNames = [ null, "'assume'", "'forall'", "'exists'", "'not'", 
+                     "'and'", "'or'", "'implies'", "'=>'", "'iff'", "'true'", 
+                     "'false'", "'('", "')'", "'['", "']'", null, null, 
+                     null, null, "','" ];
 
-var symbolicNames = [ null, "FORALL", "EXISTS", "NOT", "AND", "OR", "IMPLIES", 
-                      "IMPLIES2", "IFF", "TRUE", "FALSE", "BRACKET_OPEN", 
-                      "BRACKET_CLOSE", "SQ_BRACKET_OPEN", "SQ_BRACKET_CLOSE", 
-                      "LITERAL", "VARIABLE", "CONSTANT", "NAME", "COMMA", 
-                      "WS" ];
+var symbolicNames = [ null, "ASSUME", "FORALL", "EXISTS", "NOT", "AND", 
+                      "OR", "IMPLIES", "IMPLIES2", "IFF", "TRUE", "FALSE", 
+                      "BRACKET_OPEN", "BRACKET_CLOSE", "SQ_BRACKET_OPEN", 
+                      "SQ_BRACKET_CLOSE", "LITERAL", "VARIABLE", "CONSTANT", 
+                      "NAME", "COMMA", "WS" ];
 
 var ruleNames =  [ "statement", "parameter", "expression" ];
 
@@ -91,26 +92,27 @@ Object.defineProperty(iProveParser.prototype, "atn", {
 });
 
 iProveParser.EOF = antlr4.Token.EOF;
-iProveParser.FORALL = 1;
-iProveParser.EXISTS = 2;
-iProveParser.NOT = 3;
-iProveParser.AND = 4;
-iProveParser.OR = 5;
-iProveParser.IMPLIES = 6;
-iProveParser.IMPLIES2 = 7;
-iProveParser.IFF = 8;
-iProveParser.TRUE = 9;
-iProveParser.FALSE = 10;
-iProveParser.BRACKET_OPEN = 11;
-iProveParser.BRACKET_CLOSE = 12;
-iProveParser.SQ_BRACKET_OPEN = 13;
-iProveParser.SQ_BRACKET_CLOSE = 14;
-iProveParser.LITERAL = 15;
-iProveParser.VARIABLE = 16;
-iProveParser.CONSTANT = 17;
-iProveParser.NAME = 18;
-iProveParser.COMMA = 19;
-iProveParser.WS = 20;
+iProveParser.ASSUME = 1;
+iProveParser.FORALL = 2;
+iProveParser.EXISTS = 3;
+iProveParser.NOT = 4;
+iProveParser.AND = 5;
+iProveParser.OR = 6;
+iProveParser.IMPLIES = 7;
+iProveParser.IMPLIES2 = 8;
+iProveParser.IFF = 9;
+iProveParser.TRUE = 10;
+iProveParser.FALSE = 11;
+iProveParser.BRACKET_OPEN = 12;
+iProveParser.BRACKET_CLOSE = 13;
+iProveParser.SQ_BRACKET_OPEN = 14;
+iProveParser.SQ_BRACKET_CLOSE = 15;
+iProveParser.LITERAL = 16;
+iProveParser.VARIABLE = 17;
+iProveParser.CONSTANT = 18;
+iProveParser.NAME = 19;
+iProveParser.COMMA = 20;
+iProveParser.WS = 21;
 
 iProveParser.RULE_statement = 0;
 iProveParser.RULE_parameter = 1;
@@ -421,6 +423,45 @@ ParenthesesExpContext.prototype.exitRule = function(listener) {
 ParenthesesExpContext.prototype.accept = function(visitor) {
     if ( visitor instanceof iProveVisitor ) {
         return visitor.visitParenthesesExp(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function AssumeExpContext(parser, ctx) {
+	ExpressionContext.call(this, parser);
+    ExpressionContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+AssumeExpContext.prototype = Object.create(ExpressionContext.prototype);
+AssumeExpContext.prototype.constructor = AssumeExpContext;
+
+iProveParser.AssumeExpContext = AssumeExpContext;
+
+AssumeExpContext.prototype.ASSUME = function() {
+    return this.getToken(iProveParser.ASSUME, 0);
+};
+
+AssumeExpContext.prototype.expression = function() {
+    return this.getTypedRuleContext(ExpressionContext,0);
+};
+AssumeExpContext.prototype.enterRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.enterAssumeExp(this);
+	}
+};
+
+AssumeExpContext.prototype.exitRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.exitAssumeExp(this);
+	}
+};
+
+AssumeExpContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof iProveVisitor ) {
+        return visitor.visitAssumeExp(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -922,7 +963,7 @@ iProveParser.prototype.expression = function(_p) {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 45;
+        this.state = 47;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case iProveParser.NOT:
@@ -933,109 +974,118 @@ iProveParser.prototype.expression = function(_p) {
             this.state = 13;
             this.match(iProveParser.NOT);
             this.state = 14;
+            this.expression(14);
+            break;
+        case iProveParser.ASSUME:
+            localctx = new AssumeExpContext(this, localctx);
+            this._ctx = localctx;
+            _prevctx = localctx;
+            this.state = 15;
+            this.match(iProveParser.ASSUME);
+            this.state = 16;
             this.expression(13);
             break;
         case iProveParser.LITERAL:
             localctx = new LiteralExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 15;
+            this.state = 17;
             this.match(iProveParser.LITERAL);
             break;
         case iProveParser.TRUE:
             localctx = new TrueExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 16;
+            this.state = 18;
             this.match(iProveParser.TRUE);
             break;
         case iProveParser.FALSE:
             localctx = new FalseExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 17;
+            this.state = 19;
             this.match(iProveParser.FALSE);
             break;
         case iProveParser.NAME:
             localctx = new RelationExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 18;
+            this.state = 20;
             this.match(iProveParser.NAME);
-            this.state = 19;
+            this.state = 21;
             this.match(iProveParser.BRACKET_OPEN);
-            this.state = 28;
+            this.state = 30;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             if(_la===iProveParser.VARIABLE || _la===iProveParser.CONSTANT) {
-                this.state = 20;
+                this.state = 22;
                 this.parameter();
-                this.state = 25;
+                this.state = 27;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
                 while(_la===iProveParser.COMMA) {
-                    this.state = 21;
+                    this.state = 23;
                     this.match(iProveParser.COMMA);
-                    this.state = 22;
+                    this.state = 24;
                     this.parameter();
-                    this.state = 27;
+                    this.state = 29;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
                 }
             }
 
-            this.state = 30;
+            this.state = 32;
             this.match(iProveParser.BRACKET_CLOSE);
             break;
         case iProveParser.BRACKET_OPEN:
             localctx = new ParenthesesExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 31;
-            this.match(iProveParser.BRACKET_OPEN);
-            this.state = 32;
-            this.expression(0);
             this.state = 33;
+            this.match(iProveParser.BRACKET_OPEN);
+            this.state = 34;
+            this.expression(0);
+            this.state = 35;
             this.match(iProveParser.BRACKET_CLOSE);
             break;
         case iProveParser.SQ_BRACKET_OPEN:
             localctx = new SqParenthesesExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 35;
-            this.match(iProveParser.SQ_BRACKET_OPEN);
-            this.state = 36;
-            this.expression(0);
             this.state = 37;
+            this.match(iProveParser.SQ_BRACKET_OPEN);
+            this.state = 38;
+            this.expression(0);
+            this.state = 39;
             this.match(iProveParser.SQ_BRACKET_CLOSE);
             break;
         case iProveParser.FORALL:
             localctx = new ForallExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 39;
-            this.match(iProveParser.FORALL);
-            this.state = 40;
-            this.match(iProveParser.VARIABLE);
             this.state = 41;
+            this.match(iProveParser.FORALL);
+            this.state = 42;
+            this.match(iProveParser.VARIABLE);
+            this.state = 43;
             this.expression(2);
             break;
         case iProveParser.EXISTS:
             localctx = new ExistsExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 42;
-            this.match(iProveParser.EXISTS);
-            this.state = 43;
-            this.match(iProveParser.VARIABLE);
             this.state = 44;
+            this.match(iProveParser.EXISTS);
+            this.state = 45;
+            this.match(iProveParser.VARIABLE);
+            this.state = 46;
             this.expression(1);
             break;
         default:
             throw new antlr4.error.NoViableAltException(this);
         }
         this._ctx.stop = this._input.LT(-1);
-        this.state = 61;
+        this.state = 63;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,5,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -1044,44 +1094,44 @@ iProveParser.prototype.expression = function(_p) {
                     this.triggerExitRuleEvent();
                 }
                 _prevctx = localctx;
-                this.state = 59;
+                this.state = 61;
                 this._errHandler.sync(this);
                 var la_ = this._interp.adaptivePredict(this._input,4,this._ctx);
                 switch(la_) {
                 case 1:
                     localctx = new AndExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
-                    this.state = 47;
+                    this.state = 49;
                     if (!( this.precpred(this._ctx, 12))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 12)");
                     }
-                    this.state = 48;
+                    this.state = 50;
                     this.match(iProveParser.AND);
-                    this.state = 49;
+                    this.state = 51;
                     this.expression(13);
                     break;
 
                 case 2:
                     localctx = new OrExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
-                    this.state = 50;
+                    this.state = 52;
                     if (!( this.precpred(this._ctx, 11))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 11)");
                     }
-                    this.state = 51;
+                    this.state = 53;
                     this.match(iProveParser.OR);
-                    this.state = 52;
+                    this.state = 54;
                     this.expression(12);
                     break;
 
                 case 3:
                     localctx = new ImpliesExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
-                    this.state = 53;
+                    this.state = 55;
                     if (!( this.precpred(this._ctx, 10))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
                     }
-                    this.state = 54;
+                    this.state = 56;
                     _la = this._input.LA(1);
                     if(!(_la===iProveParser.IMPLIES || _la===iProveParser.IMPLIES2)) {
                     this._errHandler.recoverInline(this);
@@ -1090,26 +1140,26 @@ iProveParser.prototype.expression = function(_p) {
                     	this._errHandler.reportMatch(this);
                         this.consume();
                     }
-                    this.state = 55;
+                    this.state = 57;
                     this.expression(11);
                     break;
 
                 case 4:
                     localctx = new IffExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
-                    this.state = 56;
+                    this.state = 58;
                     if (!( this.precpred(this._ctx, 9))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
                     }
-                    this.state = 57;
+                    this.state = 59;
                     this.match(iProveParser.IFF);
-                    this.state = 58;
+                    this.state = 60;
                     this.expression(10);
                     break;
 
                 } 
             }
-            this.state = 63;
+            this.state = 65;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,5,this._ctx);
         }

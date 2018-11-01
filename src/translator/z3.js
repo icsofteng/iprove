@@ -81,6 +81,7 @@ const translate_rule = (rule) => {
     case 'sq_paren': return translate_rule(rule)
     case 'quantifier': return translate_quantifier(rule)
     case 'relation': return translate_relation(rule)
+    case 'assume': return translate_assume(rule)
     default: return translate_literal(rule)
   }
 }  
@@ -101,6 +102,7 @@ const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + t
 const translate_implies_rule = (rule) => '(=> ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_iff_rule = (rule) => '(iff '+ translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
+const translate_assume = (rule) => translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
 
 const translate = (rules, constants, relations, atoms) => {

@@ -9,6 +9,7 @@ parameter:
 
 expression:
     NOT expression                                                      # notExp
+  | ASSUME expression                                                   # assumeExp
   | expression AND expression                                           # andExp
   | expression OR expression                                            # orExp
   | expression (IMPLIES|IMPLIES2) expression                            # impliesExp
@@ -23,6 +24,7 @@ expression:
   | EXISTS VARIABLE expression                                          # existsExp
   ;
 
+ASSUME: 'assume';
 FORALL: 'forall';
 EXISTS: 'exists';
 NOT: 'not';
