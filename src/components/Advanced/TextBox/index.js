@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, PUSH_SCOPE } from '../../../constants'
 
 class TextBox extends Component {
   constructor(props) {
@@ -66,6 +66,9 @@ class TextBox extends Component {
         this.props.addConstants(constants)
         this.props.addAtoms(atoms)
         this.props.addRelations(relations)
+        if (ast[0].type === 'assume') {
+          this.props.pushScope(this.props.index)
+        }
         this.setState({ edit: false })
       })
     }
@@ -111,9 +114,9 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index, offset, z3, type } = this.props
+    const { ast, index, offset, z3, type, scope } = this.props
     return (
-      <div className={cx(styles.step, {
+      <div style={{marginLeft: 20*scope.length }} className={cx(styles.step, {
         [styles.correct]: type !== 'givens' && z3 === 'unsat',
         [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat'
       })}>
@@ -173,6 +176,7 @@ const mapDispatchToProps = dispatch => ({
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
+  pushScope: (index) => dispatch({ type: PUSH_SCOPE, payload: index, path: [] })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
