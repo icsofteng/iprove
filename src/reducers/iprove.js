@@ -14,7 +14,8 @@ import {
   UPDATE_STEP_DEPENDENCY,
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
-  PUSH_SCOPE
+  PUSH_SCOPE,
+  POP_SCOPE
 } from '../constants'
 
 const initialState = {
@@ -95,6 +96,12 @@ const reducer = (state = initialState, action) => {
       case PUSH_SCOPE:
         newState.currentScope.push(action.payload)
         newState.currentScope = _.uniq(newState.currentScope)
+        return newState
+
+      case POP_SCOPE:
+        if (newState.currentScope[newState.currentScope.length - 1] === action.payload) {
+          newState.currentScope.splice(-1, 1)
+        }
         return newState
 
       default:
