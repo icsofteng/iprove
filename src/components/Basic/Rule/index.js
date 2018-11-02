@@ -40,8 +40,6 @@ const Rule = (props) => {
     props.removeRule(pathWithoutAst)
   }
 
-  console.log('props', props)
-
   if (!props.type) {
     return null
   }

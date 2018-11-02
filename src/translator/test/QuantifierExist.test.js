@@ -27,7 +27,6 @@ const test_rules = [
 ]
 
 test('Quantifier Exist test', () => {
-  console.log('translate(test_rules, [], [], test_constants)', translate(test_rules, [], [], test_constants))
   expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
 })
 
