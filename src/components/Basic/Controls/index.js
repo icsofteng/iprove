@@ -14,21 +14,16 @@ const ControlBlock = ({ type, label, symbol, exprLeft=false, exprRight }) =>
 
 const Controls = (props) =>
   <div className={styles.controlList}>
-<<<<<<< 9dc2ecdccf81e2db433464e2446753e44fc4e668
     <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight {...props} />
     <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight {...props}/>
     <ControlBlock type="literal" label="Literal" symbol="P" {...props}/>
     <ControlBlock type="true" label="True" symbol="⊤" {...props}/>
     <ControlBlock type="false" label="False" symbol="⊥" {...props}/>
-=======
-    <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight />
-    <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight />
-    <ControlBlock type="literal" label="Literal" symbol="x" />
-    <ControlBlock type="true" label="True" symbol="⊤" />
-    <ControlBlock type="false" label="False" symbol="⊥" />
-    <ControlBlock type="quantifier" label="For all" symbol="∀" />
-    <ControlBlock type="quantifier" label="Exists" symbol="∃" />
->>>>>>> add basic mode for first order logic
+    <ControlBlock type="universal_quantifier" label="For all" symbol="∀"  {...props}/>
+    <ControlBlock type="existential_quantifier" label="Exists" symbol="∃"  {...props}/>
+    <ControlBlock type="relation" label="Relation" symbol="f(x)"  {...props}/>
+    <ControlBlock type="variable" label="Variable" symbol="x"  {...props}/>
+    <ControlBlock type="constant" label="Constant" symbol="A"  {...props}/>
   </div>
 
 export default Controls

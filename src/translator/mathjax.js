@@ -21,7 +21,9 @@ const translate_quantifier = ({ symbol, variable, value }) => {
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  translation += rule.params.map(v => translate_rule(v)).join(", ")
+  if (rule.params) {
+    translation += rule.params.map(v => translate_rule(v)).join(", ")
+  }
   translation += ')'
   return translation
 }
@@ -36,7 +38,7 @@ const translate_rule = (rule) => {
       case 'exit': return 'exit'
       case 'paren': return translate_paren(rule)
       case 'sq_paren': return translate_sq_paren(rule)
-      case 'quantifier': return translate_quantifier(rule)
+      case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)
       case 'relation': return translate_relation(rule)
       case 'assume': return translate_assume(rule)
       case 'variable': return translate_variable(rule)

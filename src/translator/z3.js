@@ -79,13 +79,13 @@ const translate_rule = (rule) => {
     case 'false': return rule.type
     case 'paren': return translate_rule(rule.value)
     case 'sq_paren': return translate_rule(rule)
-    case 'quantifier': return translate_quantifier(rule)
+    case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
     case 'exit': return
     default: return translate_literal(rule)
   }
-}  
+}
 
 const translate_quantifier = (rule) => {
   return '(' + rule.symbol + ' ((' + rule.variable + ' Type))' + translate_rule(rule.value) + ')'

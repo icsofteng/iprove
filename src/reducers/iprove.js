@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
   let newState = JSON.parse(JSON.stringify(state))
   if (action.path) {
     const [key, ...path] = action.path
-    const { depth, index } = scan_state(newState, path, key)
+    let { depth, index } = scan_state(newState, path, key)
 
     switch (action.type) {
       case LOAD_PROOF:
@@ -40,11 +40,11 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        depth[index] = { scope: newState.currentScope, dependencies: [], ast: { type: action.payload } }
+        depth[index] = { scope: newState.currentScope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
         return newState
 
       case NEW_RULE:
-        depth[index] = { type: action.payload }
+        depth[index] = { type: action.payload, ...action.otherArgs }
         return newState
 
       case UPDATE_RULE:
@@ -52,7 +52,12 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case REMOVE_RULE:
-        delete depth[index]
+        if (Array.isArray(depth)) {
+          depth.splice(index, 1)
+        }
+        else {
+          delete depth[index]
+        }
         return { ...newState, steps: newState.steps.filter(Boolean) }
 
       case CHANGE_SYMBOL:
