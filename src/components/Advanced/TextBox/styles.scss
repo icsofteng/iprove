@@ -4,11 +4,11 @@
   display: flex;
   padding: 0 10px;
   height: 45px;
-  &.correct {
-    background: #b0e8b0;
-  }
   &.error {
     background: #f5d9d9;
+  }
+  &.correct {
+    background: #b0e8b0;
   }
 }
 .lineNumber {
