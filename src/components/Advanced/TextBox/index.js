@@ -59,60 +59,68 @@ class TextBox extends Component {
   }
 
   parseInput(statement) {
-    if (statement !== '') {
-      fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-        const { ast, constants, relations, atoms } = response
-        this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
-        this.props.addConstants(constants)
-        this.props.addAtoms(atoms)
-        this.props.addRelations(relations)
-        if (ast[0].type === 'assume') {
-          this.props.pushScope(this.props.index)
-        }
-        else if (ast[0].type === 'exit') {
-          this.props.popScope(this.props.scope[this.props.scope.length - 1])
-        }
-        this.setState({ edit: false })
-      })
-    }
+    return new Promise((resolve, reject) => {
+      if (statement !== '') {
+        fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
+          const { ast, constants, relations, atoms } = response
+          this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
+          this.props.addConstants(constants)
+          this.props.addAtoms(atoms)
+          this.props.addRelations(relations)
+          if (ast[0].type === 'assume') {
+            this.props.pushScope(this.props.index)
+          }
+          else if (ast[0].type === 'exit') {
+            this.props.popScope(this.props.scope[this.props.scope.length - 1])
+          }
+          this.setState({ edit: false })
+          resolve()
+        })
+      }
+    })
   }
 
-  keyDown(event, parse = false) {
+  keyDown(event, parse) {
+    let promise = Promise.resolve()
     if (event.keyCode === 9) {
       // TAB key
       event.preventDefault()
-      if (event.shiftKey) {
-        if (this.state.focusDependencies) {
-          this.setState({ focusDependencies: false })
-          this.ref.focus()
+      if (parse) {
+        promise = this.parseInput(event.target.value)
+      }
+      promise.then(() => {
+        if (event.shiftKey) {
+          if (this.state.focusDependencies) {
+            this.setState({ focusDependencies: false })
+            this.ref.focus()
+          }
+          else {
+            this.props.onIncInput(-1)
+          }
         }
         else {
-          this.props.onIncInput(-1)
+          if (this.state.focusDependencies || this.props.type === 'givens' || this.props.ast.type === 'assume' || this.props.ast.type === 'exit') {
+            this.setState({ focusDependencies: false })
+            this.props.onIncInput(1)
+          }
+          else if (this.props.type !== 'goal') {
+            this.setState({ focusDependencies: true })
+            this.refDef.focus()
+          }
         }
-      }
-      else {
-        if (this.state.focusDependencies || this.props.type === 'givens') {
-          this.setState({ focusDependencies: false })
-          this.props.onIncInput(1)
-        }
-        else if (this.props.type !== 'goal') {
-          this.setState({ focusDependencies: true })
-          this.refDef.focus()
-        }
-      }
-      if (parse) {
-        this.parseInput(event.target.value)
-      }
+      })
     }
     else if (event.keyCode === 13) {
       // ENTER key
       event.preventDefault()
-      if (this.props.type !== 'goal') {
-        this.props.onIncInput(1)
-      }
       if (parse) {
-        this.parseInput(event.target.value)
+        promise = this.parseInput(event.target.value)
       }
+      promise.then(() => {
+        if (this.props.type !== 'goal') {
+          this.props.onIncInput(1)
+        }
+      })
     }
   }
 
