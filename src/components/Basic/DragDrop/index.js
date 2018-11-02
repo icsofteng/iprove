@@ -12,11 +12,11 @@ class DragDrop extends Component {
     var target = event.target,
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-  
+
     target.style.webkitTransform =
     target.style.transform =
       'translate(' + x + 'px, ' + y + 'px)';
-  
+
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
   }
@@ -34,15 +34,36 @@ class DragDrop extends Component {
       },
       ondrop: function (event) {
         event.target.classList.remove('drop-target')
+        const { type, symbol } = event.relatedTarget.dataset
+
+        let otherArgs = {}
+
+        if (type === 'relation') {
+
+        }
+
+        switch (type) {
+          case 'relation':
+            otherArgs = { params: [] }
+            break;
+          case 'universal_quantifier':
+            otherArgs = { symbol: 'forall' }
+            break
+          case 'existential_quantifier':
+            otherArgs = { symbol: 'exists' }
+            break
+          default: break
+        }
+
         if (Array.from(event.target.classList).indexOf("wide") > -1) {
-          this.props.addStep(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
+          this.props.addStep(type, symbol, JSON.parse(event.target.dataset.path), otherArgs)
         }
         else {
-          this.props.addRule(event.relatedTarget.dataset.type, JSON.parse(event.target.dataset.path))
+          this.props.addRule(type, symbol, JSON.parse(event.target.dataset.path), otherArgs)
         }
       }.bind(this),
     })
-    
+
     interact('.drag-drop')
       .draggable({
         inertia: true,
@@ -64,8 +85,8 @@ class DragDrop extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addStep: (type, path) => dispatch({ type: NEW_STEP, payload: type, path }),
-    addRule: (type, path) => dispatch({ type: NEW_RULE, payload: type, path })
+    addStep: (type, symbol, path, otherArgs) => dispatch({ type: NEW_STEP, payload: type, symbol, path, otherArgs }),
+    addRule: (type, symbol, path, otherArgs) => dispatch({ type: NEW_RULE, payload: type, symbol, path, otherArgs })
   }
 }
 

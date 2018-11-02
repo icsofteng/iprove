@@ -4,10 +4,10 @@ const {translate: translate_mathjax} = require('../../translator/mathjax')
 const test_constants = ['P', 'Q']
 const test_rules = [
   {
-    type: 'quantifier',
+    type: 'existential_quantifier',
     symbol: 'exist',
-    variable: "x", 
-    value: { 
+    variable: "x",
+    value: {
       type: 'binary',
       symbol: 'implies',
       lhs: {
@@ -23,7 +23,7 @@ const test_rules = [
   {
     type: 'literal',
     value: 'P'
-  }  
+  }
 ]
 
 test('Quantifier Exist test', () => {

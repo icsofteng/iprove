@@ -1,16 +1,21 @@
 import React from 'react'
+import cx from 'classnames'
 
 import Rule from '../../'
 import RulePlaceholder from '../../../RulePlaceholder'
 
+import styles from './styles.scss'
+
 const symbols = {
-  forall: '∀',
-  exists: '∃',
+  universal_quantifier: '∀',
+  existential_quantifier: '∃',
 }
 
 const Quantifier = (props) => (
   <React.Fragment>
-    { symbols[props.symbol] ? symbols[props.symbol] : '' }
+    <span className={cx(styles.quantifierSymbol)}>
+      { symbols[props.type] }
+    </span>
     { props.variable ?
       <Rule
         updateValue={props.updateValue}
