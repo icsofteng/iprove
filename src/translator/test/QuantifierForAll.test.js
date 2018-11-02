@@ -6,7 +6,7 @@ const test_rules = [
   {
     type: 'universal_quantifier',
     symbol: 'forall',
-    variable: "x",
+    variable: { type: "variable", value: "x" },
     value: {
       type: 'binary',
       symbol: 'implies',
