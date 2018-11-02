@@ -63,13 +63,14 @@ const translate_binary_rule = (rule) => {
   }
 }
 
-
 const translate_unary_rule = (rule) => {
   switch (rule.symbol) {
     case 'not': return translate_not_rule(rule)
     default: return translate_literal(rule)
   }
 }
+
+const translate_variable = ({ value }) => value
 
 const translate_rule = (rule) => {
   switch (rule.type) {
@@ -83,12 +84,13 @@ const translate_rule = (rule) => {
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
     case 'exit': return
+    case 'variable': return translate_variable(rule)
     default: return translate_literal(rule)
   }
 }
 
-const translate_quantifier = (rule) => {
-  return '(' + rule.symbol + ' ((' + rule.variable + ' Type))' + translate_rule(rule.value) + ')'
+const translate_quantifier = ({ symbol, variable, value }) => {
+  return '(' + symbol + ' ((' + translate_variable(variable) + ' Type))' + translate_rule(value) + ')'
 }
 
 const translate_relation = (rule) => {
