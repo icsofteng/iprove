@@ -12,8 +12,8 @@ expression:
   | ASSUME expression                                                   # assumeExp
   | expression AND expression                                           # andExp
   | expression OR expression                                            # orExp
-  | expression (IMPLIES|IMPLIES2) expression                            # impliesExp
-  | expression IFF expression                                           # iffExp
+  | expression (IMPLIES|IMPLIES2|IMPLIES3) expression                   # impliesExp
+  | expression (IFF|IFF2|IFF3) expression                               # iffExp
   | LITERAL                                                             # literalExp
   | TRUE                                                                # trueExp
   | FALSE                                                               # falseExp
@@ -34,7 +34,10 @@ AND: 'and';
 OR: 'or';
 IMPLIES: 'implies';
 IMPLIES2: '=>';
+IMPLIES3: '->';
 IFF: 'iff';
+IFF2: '<=>';
+IFF3: '<->';
 TRUE: 'true';
 FALSE: 'false';
 BRACKET_OPEN: '(';
