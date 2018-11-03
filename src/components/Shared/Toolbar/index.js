@@ -22,7 +22,7 @@ export default class Toolbar extends Component {
           <MenuItem action={ action } icon={ <MdPrint /> } label="Print"/>
           <MenuItem action={ action } icon={ <MdInput /> } label="Export">
             <Menu>
-              <MenuItem action={ action } label="Export as PDF"/>
+              <MenuItem action={this.dispatch(this.props.onExportPdf)} label="Export as PDF"/>
               <MenuItem action={ action } label="Export as PNG"/>
               <MenuItem action={ action } label="Export as TEX"/>
             </Menu>

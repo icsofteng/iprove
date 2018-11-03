@@ -60,4 +60,28 @@ const translate_assume = (rule) => 'assume \\ ' + translate_rule(rule.value)
 
 const translate = (rules) => rules.map(rule => translate_rule(rule))
 
-module.exports = { translate, translate_rule }
+const translate_to_file = (givens, rules) => {
+  let file_contents = `
+  \\documentclass[10pt]{article}
+  \\usepackage{enumerate}
+  \\usepackage{amsmath}
+  \\usepackage{amssymb}
+  \\begin{document}
+  \\section*{Givens}
+  \\begin{eqnarray}
+  `
+  file_contents += translate(givens.map(r => r.ast)).join(' \\\\')
+  file_contents += `
+  \\end{eqnarray}
+  \\section*{Proof}
+  \\begin{eqnarray}
+  `
+  file_contents += translate(rules.map(r => r.ast)).join(' \\\\')
+  file_contents += `
+  \\end{eqnarray}
+  \\end{document}
+  `
+  return file_contents
+}
+
+module.exports = { translate, translate_rule, translate_to_file }

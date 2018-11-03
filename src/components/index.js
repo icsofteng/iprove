@@ -52,6 +52,23 @@ class IProve extends Component {
     })
   }
 
+  callLatex = () => {
+    const { givens, steps } = this.props
+    fetch('/pdf', {
+      method: "POST",
+      headers: {"Content-Type": "application/json; charset=utf-8"},
+      body: JSON.stringify({steps, givens}),
+    }).then(r => r.blob()).then(response => {
+      const file = new Blob([response], {type: 'application/pdf'})
+      const fileURL = URL.createObjectURL(file)
+      const a = document.createElement('a')
+      a.download = 'download.pdf'
+      a.type = 'application/pdf'
+      a.href = fileURL
+      a.click()
+    })
+  }
+
   getRequiredSteps() {
     const { atoms, constants, relations, steps, givens } = this.props
     this.setState({ goalAchieved: [] })
@@ -96,6 +113,7 @@ class IProve extends Component {
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
           onUndo={this.props.undo}
           onRedo={this.props.redo}
+          onExportPdf={this.callLatex}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>

@@ -4,7 +4,9 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const { exec } = require('child_process')
 const fs = require('fs')
-const { translate_and_save } = require('./src/translator/z3')
+const crypto = require('crypto')
+const { translate_and_save: translate_z3 } = require('./src/translator/z3')
+const { translate_to_file: translate_latex } = require('./src/translator/latex')
 const { parse } = require('./src/parser')
 
 // Configuration
@@ -13,11 +15,16 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/public'))
 
+const random_file_name = () => {
+  const current_date = (new Date()).valueOf().toString()
+  const random = Math.random().toString()
+  return crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
+}
+
 app.post('/z3', (req, res) => {
   const { steps, atoms, constants, relations } = req.body
-  const file = translate_and_save(steps, constants, relations, atoms)
-  const cmd = './z3 ' + file
-  exec(cmd, (err, stdout) => {
+  const file = translate_z3(steps, constants, relations, atoms)
+  exec('./z3 ' + file, (err, stdout) => {
     fs.unlink(file, () =>
       res.send(stdout)
     )
@@ -26,6 +33,21 @@ app.post('/z3', (req, res) => {
 
 app.get('/parse', (req, res) => {
   res.send(parse(req.query.input))
+})
+
+app.post('/pdf', (req, res) => {
+  const { steps, givens} = req.body
+  const contents = translate_latex(givens, steps)
+  const filename = random_file_name()
+  fs.writeFileSync(filename, contents)
+  exec('./pdflatex ' + filename, (err, stdout) => {
+    const pdf = fs.readFileSync(filename + '.pdf')
+    fs.unlinkSync(filename)
+    fs.unlinkSync(filename + '.pdf')
+    fs.unlinkSync(filename + '.aux')
+    fs.unlinkSync(filename + '.log')
+    res.send(pdf)
+  })
 })
 
 // Start server
