@@ -2,7 +2,7 @@
 
 exports[`Qualifier Exist test mathjax 1`] = `
 Array [
-  "\\\\exist x (P \\\\Longrightarrow Q)",
+  "\\\\exist x.P \\\\Longrightarrow Q",
   "P",
 ]
 `;
