@@ -8,7 +8,7 @@ exports[`Nested test 1 1`] = `
 (check-sat)"
 `;
 
-exports[`Nested test mathjax 1`] = `
+exports[`Nested test latex 1`] = `
 Array [
   "P \\\\land Q \\\\land P",
 ]

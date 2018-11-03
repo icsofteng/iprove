@@ -8,7 +8,7 @@ exports[`Quantifier Forall test 1`] = `
 (check-sat)"
 `;
 
-exports[`Quantifier Forall test mathjax 1`] = `
+exports[`Quantifier Forall test latex 1`] = `
 Array [
   "\\\\forall x.P \\\\Longrightarrow Q",
 ]

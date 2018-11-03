@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import MathJax from 'react-mathjax'
+import Latex from 'react-latex'
 import cx from 'classnames'
-import { translate_rule } from '../../../translator/mathjax'
+import { translate_rule } from '../../../translator/latex'
 import Rule from '../Rule'
 import DependencyList from '../DependencyList'
 import styles from './styles.scss'
@@ -9,7 +9,7 @@ import styles from './styles.scss'
 export default class ProofStep extends Component {
   constructor(props) {
     super(props)
-    this.state = { mathjax: false }
+    this.state = { latex: false }
   }
 
   render() {
@@ -18,18 +18,16 @@ export default class ProofStep extends Component {
       <React.Fragment>
         <div className={styles.step}>
           { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
-          <div className={cx(styles.mathjax, {[styles.showMathjax]: this.state.mathjax})}>
-            <MathJax.Provider>
-              <MathJax.Node formula={translate_rule(step.ast)} />
-            </MathJax.Provider>
+          <div className={cx(styles.latex, {[styles.showLatex]: this.state.latex})}>
+            <Latex>{"$"+translate_rule(step.ast)+"$"}</Latex>
           </div>
           {
-            !this.state.mathjax &&
+            !this.state.latex &&
             <div className={styles.proofStep}>
               <Rule key={"rule" + index} {...step.ast} path={[type, index, "ast"]} />
             </div>
           }
-          <button onClick={()=>this.setState(state => ({ mathjax: !state.mathjax }))}>Toggle</button>
+          <button onClick={()=>this.setState(state => ({ latex: !state.latex }))}>Toggle</button>
         { showDependencies && <DependencyList index={index} dependencies={step.dependencies} path={[type, index, "dependencies"]} /> }
         </div>
       </React.Fragment>

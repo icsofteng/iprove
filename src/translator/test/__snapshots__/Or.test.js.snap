@@ -9,7 +9,7 @@ exports[`Or test 1`] = `
 (check-sat)"
 `;
 
-exports[`Or test mathjax 1`] = `
+exports[`Or test latex 1`] = `
 Array [
   "P \\\\lor Q",
   "P",

@@ -1,5 +1,5 @@
 const {translate} = require('../z3')
-const {translate: translate_mathjax} = require('../../translator/mathjax')
+const {translate: translate_latex} = require('../../translator/latex')
 
 const test_constants = ['P', 'Q']
 const test_rules = [
@@ -30,6 +30,6 @@ test('Quantifier Exist test', () => {
   expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
 })
 
-test('Qualifier Exist test mathjax', () => {
-  expect(translate_mathjax(test_rules, [],[], test_constants)).toMatchSnapshot()
+test('Qualifier Exist test latex', () => {
+  expect(translate_latex(test_rules, [],[], test_constants)).toMatchSnapshot()
 })

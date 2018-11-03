@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import MathJax from 'react-mathjax'
-import { translate_rule as translate_mathjax } from '../../../translator/mathjax'
+import Latex from 'react-latex'
+import { translate_rule as translate_latex } from '../../../translator/latex'
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import styles from './styles.scss'
 import cx from 'classnames'
@@ -150,10 +150,8 @@ class TextBox extends Component {
             />
           </div>
           :
-          <div className={styles.mathjax} onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
-            <MathJax.Provider>
-              <MathJax.Node formula={translate_mathjax(ast)} />
-            </MathJax.Provider>
+          <div className={styles.latex} onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
+            <Latex>{"$"+translate_latex(ast)+"$"}</Latex>
           </div>
         }
         {

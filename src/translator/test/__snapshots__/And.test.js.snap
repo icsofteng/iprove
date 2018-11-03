@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`And test mathjax 1`] = `
+exports[`And test latex 1`] = `
 Array [
   "P \\\\land Q",
   "P",

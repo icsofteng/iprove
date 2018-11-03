@@ -8,7 +8,7 @@ exports[`False test 1`] = `
 (check-sat)"
 `;
 
-exports[`False test mathjax 1`] = `
+exports[`False test latex 1`] = `
 Array [
   "P \\\\lor \\\\bot",
   "P",

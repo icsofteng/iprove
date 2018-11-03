@@ -7,7 +7,7 @@ exports[`True test 1`] = `
 (check-sat)"
 `;
 
-exports[`True test mathjax 1`] = `
+exports[`True test latex 1`] = `
 Array [
   "P \\\\Longrightarrow \\\\top",
 ]

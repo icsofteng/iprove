@@ -8,7 +8,7 @@ exports[`Implies test 1`] = `
 (check-sat)"
 `;
 
-exports[`Implies test mathjax 1`] = `
+exports[`Implies test latex 1`] = `
 Array [
   "P \\\\Longrightarrow Q",
 ]

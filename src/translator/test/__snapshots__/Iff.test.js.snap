@@ -9,7 +9,7 @@ exports[`Iff test 1`] = `
 (check-sat)"
 `;
 
-exports[`Iff test mathjax 1`] = `
+exports[`Iff test latex 1`] = `
 Array [
   "P \\\\Longleftrightarrow Q",
   "P",

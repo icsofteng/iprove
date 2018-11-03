@@ -7,7 +7,7 @@ exports[`Not test 1`] = `
 (check-sat)"
 `;
 
-exports[`Not test mathjax 1`] = `
+exports[`Not test latex 1`] = `
 Array [
   "\\\\lnot P",
 ]
