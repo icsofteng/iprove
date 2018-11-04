@@ -1,11 +1,5 @@
 const fs = require('fs')
-const crypto = require('crypto')
-
-const random_file_name = () => {
-  const current_date = (new Date()).valueOf().toString()
-  const random = Math.random().toString()
-  return crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
-}
+const {random_file_name} = require('../utils')
 
 const declare_atoms = (atoms, file_contents) => {
   atoms.forEach(element => {

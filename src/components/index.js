@@ -58,14 +58,21 @@ class IProve extends Component {
       method: "POST",
       headers: {"Content-Type": "application/json; charset=utf-8"},
       body: JSON.stringify({steps, givens}),
-    }).then(r => r.blob()).then(response => {
-      const file = new Blob([response], {type: 'application/pdf'})
-      const fileURL = URL.createObjectURL(file)
-      const a = document.createElement('a')
-      a.download = 'download.pdf'
-      a.type = 'application/pdf'
-      a.href = fileURL
-      a.click()
+    }).then(r => {
+      if (r.status == 200) {
+        r.blob().then(response => {
+          const file = new Blob([response], {type: 'application/pdf'})
+          const fileURL = URL.createObjectURL(file)
+          const a = document.createElement('a')
+          a.download = 'download.pdf'
+          a.type = 'application/pdf'
+          a.href = fileURL
+          a.click()
+        })
+      }
+      else {
+        alert("There was a problem exporting this proof to a PDF")
+      }
     })
   }
 
