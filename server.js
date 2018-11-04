@@ -34,7 +34,7 @@ app.post('/pdf', (req, res) => {
   const contents = translate_latex(givens, steps)
   const filename = random_file_name()
   fs.writeFileSync(filename, contents)
-  spawnSync('pdftex', [filename], {stdio: 'ignore'})
+  spawnSync('xelatex', [filename], {stdio: 'ignore'})
   spawnSync('pdflatex', [filename], {stdio: 'ignore'})
   fs.unlinkSync(filename)
   fs.unlinkSync(filename + '.log')
@@ -47,7 +47,6 @@ app.post('/pdf', (req, res) => {
   if (fs.existsSync(filename + '.pdf')) {
     const pdf = fs.readFileSync(filename + '.pdf')
     fs.unlinkSync(filename + '.pdf')
-    
     res.send(pdf)
   }
   else {
