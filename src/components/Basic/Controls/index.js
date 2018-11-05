@@ -24,12 +24,6 @@ const Controls = (props) =>
     <ControlBlock type="relation" label="Relation" symbol="f(x)"  {...props}/>
     <ControlBlock type="variable" label="Variable" symbol="x"  {...props}/>
     <ControlBlock type="constant" label="Constant" symbol="A"  {...props}/>
-    <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight />
-    <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight />
-    <ControlBlock type="literal" label="Literal" symbol="P" />
-    <ControlBlock type="true" label="True" symbol="⊤" />
-    <ControlBlock type="false" label="False" symbol="⊥" />
-    <ControlBlock type="or" label="Or Rule" symbol="A V B" />
   </div>
 
 export default Controls

@@ -16,12 +16,6 @@ import Variable from './FirstOrder/Variable'
 import Relation from './FirstOrder/Relation'
 import Constant from './FirstOrder/Constant'
 
-import BinaryRule from './BinaryRule'
-import UnaryRule from './UnaryRule'
-import LiteralRule from './LiteralRule'
-import TrueRule from './TrueRule'
-import FalseRule from './FalseRule'
-import OrRule from './OrRule'
 import styles from './styles.scss'
 
 const components = {
@@ -35,7 +29,6 @@ const components = {
   variable: Variable,
   constant: Constant,
   relation: Relation,
-  or: OrRule
 }
 
 const Rule = (props) => {
