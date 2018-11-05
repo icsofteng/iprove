@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANTS, NEW_RULE } from '../../../constants'
-<<<<<<< HEAD
 
 /* Propositional */
 import BinaryRule from './Propositional/BinaryRule'
