@@ -6,7 +6,7 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { NEW_STEP, LOAD_PROOF } from '../constants'
-import { is_step } from '../utils'
+import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
@@ -81,18 +81,9 @@ class IProve extends Component {
     this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
       if (step.dependencies && step.dependencies.length > 0) {
-        let requiredSteps = step.dependencies.filter(Boolean).map(d => {
-          if (d <= givens.length) {
-            return (givens[d-1] && givens[d-1].ast) || null
-          }
-          else {
-            // Using a step dependency, check scope is valid
-            if (steps[d-givens.length-1].scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
-              return (steps[d-givens.length-1] && steps[d-givens.length-1].ast) || null
-            }
-            return false
-          }
-        }).filter(Boolean)
+        let requiredSteps = step.dependencies.filter(Boolean)
+                                             .map(d => validate_dependencies(step, d, givens, steps))
+                                             .filter(Boolean)
         requiredSteps.push(step.ast)
         this.callZ3(requiredSteps, constants, relations, atoms, i)
       }
