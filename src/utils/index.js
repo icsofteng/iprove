@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const _ = require('underscore')
 
 const is_step = (step) =>
   Boolean(step) && step.ast && Object.keys(step.ast).length > 0
@@ -21,16 +22,29 @@ const random_file_name = () => {
   return crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
 }
 
+const is_valid_dependency = (step, dependencyStep) => {
+  // Make sure no dependencies have a scope that the step's scope contains
+  if (dependencyStep.scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
+    return true
+  }
+  // Allow assumptions
+  if (step.ast.symbol === 'implies' && (_.isEqual(step.ast.lhs, dependencyStep.ast.value) || _.isEqual(step.ast.rhs, dependencyStep.ast))) {
+    return true
+  }
+  return false
+}
+
 const validate_dependencies = (step, dependency, givens, allSteps) => {
   if (dependency <= givens.length) {
     return (givens[dependency-1] && givens[dependency-1].ast) || null
   }
   else {
     // Using a step dependency, check scope is valid
-    if (allSteps[dependency-givens.length-1].scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
-      return (allSteps[dependency-givens.length-1] && allSteps[dependency-givens.length-1].ast) || null
+    const dependencyStep = allSteps[dependency-givens.length-1]
+    if (is_valid_dependency(step, dependencyStep)) {
+      return (dependencyStep && dependencyStep.ast) || null
     }
-    return false
+    return null
   }
 }
 
