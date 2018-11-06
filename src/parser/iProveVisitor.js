@@ -74,17 +74,18 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'existential_quantifier', symbol: 'exists', variable, value }
   }
   visitRelationExp(ctx) {
-    const name = ctx.relation.NAME().toString()
-    const params = ctx.relation.parameter().map(param => this.visit(param)) || []
+    const name = ctx.NAME().toString()
+    const params = ctx.parameter().map(param => this.visit(param)) || []
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
     return { type: 'relation', name, params }
   }
-  visitFuncDefinition(ctx) {
-    const name = ctx.relation.NAME().toString()
-    const params = ctx.relation.parameter().map(param => this.visit(param)) || []
-    return {type: 'funcDef', name, params}
+  visitRelationDefExp(ctx) {
+    const name = ctx.NAME().toString()
+    const params = ctx.TYPE().map(t => { type:'type', value: t.toString}) || []
+    // const returnType = typeList[typeList.length].toString
+    return {type: 'funcDef', name, params, returnType: {type: 'type', value:'returnType'}}
   }
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()

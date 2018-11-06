@@ -38,15 +38,6 @@ iProveListener.prototype.exitParamConst = function(ctx) {
 };
 
 
-// Enter a parse tree produced by iProveParser#relation.
-iProveListener.prototype.enterRelation = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#relation.
-iProveListener.prototype.exitRelation = function(ctx) {
-};
-
-
 // Enter a parse tree produced by iProveParser#andExp.
 iProveListener.prototype.enterAndExp = function(ctx) {
 };
@@ -80,6 +71,15 @@ iProveListener.prototype.enterExitExp = function(ctx) {
 
 // Exit a parse tree produced by iProveParser#exitExp.
 iProveListener.prototype.exitExitExp = function(ctx) {
+};
+
+
+// Enter a parse tree produced by iProveParser#relationDefExp.
+iProveListener.prototype.enterRelationDefExp = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#relationDefExp.
+iProveListener.prototype.exitRelationDefExp = function(ctx) {
 };
 
 
@@ -161,15 +161,6 @@ iProveListener.prototype.enterTrueExp = function(ctx) {
 
 // Exit a parse tree produced by iProveParser#trueExp.
 iProveListener.prototype.exitTrueExp = function(ctx) {
-};
-
-
-// Enter a parse tree produced by iProveParser#funcDefinition.
-iProveListener.prototype.enterFuncDefinition = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#funcDefinition.
-iProveListener.prototype.exitFuncDefinition = function(ctx) {
 };
 
 
