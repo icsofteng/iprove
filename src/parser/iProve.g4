@@ -5,7 +5,10 @@ statement: expression;
 parameter:
     VARIABLE                                                            # paramVar
   | CONSTANT                                                            # paramConst
+  | TYPE                                                                # paramType
   ;
+
+relation: NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE;
 
 expression:
     NOT expression                                                      # notExp
@@ -18,15 +21,17 @@ expression:
   | TRUE                                                                # trueExp
   | FALSE                                                               # falseExp
   | EXIT                                                                # exitExp
-  | NAME BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE     # relationExp
+  | relation                                                            # relationExp
   | BRACKET_OPEN expression BRACKET_CLOSE                               # parenthesesExp
   | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                         # sqParenthesesExp
   | FORALL VARIABLE expression                                          # forallExp
   | EXISTS VARIABLE expression                                          # existsExp
+  | DEFINE relation COLON TYPE                                          # funcDefinition
   ;
 
 ASSUME: 'assume';
 FORALL: 'forall';
+DEFINE: 'define';
 EXISTS: 'exists';
 EXIT: 'exit';
 NOT: 'not';
@@ -48,6 +53,8 @@ LITERAL: [A-Z];
 VARIABLE: [a-z];
 CONSTANT: [A-Z][A-Za-z]+;
 NAME: [a-z][a-zA-Z_]+;
+TYPE: [A-Z][A-Za-z]+;
 COMMA: ',';
+COLON: ':';
 
 WS: [ \t\r\n] -> skip;

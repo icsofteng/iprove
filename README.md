@@ -40,6 +40,17 @@ First Order:
 { type: 'variable', value: 'x'}                                                     x
 { type: 'relation', name: 'animal', params: [{variable|constant}]}                  (animal x y)
 { type: 'constant', value: 'Frank' }                                                Frank
+
+Funcdef:
+e.g.
+define friends(Person, Person): Bool
+
+{type:'funcDef', name:'friends', params:[{}]}             (declare-fun friends (Person Person) Bool)
+
+let John, Bob: Person
+friends(John, Bob)
+
+
 ```
 
 ### Steps for translation
