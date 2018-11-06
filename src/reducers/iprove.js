@@ -40,7 +40,8 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        depth[index] = { scope: newState.currentScope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
+        let scope = (key === 'steps') ? newState.currentScope : []
+        depth[index] = { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
         return newState
 
       case NEW_RULE:
@@ -101,6 +102,7 @@ const reducer = (state = initialState, action) => {
       case PUSH_SCOPE:
         newState.currentScope.push(action.payload)
         newState.currentScope = _.uniq(newState.currentScope)
+        newState.steps[action.payload].scope.push(action.payload)
         return newState
 
       case POP_SCOPE:
