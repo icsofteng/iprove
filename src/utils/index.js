@@ -21,4 +21,17 @@ const random_file_name = () => {
   return crypto.createHash('sha1').update(current_date + random).digest('hex').toString()
 }
 
-module.exports = { is_step, scan_state, random_file_name }
+const validate_dependencies = (step, dependency, givens, allSteps) => {
+  if (dependency <= givens.length) {
+    return (givens[dependency-1] && givens[dependency-1].ast) || null
+  }
+  else {
+    // Using a step dependency, check scope is valid
+    if (allSteps[dependency-givens.length-1].scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
+      return (allSteps[dependency-givens.length-1] && allSteps[dependency-givens.length-1].ast) || null
+    }
+    return false
+  }
+}
+
+module.exports = { is_step, scan_state, random_file_name, validate_dependencies }
