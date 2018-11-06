@@ -59,7 +59,7 @@ class IProve extends Component {
       headers: {"Content-Type": "application/json; charset=utf-8"},
       body: JSON.stringify({steps, givens}),
     }).then(r => {
-      if (r.status == 200) {
+      if (r.status === 200) {
         r.blob().then(response => {
           const file = new Blob([response], {type: 'application/pdf'})
           const fileURL = URL.createObjectURL(file)
@@ -86,7 +86,11 @@ class IProve extends Component {
             return (givens[d-1] && givens[d-1].ast) || null
           }
           else {
-            return (steps[d-givens.length-1] && steps[d-givens.length-1].ast) || null
+            // Using a step dependency, check scope is valid
+            if (steps[d-givens.length-1].scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
+              return (steps[d-givens.length-1] && steps[d-givens.length-1].ast) || null
+            }
+            return false
           }
         }).filter(Boolean)
         requiredSteps.push(step.ast)
