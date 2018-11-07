@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, PUSH_SCOPE, POP_SCOPE } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, SET_SCOPE } from '../../../constants'
 
 class TextBox extends Component {
   constructor(props) {
@@ -68,10 +68,10 @@ class TextBox extends Component {
           this.props.addAtoms(atoms)
           this.props.addRelations(relations)
           if (ast[0].type === 'assume') {
-            this.props.pushScope(this.props.index)
+            this.props.setScope(_.uniq([...this.props.scope, this.props.index]))
           }
           else if (ast[0].type === 'exit') {
-            this.props.popScope(this.props.scope[this.props.scope.length - 1])
+            this.props.setScope(this.props.scope.slice(0, -1))
           }
           this.setState({ edit: false })
           resolve()
@@ -185,8 +185,7 @@ const mapDispatchToProps = dispatch => ({
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
-  pushScope: (index) => dispatch({ type: PUSH_SCOPE, payload: index, path: [] }),
-  popScope: (index) => dispatch({ type: POP_SCOPE, payload: index, path: [] })
+  setScope: (scope) => dispatch({ type: SET_SCOPE, payload: scope, path: [] })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)

@@ -14,8 +14,7 @@ import {
   UPDATE_STEP_DEPENDENCY,
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
-  PUSH_SCOPE,
-  POP_SCOPE
+  SET_SCOPE
 } from '../constants'
 
 const initialState = {
@@ -99,16 +98,10 @@ const reducer = (state = initialState, action) => {
         depth[index][action.index] = parseInt(action.value)
         return newState
 
-      case PUSH_SCOPE:
-        newState.currentScope.push(action.payload)
+      case SET_SCOPE:
+        newState.currentScope = action.payload
         newState.currentScope = _.uniq(newState.currentScope)
-        newState.steps[action.payload].scope.push(action.payload)
-        return newState
-
-      case POP_SCOPE:
-        if (newState.currentScope[newState.currentScope.length - 1] === action.payload) {
-          newState.currentScope.splice(-1, 1)
-        }
+        newState.steps[action.payload[action.payload.length - 1]].scope = action.payload
         return newState
 
       default:
