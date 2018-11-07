@@ -4,7 +4,7 @@ import _ from 'underscore'
 import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
-import TextBoxList from './Advanced/TextBoxList'
+import ScopeBox from './Advanced/ScopeBox'
 import { NEW_STEP, LOAD_PROOF } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
@@ -128,7 +128,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <ScopeBox z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                   }
                 </div>
               </div>
@@ -137,7 +137,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <ScopeBox z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                   }
                 </div>
               </div>
@@ -148,7 +148,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <ScopeBox z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
                   }
                 </div>
               </div>
