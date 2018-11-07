@@ -32,8 +32,8 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0006\u0004\u0011\u0013C\u0007\u0011\u0002\u0002\u0014C\u0007\u0012",
     "\u0002\u0002\u0015C\u0007\u0007\u0002\u0002\u0016\u0017\u0007\u0005",
     "\u0002\u0002\u0017\u0018\u0007\u0018\u0002\u0002\u0018!\u0007\u0013",
-    "\u0002\u0002\u0019\u001e\u0007\u0018\u0002\u0002\u001a\u001b\u0007\u0019",
-    "\u0002\u0002\u001b\u001d\u0007\u0018\u0002\u0002\u001c\u001a\u0003\u0002",
+    "\u0002\u0002\u0019\u001e\u0005\u0004\u0003\u0002\u001a\u001b\u0007\u0019",
+    "\u0002\u0002\u001b\u001d\u0005\u0004\u0003\u0002\u001c\u001a\u0003\u0002",
     "\u0002\u0002\u001d \u0003\u0002\u0002\u0002\u001e\u001c\u0003\u0002",
     "\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f\"\u0003\u0002",
     "\u0002\u0002 \u001e\u0003\u0002\u0002\u0002!\u0019\u0003\u0002\u0002",
@@ -555,6 +555,17 @@ RelationDefExpContext.prototype.BRACKET_CLOSE = function() {
 
 RelationDefExpContext.prototype.COLON = function() {
     return this.getToken(iProveParser.COLON, 0);
+};
+
+RelationDefExpContext.prototype.parameter = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(ParameterContext);
+    } else {
+        return this.getTypedRuleContext(ParameterContext,i);
+    }
 };
 
 RelationDefExpContext.prototype.COMMA = function(i) {
@@ -1158,9 +1169,9 @@ iProveParser.prototype.expression = function(_p) {
             this.state = 31;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
-            if(_la===iProveParser.IDENTIFIER) {
+            if(_la===iProveParser.VARIABLE || _la===iProveParser.IDENTIFIER) {
                 this.state = 23;
-                this.match(iProveParser.IDENTIFIER);
+                this.parameter();
                 this.state = 28;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
@@ -1168,7 +1179,7 @@ iProveParser.prototype.expression = function(_p) {
                     this.state = 24;
                     this.match(iProveParser.COMMA);
                     this.state = 25;
-                    this.match(iProveParser.IDENTIFIER);
+                    this.parameter();
                     this.state = 30;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);

@@ -74,24 +74,25 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'existential_quantifier', symbol: 'exists', variable, value }
   }
   visitRelationExp(ctx) {
-    const names = (ctx.IDENTIFIER()).toString().split(',')
-    const name = names[0]
-    const params = names.splice(1).map(param => this.visit(param)) || []
+    const identifiers = ctx.IDENTIFIER().toString()
+    console.log(identifiers)
+    const name = identifiers[0]
+    // console.log(identifiers.slice(0, identifiers.length))
+    const params = identifiers.slice(1, identifiers.length).map(param => ({type: 'type', value: param})) || []
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
     return { type: 'relation', name, params }
   }
   visitRelationDefExp(ctx) {
-    // const name = ctx.IDENTIFIER()[0].toString()
-    // console.log(ctx.IDENTIFIER()
-    // const params = ctx.IDENTIFIER.map(param => this.visit(param)) || []
-    // const returnType = this.visit(ctx.returnType())
-    // if (this.relations.indexOf(name) === -1) {
-    //   this.relations.push({name, numParam: params.length})
-    // }
-    // return {type: 'funcDef', name, params, returnType}
-    return {}
+    const identifiers = ctx.IDENTIFIER().toString().split(',')
+    const name = identifiers[0]
+    const returnType = {type: 'type', value: identifiers[identifiers.length - 1]}
+    const params = identifiers.slice(1, identifiers.length - 1).map(p => ({type: 'type', value: p})) || []
+    if (this.relations.indexOf(name) === -1) {
+      this.relations.push({name, numParam: params.length})
+    }
+    return {type: 'funcDef', name, params, returnType}
   }
 
   visitParamType(ctx) {

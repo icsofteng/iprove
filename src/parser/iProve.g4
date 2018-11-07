@@ -4,27 +4,27 @@ statement: expression;
 
 parameter:
     VARIABLE                                                            # paramVar
-  | IDENTIFIER                                                            # paramConst
+  | IDENTIFIER                                                          # paramConst
   ;
 
 expression:
-    NOT expression                                                                              # notExp
-  | ASSUME expression                                                                           # assumeExp
-  | expression AND expression                                                                   # andExp
-  | expression OR expression                                                                    # orExp
-  | expression (IMPLIES|IMPLIES2|IMPLIES3) expression                                           # impliesExp
-  | expression (IFF|IFF2|IFF3) expression                                                       # iffExp
-  | TRUE                                                                                        # trueExp
-  | FALSE                                                                                       # falseExp
-  | EXIT                                                                                        # exitExp
-  | DEFINE IDENTIFIER BRACKET_OPEN (IDENTIFIER (COMMA IDENTIFIER)*)? BRACKET_CLOSE COLON IDENTIFIER                     # relationDefExp
-  | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                             # relationExp
-  | BRACKET_OPEN expression BRACKET_CLOSE                                                       # parenthesesExp
-  | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                 # sqParenthesesExp
-  | FORALL VARIABLE expression                                                                  # forallExp
-  | EXISTS VARIABLE expression                                                                  # existsExp
-  | IDENTIFIER                                                                                # literalExp
-  ;
+  NOT expression                                                                                      # notExp
+| ASSUME expression                                                                                   # assumeExp
+| expression AND expression                                                                           # andExp
+| expression OR expression                                                                            # orExp
+| expression (IMPLIES|IMPLIES2|IMPLIES3) expression                                                   # impliesExp
+| expression (IFF|IFF2|IFF3) expression                                                               # iffExp
+| TRUE                                                                                                # trueExp
+| FALSE                                                                                               # falseExp
+| EXIT                                                                                                # exitExp
+| DEFINE IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE COLON IDENTIFIER       # relationDefExp
+| IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
+| BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
+| SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
+| FORALL VARIABLE expression                                                                          # forallExp
+| EXISTS VARIABLE expression                                                                          # existsExp
+| IDENTIFIER                                                                                          # literalExp
+;
 
 ASSUME: 'assume';
 FORALL: 'forall';
