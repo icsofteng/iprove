@@ -7,6 +7,7 @@ class iProveVisitor extends ParseTreeVisitor {
     this.atoms = []
     this.constants = []
     this.relations = []
+    this.types = []
   }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
@@ -94,11 +95,16 @@ class iProveVisitor extends ParseTreeVisitor {
     const identifiers = ctx.IDENTIFIER().toString().split(',')
     const name = identifiers[0]
     const returnType = {type: 'type', value: identifiers[identifiers.length - 1]}
-    const params = ctx.parameter().map(p => ({type: 'type', value: this.visit(p).value})) || []
+    const params = ctx.parameter().map(p => {
+      if (this.types.indexOf(p.value) === -1) {
+        this.types.push(p.value)
+      }
+     return {type: 'type', value: this.visit(p).value}
+    }) || []
   
     console.log(params)
     if (this.relations.indexOf(name) === -1) {
-      this.relations.push({name, numParam: params.length})
+      this.relations.push({name, numParam: params.lentypesgth})
     }
     return {type: 'funcDef', name, params, returnType}
   }
@@ -129,6 +135,9 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   getRelations() {
     return this.relations
+  }
+  getTypes() {
+    return this.types
   }
 }
 
