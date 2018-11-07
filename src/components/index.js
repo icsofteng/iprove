@@ -98,7 +98,7 @@ class IProve extends Component {
 
   incrementInput = (v) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    const newSelected = this.state.selectedTextBox[1] + v
+    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
     this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     if (newSelected === this.props[sameSelectedType].length) {
       this.props.newStep([sameSelectedType, newSelected])

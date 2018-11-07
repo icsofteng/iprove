@@ -68,10 +68,10 @@ class TextBox extends Component {
           this.props.addAtoms(atoms)
           this.props.addRelations(relations)
           if (ast[0].type === 'assume') {
-            this.props.setScope(_.uniq([...this.props.scope, this.props.index]))
+            this.props.setScope(this.props.scope, this.props.index, true)
           }
           else if (ast[0].type === 'exit') {
-            this.props.setScope(this.props.scope.slice(0, -1))
+            this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
           }
           this.setState({ edit: false })
           resolve()
@@ -185,7 +185,7 @@ const mapDispatchToProps = dispatch => ({
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
-  setScope: (scope) => dispatch({ type: SET_SCOPE, payload: scope, path: [] })
+  setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
