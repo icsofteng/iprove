@@ -74,11 +74,9 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'existential_quantifier', symbol: 'exists', variable, value }
   }
   visitRelationExp(ctx) {
-    const identifiers = ctx.IDENTIFIER().toString()
-    console.log(identifiers)
-    const name = identifiers[0]
-    // console.log(identifiers.slice(0, identifiers.length))
-    const params = identifiers.slice(1, identifiers.length).map(param => ({type: 'type', value: param})) || []
+    const name = ctx.IDENTIFIER().toString()
+    // console.log(name)
+    const params = ctx.parameter().map(param => this.visit(param)) || []
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
@@ -113,7 +111,7 @@ class iProveVisitor extends ParseTreeVisitor {
     if (this.constants.indexOf(value) === -1) {
       this.constants.push(value)
     }
-    return { type: 'constant', value }
+    return { type: 'i', value }
   }
 
   getAtoms() {
