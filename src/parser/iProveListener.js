@@ -29,12 +29,12 @@ iProveListener.prototype.exitParamVar = function(ctx) {
 };
 
 
-// Enter a parse tree produced by iProveParser#paramConst.
-iProveListener.prototype.enterParamConst = function(ctx) {
+// Enter a parse tree produced by iProveParser#paramIdent.
+iProveListener.prototype.enterParamIdent = function(ctx) {
 };
 
-// Exit a parse tree produced by iProveParser#paramConst.
-iProveListener.prototype.exitParamConst = function(ctx) {
+// Exit a parse tree produced by iProveParser#paramIdent.
+iProveListener.prototype.exitParamIdent = function(ctx) {
 };
 
 

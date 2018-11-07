@@ -4,7 +4,7 @@ statement: expression;
 
 parameter:
     VARIABLE                                                            # paramVar
-  | IDENTIFIER                                                          # paramConst
+  | IDENTIFIER                                                          # paramIdent
   ;
 
 expression:
