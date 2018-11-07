@@ -20,6 +20,6 @@ test("Visitor Test params", ()=> {
   expect(parse("human(x, y, z)")).toEqual({ast:[humanXYZ], constants: [], atoms:[], relations: [{name: "human", numParam: 3}]})
 })
 
-test("Visitor Test ", ()=> {
+test("Visitor Test relations", ()=> {
   expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: ["Frank"], atoms:[], relations: [{name: "person", numParam: 1}]})
 })
