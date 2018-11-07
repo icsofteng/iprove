@@ -137,21 +137,21 @@ iProveListener.prototype.exitExistsExp = function(ctx) {
 };
 
 
-// Enter a parse tree produced by iProveParser#literalExp.
-iProveListener.prototype.enterLiteralExp = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#literalExp.
-iProveListener.prototype.exitLiteralExp = function(ctx) {
-};
-
-
 // Enter a parse tree produced by iProveParser#forallExp.
 iProveListener.prototype.enterForallExp = function(ctx) {
 };
 
 // Exit a parse tree produced by iProveParser#forallExp.
 iProveListener.prototype.exitForallExp = function(ctx) {
+};
+
+
+// Enter a parse tree produced by iProveParser#literalExp.
+iProveListener.prototype.enterLiteralExp = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#literalExp.
+iProveListener.prototype.exitLiteralExp = function(ctx) {
 };
 
 
