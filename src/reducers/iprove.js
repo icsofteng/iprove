@@ -15,7 +15,8 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
   PUSH_SCOPE,
-  POP_SCOPE
+  POP_SCOPE,
+  ADD_TYPES
 } from '../constants'
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
   atoms: [],
   constants: [],
   relations: [],
-  currentScope: []
+  currentScope: [],
+  types: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -77,6 +79,11 @@ const reducer = (state = initialState, action) => {
       case ADD_RELATIONS:
         const newRelations = newState.relations.concat(action.payload)
         newState.relations = _.uniq(newRelations, false, _.iteratee('name'))
+        return newState
+
+      case ADD_TYPES:
+        const newTypes = newState.types.concat(action.payload)
+        newState.types = _.uniq(newTypes)
         return newState
 
       case SET_STEP_DEPENDENCY:

@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, PUSH_SCOPE, POP_SCOPE } from '../../../constants'
+import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, PUSH_SCOPE, POP_SCOPE, ADD_TYPES } from '../../../constants'
 
 class TextBox extends Component {
   constructor(props) {
@@ -184,6 +184,7 @@ const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
   addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
+  addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   pushScope: (index) => dispatch({ type: PUSH_SCOPE, payload: index, path: [] }),
