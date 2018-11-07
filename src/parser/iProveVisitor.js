@@ -8,6 +8,7 @@ class iProveVisitor extends ParseTreeVisitor {
     this.constants = []
     this.relations = []
     this.types = []
+    this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
   }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
@@ -94,23 +95,31 @@ class iProveVisitor extends ParseTreeVisitor {
   visitRelationDefExp(ctx) {
     const identifiers = ctx.IDENTIFIER().toString().split(',')
     const name = identifiers[0]
-    const returnType = {type: 'type', value: identifiers[identifiers.length - 1]}
-    const params = ctx.parameter().map(p => {
-      if (this.types.indexOf(p.value) === -1) {
-        this.types.push(p.value)
-      }
-     return {type: 'type', value: this.visit(p).value}
-    }) || []
-  
-    console.log(params)
-    if (this.relations.indexOf(name) === -1) {
-      this.relations.push({name, numParam: params.length})
+    let rType = identifiers[identifiers.length - 1]
+    rType = rType.charAt(0).toUpperCase() + rType.slice(1) // z3 doesnt allow lower case types
+    const returnType = {type: 'type', value: rType}
+    if ((this.types.indexOf(rType) === -1) && (this.base_types.indexOf(rType) === -1)) {
+      this.types.push(rType)
     }
+    const params = ctx.parameter().map(iden => {
+      let para = this.visit(iden)
+      para = {type: 'type', value: para.value}
+      if ((this.types.indexOf(para.value) === -1) && (this.base_types.indexOf(para.value) === -1)) {
+        para.value = para.value.charAt(0).toUpperCase() + para.value.slice(1) // z3 doesnt allow lower case types
+        this.types.push(para.value)
+      }
+     return para
+    }) || []
+
     return {type: 'funcDef', name, params, returnType}
   }
 
   visitParamType(ctx) {
     const value = ctx.TYPE().toString()
+    value = value.charAt(0).toUpperCase() + value.slice(1)  // z3 doesnt allow lower case types
+    if ((this.types.indexOf(value) === -1) && (this.base_types.indexOf(value) === -1)) {
+      this.types.push(value)
+    }
     return {type: 'type', value}
   }
 

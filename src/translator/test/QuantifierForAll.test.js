@@ -23,9 +23,9 @@ const test_rules = [
 ]
 
 test('Quantifier Forall test', () => {
-  expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
+  expect(translate(test_rules, [], [], test_constants, [])).toMatchSnapshot()
 })
 
 test('Quantifier Forall test latex', () => {
-  expect(translate_latex(test_rules, [],[], test_constants)).toMatchSnapshot()
+  expect(translate_latex(test_rules, [],[], test_constants, [])).toMatchSnapshot()
 })

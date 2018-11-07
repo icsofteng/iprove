@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`func Def Dragon test 1`] = `
+"(declare-sort Type)
+(declare-sort Dragon)
+(declare-const P Bool)
+(declare-fun Power (Dragon Dragon ) Int)
+(assert (not P))
+(check-sat)"
+`;
+
+exports[`func Def Happy test 1`] = `
+"(declare-sort Type)
+(declare-sort Reward)
+(declare-sort Dragon)
+(declare-sort Human)
+(declare-const P Bool)
+(declare-fun Happy (Dragon Human ) Reward)
+(assert (not P))
+(check-sat)"
+`;
+
+exports[`func Def test 1`] = `
+"(declare-sort Type)
+(declare-sort Person)
+(declare-const P Bool)
+(declare-fun friends (Person Person ) Bool)
+(assert (not P))
+(check-sat)"
+`;

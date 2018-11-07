@@ -31,7 +31,7 @@ const declare_relations = (relations, file_contents) => {
 
 const declare_types = (types, file_contents) => {
   types.forEach(type => {
-    file_contents += '(declare-sort '+ type.value + ')\n'
+    file_contents += '(declare-sort '+ type + ')\n'
   })
   return file_contents
 }
@@ -39,14 +39,18 @@ const declare_types = (types, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      file_contents += '(assert ' + translate_rule(element) + ')\n'
+      if (element.type == 'funcDef') {
+        file_contents += translate_func_declaration(element)
+      } else {
+        file_contents += '(assert ' + translate_rule(element) + ')\n'
+      }
     }
   })
   return file_contents
 }
 
-translate_func_declaration = (func, file_contents) => {
-  file_contents += '(declare-fun ' + func.name + ' ('
+const translate_func_declaration = (func) => {
+  let file_contents = '(declare-fun ' + func.name + ' ('  
   func.params.forEach(type => {
     file_contents += type.value + ' '
   })
@@ -95,7 +99,6 @@ const translate_rule = (rule) => {
     case 'assume': return translate_assume(rule)
     case 'exit': return
     case 'variable': return translate_variable(rule)
-    case 'funcDef' : return translate_func_declaration(rule)
     default: return translate_literal(rule)
   }
 }

@@ -5,21 +5,21 @@ const humanXYZ = { type: 'relation', name:"human", params:[{type:"variable", val
 const Frank = { type: 'relation', name:"person", params:[{type:"constant", value:"Frank"}]}
 
 test("Visitor Test relations", ()=> {
-  expect(parse("dragon(x)")).toEqual({ast:[dragonX], constants: [], atoms:[],relations: [{name: "dragon", numParam: 1}]})
+  expect(parse("dragon(x)")).toEqual({ast:[dragonX], constants: [], atoms:[],relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test forall", ()=> {
-  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variable: {type: "variable", value: "x"}}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}]})
+  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variable: {type: "variable", value: "x"}}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test exists", ()=> {
-  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variable: {type: "variable", value: "x"}}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}]})
+  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variable: {type: "variable", value: "x"}}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test params", ()=> {
-  expect(parse("human(x, y, z)")).toEqual({ast:[humanXYZ], constants: [], atoms:[], relations: [{name: "human", numParam: 3}]})
+  expect(parse("human(x, y, z)")).toEqual({ast:[humanXYZ], constants: [], atoms:[], relations: [{name: "human", numParam: 3}], types:[]})
 })
 
 test("Visitor Test relations", ()=> {
-  expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: ["Frank"], atoms:[], relations: [{name: "person", numParam: 1}]})
+  expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: ["Frank"], atoms:[], relations: [{name: "person", numParam: 1}], types:[]})
 })

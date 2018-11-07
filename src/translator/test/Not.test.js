@@ -13,9 +13,9 @@ const test_rules = [{
 
 
 test('Not test', () => {
-  expect(translate(test_rules, [], [], test_constants)).toMatchSnapshot()
+  expect(translate(test_rules, [], [], test_constants, [])).toMatchSnapshot()
 })
 
 test('Not test latex', () => {
-  expect(translate_latex(test_rules, [],[], test_constants)).toMatchSnapshot()
+  expect(translate_latex(test_rules, [],[], test_constants, [])).toMatchSnapshot()
 })

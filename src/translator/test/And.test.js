@@ -22,9 +22,9 @@ const test_rules = [
 ]
 
 test('And test z3', () => {
-  expect(translate_z3(test_rules, [],[], test_constants)).toMatchSnapshot()
+  expect(translate_z3(test_rules, [],[], test_constants, [])).toMatchSnapshot()
 })
 
 test('And test latex', () => {
-  expect(translate_latex(test_rules, [],[], test_constants)).toMatchSnapshot()
+  expect(translate_latex(test_rules, [],[], test_constants, [])).toMatchSnapshot()
 })
