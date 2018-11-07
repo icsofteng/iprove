@@ -83,7 +83,7 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitRelationDefExp(ctx) {
     const name = ctx.NAME().toString()
-    const params = ctx.TYPE().map(t => { type:'type', value: t.toString}) || []
+    const params = ctx.TYPE().map(t => { type:'type', value: t.toString()}) || []
     // const returnType = typeList[typeList.length].toString
     return {type: 'funcDef', name, params, returnType: {type: 'type', value:'returnType'}}
   }
