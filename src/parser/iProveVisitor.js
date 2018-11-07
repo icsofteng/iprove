@@ -82,10 +82,10 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'relation', name, params }
   }
   visitRelationDefExp(ctx) {
-    const name = ctx.NAME().toString()
-    console.log(ctx.IDENTIFIER())
-    const params = ctx.paramType().map(param => this.visit(param)) || []
-    const returnType = this.visit(ctx.returnType())
+    const identifiers = ctx.IDENTIFIER().toString().split(',')
+    const name = identifiers[0]
+    const returnType = {type: 'type', value: identifiers[identifiers.length - 1]}
+    const params = identifiers.slice(1, identifiers.length - 1).map(p => ({type: 'type', value: p})) || []
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
