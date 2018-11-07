@@ -99,9 +99,20 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case SET_SCOPE:
-        newState.currentScope = action.payload
-        newState.currentScope = _.uniq(newState.currentScope)
-        newState.steps[action.payload[action.payload.length - 1]].scope = action.payload
+        if (action.override) {
+          // This is an "assume" line
+          newState.currentScope = [...action.payload, action.thisIndex]
+          newState.currentScope = _.uniq(newState.currentScope)
+          newState.steps[action.thisIndex].scope = newState.currentScope
+        }
+        else {
+          // This is an "exit" line
+          newState.currentScope = action.payload
+          newState.currentScope = _.uniq(newState.currentScope)
+          if (newState.steps[action.thisIndex].ast.type === 'exit') {
+            newState.steps.splice(action.thisIndex, 1)
+          }
+        }
         return newState
 
       default:
