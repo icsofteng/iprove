@@ -104,7 +104,7 @@ class iProveVisitor extends ParseTreeVisitor {
   
     console.log(params)
     if (this.relations.indexOf(name) === -1) {
-      this.relations.push({name, numParam: params.lentypesgth})
+      this.relations.push({name, numParam: params.length})
     }
     return {type: 'funcDef', name, params, returnType}
   }

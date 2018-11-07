@@ -45,7 +45,7 @@ Funcdef:
 e.g.
 define friends(Person, Person): Bool
 
-{type:'funcDef', name:'friends', params:[{type: 'Type', value: 'Person'}, {type: 'Type', value: 'Person'}], returnType: {type:'Type', value: 'Bool'}}
+{type:'funcDef', name:'friends', params:[{type: 'type', value: 'Person'}, {type: 'type', value: 'Person'}], returnType: {type:'type', value: 'Bool'}}
 (declare-fun friends (Person Person) Bool)
 
 let John, Bob: Person

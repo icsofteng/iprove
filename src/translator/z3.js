@@ -6,7 +6,7 @@ const declare_atoms = (atoms, file_contents) => {
     if (element) {
       file_contents += '(declare-const ' + element + ' Bool)\n'
     }
-  });
+  })
   return file_contents
 }
 
@@ -15,7 +15,7 @@ const declare_constants = (constants, file_contents) => {
     if (element) {
       file_contents += '(declare-const ' + element + ' Type)\n'
     }
-  });
+  })
   return file_contents
 }
 
@@ -29,8 +29,11 @@ const declare_relations = (relations, file_contents) => {
   return file_contents
 }
 
-const declare_types = (types, file_contents) = {
-
+const declare_types = (types, file_contents) => {
+  types.forEach(type => {
+    file_contents += '(declare-sort '+ type.value + ')\n'
+  })
+  return file_contents
 }
 
 const translate_assumptions = (assumptions, file_contents) => {
@@ -39,6 +42,15 @@ const translate_assumptions = (assumptions, file_contents) => {
       file_contents += '(assert ' + translate_rule(element) + ')\n'
     }
   })
+  return file_contents
+}
+
+translate_func_declaration = (func, file_contents) => {
+  file_contents += '(declare-fun ' + func.name + ' ('
+  func.params.forEach(type => {
+    file_contents += type.value + ' '
+  })
+  file_contents += ') ' + func.returnType.value + ')\n'
   return file_contents
 }
 
@@ -83,6 +95,7 @@ const translate_rule = (rule) => {
     case 'assume': return translate_assume(rule)
     case 'exit': return
     case 'variable': return translate_variable(rule)
+    case 'funcDef' : return translate_func_declaration(rule)
     default: return translate_literal(rule)
   }
 }
@@ -112,6 +125,7 @@ const translate = (rules, constants, relations, atoms, types) => {
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)
   file_contents = declare_relations(relations, file_contents)
+  file_contents = declare_types(types, file_contents)
   file_contents = declare_constants(constants, file_contents)
   file_contents = declare_atoms(atoms, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
