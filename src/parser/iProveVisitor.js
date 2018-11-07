@@ -83,9 +83,22 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitRelationDefExp(ctx) {
     const name = ctx.NAME().toString()
-    const params = ctx.TYPE().map(t => { type:'type', value: t.toString}) || []
-    // const returnType = typeList[typeList.length].toString
-    return {type: 'funcDef', name, params, returnType: {type: 'type', value:'returnType'}}
+    const params = ctx.paramType().map(param => this.visit(param)) || []
+    const returnType = this.visit(ctx.returnType())
+    if (this.relations.indexOf(name) === -1) {
+      this.relations.push({name, numParam: params.length})
+    }
+    return {type: 'funcDef', name, params, returnType}
+  }
+
+  visitParamType(ctx) {
+    const value = ctx.TYPE().toString()
+    return {type: 'type', value}
+  }
+
+  visitReturnType(ctx) {
+    const value = ctx.TYPE().toString()
+    return {type: 'type', value}
   }
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()
@@ -98,10 +111,7 @@ class iProveVisitor extends ParseTreeVisitor {
     }
     return { type: 'constant', value }
   }
-  visitParamType(ctx) {
-    const value = ctx.TYPE().toString()
-    return { type: 'type', value }
-  }
+
   getAtoms() {
     return this.atoms
   }

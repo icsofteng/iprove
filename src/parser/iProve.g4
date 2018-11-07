@@ -7,6 +7,14 @@ parameter:
   | CONSTANT                                                            # paramConst
   ;
 
+paramType:
+    TYPE
+  ;
+
+returnType:
+    TYPE
+  ;
+
 expression:
     NOT expression                                                              # notExp
   | ASSUME expression                                                           # assumeExp
@@ -23,7 +31,7 @@ expression:
   | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                 # sqParenthesesExp
   | FORALL VARIABLE expression                                                  # forallExp
   | EXISTS VARIABLE expression                                                  # existsExp
-  | DEFINE NAME BRACKET_OPEN (TYPE (COMMA TYPE)*)? BRACKET_CLOSE COLON TYPE     # relationDefExp
+  | DEFINE NAME BRACKET_OPEN (paramType (COMMA paramType)*)? BRACKET_CLOSE COLON returnType     # relationDefExp
   ;
 
 ASSUME: 'assume';
