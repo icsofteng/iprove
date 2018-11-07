@@ -75,8 +75,16 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitRelationExp(ctx) {
     const name = ctx.IDENTIFIER().toString()
-    // console.log(name)
-    const params = ctx.parameter().map(param => this.visit(param)) || []
+    const params = ctx.parameter().map(param => {
+      let p = this.visit(param)
+      if (p.type != 'variable'){
+        p = {type: 'constant', value:p.value}
+        if (this.constants.indexOf(p.value) === -1) {
+          this.constants.push(p.value)
+        }
+      }
+      return p
+    }) || []
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
@@ -86,7 +94,9 @@ class iProveVisitor extends ParseTreeVisitor {
     const identifiers = ctx.IDENTIFIER().toString().split(',')
     const name = identifiers[0]
     const returnType = {type: 'type', value: identifiers[identifiers.length - 1]}
-    const params = identifiers.slice(1, identifiers.length - 1).map(p => ({type: 'type', value: p})) || []
+    const params = ctx.parameter().map(p => ({type: 'type', value: this.visit(p).value})) || []
+  
+    console.log(params)
     if (this.relations.indexOf(name) === -1) {
       this.relations.push({name, numParam: params.length})
     }
@@ -106,12 +116,9 @@ class iProveVisitor extends ParseTreeVisitor {
     const value = ctx.VARIABLE().toString()
     return { type: 'variable', value }
   }
-  visitParamConst(ctx) {
-    const value =  ctx.CONSTANT().toString()
-    if (this.constants.indexOf(value) === -1) {
-      this.constants.push(value)
-    }
-    return { type: 'i', value }
+  visitParamIdent(ctx) {
+    const value =  ctx.IDENTIFIER().toString()
+    return { type: 'identifier', value }
   }
 
   getAtoms() {

@@ -223,35 +223,35 @@ ParameterContext.prototype.copyFrom = function(ctx) {
 };
 
 
-function ParamConstContext(parser, ctx) {
+function ParamIdentContext(parser, ctx) {
 	ParameterContext.call(this, parser);
     ParameterContext.prototype.copyFrom.call(this, ctx);
     return this;
 }
 
-ParamConstContext.prototype = Object.create(ParameterContext.prototype);
-ParamConstContext.prototype.constructor = ParamConstContext;
+ParamIdentContext.prototype = Object.create(ParameterContext.prototype);
+ParamIdentContext.prototype.constructor = ParamIdentContext;
 
-iProveParser.ParamConstContext = ParamConstContext;
+iProveParser.ParamIdentContext = ParamIdentContext;
 
-ParamConstContext.prototype.IDENTIFIER = function() {
+ParamIdentContext.prototype.IDENTIFIER = function() {
     return this.getToken(iProveParser.IDENTIFIER, 0);
 };
-ParamConstContext.prototype.enterRule = function(listener) {
+ParamIdentContext.prototype.enterRule = function(listener) {
     if(listener instanceof iProveListener ) {
-        listener.enterParamConst(this);
+        listener.enterParamIdent(this);
 	}
 };
 
-ParamConstContext.prototype.exitRule = function(listener) {
+ParamIdentContext.prototype.exitRule = function(listener) {
     if(listener instanceof iProveListener ) {
-        listener.exitParamConst(this);
+        listener.exitParamIdent(this);
 	}
 };
 
-ParamConstContext.prototype.accept = function(visitor) {
+ParamIdentContext.prototype.accept = function(visitor) {
     if ( visitor instanceof iProveVisitor ) {
-        return visitor.visitParamConst(this);
+        return visitor.visitParamIdent(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -311,7 +311,7 @@ iProveParser.prototype.parameter = function() {
             this.match(iProveParser.VARIABLE);
             break;
         case iProveParser.IDENTIFIER:
-            localctx = new ParamConstContext(this, localctx);
+            localctx = new ParamIdentContext(this, localctx);
             this.enterOuterAlt(localctx, 2);
             this.state = 9;
             this.match(iProveParser.IDENTIFIER);
