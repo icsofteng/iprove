@@ -16,8 +16,8 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
 app.post('/z3', (req, res) => {
-  const { steps, atoms, constants, relations } = req.body
-  const file = translate_z3(steps, constants, relations, atoms)
+  const { steps, atoms, constants, relations, types } = req.body
+  const file = translate_z3(steps, constants, relations, atoms, types)
   exec('./z3 ' + file, (err, stdout) => {
     fs.unlink(file, () =>
       res.send(stdout)

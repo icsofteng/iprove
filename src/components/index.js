@@ -34,11 +34,11 @@ class IProve extends Component {
     })
   }
 
-  callZ3(steps, constants, relations, atoms, i) {
+  callZ3(steps, constants, relations, atoms, i, types) {
     fetch('/z3', {
       method: "POST",
       headers: {"Content-Type": "application/json; charset=utf-8"},
-      body: JSON.stringify({steps, constants, relations, atoms})
+      body: JSON.stringify({steps, constants, relations, atoms, types})
     }).then(r => r.text()).then(response => {
       const currentZ3 = this.state.z3
       currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
@@ -77,7 +77,7 @@ class IProve extends Component {
   }
 
   getRequiredSteps() {
-    const { atoms, constants, relations, steps, givens } = this.props
+    const { atoms, constants, relations, steps, givens, types } = this.props
     this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
       if (step.dependencies && step.dependencies.length > 0) {
@@ -90,7 +90,7 @@ class IProve extends Component {
           }
         }).filter(Boolean)
         requiredSteps.push(step.ast)
-        this.callZ3(requiredSteps, constants, relations, atoms, i)
+        this.callZ3(requiredSteps, constants, relations, atoms, i, types)
       }
     })
   }

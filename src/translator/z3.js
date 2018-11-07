@@ -29,6 +29,10 @@ const declare_relations = (relations, file_contents) => {
   return file_contents
 }
 
+const declare_types = (types, file_contents) = {
+
+}
+
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
@@ -102,7 +106,7 @@ const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_assume = (rule) => translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
 
-const translate = (rules, constants, relations, atoms) => {
+const translate = (rules, constants, relations, atoms, types) => {
   let file_contents = ""
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
@@ -115,8 +119,8 @@ const translate = (rules, constants, relations, atoms) => {
   return file_contents
 }
 
-const translate_and_save = (rules, constants, relations, atoms) => {
-  const file_contents = translate(rules, constants, relations, atoms)
+const translate_and_save = (rules, constants, relations, atoms, types) => {
+  const file_contents = translate(rules, constants, relations, atoms, types)
   const proof_file_name = random_file_name()
   fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name

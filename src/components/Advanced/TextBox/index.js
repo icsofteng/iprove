@@ -62,11 +62,12 @@ class TextBox extends Component {
     return new Promise((resolve, reject) => {
       if (statement !== '') {
         fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
-          const { ast, constants, relations, atoms } = response
+          const { ast, constants, relations, atoms, types } = response
           this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
           this.props.addConstants(constants)
           this.props.addAtoms(atoms)
           this.props.addRelations(relations)
+          this.props.addTypes(types)
           if (ast[0].type === 'assume') {
             this.props.pushScope(this.props.index)
           }
