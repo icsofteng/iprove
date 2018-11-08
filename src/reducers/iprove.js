@@ -14,8 +14,7 @@ import {
   UPDATE_STEP_DEPENDENCY,
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
-  PUSH_SCOPE,
-  POP_SCOPE,
+  SET_SCOPE,
   ADD_TYPES
 } from '../constants'
 
@@ -42,7 +41,8 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        depth[index] = { scope: newState.currentScope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
+        let scope = (key === 'steps') ? newState.currentScope : []
+        depth[index] = { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
         return newState
 
       case NEW_RULE:
@@ -105,14 +105,20 @@ const reducer = (state = initialState, action) => {
         depth[index][action.index] = parseInt(action.value)
         return newState
 
-      case PUSH_SCOPE:
-        newState.currentScope.push(action.payload)
-        newState.currentScope = _.uniq(newState.currentScope)
-        return newState
-
-      case POP_SCOPE:
-        if (newState.currentScope[newState.currentScope.length - 1] === action.payload) {
-          newState.currentScope.splice(-1, 1)
+      case SET_SCOPE:
+        if (action.override) {
+          // This is an "assume" line
+          newState.currentScope = [...action.payload, action.thisIndex]
+          newState.currentScope = _.uniq(newState.currentScope)
+          newState.steps[action.thisIndex].scope = newState.currentScope
+        }
+        else {
+          // This is an "exit" line
+          newState.currentScope = action.payload
+          newState.currentScope = _.uniq(newState.currentScope)
+          if (newState.steps[action.thisIndex].ast.type === 'exit') {
+            newState.steps.splice(action.thisIndex, 1)
+          }
         }
         return newState
 

@@ -6,7 +6,7 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { NEW_STEP, LOAD_PROOF } from '../constants'
-import { is_step } from '../utils'
+import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
@@ -59,7 +59,7 @@ class IProve extends Component {
       headers: {"Content-Type": "application/json; charset=utf-8"},
       body: JSON.stringify({steps, givens}),
     }).then(r => {
-      if (r.status == 200) {
+      if (r.status === 200) {
         r.blob().then(response => {
           const file = new Blob([response], {type: 'application/pdf'})
           const fileURL = URL.createObjectURL(file)
@@ -81,14 +81,9 @@ class IProve extends Component {
     this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
       if (step.dependencies && step.dependencies.length > 0) {
-        let requiredSteps = step.dependencies.filter(Boolean).map(d => {
-          if (d <= givens.length) {
-            return (givens[d-1] && givens[d-1].ast) || null
-          }
-          else {
-            return (steps[d-givens.length-1] && steps[d-givens.length-1].ast) || null
-          }
-        }).filter(Boolean)
+        let requiredSteps = step.dependencies.filter(Boolean)
+                                             .map(d => validate_dependencies(step, d, givens, steps))
+                                             .filter(Boolean)
         requiredSteps.push(step.ast)
         this.callZ3(requiredSteps, constants, relations, atoms, i, types)
       }
@@ -103,7 +98,7 @@ class IProve extends Component {
 
   incrementInput = (v) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    const newSelected = this.state.selectedTextBox[1] + v
+    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
     this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     if (newSelected === this.props[sameSelectedType].length) {
       this.props.newStep([sameSelectedType, newSelected])
