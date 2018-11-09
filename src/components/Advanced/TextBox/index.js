@@ -126,9 +126,9 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index, offset, z3, type, scope } = this.props
+    const { ast, index, offset, z3, type } = this.props
     return (
-      <div style={{marginLeft: 20*scope.length }} className={cx(styles.step, {
+      <div className={cx(styles.step, {
         [styles.correct]: (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'exit',
         [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat'
       })}>
