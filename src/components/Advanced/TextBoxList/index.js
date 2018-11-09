@@ -1,7 +1,6 @@
 import React from 'react'
 import TextBox from '../TextBox'
 import ScopeBox from '../ScopeBox'
-import _ from 'underscore'
 import styles from './styles.scss'
 
 const generateTextBoxScopes = (steps, offset, props) => {
@@ -11,20 +10,19 @@ const generateTextBoxScopes = (steps, offset, props) => {
     let s = steps[i]
     if (s.ast.type === 'assume') {
       let findExit
-      for (findExit = steps.length-1; findExit > i; findExit--) {
-        if (_.isEqual(steps[findExit].scope, s.scope)) {
+      for (findExit = i; findExit < steps.length; findExit++) {
+        if (!is_subscope(steps[findExit].scope, s.scope)) {
           break
         }
       }
-      const insideSteps = steps.slice(i+1, findExit + 1)
-      console.log(s.scope)
+      const insideSteps = steps.slice(i+1, findExit)
       textboxes.push(
         <ScopeBox scope={s.scope}>
           {stepToTextBox(s, i + offset, props)}
-          {generateTextBoxScopes(insideSteps, i+1, props)}
+          {generateTextBoxScopes(insideSteps, i + offset + 1, props)}
         </ScopeBox>
       )
-      i = findExit + 1
+      i = findExit
     }
     else {
       textboxes.push(stepToTextBox(s, i + offset, props))
@@ -33,6 +31,8 @@ const generateTextBoxScopes = (steps, offset, props) => {
   }
   return textboxes
 }
+
+const is_subscope = (inner, outer) => outer.every(i => inner.indexOf(i) > -1)
 
 const stepToTextBox = (step, id, props) => 
   <TextBox

@@ -22,8 +22,8 @@ class TextBox extends Component {
   }
 
   componentDidMount() {
-    if (this.props.focus && !this.state.focusDependencies) {
-      //this.ref.focus()
+    if (this.props.focus && !this.state.focusDependencies && this.ref) {
+      this.ref.focus()
     }
   }
 
