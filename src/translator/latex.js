@@ -28,6 +28,15 @@ const translate_relation = (rule) => {
   return translation
 }
 
+const translate_funcDef = (rule) => {
+  let translation = 'Define ' + rule.name + '('
+  if (rule.params) {
+    translation += rule.params.map(p => p.value).join(", ")
+  }
+  translation += '): ' + rule.returnType.value
+  return translation
+}
+
 const translate_rule = (rule) => {
   if (rule) {
     switch (rule.type) {
@@ -42,6 +51,7 @@ const translate_rule = (rule) => {
       case 'relation': return translate_relation(rule)
       case 'assume': return translate_assume(rule)
       case 'variable': return translate_variable(rule)
+      case 'funcDef': return translate_funcDef(rule)
       default: return translate_literal(rule)
     }
   }

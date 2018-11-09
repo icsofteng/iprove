@@ -53,3 +53,28 @@ test('func Def Happy test', () => {
   expect(translate(test_rules3, [], [], test_constants3, ['Reward' ,'Dragon', 'Human'])).toMatchSnapshot()
 })
 
+
+const func_def_test_rules = [
+  {
+    type: 'funcDef',
+    name: 'friends',
+    params: [
+        {
+          type: 'type',
+          value: 'Person'
+        },
+        {
+          type: 'type',
+          value: 'Person'
+        }
+    ],
+    returnType: {
+        type: 'type',
+        value: 'Bool'
+    }
+  }
+]
+test('FuncDef test latex', () => {
+  expect(translate_latex(func_def_test_rules)[0]).toMatchSnapshot()
+})
+
