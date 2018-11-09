@@ -17,17 +17,19 @@ const generateTextBoxScopes = (steps, offset, props) => {
         }
       }
       const insideSteps = steps.slice(i+1, findExit + 1)
+      
       textboxes.push(
         <ScopeBox>
           {stepToTextBox(s, i + offset, props)}
           {generateTextBoxScopes(insideSteps, i+1, props)}
         </ScopeBox>
       )
+      i = findExit + 1
     }
     else {
       textboxes.push(stepToTextBox(s, i + offset, props))
+      i++
     }
-    i++
   }
   return textboxes
 }
