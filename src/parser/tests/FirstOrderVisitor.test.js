@@ -23,3 +23,43 @@ test("Visitor Test params", ()=> {
 test("Visitor Test relations", ()=> {
   expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: ["Frank"], atoms:[], relations: [{name: "person", numParam: 1}], types:[]})
 })
+
+test("Visitor Test less than", () => {
+  expect(parse("2 < 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'less_than', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test less than equal", () => {
+  expect(parse("2 <= 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'less_than_eq', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test greater than", () => {
+  expect(parse("2 > 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'greater_than', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test greater than equal", () => {
+  expect(parse("2 >= 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'greater_than_eq', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test equal", () => {
+  expect(parse("2 == 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'equal', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test plus", () => {
+  expect(parse("2 + 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'plus', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test minus", () => {
+  expect(parse("2 - 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'minus', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test power", () => {
+  expect(parse("2 ^ 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'power', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test multiply", () => {
+  expect(parse("2 * 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'multiply', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
+
+test("Visitor Test divide", () => {
+  expect(parse("2 / 3")).toEqual({ ast: [{ lhs: { type: 'integer', value: 2 }, rhs: { type: 'integer', value: 3 }, symbol: 'divide', type: 'binary_numerical' }], atoms: [], constants: [], relations: [], types: [] })
+})
