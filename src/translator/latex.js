@@ -15,9 +15,9 @@ const translate_unary_rule = (rule) => {
   }
 }
 
-const translate_quantifier = ({ symbol, variable, value }) => {
-  return '\\' + symbol + ' ' + translate_rule(variable) + '.' + translate_rule(value)
-}
+const translate_quantifier = ({ symbol, variable, value }) => (
+  '\\' + symbol + ' ' + translate_rule(variable) + '.' + translate_rule(value)
+)
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
@@ -37,10 +37,38 @@ const translate_funcDef = (rule) => {
   return translation
 }
 
+const translate_binary_numerical = (rule) => {
+  switch (rule.symbol) {
+    case 'less_than': return translate_less_than(rule)
+    case 'less_than_eq': return translate_less_than_eq(rule)
+    case 'greater_than': return translate_greater_than(rule)
+    case 'greater_than_eq': return translate_greater_than_eq(rule)
+    case 'equal': return translate_equal(rule)
+    case 'plus': return translate_plus(rule)
+    case 'minus': return translate_minus(rule)
+    case 'power': return translate_power(rule)
+    case 'multiply': return translate_multiply(rule)
+    case 'divide': return translate_divide(rule)
+    default: return ''
+  }
+}
+
+const translate_less_than = (rule) => `${translate_rule(rule.lhs)} < ${translate_rule(rule.rhs)}`
+const translate_less_than_eq = (rule) => `${translate_rule(rule.lhs)} \\leq ${translate_rule(rule.rhs)}`
+const translate_greater_than = (rule) => `${translate_rule(rule.lhs)} > ${translate_rule(rule.rhs)}`
+const translate_greater_than_eq = (rule) => `${translate_rule(rule.lhs)} \\geq ${translate_rule(rule.rhs)}`
+const translate_equal = (rule) => `${translate_rule(rule.lhs)} == ${translate_rule(rule.rhs)}`
+const translate_plus = (rule) => `${translate_rule(rule.lhs)} + ${translate_rule(rule.rhs)}`
+const translate_minus = (rule) => `${translate_rule(rule.lhs)} - ${translate_rule(rule.rhs)}`
+const translate_power = (rule) => `${translate_rule(rule.lhs)} ^ ${translate_rule(rule.rhs)}`
+const translate_multiply = (rule) => `${translate_rule(rule.lhs)} \\times ${translate_rule(rule.rhs)}`
+const translate_divide = (rule) => `${translate_rule(rule.lhs)} \\div ${translate_rule(rule.rhs)}`
+
 const translate_rule = (rule) => {
   if (rule) {
     switch (rule.type) {
       case 'binary': return translate_binary_rule(rule)
+      case 'binary_numerical': return translate_binary_numerical(rule)
       case 'unary' : return translate_unary_rule(rule)
       case 'true': return '\\top'
       case 'false': return '\\bot'

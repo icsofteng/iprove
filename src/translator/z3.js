@@ -86,10 +86,38 @@ const translate_unary_rule = (rule) => {
 
 const translate_variable = ({ value }) => value
 
+const translate_binary_numerical = (rule) => {
+  switch (rule.symbol) {
+    case 'less_than': return translate_less_than(rule)
+    case 'less_than_eq': return translate_less_than_eq(rule)
+    case 'greater_than': return translate_greater_than(rule)
+    case 'greater_than_eq': return translate_greater_than_eq(rule)
+    case 'equal': return translate_equal(rule)
+    case 'plus': return translate_plus(rule)
+    case 'minus': return translate_minus(rule)
+    case 'power': return translate_power(rule)
+    case 'multiply': return translate_multiply(rule)
+    case 'divide': return translate_divide(rule)
+    default: return ''
+  }
+}
+
+const translate_less_than = (rule) => '(< ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_less_than_eq = (rule) => '(<= ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_greater_than = (rule) => '(> ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_greater_than_eq = (rule) => '(>= ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_equal = (rule) => '(= ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_plus = (rule) => '(+ ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_minus = (rule) => '(- ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_power = (rule) => '(^ ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_multiply = (rule) => '(* ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+const translate_divide = (rule) => '(/ ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
+
 const translate_rule = (rule) => {
   switch (rule.type) {
     case 'binary': return translate_binary_rule(rule)
-    case 'unary' : return translate_unary_rule(rule)
+    case 'binary_numerical': return translate_binary_numerical(rule)
+    case 'unary': return translate_unary_rule(rule)
     case 'true':
     case 'false': return rule.type
     case 'paren': return translate_rule(rule.value)
