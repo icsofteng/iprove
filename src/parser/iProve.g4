@@ -17,12 +17,24 @@ expression:
 | TRUE                                                                                                # trueExp
 | FALSE                                                                                               # falseExp
 | EXIT                                                                                                # exitExp
+| INTEGER                                                                                             # integerExp
+| REAL                                                                                                # realExp
 | DEFINE IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE COLON IDENTIFIER       # relationDefExp
 | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
 | BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
 | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
 | FORALL VARIABLE expression                                                                          # forallExp
 | EXISTS VARIABLE expression                                                                          # existsExp
+| expression LESSTHAN expression                                                                      # lessThanExp
+| expression LESSTHANEQ expression                                                                    # lessThanEqExp
+| expression GREATERTHAN expression                                                                   # greaterThanExp
+| expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
+| expression DOUBLEEQUALS expression                                                                  # equalExp
+| expression PLUS expression                                                                          # plusExp
+| expression MINUS expression                                                                         # minusExp
+| expression POWER expression                                                                         # powerExp
+| expression MULTIPLY expression                                                                      # multiplyExp
+| expression DIVIDE expression                                                                        # divideExp
 | IDENTIFIER                                                                                          # literalExp
 ;
 
@@ -50,5 +62,17 @@ VARIABLE: [a-z];
 IDENTIFIER: [A-Za-z]+;
 COMMA: ',';
 COLON: ':';
+INTEGER: [0-9]+;
+REAL: [0-9]*[.][0-9]+;
+LESSTHAN: '<';
+LESSTHANEQ: '<=';
+GREATERTHAN: '>';
+GREATERTHANEQ: '>=';
+DOUBLEEQUALS: '==';
+PLUS: '+';
+MINUS: '-';
+POWER: '^';
+MULTIPLY: '*';
+DIVIDE: '/';
 
 WS: [ \t\r\n] -> skip;

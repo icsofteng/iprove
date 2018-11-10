@@ -127,10 +127,81 @@ class iProveVisitor extends ParseTreeVisitor {
     const value = ctx.TYPE().toString()
     return {type: 'type', value}
   }
+  visitLessThanExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'less_than', lhs, rhs }
+  }
+
+  visitLessThanEqExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'less_than_eq', lhs, rhs }
+  }
+
+  visitGreaterThanExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'greater_than', lhs, rhs }
+  }
+
+  visitGreaterThanEqExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'greater_than_eq', lhs, rhs }
+  }
+
+  visitEqualExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'equal', lhs, rhs }
+  }
+
+  visitPlusExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'plus', lhs, rhs }
+  }
+
+  visitMinusExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'minus', lhs, rhs }
+  }
+
+  visitPowerExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'power', lhs, rhs }
+  }
+
+  visitMultiplyExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'multiply', lhs, rhs }
+  }
+
+  visitDivideExp(ctx) {
+    const lhs = this.visit(ctx.expression()[0])
+    const rhs = this.visit(ctx.expression()[1])
+    return { type: 'binary_numerical', symbol: 'divide', lhs, rhs }
+  }
+
+  visitIntegerExp(ctx) {
+    const value = parseInt(ctx.INTEGER().toString())
+    return { type: 'integer', value }
+  }
+
+  visitRealExp(ctx) {
+    const value = parseFloat(ctx.REAL().toString())
+    return { type: 'real', value }
+  }
+
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()
     return { type: 'variable', value }
   }
+  
   visitParamIdent(ctx) {
     const value =  ctx.IDENTIFIER().toString()
     return { type: 'identifier', value }
