@@ -51,6 +51,11 @@ define friends(Person, Person): Bool
 let John, Bob: Person
 friends(John, Bob)
 
+Types for Quantifier:
+forall x:Int (positive(x) <=> nonzero(x))
+forall x:Int, y:human, z:money (Store(x,y) <=> make(z))
+
+
 
 ```
 
