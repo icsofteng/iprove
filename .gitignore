@@ -3,5 +3,4 @@ public/app.js
 npm-debug.log
 .env
 .vscode/
-z3
 .DS_Store

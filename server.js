@@ -16,12 +16,12 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
 app.post('/z3', (req, res) => {
+  const binary_file = process.platform === 'darwin' ? './z3-osx' : './z3'
   const { steps, atoms, constants, relations, types } = req.body
   const file = translate_z3(steps, constants, relations, atoms, types)
-  exec('./z3 ' + file, (err, stdout) => {
-    fs.unlink(file, () =>
-      res.send(stdout)
-    )
+
+  exec(`${binary_file} ${file}`, (err, stdout) => {
+    fs.unlink(file, () => res.send(stdout))
   })
 })
 
