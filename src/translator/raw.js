@@ -15,8 +15,13 @@ const translate_unary_rule = (rule) => {
   }
 }
 
-const translate_quantifier = ({ symbol, variable, value }) => {
-  return symbol + ' ' + translate_rule(variable) + ' ' + translate_rule(value)
+const translate_quantifier = ({ symbol, variables, value }) => {
+  let vars = ''
+  variables.forEach(v => {
+    vars = vars + v.value + ':' + v.varType + ', '
+  }) 
+  vars = vars.slice(0, -2)
+  return symbol + ' ' + vars + translate_rule(value)
 }
 
 const translate_relation = (rule) => {
