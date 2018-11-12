@@ -7,6 +7,9 @@ parameter:
   | IDENTIFIER                                                          # paramIdent
   ;
 
+variableDef: VARIABLE (COLON IDENTIFIER);                               # variableDef
+
+
 expression:
   NOT expression                                                                                      # notExp
 | ASSUME expression                                                                                   # assumeExp
@@ -23,7 +26,7 @@ expression:
 | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
 | BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
 | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
-| FORALL VARIABLE expression                                                                          # forallExp
+| FORALL variableDef (COMMA variableDef)* expression                                                                          # forallExp
 | EXISTS VARIABLE expression                                                                          # existsExp
 | expression POWER expression                                                                         # powerExp
 | expression DIVIDE expression                                                                        # divideExp
