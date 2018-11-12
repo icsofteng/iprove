@@ -26,8 +26,8 @@ expression:
 | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
 | BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
 | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
-| FORALL variableDef (COMMA variableDef)* expression                                                                          # forallExp
-| EXISTS VARIABLE expression                                                                          # existsExp
+| FORALL variableDef (COMMA variableDef)* expression                                                  # forallExp
+| EXISTS variableDef (COMMA variableDef)* expression                                                  # existsExp
 | expression POWER expression                                                                         # powerExp
 | expression DIVIDE expression                                                                        # divideExp
 | expression MULTIPLY expression                                                                      # multiplyExp
@@ -38,7 +38,6 @@ expression:
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
 | expression DOUBLEEQUALS expression                                                                  # equalExp
-| EXISTS variableDef (COMMA variableDef)* expression                                                  # existsExp
 | IDENTIFIER                                                                                          # literalExp
 ;
 
