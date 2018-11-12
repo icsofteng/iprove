@@ -53,7 +53,13 @@ friends(John, Bob)
 
 Types for Quantifier:
 forall x:Int (positive(x) <=> nonzero(x))
-forall x:Int, y:human, z:money (Store(x,y) <=> make(z))
+{ type: 'quantifier', symbol: 'forall', variable: {type:variable, value:x, varType:Int}, value: expr} 
+
+forall x:Int forall y:human forall z:money (Store(x,y) <=> make(z))
+
+
+
+
 
 
 

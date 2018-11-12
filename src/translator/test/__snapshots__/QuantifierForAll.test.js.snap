@@ -10,6 +10,6 @@ exports[`Quantifier Forall test 1`] = `
 
 exports[`Quantifier Forall test latex 1`] = `
 Array [
-  "\\\\forall x.P \\\\Longrightarrow Q",
+  "\\\\forall x:Type.P \\\\Longrightarrow Q",
 ]
 `;
