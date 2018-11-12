@@ -50,7 +50,7 @@ const translate_assumptions = (assumptions, file_contents) => {
 }
 
 const translate_func_declaration = (func) => {
-  let file_contents = '(declare-fun ' + func.name + ' ('  
+  let file_contents = '(declare-fun ' + func.name + ' ('
   func.params.forEach(type => {
     file_contents += type.value + ' '
   })

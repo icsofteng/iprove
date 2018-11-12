@@ -25,16 +25,16 @@ expression:
 | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
 | FORALL VARIABLE expression                                                                          # forallExp
 | EXISTS VARIABLE expression                                                                          # existsExp
+| expression POWER expression                                                                         # powerExp
+| expression DIVIDE expression                                                                        # divideExp
+| expression MULTIPLY expression                                                                      # multiplyExp
+| expression PLUS expression                                                                          # plusExp
+| expression MINUS expression                                                                         # minusExp
 | expression LESSTHAN expression                                                                      # lessThanExp
 | expression LESSTHANEQ expression                                                                    # lessThanEqExp
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
 | expression DOUBLEEQUALS expression                                                                  # equalExp
-| expression PLUS expression                                                                          # plusExp
-| expression MINUS expression                                                                         # minusExp
-| expression POWER expression                                                                         # powerExp
-| expression MULTIPLY expression                                                                      # multiplyExp
-| expression DIVIDE expression                                                                        # divideExp
 | IDENTIFIER                                                                                          # literalExp
 ;
 
