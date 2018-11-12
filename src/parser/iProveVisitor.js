@@ -113,7 +113,7 @@ class iProveVisitor extends ParseTreeVisitor {
 
     return {type: 'funcDef', name, params, returnType}
   }
-  visitVariableDef = function(ctx) {
+  visitVariableDef(ctx) {
     let varType = ctx.IDENTIFIER()
     console.log(varType)
     if (varType) {
