@@ -115,7 +115,7 @@ class iProveVisitor extends ParseTreeVisitor {
   }
 
   visitParamType(ctx) {
-    const value = ctx.TYPE().toString()
+    let value = ctx.TYPE().toString()
     value = value.charAt(0).toUpperCase() + value.slice(1)  // z3 doesnt allow lower case types
     if ((this.types.indexOf(value) === -1) && (this.base_types.indexOf(value) === -1)) {
       this.types.push(value)
@@ -201,7 +201,7 @@ class iProveVisitor extends ParseTreeVisitor {
     const value = ctx.VARIABLE().toString()
     return { type: 'variable', value }
   }
-  
+
   visitParamIdent(ctx) {
     const value =  ctx.IDENTIFIER().toString()
     return { type: 'identifier', value }

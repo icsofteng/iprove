@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
 import Latex from 'react-latex'
-import { translate_rule as translate_latex } from '../../../translator/latex'
-import { translate_rule as translate_raw } from '../../../translator/raw'
-import styles from './styles.scss'
 import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
-import { UPDATE_RULE, ADD_CONSTANTS, ADD_RELATIONS, SET_STEP_DEPENDENCY, ADD_ATOMS, SET_SCOPE, ADD_TYPES } from '../../../constants'
+
+import { translate_rule as translate_latex } from '../../../translator/latex'
+import { translate_rule as translate_raw } from '../../../translator/raw'
+import {
+  UPDATE_RULE,
+  ADD_CONSTANTS,
+  ADD_RELATIONS,
+  SET_STEP_DEPENDENCY,
+  ADD_ATOMS,
+  SET_SCOPE,
+  ADD_TYPES
+} from '../../../constants'
+
+import styles from './styles.scss'
 
 class TextBox extends Component {
   constructor(props) {
@@ -43,7 +53,7 @@ class TextBox extends Component {
         raw: translation || '',
         edit: Object.keys(this.props.ast).length === 0
       })
-    } 
+    }
 
     // Changing edit and focus props
     if (prevProps.focus !== this.props.focus || this.state.edit) {

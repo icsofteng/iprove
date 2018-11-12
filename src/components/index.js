@@ -37,7 +37,7 @@ class IProve extends Component {
   callZ3(steps, constants, relations, atoms, i, types) {
     fetch('/z3', {
       method: "POST",
-      headers: {"Content-Type": "application/json; charset=utf-8"},
+      headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify({steps, constants, relations, atoms, types})
     }).then(r => r.text()).then(response => {
       const currentZ3 = this.state.z3
@@ -45,8 +45,8 @@ class IProve extends Component {
       if (currentZ3 !== "") {
         this.setState({ z3: currentZ3 })
         // Check goal
-        if (_.isEqual(this.props.goal[0].ast, steps[steps.length-1])) {
-          this.setState({ goalAchieved: [currentZ3[currentZ3.length-1]] })
+        if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
+          this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] })
         }
       }
     })
@@ -80,13 +80,11 @@ class IProve extends Component {
     const { atoms, constants, relations, steps, givens, types } = this.props
     this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
-      if (step.dependencies && step.dependencies.length > 0) {
-        let requiredSteps = step.dependencies.filter(Boolean)
-                                             .map(d => validate_dependencies(step, d, givens, steps))
-                                             .filter(Boolean)
-        requiredSteps.push(step.ast)
-        this.callZ3(requiredSteps, constants, relations, atoms, i, types)
-      }
+      let requiredSteps = step.dependencies.filter(Boolean)
+                                           .map(d => validate_dependencies(step, d, givens, steps))
+                                           .filter(Boolean)
+      requiredSteps.push(step.ast)
+      this.callZ3(requiredSteps, constants, relations, atoms, i, types)
     })
   }
 
