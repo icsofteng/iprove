@@ -114,18 +114,15 @@ class iProveVisitor extends ParseTreeVisitor {
     return {type: 'funcDef', name, params, returnType}
   }
   visitVariableDef(ctx) {
-    const varType = ctx.IDENTIFIER()
-    let varTypeStr
+    let varType = ctx.IDENTIFIER()
     if (varType) {
-      varTypeStr = varType.toString()
-      varTypeStr = varTypeStr.charAt(0).toUpperCase() + varTypeStr.slice(1) // z3 doesnt allow lower case types
-      if((this.types.indexOf(varTypeStr) === -1) && (this.base_types.indexOf(varTypeStr) === -1)) {
-        this.types.push(varTypeStr)
+      varType = varType.toString()
+      varType = varType.charAt(0).toUpperCase() + varType.slice(1) // z3 doesnt allow lower case types
+      if((this.types.indexOf(varType) === -1) && (this.base_types.indexOf(varType) === -1)) {
+        this.types.push(varType)
       }
-    } else {
-      varTypeStr = "Type"
     }
-    return {type:'variable', value : ctx.VARIABLE().toString(), varType: varTypeStr}
+    return {type:'variable', value : ctx.VARIABLE().toString(), varType}
   };
   visitParamType(ctx) {
     let value = ctx.TYPE().toString()
