@@ -80,11 +80,13 @@ class IProve extends Component {
     const { atoms, constants, relations, steps, givens, types } = this.props
     this.setState({ goalAchieved: [] })
     steps.forEach((step, i) => {
-      let requiredSteps = step.dependencies.filter(Boolean)
-                                           .map(d => validate_dependencies(step, d, givens, steps))
-                                           .filter(Boolean)
-      requiredSteps.push(step.ast)
-      this.callZ3(requiredSteps, constants, relations, atoms, i, types)
+      if (step.ast.type) {
+        let requiredSteps = step.dependencies.filter(Boolean)
+                                             .map(d => validate_dependencies(step, d, givens, steps))
+                                             .filter(Boolean)
+        requiredSteps.push(step.ast)
+        this.callZ3(requiredSteps, constants, relations, atoms, i, types)
+      }
     })
   }
 
