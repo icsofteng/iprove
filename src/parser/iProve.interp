@@ -81,6 +81,7 @@ WS
 rule names:
 statement
 parameter
+variableDef
 expression
 
 

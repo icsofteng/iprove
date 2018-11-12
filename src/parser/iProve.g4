@@ -7,7 +7,7 @@ parameter:
   | IDENTIFIER                                                          # paramIdent
   ;
 
-variableDef: VARIABLE (COLON IDENTIFIER);                               # variableDef
+variableDef: VARIABLE (COLON IDENTIFIER)?;                               
 
 
 expression:
@@ -38,6 +38,7 @@ expression:
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
 | expression DOUBLEEQUALS expression                                                                  # equalExp
+| EXISTS variableDef (COMMA variableDef)* expression                                                  # existsExp
 | IDENTIFIER                                                                                          # literalExp
 ;
 

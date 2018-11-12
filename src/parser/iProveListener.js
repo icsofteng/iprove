@@ -38,6 +38,15 @@ iProveListener.prototype.exitParamIdent = function(ctx) {
 };
 
 
+// Enter a parse tree produced by iProveParser#variableDef.
+iProveListener.prototype.enterVariableDef = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#variableDef.
+iProveListener.prototype.exitVariableDef = function(ctx) {
+};
+
+
 // Enter a parse tree produced by iProveParser#andExp.
 iProveListener.prototype.enterAndExp = function(ctx) {
 };

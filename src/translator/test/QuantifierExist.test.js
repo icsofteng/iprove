@@ -6,7 +6,7 @@ const test_rules = [
   {
     type: 'existential_quantifier',
     symbol: 'exist',
-    variable: { type: "variable", value: "x" },
+    variables: [{ type: "variable", value: "x" , varType: "Type"}],
     value: {
       type: 'binary',
       symbol: 'implies',

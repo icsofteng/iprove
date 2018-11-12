@@ -131,8 +131,12 @@ const translate_rule = (rule) => {
   }
 }
 
-const translate_quantifier = ({ symbol, variable, value }) => {
-  return '(' + symbol + ' ((' + translate_variable(variable) + ' Type))' + translate_rule(value) + ')'
+const translate_quantifier = ({ symbol, variables, value }) => {
+  let vars = ''
+  variables.forEach(v => {
+    vars = vars + '(' + v.value + ' ' + v.varType + ')'
+  }) 
+  return '(' + symbol + ' (' + vars + ')' + translate_rule(value) + ')'
 }
 
 const translate_relation = (rule) => {
