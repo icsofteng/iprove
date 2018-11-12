@@ -134,7 +134,8 @@ const translate_rule = (rule) => {
 const translate_quantifier = ({ symbol, variables, value }) => {
   let vars = ''
   variables.forEach(v => {
-    vars = vars + '(' + v.value + ' ' + v.varType + ')'
+    if (v.varType) vars = vars + '(' + v.value + ' ' + v.varType + ')'
+    else vars = vars + '(' + v.value + ')'
   }) 
   return '(' + symbol + ' (' + vars + ')' + translate_rule(value) + ')'
 }

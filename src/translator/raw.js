@@ -58,6 +58,15 @@ const translate_power = (rule) => `${translate_rule(rule.lhs)} ^ ${translate_rul
 const translate_multiply = (rule) => `${translate_rule(rule.lhs)} * ${translate_rule(rule.rhs)}`
 const translate_divide = (rule) => `${translate_rule(rule.lhs)} / ${translate_rule(rule.rhs)}`
 
+const translate_funcDef = (rule) => {
+  let translation = 'define ' + rule.name + '('
+  if (rule.params) {
+    translation += rule.params.map(p => p.value).join(", ")
+  }
+  translation += '): ' + rule.returnType.value
+  return translation
+}
+
 const translate_rule = (rule) => {
   if (rule) {
     switch (rule.type) {
@@ -73,6 +82,7 @@ const translate_rule = (rule) => {
       case 'relation': return translate_relation(rule)
       case 'assume': return translate_assume(rule)
       case 'variable': return translate_variable(rule)
+      case 'funcDef': return translate_funcDef(rule)
       default: return translate_literal(rule)
     }
   }
