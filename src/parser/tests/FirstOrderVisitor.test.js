@@ -25,7 +25,7 @@ test("Visitor Test relations", ()=> {
 })
 
 test("Visitor Test forall with type", ()=> {
-  expect(parse("forall x:Int dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType:'Type'}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("forall x:Int dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType:'Int'}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test less than", () => {
