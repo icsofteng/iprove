@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FuncDef test latex 1`] = `"Define friends(Person, Person): Bool"`;
+exports[`FuncDef test latex 1`] = `"define \\\\ friends(Person, Person): Bool"`;
 
 exports[`func Def Dragon test 1`] = `
 "(declare-sort Type)

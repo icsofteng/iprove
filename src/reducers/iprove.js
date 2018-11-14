@@ -123,15 +123,16 @@ const reducer = (state = initialState, action) => {
         }
         return newState
 
-        case OPEN_CASE:
-          const originalScope = newState.currentScope
-          newState.currentScope = [...originalScope, newState.steps.length]
-          newState.currentScope = _.uniq(newState.currentScope)
-          newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
-          newState.currentScope = [...originalScope, newState.steps.length]
-          newState.currentScope = _.uniq(newState.currentScope)
-          newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
-          newState.currentScope = originalScope
+      case OPEN_CASE:
+        const originalScope = newState.currentScope
+        newState.currentScope = [...originalScope, newState.steps.length]
+        newState.currentScope = _.uniq(newState.currentScope)
+        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
+        newState.currentScope = [...originalScope, newState.steps.length]
+        newState.currentScope = _.uniq(newState.currentScope)
+        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
+        newState.currentScope = originalScope
+        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
         return newState
 
       default:
