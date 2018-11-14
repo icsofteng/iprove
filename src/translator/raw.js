@@ -76,6 +76,7 @@ const translate_rule = (rule) => {
       case 'true':
       case 'false': return rule.type
       case 'exit': return 'exit'
+      case 'case': return 'case'
       case 'paren': return translate_paren(rule)
       case 'sq_paren': return translate_sq_paren(rule)
       case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)

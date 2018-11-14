@@ -13,7 +13,8 @@ import {
   SET_STEP_DEPENDENCY,
   ADD_ATOMS,
   SET_SCOPE,
-  ADD_TYPES
+  ADD_TYPES,
+  OPEN_CASE
 } from '../../../constants'
 
 import styles from './styles.scss'
@@ -80,6 +81,9 @@ class TextBox extends Component {
           this.props.addTypes(types)
           if (ast[0].type === 'assume') {
             this.props.setScope(this.props.scope, this.props.index, true)
+          }
+          else if (ast[0].type === 'case') {
+            this.props.openCase()
           }
           else if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
@@ -201,7 +205,8 @@ const mapDispatchToProps = dispatch => ({
   addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
-  setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override })
+  setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override }),
+  openCase: () => dispatch({ type: OPEN_CASE, path: [] })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)

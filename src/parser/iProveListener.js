@@ -200,6 +200,15 @@ iProveListener.prototype.exitMultiplyExp = function(ctx) {
 };
 
 
+// Enter a parse tree produced by iProveParser#caseExp.
+iProveListener.prototype.enterCaseExp = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#caseExp.
+iProveListener.prototype.exitCaseExp = function(ctx) {
+};
+
+
 // Enter a parse tree produced by iProveParser#minusExp.
 iProveListener.prototype.enterMinusExp = function(ctx) {
 };
