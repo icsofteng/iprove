@@ -85,22 +85,26 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
           }
           this.setState({ edit: false })
-          resolve()
+          resolve(ast[0])
         })
+      }
+      else {
+        resolve({})
       }
     })
   }
 
   keyDown(event, parse) {
     let promise = Promise.resolve()
+    const isShift = event.shiftKey
     if (event.keyCode === 9) {
       // TAB key
       event.preventDefault()
       if (parse) {
         promise = this.parseInput(event.target.value)
       }
-      promise.then(() => {
-        if (event.shiftKey) {
+      promise.then((new_ast) => {
+        if (isShift) {
           if (this.state.focusDependencies) {
             this.setState({ focusDependencies: false })
             this.ref.focus()
@@ -110,7 +114,7 @@ class TextBox extends Component {
           }
         }
         else {
-          if (this.state.focusDependencies || this.props.type === 'givens' || this.props.ast.type === 'assume' || this.props.ast.type === 'exit') {
+          if (this.state.focusDependencies || this.props.type === 'givens' || new_ast.type === 'assume' || new_ast.type === 'exit') {
             this.setState({ focusDependencies: false })
             this.props.onIncInput(1)
           }
