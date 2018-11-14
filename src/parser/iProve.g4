@@ -17,6 +17,7 @@ expression:
 | expression OR expression                                                                            # orExp
 | expression (IMPLIES|IMPLIES2|IMPLIES3) expression                                                   # impliesExp
 | expression (IFF|IFF2|IFF3) expression                                                               # iffExp
+| CASE                                                                                                # caseExp
 | TRUE                                                                                                # trueExp
 | FALSE                                                                                               # falseExp
 | EXIT                                                                                                # exitExp
@@ -41,6 +42,7 @@ expression:
 | IDENTIFIER                                                                                          # literalExp
 ;
 
+CASE: 'case';
 ASSUME: 'assume';
 FORALL: 'forall';
 DEFINE: 'define';

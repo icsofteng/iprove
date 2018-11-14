@@ -15,7 +15,8 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
   SET_SCOPE,
-  ADD_TYPES
+  ADD_TYPES,
+  OPEN_CASE
 } from '../constants'
 
 const initialState = {
@@ -120,6 +121,17 @@ const reducer = (state = initialState, action) => {
             newState.steps.splice(action.thisIndex, 1)
           }
         }
+        return newState
+
+        case OPEN_CASE:
+          const originalScope = newState.currentScope
+          newState.currentScope = [...originalScope, newState.steps.length]
+          newState.currentScope = _.uniq(newState.currentScope)
+          newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
+          newState.currentScope = [...originalScope, newState.steps.length]
+          newState.currentScope = _.uniq(newState.currentScope)
+          newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
+          newState.currentScope = originalScope
         return newState
 
       default:
