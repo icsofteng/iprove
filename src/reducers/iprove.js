@@ -16,7 +16,8 @@ import {
   LOAD_PROOF,
   SET_SCOPE,
   ADD_TYPES,
-  OPEN_CASE
+  OPEN_CASE,
+  SET_CURRENT_SCOPE
 } from '../constants'
 
 const initialState = {
@@ -43,7 +44,7 @@ const reducer = (state = initialState, action) => {
 
       case NEW_STEP:
         let scope = (key === 'steps') ? newState.currentScope : []
-        depth[index] = { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
+        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
         return newState
 
       case NEW_RULE:
@@ -124,15 +125,14 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case OPEN_CASE:
-        const originalScope = newState.currentScope
-        newState.currentScope = [...originalScope, newState.steps.length]
-        newState.currentScope = _.uniq(newState.currentScope)
-        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
-        newState.currentScope = [...originalScope, newState.steps.length]
-        newState.currentScope = _.uniq(newState.currentScope)
-        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
-        newState.currentScope = originalScope
-        newState.steps.push({ scope: newState.currentScope, dependencies: [], ast: { type: undefined } })
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: undefined } })
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: undefined } })
+        newState.steps.push({ scope: action.payload, dependencies: [], ast: { type: undefined } })
+        console.log(newState.steps)
+        return newState
+
+      case SET_CURRENT_SCOPE:
+        newState.currentScope = action.payload
         return newState
 
       default:

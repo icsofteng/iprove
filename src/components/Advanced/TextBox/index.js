@@ -83,7 +83,7 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope, this.props.index, true)
           }
           else if (ast[0].type === 'case') {
-            this.props.openCase()
+            this.props.openCase(this.props.scope)
           }
           else if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
@@ -102,7 +102,7 @@ class TextBox extends Component {
     let promise = Promise.resolve()
     const isShift = event.shiftKey
     if (event.keyCode === 9) {
-      // TAB key
+      // TAB key (go to next input)
       event.preventDefault()
       if (parse) {
         promise = this.parseInput(event.target.value)
@@ -130,14 +130,14 @@ class TextBox extends Component {
       })
     }
     else if (event.keyCode === 13) {
-      // ENTER key
+      // ENTER key (new line below this one)
       event.preventDefault()
       if (parse) {
         promise = this.parseInput(event.target.value)
       }
       promise.then(() => {
         if (this.props.type !== 'goal') {
-          this.props.onIncInput(1)
+          this.props.newStepAfter(this.props.index)
         }
       })
     }
@@ -206,7 +206,7 @@ const mapDispatchToProps = dispatch => ({
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override }),
-  openCase: () => dispatch({ type: OPEN_CASE, path: [] })
+  openCase: (startScope) => dispatch({ type: OPEN_CASE, payload: startScope, path: [] })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)

@@ -39,7 +39,9 @@ const caseScope = (steps, offset, props, textboxes, i) => {
   const case2 = steps.slice(findSwitch, findEnd)
   textboxes.push(
     <CaseAnalysis>
-      {stepToTextBox(steps[i], i + offset, props)}
+      <div className={styles.case_step}>
+        {stepToTextBox(steps[i], i + offset, props)}
+      </div>
       <ScopeBox scope={steps[i+1].scope}>
         {generateTextBoxScopes(case1, i + offset + 1, props)}
       </ScopeBox>
@@ -81,6 +83,7 @@ const stepToTextBox = (step, id, props) =>
     index={id}
     focus={props.type === props.selectedTextBox[0] && id === props.selectedTextBox[1]}
     onIncInput={props.incrementInput}
+    newStepAfter={props.newStepAfter}
     onFocus={()=>props.setSelected([props.type, id])}
     onBlur={()=>props.setSelected(['', -1])}
     type={props.type}
