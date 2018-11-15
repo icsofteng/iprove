@@ -79,7 +79,7 @@ const translate_rule = (rule) => {
       case 'true': return '\\top'
       case 'false': return '\\bot'
       case 'exit': return 'exit'
-      case 'case': return 'case'
+      case 'case': return translate_case(rule)
       case 'paren': return translate_paren(rule)
       case 'sq_paren': return translate_sq_paren(rule)
       case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)
@@ -102,6 +102,7 @@ const translate_variable = (rule) => rule.value
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
 const translate_assume = (rule) => 'assume \\ ' + translate_rule(rule.value)
+const translate_case = (rule) => 'case \\ ' + translate_or_rule(rule)
 
 const translate = (rules) => rules.map(rule => translate_rule(rule))
 
