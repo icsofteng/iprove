@@ -83,7 +83,7 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope, this.props.index, true)
           }
           else if (ast[0].type === 'case') {
-            this.props.openCase(this.props.scope)
+            this.props.openCase(this.props.scope, ast[0].lhs, ast[0].rhs)
           }
           else if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
@@ -206,7 +206,7 @@ const mapDispatchToProps = dispatch => ({
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override }),
-  openCase: (startScope) => dispatch({ type: OPEN_CASE, payload: startScope, path: [] })
+  openCase: (startScope, lhs, rhs) => dispatch({ type: OPEN_CASE, payload: startScope, path: [], lhs, rhs })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
