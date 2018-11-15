@@ -28,7 +28,8 @@ const caseScope = (steps, offset, props, textboxes, i) => {
       break
     }
   }
-  const case1 = steps.slice(i+1, findSwitch)
+  const assume1 = steps[i+1]
+  const case1 = steps.slice(i+2, findSwitch)
   if (!steps[findSwitch]) return i+1
   let findEnd
   for (findEnd = findSwitch; findEnd < steps.length; findEnd++) {
@@ -36,17 +37,20 @@ const caseScope = (steps, offset, props, textboxes, i) => {
       break
     }
   }
-  const case2 = steps.slice(findSwitch, findEnd)
+  const assume2 = steps[findSwitch]
+  const case2 = steps.slice(findSwitch+1, findEnd)
   textboxes.push(
     <CaseAnalysis>
       <div className={styles.case_step}>
         {stepToTextBox(steps[i], i + offset, props)}
       </div>
       <ScopeBox scope={steps[i+1].scope} case>
-        {generateTextBoxScopes(case1, i + offset + 1, props)}
+        {stepToTextBox(assume1, i + offset + 1, props)}
+        {generateTextBoxScopes(case1, i + offset + 2, props)}
       </ScopeBox>
       <ScopeBox scope={steps[findSwitch].scope} case>
-        {generateTextBoxScopes(case2, findSwitch + offset, props)}
+        {stepToTextBox(assume2, findSwitch + offset, props)}
+        {generateTextBoxScopes(case2, findSwitch + offset + 1, props)}
       </ScopeBox>
     </CaseAnalysis>
   )
