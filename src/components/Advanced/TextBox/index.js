@@ -147,7 +147,7 @@ class TextBox extends Component {
     const { ast, index, offset, z3, type } = this.props
     return (
       <div className={cx(styles.step, {
-        [styles.correct]: (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'exit',
+        [styles.correct]: (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'exit' || ast.type === 'case',
         [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat'
       })}>
         { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
@@ -174,7 +174,7 @@ class TextBox extends Component {
           </div>
         }
         {
-          (this.props.showDependencies && ast.type !== 'assume' && ast.type !== 'exit') &&
+          (this.props.showDependencies && ast.type !== 'assume' && ast.type !== 'exit' && ast.type !== 'case') &&
             <div className={styles.dependencies}>
               <div className={styles.using} onClick={()=>this.refDef.focus()}>using</div>
               <input
