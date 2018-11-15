@@ -42,10 +42,10 @@ const caseScope = (steps, offset, props, textboxes, i) => {
       <div className={styles.case_step}>
         {stepToTextBox(steps[i], i + offset, props)}
       </div>
-      <ScopeBox scope={steps[i+1].scope}>
+      <ScopeBox scope={steps[i+1].scope} case>
         {generateTextBoxScopes(case1, i + offset + 1, props)}
       </ScopeBox>
-      <ScopeBox scope={steps[findSwitch].scope}>
+      <ScopeBox scope={steps[findSwitch].scope} case>
         {generateTextBoxScopes(case2, findSwitch + offset, props)}
       </ScopeBox>
     </CaseAnalysis>

@@ -1,8 +1,11 @@
 import React from 'react'
+import cx from 'classnames'
 import styles from './styles.scss'
 
 export const ScopeBox = (props) =>
-  <div className={styles.scopeBox}>
+  <div className={cx(styles.scopeBox, {
+    [styles.caseScopeBox]: props.case
+  })}>
     {props.children}
   </div>
 
