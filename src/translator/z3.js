@@ -120,6 +120,7 @@ const translate_rule = (rule) => {
     case 'unary': return translate_unary_rule(rule)
     case 'true':
     case 'false': return rule.type
+    case 'case': return translate_or_rule(rule)
     case 'paren': return translate_rule(rule.value)
     case 'sq_paren': return translate_rule(rule)
     case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)
