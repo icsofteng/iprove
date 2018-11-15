@@ -125,10 +125,9 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case OPEN_CASE:
-        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: undefined } })
-        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: undefined } })
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.lhs } })
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.rhs } })
         newState.steps.push({ scope: action.payload, dependencies: [], ast: { type: undefined } })
-        console.log(newState.steps)
         return newState
 
       case SET_CURRENT_SCOPE:
