@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF } from '../constants'
+import { NEW_STEP, LOAD_PROOF, SET_CURRENT_SCOPE } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -105,6 +105,19 @@ class IProve extends Component {
     }
   }
 
+  newStepAfter = (index) => {
+    const sameSelectedType = this.state.selectedTextBox[0]
+    this.props.newStep([sameSelectedType, index + 1])
+    this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
+  }
+
+  setSelected = (v) => {
+    this.setState({ selectedTextBox: v })
+    if (this.props[v[0]] && this.props[v[0]][v[1]]) {
+      this.props.setCurrentScope(this.props[v[0]][v[1]].scope)
+    }
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -128,7 +141,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} />
                   }
                 </div>
               </div>
@@ -137,7 +150,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
                   }
                 </div>
               </div>
@@ -148,7 +161,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={(v)=>this.setState({ selectedTextBox: v })} incrementInput={this.incrementInput} />
+                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} />
                   }
                 </div>
               </div>
@@ -167,6 +180,7 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
+  setCurrentScope: (newScope) => dispatch({ type: SET_CURRENT_SCOPE, payload: newScope, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)
