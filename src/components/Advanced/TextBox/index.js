@@ -135,8 +135,8 @@ class TextBox extends Component {
       if (parse) {
         promise = this.parseInput(event.target.value)
       }
-      promise.then(() => {
-        if (this.props.type !== 'goal') {
+      promise.then((new_ast) => {
+        if (this.props.type !== 'goal' && new_ast.type !== 'case') {
           this.props.newStepAfter(this.props.index)
         }
       })
