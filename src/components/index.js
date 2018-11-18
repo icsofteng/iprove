@@ -35,20 +35,24 @@ class IProve extends Component {
   }
 
   callZ3(steps, constants, relations, atoms, i, types) {
-    fetch('/z3', {
+    return fetch('/z3', {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify({steps, constants, relations, atoms, types})
     }).then(r => r.text()).then(response => {
-      const currentZ3 = this.state.z3
-      currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
-      if (currentZ3 !== "") {
-        this.setState({ z3: currentZ3 })
-        // Check goal
-        if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
-          this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] })
-        }
-      }
+      return new Promise((resolve, reject) => {
+        const currentZ3 = this.state.z3
+        currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
+        this.setState({ z3: currentZ3 }, () => {
+          // Check goal
+          if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
+            this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
+          }
+          else {
+            resolve()
+          }
+        })
+      })
     })
   }
 
@@ -79,15 +83,17 @@ class IProve extends Component {
   getRequiredSteps() {
     const { atoms, constants, relations, steps, givens, types } = this.props
     this.setState({ goalAchieved: [] })
-    steps.forEach((step, i) => {
+    const promises = steps.map((step, i) => {
       if (step.ast.type) {
         let requiredSteps = step.dependencies.filter(Boolean)
                                              .map(d => validate_dependencies(step, d, givens, steps))
                                              .filter(Boolean)
         requiredSteps.push(step.ast)
-        this.callZ3(requiredSteps, constants, relations, atoms, i, types)
+        return this.callZ3(requiredSteps, constants, relations, atoms, i, types)
       }
+      return Promise.resolve()
     })
+    return Promise.all(promises)
   }
 
   componentDidUpdate(prevProps) {
