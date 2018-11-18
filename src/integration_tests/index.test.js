@@ -6,9 +6,11 @@ import { createMockStore } from 'redux-test-utils'
 import { shallowWithStore } from 'enzyme-redux'
 import { execSync } from 'child_process'
 import { translate_and_save } from '../translator/z3'
+import TextBoxList from '../components/Advanced/TextBoxList'
+import TextBox from '../components/Advanced/TextBox'
 
-global.fetch = (url, options) => {
-  return new Promise((resolve, reject) => {
+global.fetch = (_, options) => {
+  return new Promise((resolve, _) => {
     const body = JSON.parse(options.body)
     const { steps, atoms, constants, relations, types } = body
     const file = translate_and_save(steps, constants, relations, atoms, types)
@@ -28,15 +30,18 @@ const integration_test = (f) => {
     const component = shallowWithStore(<IProve />, store).dive()
     component.setState({ goalAchieved: [], "z3": [], "simple": false, "selectedTextBox": ["",-1] })
     component.instance().getRequiredSteps().then(() => {
-      const z3s = component.state().z3
-      z3s.forEach((z3) => expect(z3).toEqual('unsat'))
+      const steps = component.find(TextBoxList).at(2).dive().find(TextBox)
+      expect(steps.length).toEqual(props.steps.length)
+      steps.forEach((s) => {
+        const cnames = s.dive().dive().props().className.split(" ")
+        expect(cnames.indexOf('error') === -1).toEqual(true)
+      })
       res()
     })
   })
 }
 
-test('Integration tests', (done) => {
-  const files = glob().readdirSync('**/*.proof')
-  const run_tests = files.map(f => integration_test(f))
-  Promise.all(run_tests).then(() => done())
+const files = glob().readdirSync('**/*.proof')
+files.forEach(f => {
+  test('Integration test: ' + f, () => integration_test(f))
 })
