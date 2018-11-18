@@ -12,7 +12,7 @@ global.fetch = (url, options) => {
     const body = JSON.parse(options.body)
     const { steps, atoms, constants, relations, types } = body
     const file = translate_and_save(steps, constants, relations, atoms, types)
-    const result = execSync(`./z3 ${file}`)
+    const result = execSync(`./z3-deb ${file}`)
     fs.unlink(file, () =>
       resolve({
         text: () => Promise.resolve(result.toString('utf8'))
