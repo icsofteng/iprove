@@ -23,10 +23,10 @@ global.fetch = (url, options) => {
 
 const integration_test = (f) => {
   return new Promise((res, rej) => {
-    const { props, state } = JSON.parse(fs.readFileSync(f))
+    const { props } = JSON.parse(fs.readFileSync(f))
     const store = createMockStore({ present: props })
     const component = shallowWithStore(<IProve />, store).dive()
-    component.setState(state)
+    component.setState({ goalAchieved: [], "z3": [], "simple": false, "selectedTextBox": ["",-1] })
     component.instance().getRequiredSteps().then(() => {
       const z3s = component.state().z3
       z3s.forEach((z3) => expect(z3).toEqual('unsat'))
