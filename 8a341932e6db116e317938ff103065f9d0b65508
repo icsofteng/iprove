@@ -1,4 +1,0 @@
-(declare-sort Type)
-(declare-const S Bool)
-(assert (not S))
-(check-sat)

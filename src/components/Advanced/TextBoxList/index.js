@@ -88,6 +88,7 @@ const stepToTextBox = (step, id, props) =>
     focus={props.type === props.selectedTextBox[0] && id === props.selectedTextBox[1]}
     onIncInput={props.incrementInput}
     newStepAfter={props.newStepAfter}
+    removeCurrentStep={props.removeCurrentStep}
     onFocus={()=>props.setSelected([props.type, id])}
     onBlur={()=>props.setSelected(['', -1])}
     type={props.type}

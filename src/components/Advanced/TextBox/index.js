@@ -50,6 +50,7 @@ class TextBox extends Component {
     // Change ast
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
       const translation = translate_raw(this.props.ast)
+      //checks if the newly updated line was a newly inserted line and if so, clears the text box
       let isInsert = prevProps.ast.value == prevState.raw && !this.props.ast.type
       if (translation || isInsert) {
         this.setState({
@@ -146,7 +147,7 @@ class TextBox extends Component {
     }
     else if (event.keyCode === 8 && event.target.value == '') {
       event.preventDefault()
-      this.props.onIncInput(-1)
+      this.props.removeCurrentStep(this.props.index)
     }
   }
 

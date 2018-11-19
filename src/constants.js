@@ -1,5 +1,4 @@
 export const NEW_STEP = 'new_step'
-export const INSERT_STEP = 'insert_step'
 export const NEW_RULE = 'new_rule'
 export const REMOVE_STEP = 'remove_step'
 export const REMOVE_RULE = 'remove_rule'
