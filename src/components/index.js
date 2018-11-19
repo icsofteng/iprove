@@ -131,6 +131,7 @@ class IProve extends Component {
   removeCurrentStep = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
     if (index !== 0 || (index === 0 && this.props[sameSelectedType].length !== 1)) {
+      this.updateDependenciesFromInsertionAndRemoval(index, -1)
       this.props.removeStep([sameSelectedType, index])
       this.setState({ selectedTextBox: [sameSelectedType, index - 1] })
     }
@@ -138,6 +139,7 @@ class IProve extends Component {
 
   newStepAfter = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
+    this.updateDependenciesFromInsertionAndRemoval(index, 1)
     this.props.newStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
   }
@@ -173,6 +175,17 @@ class IProve extends Component {
     requiredSteps.push(step.ast)
     const promise = this.callZ3(requiredSteps, identifiers, relations, step.i, types)
     return promise
+  }
+
+  updateDependenciesFromInsertionAndRemoval = (index, increment) => {
+    console.log(index)
+    for (var i = index + 1; i < this.props.steps.length; i++) {
+      for (var j = 0; j < this.props.steps[i].dependencies.length; j++) {
+        if (this.props.steps[i].dependencies[j] > this.props.givens.length) {
+          this.props.steps[i].dependencies[j] += increment
+        }
+      }
+    }
   }
 
   render() {
