@@ -119,7 +119,7 @@ class iProveVisitor extends ParseTreeVisitor {
     return {type: 'funcDef', name, params, returnType}
   }
   visitVariableDef(ctx) {
-    let varType = "any"
+    let varType = "Any"
     const findType = ctx.IDENTIFIER()
     if (findType) {
       varType = findType.toString()

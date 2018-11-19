@@ -13,17 +13,17 @@ const declare_atoms = (atoms, file_contents) => {
 const declare_constants = (constants, file_contents) => {
   constants.forEach(element => {
     if (element) {
-      file_contents += '(declare-const ' + element + ' Type)\n'
+      file_contents += '(declare-const ' + element + ' Any)\n'
     }
   })
   return file_contents
 }
 
 const declare_relations = (relations, file_contents) => {
-  file_contents += '(declare-sort Type)\n'
+  file_contents += '(declare-sort Any)\n'
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
-    file_contents += [...Array(rel.numParam)].map(r => '(Type)').join(" ")
+    file_contents += [...Array(rel.numParam)].map(r => '(Any)').join(" ")
     file_contents += ') Bool)\n'
   })
   return file_contents

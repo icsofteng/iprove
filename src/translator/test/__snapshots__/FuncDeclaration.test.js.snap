@@ -3,7 +3,7 @@
 exports[`FuncDef test latex 1`] = `"define \\\\ friends(Person, Person): Bool"`;
 
 exports[`func Def Dragon test 1`] = `
-"(declare-sort Type)
+"(declare-sort Any)
 (declare-sort Dragon)
 (declare-const P Bool)
 (declare-fun Power (Dragon Dragon ) Int)
@@ -12,7 +12,7 @@ exports[`func Def Dragon test 1`] = `
 `;
 
 exports[`func Def Happy test 1`] = `
-"(declare-sort Type)
+"(declare-sort Any)
 (declare-sort Reward)
 (declare-sort Dragon)
 (declare-sort Human)
@@ -23,7 +23,7 @@ exports[`func Def Happy test 1`] = `
 `;
 
 exports[`func Def test 1`] = `
-"(declare-sort Type)
+"(declare-sort Any)
 (declare-sort Person)
 (declare-const P Bool)
 (declare-fun friends (Person Person ) Bool)

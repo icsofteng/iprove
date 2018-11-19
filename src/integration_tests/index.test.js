@@ -14,7 +14,8 @@ global.fetch = (_, options) => {
     const body = JSON.parse(options.body)
     const { steps, atoms, constants, relations, types } = body
     const file = translate_and_save(steps, constants, relations, atoms, types)
-    const result = execSync(`./z3-deb ${file}`)
+    const binary_file = process.env.SERVER === 'test' ? './z3-deb' : './z3'
+    const result = execSync(`${binary_file} ${file}`)
     fs.unlink(file, () =>
       resolve({
         text: () => Promise.resolve(result.toString('utf8'))

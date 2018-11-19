@@ -9,11 +9,11 @@ test("Visitor Test relations", ()=> {
 })
 
 test("Visitor Test forall", ()=> {
-  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: null}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test exists", ()=> {
-  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: null}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
 })
 
 test("Visitor Test params", ()=> {

@@ -16,7 +16,7 @@ const translate_unary_rule = (rule) => {
 }
 
 const translate_quantifier = ({ symbol, variables, value }) => {
-  let vars = variables.map(v => v.value + (v.varType !== "any" ? ':' + v.varType : "")).join(", ")
+  let vars = variables.map(v => v.value + (v.varType !== "Any" ? ':' + v.varType : "")).join(", ")
   return '\\' + symbol + ' ' + vars + '.' + translate_rule(value)
 }
 

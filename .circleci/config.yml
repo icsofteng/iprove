@@ -10,7 +10,7 @@ jobs:
           name: Running tests
           command: |
             npm install
-            npm test 
+            SERVER=test npm test 
   deploy:
     docker:
       - image: circleci/node:10-browsers
