@@ -102,22 +102,27 @@ class IProve extends Component {
     }
   }
 
-  incrementInput = (v, textBox) => {
+  incrementInput = (v) => {
     const sameSelectedType = this.state.selectedTextBox[0]
     const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    if (v == -1 && (newSelected != -1 || (newSelected == -1 && this.props[sameSelectedType].length != 1))) {
-      this.props.removeStep([sameSelectedType, newSelected])
-      this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
-    } else if (v == 1) {
+    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
+    if (newSelected === this.props[sameSelectedType].length) {
       this.props.newStep([sameSelectedType, newSelected])
-      this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     }
-    return false
+  }
+
+  removeCurrentStep = (index) => {
+    const sameSelectedType = this.state.selectedTextBox[0]
+    console.log(index)
+    if (index != 0 || (index == 0 && this.props[sameSelectedType].length != 1)) {
+      this.props.removeStep([sameSelectedType, index])
+      this.setState({ selectedTextBox: [sameSelectedType, index - 1] })
+    }
   }
 
   newStepAfter = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    this.props.insertStep([sameSelectedType, index + 1])
+    this.props.newStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
   }
 
@@ -126,13 +131,6 @@ class IProve extends Component {
     if (this.props[v[0]] && this.props[v[0]][v[1]]) {
       this.props.setCurrentScope(this.props[v[0]][v[1]].scope)
     }
-  }
-
-  addNewStep = (v) => {
-    const sameSelectedType = this.state.selectedTextBox[0]
-    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
-    this.props.newStep([sameSelectedType, newSelected])
   }
 
   render() {
@@ -158,7 +156,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} />
+                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
                   }
                 </div>
               </div>
@@ -178,7 +176,7 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} />
+                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
                   }
                 </div>
               </div>
@@ -194,7 +192,6 @@ class IProve extends Component {
 
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
-  insertStep: (path) => dispatch({ type: INSERT_STEP, path }),
   removeStep: (path) => dispatch({ type: REMOVE_STEP, path }),
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),

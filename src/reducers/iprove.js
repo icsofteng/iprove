@@ -2,7 +2,6 @@ import _ from 'underscore'
 import { scan_state } from '../utils'
 import {
   NEW_RULE,
-  INSERT_STEP,
   REMOVE_STEP,
   NEW_STEP,
   REMOVE_RULE,
@@ -17,6 +16,8 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
   SET_SCOPE,
+  OPEN_CASE,
+  SET_CURRENT_SCOPE,
   ADD_TYPES
 } from '../constants'
 
@@ -44,34 +45,14 @@ const reducer = (state = initialState, action) => {
 
       case NEW_STEP:
         let scope = (key === 'steps') ? newState.currentScope : []
-        depth[index] = { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
+        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
         return newState
-<<<<<<< HEAD
-
-      case INSERT_STEP:
-        scope = (key === 'steps') ? newState.currentScope : []
-        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
-        return { ...newState, steps: newState.steps.filter(Boolean) }
 
       case REMOVE_STEP:
         if (Array.isArray(depth)) {
-          depth.splice(index + 1, 1)
-        } else {
-          delete depth[index]
+          depth.splice(index, 1)
         }
-        return { ...newState, steps: newState.steps.filter(Boolean) }
-=======
->>>>>>> Fixed insertion bug, tidied code
-
-      case INSERT_STEP:
-        scope = (key === 'steps') ? newState.currentScope : []
-        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
-        return { ...newState, steps: newState.steps.filter(Boolean) }
-
-      case REMOVE_STEP:
-        if (Array.isArray(depth)) {
-          depth.splice(index + 1, 1)
-        } else {
+        else {
           delete depth[index]
         }
         return { ...newState, steps: newState.steps.filter(Boolean) }
@@ -87,7 +68,8 @@ const reducer = (state = initialState, action) => {
       case REMOVE_RULE:
         if (Array.isArray(depth)) {
           depth.splice(index, 1)
-        } else {
+        }
+        else {
           delete depth[index]
         }
         return { ...newState, steps: newState.steps.filter(Boolean)}
@@ -141,7 +123,8 @@ const reducer = (state = initialState, action) => {
           newState.currentScope = [...action.payload, action.thisIndex]
           newState.currentScope = _.uniq(newState.currentScope)
           newState.steps[action.thisIndex].scope = newState.currentScope
-        } else {
+        }
+        else {
           // This is an "exit" line
           newState.currentScope = action.payload
           newState.currentScope = _.uniq(newState.currentScope)
@@ -149,6 +132,16 @@ const reducer = (state = initialState, action) => {
             newState.steps.splice(action.thisIndex, 1)
           }
         }
+        return newState
+
+      case OPEN_CASE:
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.lhs } })
+        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.rhs } })
+        newState.steps.push({ scope: action.payload, dependencies: [], ast: { type: undefined } })
+        return newState
+
+      case SET_CURRENT_SCOPE:
+        newState.currentScope = action.payload
         return newState
 
       default:
