@@ -194,12 +194,8 @@ class IProve extends Component {
 
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
-<<<<<<< HEAD
   insertStep: (path) => dispatch({ type: INSERT_STEP, path }),
   removeStep: (path) => dispatch({ type: REMOVE_STEP, path }),
-=======
-  removeStep: (path) => dispatch({ type: REMOVE_RULE, path }),
->>>>>>> Backspace deletes lines
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
