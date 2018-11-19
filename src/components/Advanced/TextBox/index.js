@@ -49,11 +49,11 @@ class TextBox extends Component {
 
     // Change ast
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
-      const translation = translate_raw(this.props.ast)
-      console.log(translation)
-      if (translation != undefined) {
+      let translation = translate_raw(this.props.ast)
+      let isInsert = prevProps.ast.value == prevState.raw && !this.props.ast.type
+      if (translation || isInsert) {
         this.setState({
-          raw: translation || '',
+          raw: isInsert ? '' : translation,
           edit: Object.keys(this.props.ast).length === 0
         })
       }
