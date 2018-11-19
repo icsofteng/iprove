@@ -21,12 +21,16 @@ const declare_constants = (constants, file_contents) => {
 
 const declare_relations = (relations, file_contents) => {
   file_contents += '(declare-sort Any)\n'
-  // console.log("#######")
-  // console.log(relations)
+  console.log("RELATIONS#######")
+  console.log(relations)
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
     console.log(rel)
-    file_contents += [...Array(rel.numParam)].map(r => '(' + r.varType + ')').join(" ")
+    console.log("REL#######")
+    rel.params.forEach(p => {
+      file_contents += '(' + p.varType + ')'
+    })
+    // file_contents += [...Array(rel.params)].map(p => '(' + p.varType + ')').join(" ") // need to change to the type of the params
     file_contents += ') Bool)\n'
   })
   return file_contents
@@ -164,8 +168,8 @@ const translate = (rules, constants, relations, atoms, types) => {
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)
-  file_contents = declare_relations(relations, file_contents)
   file_contents = declare_types(types, file_contents)
+  file_contents = declare_relations(relations, file_contents)
   file_contents = declare_constants(constants, file_contents)
   file_contents = declare_atoms(atoms, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
