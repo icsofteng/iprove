@@ -34,12 +34,12 @@ const translate_relation = (rule) => {
   return translation
 }
 
-const translate_funcDef = (rule) => {
-  let translation = 'define \\ ' + rule.name + '('
-  if (rule.params) {
-    translation += rule.params.map(p => p.value).join(", ")
+const translate_funcDef = ({ name, params, returnType }) => {
+  let translation = 'define \\ ' + name + '('
+  if (params) {
+    translation += params.map(p => p.value).join(", ")
   }
-  translation += '): ' + rule.returnType.value
+  translation += '): ' + returnType.value
   return translation
 }
 
@@ -101,7 +101,7 @@ const translate_literal = (rule) => {
   if (rule.varType && rule.varType != "Any") {
     return rule.value + ':' + rule.varType
   }
-  return rule.value 
+  return rule.value
 }
 const translate_variable = (rule) => rule.value
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'

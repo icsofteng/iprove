@@ -43,7 +43,7 @@ const declare_types = (types, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      if (element.type == 'funcDef') {
+      if (element.type === 'funcDef') {
         file_contents += translate_func_declaration(element)
       }
       else if (element.type !== 'constant') {
@@ -143,7 +143,7 @@ const translate_quantifier = ({ symbol, variables, value }) => {
   variables.forEach(v => {
     if (v.varType) vars = vars + '(' + v.value + ' ' + v.varType + ')'
     else vars = vars + '(' + v.value + ')'
-  }) 
+  })
   return '(' + symbol + ' (' + vars + ')' + translate_rule(value) + ')'
 }
 

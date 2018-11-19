@@ -22,7 +22,7 @@ const translate_quantifier = ({ symbol, variables, value }) => {
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  translation += rule.params.map(v => { 
+  translation += rule.params.map(v => {
     if (v.type == "constant" || v.type == "variable") {
       return v.value
     }
@@ -99,7 +99,7 @@ const translate_literal = (rule) =>{
   if (rule.varType && rule.varType != "Any") {
     return rule.value + ':' + rule.varType
   }
-  return rule.value 
+  return rule.value
 }
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
