@@ -60,6 +60,11 @@ const reducer = (state = initialState, action) => {
         }
         return { ...newState, steps: newState.steps.filter(Boolean) }
 
+      case INSERT_STEP:
+          scope = (key === 'steps') ? newState.currentScope : []
+          depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
+          return newState
+
       case NEW_RULE:
         depth[index] = { type: action.payload,...action.otherArgs }
         return newState
