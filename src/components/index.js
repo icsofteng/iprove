@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, SET_CURRENT_SCOPE } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE } from '../constants'
 import { _step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -116,7 +116,7 @@ class IProve extends Component {
 
   newStepAfter = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    this.props.newStep([sameSelectedType, index + 1])
+    this.props.insertStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
   }
 
@@ -125,20 +125,6 @@ class IProve extends Component {
     if (this.props[v[0]] && this.props[v[0]][v[1]]) {
       this.props.setCurrentScope(this.props[v[0]][v[1]].scope)
     }
-  }
-
-  addNewStep = (v) => {
-    const sameSelectedType = this.state.selectedTextBox[0]
-    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
-    this.props.newStep([sameSelectedType, newSelected])
-  }
-
-  addNewStep = (v) => {
-    const sameSelectedType = this.state.selectedTextBox[0]
-    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
-    this.props.newStep([sameSelectedType, newSelected])
   }
 
   render() {
@@ -200,6 +186,7 @@ class IProve extends Component {
 
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
+  insertStep: (path) => dispatch({ type: INSERT_STEP, path }),
   removeStep: (path) => dispatch({ type: REMOVE_STEP, path }),
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
