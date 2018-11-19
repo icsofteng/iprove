@@ -145,8 +145,9 @@ class iProveVisitor extends ParseTreeVisitor {
      return para
     }) || []
 
-    return {type: 'funcDef', name, params, returnType}
+    return { type: 'funcDef', name, params, returnType }
   }
+
   visitVariableDef(ctx) {
     let varType = "Any"
     const findType = ctx.IDENTIFIER()
@@ -240,6 +241,11 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'real', value }
   }
 
+  visitVariableExp(ctx) {
+    const value = ctx.VARIABLE().toString()
+    return { type: 'variable', value }
+  }
+
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()
     const varType = this.symbolTable.find(({ entryValue }) => entryValue === value)
@@ -249,7 +255,7 @@ class iProveVisitor extends ParseTreeVisitor {
      // should have type ANY
       return { type: 'variable', value, varType: "Any"}
     }
-    
+
   }
 
   visitParamIdent(ctx) {
