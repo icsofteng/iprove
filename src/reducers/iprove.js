@@ -1,8 +1,11 @@
 import _ from 'underscore'
-import { scan_state } from '../utils'
+import {
+  scan_state
+} from '../utils'
 import {
   NEW_RULE,
   INSERT_STEP,
+  REMOVE_STEP,
   NEW_STEP,
   REMOVE_RULE,
   CHANGE_SYMBOL,
@@ -22,9 +25,17 @@ import {
 } from '../constants'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {}, scope: [] }],
-  givens: [{ ast: {} }],
-  goal: [{ ast: {} }],
+  steps: [{
+    dependencies: [],
+    ast: {},
+    scope: []
+  }],
+  givens: [{
+    ast: {}
+  }],
+  goal: [{
+    ast: {}
+  }],
   atoms: [],
   constants: [],
   relations: [],
@@ -36,25 +47,63 @@ const reducer = (state = initialState, action) => {
   let newState = JSON.parse(JSON.stringify(state))
   if (action.path) {
     const [key, ...path] = action.path
-    let { depth, index } = scan_state(newState, path, key)
+    let {
+      depth,
+      index
+    } = scan_state(newState, path, key)
 
     switch (action.type) {
       case LOAD_PROOF:
-        newState = {...newState, ...action.payload}
+        newState = { ...newState,
+          ...action.payload
+        }
         return newState
 
       case NEW_STEP:
         let scope = (key === 'steps') ? newState.currentScope : []
+<<<<<<< HEAD
         depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
+=======
+        depth[index] = {
+          scope,
+          dependencies: [],
+          ast: {
+            type: action.payload,
+            ...action.otherArgs
+          }
+        }
+>>>>>>> Fixed deletion bug
         return newState
 
       case INSERT_STEP:
-          scope = (key === 'steps') ? newState.currentScope : []
-          depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
-          return newState
+        scope = (key === 'steps') ? newState.currentScope : []
+        depth.splice(index, 0, {
+          scope,
+          dependencies: [],
+          ast: {
+            type: action.payload,
+            ...action.otherArgs
+          }
+        })
+        return { ...newState,
+          steps: newState.steps.filter(Boolean)
+        }
+
+      case REMOVE_STEP:
+        if (Array.isArray(depth)) {
+          depth.splice(index + 1, 1)
+        } else {
+          delete depth[index]
+        }
+        return { ...newState,
+          steps: newState.steps.filter(Boolean)
+        }
 
       case NEW_RULE:
-        depth[index] = { type: action.payload, ...action.otherArgs }
+        depth[index] = {
+          type: action.payload,
+          ...action.otherArgs
+        }
         return newState
 
       case UPDATE_RULE:
@@ -64,11 +113,12 @@ const reducer = (state = initialState, action) => {
       case REMOVE_RULE:
         if (Array.isArray(depth)) {
           depth.splice(index, 1)
-        }
-        else {
+        } else {
           delete depth[index]
         }
-        return { ...newState, steps: newState.steps.filter(Boolean) }
+        return { ...newState,
+          steps: newState.steps.filter(Boolean)
+        }
 
       case CHANGE_SYMBOL:
         depth[index].symbol = action.payload
@@ -119,8 +169,7 @@ const reducer = (state = initialState, action) => {
           newState.currentScope = [...action.payload, action.thisIndex]
           newState.currentScope = _.uniq(newState.currentScope)
           newState.steps[action.thisIndex].scope = newState.currentScope
-        }
-        else {
+        } else {
           // This is an "exit" line
           newState.currentScope = action.payload
           newState.currentScope = _.uniq(newState.currentScope)
