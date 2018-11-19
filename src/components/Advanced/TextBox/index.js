@@ -40,7 +40,7 @@ class TextBox extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Changing dependencies props
-    if (this.props.dependencies && prevProps.dependencies != undefined) {
+    if (this.props.dependencies && prevProps.dependencies) {
       const diffDependencies = this.props.dependencies.filter((el, i) => prevProps.dependencies[i] !== el)
       if (diffDependencies.length > 0 || prevProps.dependencies.length !== this.props.dependencies.length) {
         this.setState({ dependencies: this.props.dependencies.join(", ") })
