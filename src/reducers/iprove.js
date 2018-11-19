@@ -133,7 +133,6 @@ const reducer = (state = initialState, action) => {
         newState.steps.splice(newIndex, 0, { scope: [...startScope, newIndex], dependencies: [], ast: { type: 'assume' } })
         return newState
 
-<<<<<<< 1c3134d6d845ed209c8d1dfbb3774fbb5260af82
       case BEAUTIFY:
         const prevSteps = newState.steps
         prevSteps.pop()
@@ -141,8 +140,6 @@ const reducer = (state = initialState, action) => {
         newState = { ...newState, steps: [...prevSteps, lastStep]}
         return newState
         
-=======
->>>>>>> Fixed issue of deletion not focusing
       default:
         return newState
     }
