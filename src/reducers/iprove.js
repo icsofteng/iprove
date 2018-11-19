@@ -46,6 +46,7 @@ const reducer = (state = initialState, action) => {
         let scope = (key === 'steps') ? newState.currentScope : []
         depth[index] = { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } }
         return newState
+<<<<<<< HEAD
 
       case INSERT_STEP:
         scope = (key === 'steps') ? newState.currentScope : []
@@ -59,20 +60,13 @@ const reducer = (state = initialState, action) => {
           delete depth[index]
         }
         return { ...newState, steps: newState.steps.filter(Boolean) }
+=======
+>>>>>>> Fixed insertion bug, tidied code
 
       case INSERT_STEP:
         scope = (key === 'steps') ? newState.currentScope : []
-        depth.splice(index, 0, {
-          scope,
-          dependencies: [],
-          ast: {
-            type: action.payload,
-            ...action.otherArgs
-          }
-        })
-        return { ...newState,
-          steps: newState.steps.filter(Boolean)
-        }
+        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
+        return { ...newState, steps: newState.steps.filter(Boolean) }
 
       case REMOVE_STEP:
         if (Array.isArray(depth)) {
@@ -80,10 +74,7 @@ const reducer = (state = initialState, action) => {
         } else {
           delete depth[index]
         }
-        return { ...newState,
-          steps: newState.steps.filter(Boolean)
-        }
-        return newState
+        return { ...newState, steps: newState.steps.filter(Boolean) }
 
       case NEW_RULE:
         depth[index] = { type: action.payload,...action.otherArgs }
