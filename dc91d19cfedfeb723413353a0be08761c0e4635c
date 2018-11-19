@@ -1,0 +1,3 @@
+(declare-sort Type)
+(assert (not X))
+(check-sat)
