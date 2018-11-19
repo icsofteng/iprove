@@ -141,6 +141,10 @@ class TextBox extends Component {
         }
       })
     }
+    else if (event.keyCode === 8) {
+      event.preventDefault()
+      this.props.onIncInput(-1)
+    }
   }
 
   render() {

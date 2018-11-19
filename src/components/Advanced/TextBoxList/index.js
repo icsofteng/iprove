@@ -78,7 +78,7 @@ const generateTextBoxScopes = (steps, offset, props) => {
 
 const is_subscope = (inner, outer) => outer.every(i => inner.indexOf(i) > -1)
 
-const stepToTextBox = (step, id, props) => 
+const stepToTextBox = (step, id, props) =>
   <TextBox
     key={"step"+id}
     ast={step.ast}
