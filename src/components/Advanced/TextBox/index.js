@@ -103,7 +103,7 @@ class TextBox extends Component {
   }
 
   keyDown(event, parse) {
-    let promise = Promise.resolve()
+    let promise = Promise.resolve({})
     const isShift = event.shiftKey
     if (event.keyCode === 9) {
       // TAB key (go to next input)
