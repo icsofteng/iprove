@@ -113,7 +113,6 @@ class IProve extends Component {
 
   removeCurrentStep = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    console.log(index)
     if (index != 0 || (index == 0 && this.props[sameSelectedType].length != 1)) {
       this.props.removeStep([sameSelectedType, index])
       this.setState({ selectedTextBox: [sameSelectedType, index - 1] })

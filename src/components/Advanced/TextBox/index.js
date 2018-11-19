@@ -51,7 +51,7 @@ class TextBox extends Component {
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
       const translation = translate_raw(this.props.ast)
       //checks if the newly updated line was a newly inserted line and if so, clears the text box
-      let isInsert = prevProps.ast.value == prevState.raw && !this.props.ast.type
+      let isInsert = this.state.raw && !this.props.ast.type
       if (translation || isInsert) {
         this.setState({
           raw: isInsert ? '' : translation,
