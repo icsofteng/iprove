@@ -50,10 +50,13 @@ class TextBox extends Component {
     // Change ast
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
       const translation = translate_raw(this.props.ast)
-      this.setState({
-        raw: translation || '',
-        edit: Object.keys(this.props.ast).length === 0
-      })
+      console.log(translation)
+      if (translation != undefined) {
+        this.setState({
+          raw: translation || '',
+          edit: Object.keys(this.props.ast).length === 0
+        })
+      }
     }
 
     // Changing edit and focus props
