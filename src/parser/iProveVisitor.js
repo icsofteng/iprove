@@ -73,7 +73,6 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitForallExp(ctx) {
     this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
-    
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
     let value = this.visit(ctx.expression())
     console.log("VALUE!!")
@@ -83,9 +82,11 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'universal_quantifier', symbol: 'forall', variables, value }
   }
   visitExistsExp(ctx) {
+    this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
     const value = this.visit(ctx.expression())
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
     // change ST to enclosed St
+    this.symbolTable = this.symbolTable.enclosingSymbolTable
     return { type: 'existential_quantifier', symbol: 'exists', variables, value }
   }
   visitRelationExp(ctx) {
@@ -93,8 +94,6 @@ class iProveVisitor extends ParseTreeVisitor {
     const name = ctx.IDENTIFIER().toString()
     const params = ctx.parameter().map(param => {
       let p = this.visit(param)
-      console.log("PARAMS")
-      console.log(p)
       if (p.type != 'variable'){
         // if it is not a variable it must be a constant
         p = {type: 'constant', value:p.value}
@@ -102,17 +101,19 @@ class iProveVisitor extends ParseTreeVisitor {
           this.constants.push(p.value)
         }
       }
-      p.varType = updateType(p)
+      p = this.updateTypes(p)
       return p
     }) || []
     if (this.relations.indexOf(name) === -1) {
-      this.relations.push({name, numParam: params.length})
+      console.log("PUSHING PARAMS for " + name)
+      console.log(params)
+      this.relations.push({name, numParam: params.length, params})
     }
     return { type: 'relation', name, params }
   }
   updateTypes(param) {
     param.varType = "Type"
-    const type = getType(param.value)
+    const type = this.getType(param.value)
     if (type) {
       param.varType = type
     }
@@ -151,6 +152,7 @@ class iProveVisitor extends ParseTreeVisitor {
       varType = findType.toString()
       varType = varType.charAt(0).toUpperCase() + varType.slice(1) // z3 doesnt allow lower case types
       if((this.types.indexOf(varType) === -1) && (this.base_types.indexOf(varType) === -1)) {
+        console.log("VAR TYPE ADDED!!! "+varType)
         this.types.push(varType)
       }
     }
@@ -247,7 +249,6 @@ class iProveVisitor extends ParseTreeVisitor {
       return { type: 'variable', value, varType: null}
     }
     
-    
   }
 
   visitParamIdent(ctx) {
@@ -262,6 +263,8 @@ class iProveVisitor extends ParseTreeVisitor {
     return this.constants
   }
   getRelations() {
+    console.log("GETTING RELATIONS##########################################################")
+    console.log(this.relations)
     return this.relations
   }
   getTypes() {
