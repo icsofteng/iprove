@@ -127,6 +127,13 @@ class IProve extends Component {
     }
   }
 
+  addNewStep = (v) => {
+    const sameSelectedType = this.state.selectedTextBox[0]
+    const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
+    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
+    this.props.newStep([sameSelectedType, newSelected])
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
