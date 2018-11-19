@@ -79,6 +79,7 @@ class iProveVisitor extends ParseTreeVisitor {
     console.log("VALUE!!")
     console.log(value)
     // change ST to enclosed St
+    this.symbolTable = this.symbolTable.enclosingSymbolTable
     return { type: 'universal_quantifier', symbol: 'forall', variables, value }
   }
   visitExistsExp(ctx) {
@@ -111,13 +112,14 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   updateTypes(param) {
     param.varType = "Type"
-    if(getType(param.value)) {
-      param.varType = getTable(param)
+    const type = getType(param.value)
+    if (type) {
+      param.varType = type
     }
     return param
   }
   getType(symbolValue) {
-    const symbol = this.symbolTable.find(({ value }) => value === symbolValue)
+    const symbol = this.symbolTable.values.find(({ value }) => value === symbolValue)
     return symbol ? symbol.varType : false
   }
   visitRelationDefExp(ctx) {
@@ -152,7 +154,7 @@ class iProveVisitor extends ParseTreeVisitor {
         this.types.push(varType)
       }
     }
-    this.symbolTable.push({value : ctx.VARIABLE().toString(), varType})
+    this.symbolTable.values.push({value : ctx.VARIABLE().toString(), varType})
     return {type:'variable', value : ctx.VARIABLE().toString(), varType}
   };
   visitParamType(ctx) {
@@ -237,7 +239,15 @@ class iProveVisitor extends ParseTreeVisitor {
 
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()
-    return { type: 'variable', value }
+    const varType = this.symbolTable.values.find(({ entryValue }) => entryValue === value)
+    if (varType) {
+      return { type: 'variable', value, varType }
+    } else {
+      //TODO: error? not found type in symbol table, so free variable?
+      return { type: 'variable', value, varType: null}
+    }
+    
+    
   }
 
   visitParamIdent(ctx) {
