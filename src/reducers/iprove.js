@@ -93,11 +93,9 @@ const reducer = (state = initialState, action) => {
         if (Array.isArray(depth)) {
           depth.splice(index + 1, 1)
         } else {
-          delete depth[index]
+          delete depth[index + 1]
         }
-        return { ...newState,
-          steps: newState.steps.filter(Boolean)
-        }
+        return newState
 
       case NEW_RULE:
         depth[index] = {

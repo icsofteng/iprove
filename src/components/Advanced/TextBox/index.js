@@ -49,9 +49,14 @@ class TextBox extends Component {
 
     // Change ast
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
+<<<<<<< HEAD
       let translation = translate_raw(this.props.ast)
       let isInsert = prevProps.ast.value == prevState.raw && !this.props.ast.type
       if (translation || isInsert) {
+=======
+      const translation = translate_raw(this.props.ast)
+      if (translation != undefined) {
+>>>>>>> Fixed issue of deletion not focusing
         this.setState({
           raw: isInsert ? '' : translation,
           edit: Object.keys(this.props.ast).length === 0
