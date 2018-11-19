@@ -2,6 +2,7 @@ import _ from 'underscore'
 import { scan_state } from '../utils'
 import {
   NEW_RULE,
+  INSERT_STEP,
   NEW_STEP,
   REMOVE_RULE,
   CHANGE_SYMBOL,
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
         let scope = (key === 'steps') ? newState.currentScope : []
         depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
         return newState
+
+      case INSERT_STEP:
+          scope = (key === 'steps') ? newState.currentScope : []
+          depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
+          return newState
 
       case NEW_RULE:
         depth[index] = { type: action.payload, ...action.otherArgs }
