@@ -141,7 +141,7 @@ class TextBox extends Component {
         }
       })
     }
-    else if (event.keyCode === 8) {
+    else if (event.keyCode === 8 && event.target.value == '') {
       event.preventDefault()
       this.props.onIncInput(-1)
     }

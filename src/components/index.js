@@ -112,7 +112,6 @@ class IProve extends Component {
       this.props.newStep([sameSelectedType, newSelected])
       this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     }
-
   }
 
   newStepAfter = (index) => {
