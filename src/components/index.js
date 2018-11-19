@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, SET_CURRENT_SCOPE } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_RULE, SET_CURRENT_SCOPE } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -105,10 +105,14 @@ class IProve extends Component {
   incrementInput = (v) => {
     const sameSelectedType = this.state.selectedTextBox[0]
     const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
-    if (newSelected === this.props[sameSelectedType].length) {
+    if (v == -1 && newSelected != -1) {
+      this.props.removeStep([sameSelectedType, newSelected])
+      this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
+    } else if (v == 1) {
       this.props.newStep([sameSelectedType, newSelected])
+      this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
     }
+
   }
 
   newStepAfter = (index) => {
@@ -190,6 +194,7 @@ class IProve extends Component {
 
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
+  removeStep: (path) => dispatch({ type: REMOVE_RULE, path }),
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),

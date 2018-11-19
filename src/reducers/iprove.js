@@ -138,7 +138,7 @@ const reducer = (state = initialState, action) => {
         return newState
     }
   }
-  
+
   return newState
 }
 
