@@ -9,6 +9,7 @@ class iProveVisitor extends ParseTreeVisitor {
     this.relations = []
     this.types = []
     this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
+    this.symbolTable = {enclosingSymbolTable:null, values:[]}
   }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
@@ -71,25 +72,36 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'literal', value: lit }
   }
   visitForallExp(ctx) {
-    const value = this.visit(ctx.expression())
+    this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
+    
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
+    let value = this.visit(ctx.expression())
+    console.log("VALUE!!")
+    console.log(value)
+    // change ST to enclosed St
     return { type: 'universal_quantifier', symbol: 'forall', variables, value }
   }
   visitExistsExp(ctx) {
     const value = this.visit(ctx.expression())
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
+    // change ST to enclosed St
     return { type: 'existential_quantifier', symbol: 'exists', variables, value }
   }
   visitRelationExp(ctx) {
+    console.log("RELATION EXP!!")
     const name = ctx.IDENTIFIER().toString()
     const params = ctx.parameter().map(param => {
       let p = this.visit(param)
+      console.log("PARAMS")
+      console.log(p)
       if (p.type != 'variable'){
+        // if it is not a variable it must be a constant
         p = {type: 'constant', value:p.value}
         if (this.constants.indexOf(p.value) === -1) {
           this.constants.push(p.value)
         }
       }
+      p.varType = updateType(p)
       return p
     }) || []
     if (this.relations.indexOf(name) === -1) {
@@ -97,7 +109,19 @@ class iProveVisitor extends ParseTreeVisitor {
     }
     return { type: 'relation', name, params }
   }
+  updateTypes(param) {
+    param.varType = "Type"
+    if(getType(param.value)) {
+      param.varType = getTable(param)
+    }
+    return param
+  }
+  getType(symbolValue) {
+    const symbol = this.symbolTable.find(({ value }) => value === symbolValue)
+    return symbol ? symbol.varType : false
+  }
   visitRelationDefExp(ctx) {
+    console.log("RELATION DEF EXP!!")
     const identifiers = ctx.IDENTIFIER().toString().split(',')
     const name = identifiers[0]
     let rType = identifiers[identifiers.length - 1]
@@ -128,6 +152,7 @@ class iProveVisitor extends ParseTreeVisitor {
         this.types.push(varType)
       }
     }
+    this.symbolTable.push({value : ctx.VARIABLE().toString(), varType})
     return {type:'variable', value : ctx.VARIABLE().toString(), varType}
   };
   visitParamType(ctx) {
@@ -147,13 +172,11 @@ class iProveVisitor extends ParseTreeVisitor {
     const rhs = this.visit(ctx.expression()[1])
     return { type: 'binary_numerical', symbol: 'less_than', lhs, rhs }
   }
-
   visitLessThanEqExp(ctx) {
     const lhs = this.visit(ctx.expression()[0])
     const rhs = this.visit(ctx.expression()[1])
     return { type: 'binary_numerical', symbol: 'less_than_eq', lhs, rhs }
   }
-
   visitGreaterThanExp(ctx) {
     const lhs = this.visit(ctx.expression()[0])
     const rhs = this.visit(ctx.expression()[1])
@@ -234,6 +257,7 @@ class iProveVisitor extends ParseTreeVisitor {
   getTypes() {
     return this.types
   }
+
 }
 
 exports.iProveVisitor = iProveVisitor
