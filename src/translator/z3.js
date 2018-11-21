@@ -28,7 +28,6 @@ const declare_relations = (relations, file_contents) => {
     rel.params.forEach(p => {
       file_contents += '(' + p.varType + ')'
     })
-    // file_contents += [...Array(rel.params)].map(p => '(' + p.varType + ')').join(" ") // need to change to the type of the params
     file_contents += ') Bool)\n'
   })
   return file_contents
