@@ -10,7 +10,7 @@ class iProveVisitor extends ParseTreeVisitor {
     this.relations = []
     this.types = []
     this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
-    this.symbolTable = {enclosingSymbolTable:null, values:[]}
+    this.symbolTable = []
   }
   visitStatement(ctx) {
     return this.visitChildren(ctx)
@@ -82,7 +82,7 @@ class iProveVisitor extends ParseTreeVisitor {
       if((this.types.indexOf(varType) === -1) && (this.base_types.indexOf(varType) === -1)) {
         this.types.push(varType)
       }
-      this.symbolTable.values.push({value : lit, varType})
+      this.symbolTable.push({value : lit, varType})
     } else {
       varType = "Any"
     }
@@ -93,19 +93,15 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'constant', value: lit , varType}
   }
   visitForallExp(ctx) {
-    this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
     let value = this.visit(ctx.expression())
     // change ST to enclosed St
-    this.symbolTable = this.symbolTable.enclosingSymbolTable
     return { type: 'universal_quantifier', symbol: 'forall', variables, value }
   }
   visitExistsExp(ctx) {
-    this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
     const value = this.visit(ctx.expression())
     const variables = ctx.variableDef().map(varDef => this.visit(varDef))
     // change ST to enclosed St
-    this.symbolTable = this.symbolTable.enclosingSymbolTable
     return { type: 'existential_quantifier', symbol: 'exists', variables, value }
   }
   visitRelationExp(ctx) {
@@ -127,7 +123,7 @@ class iProveVisitor extends ParseTreeVisitor {
     return param
   }
   getType(symbolValue) {
-    const symbol = this.symbolTable.values.find(({ value }) => value === symbolValue)
+    const symbol = this.symbolTable.find(({ value }) => value === symbolValue)
     return symbol ? symbol.varType : false
   }
   visitRelationDefExp(ctx) {
@@ -161,7 +157,7 @@ class iProveVisitor extends ParseTreeVisitor {
         this.types.push(varType)
       }
     }
-    this.symbolTable.values.push({value : ctx.VARIABLE().toString(), varType})
+    this.symbolTable.push({value : ctx.VARIABLE().toString(), varType})
     return {type:'variable', value : ctx.VARIABLE().toString(), varType}
   };
   visitParamType(ctx) {
@@ -246,7 +242,7 @@ class iProveVisitor extends ParseTreeVisitor {
 
   visitParamVar(ctx) {
     const value = ctx.VARIABLE().toString()
-    const varType = this.symbolTable.values.find(({ entryValue }) => entryValue === value)
+    const varType = this.symbolTable.find(({ entryValue }) => entryValue === value)
     if (varType) {
       return { type: 'variable', value, varType }
     } else {
