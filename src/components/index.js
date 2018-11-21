@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE, REFRESH_PROOF } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -142,6 +142,7 @@ class IProve extends Component {
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
           onUndo={this.props.undo}
           onRedo={this.props.redo}
+          onRefresh={this.props.refresh}
           onExportPdf={this.callLatex}
         />
         <div className={styles.header}>
@@ -195,6 +196,7 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
+  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] }),
   setCurrentScope: (newScope) => dispatch({ type: SET_CURRENT_SCOPE, payload: newScope, path: [] })
 })
 

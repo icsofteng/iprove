@@ -18,7 +18,8 @@ import {
   SET_SCOPE,
   OPEN_CASE,
   SET_CURRENT_SCOPE,
-  ADD_TYPES
+  ADD_TYPES,
+  REFRESH_PROOF,
 } from '../constants'
 
 const initialState = {
@@ -142,6 +143,10 @@ const reducer = (state = initialState, action) => {
 
       case SET_CURRENT_SCOPE:
         newState.currentScope = action.payload
+        return newState
+
+      case REFRESH_PROOF:
+        newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
         return newState
 
       default:
