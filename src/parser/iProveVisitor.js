@@ -65,11 +65,27 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'false' }
   }
   visitLiteralExp(ctx) {
-    const lit = ctx.IDENTIFIER().toString()
-    if (this.atoms.indexOf(lit) === -1) {
-      this.atoms.push(lit)
+    const lit = ctx.IDENTIFIER()[0].toString()
+
+    let varType = ctx.IDENTIFIER()[1]
+    console.log("literal TYPE "+ varType)
+
+    if (varType) {
+      varType = varType.toString()
+      varType = varType.charAt(0).toUpperCase() + varType.slice(1) // z3 doesnt allow lower case types
+      if((this.types.indexOf(varType) === -1) && (this.base_types.indexOf(varType) === -1)) {
+        console.log("VAR TYPE ADDED!!! "+ varType)
+        this.types.push(varType)
+      }
+      this.symbolTable.values.push({value : lit, varType})
+    } else {
+      varType = "Type"
     }
-    return { type: 'literal', value: lit }
+    if (this.atoms.indexOf(lit) === -1) { // this could be a problem..
+      this.atoms.push({type:'literal', value:lit, varType })
+    }
+    
+    return { type: 'literal', value: lit , varType}
   }
   visitForallExp(ctx) {
     this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}

@@ -2,18 +2,30 @@ const fs = require('fs')
 const {random_file_name} = require('../utils')
 
 const declare_atoms = (atoms, file_contents) => {
+  console.log("Atoms")
+  console.log(atoms)
   atoms.forEach(element => {
-    if (element) {
-      file_contents += '(declare-const ' + element + ' Bool)\n'
+    if (element.value) {
+      let varType = "Type"
+      if (element.varType) {
+        varType = element.varType
+      }
+      file_contents += '(declare-const ' + element.value + ' ' + varType + ')\n'
     }
   })
   return file_contents
 }
 
 const declare_constants = (constants, file_contents) => {
+  console.log("CONSTANTS")
+  console.log(constants)
   constants.forEach(element => {
     if (element) {
-      file_contents += '(declare-const ' + element + ' Any)\n'
+      let varType = "Any"
+      if (element.varType) {
+        varType = element.varType
+      }
+      file_contents += '(declare-const ' + element + ' '+varType+')\n'
     }
   })
   return file_contents
