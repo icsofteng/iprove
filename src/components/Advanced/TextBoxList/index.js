@@ -13,7 +13,7 @@ const assumeScope = (steps, offset, props, textboxes, i) => {
   }
   const insideSteps = steps.slice(i+1, findExit)
   textboxes.push(
-    <ScopeBox scope={s.scope}>
+    <ScopeBox start={i + offset + props.start + 1} end={findExit + offset + props.start} firstAst={s.ast}>
       {stepToTextBox(s, i + offset, props)}
       {generateTextBoxScopes(insideSteps, i + offset + 1, props)}
     </ScopeBox>
