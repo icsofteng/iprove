@@ -2,30 +2,20 @@ const fs = require('fs')
 const {random_file_name} = require('../utils')
 
 const declare_atoms = (atoms, file_contents) => {
-  console.log("Atoms")
-  console.log(atoms)
   atoms.forEach(element => {
-    if (element.value) {
-      let varType = "Type"
-      if (element.varType) {
-        varType = element.varType
-      }
-      file_contents += '(declare-const ' + element.value + ' ' + varType + ')\n'
-    }
+    file_contents += '(declare-const ' + element + ' Bool)\n'
   })
   return file_contents
 }
 
 const declare_constants = (constants, file_contents) => {
-  console.log("CONSTANTS")
-  console.log(constants)
   constants.forEach(element => {
     if (element) {
       let varType = "Any"
       if (element.varType) {
         varType = element.varType
       }
-      file_contents += '(declare-const ' + element + ' '+varType+')\n'
+      file_contents += '(declare-const ' + element.value + ' '+varType+')\n'
     }
   })
   return file_contents
@@ -33,12 +23,8 @@ const declare_constants = (constants, file_contents) => {
 
 const declare_relations = (relations, file_contents) => {
   file_contents += '(declare-sort Any)\n'
-  console.log("RELATIONS#######")
-  console.log(relations)
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
-    console.log(rel)
-    console.log("REL#######")
     rel.params.forEach(p => {
       file_contents += '(' + p.varType + ')'
     })
@@ -60,7 +46,8 @@ const translate_assumptions = (assumptions, file_contents) => {
     if (element) {
       if (element.type == 'funcDef') {
         file_contents += translate_func_declaration(element)
-      } else {
+      }
+      else if (element.type !== 'constant') {
         file_contents += '(assert ' + translate_rule(element) + ')\n'
       }
     }
@@ -146,6 +133,7 @@ const translate_rule = (rule) => {
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
     case 'exit': return
+    case 'constant': return
     case 'variable': return translate_variable(rule)
     default: return translate_literal(rule)
   }
@@ -162,7 +150,7 @@ const translate_quantifier = ({ symbol, variables, value }) => {
 
 const translate_relation = (rule) => {
   let translation = '(' + rule.name + ' '
-  translation += rule.params.map(v => translate_rule(v)).join(" ")
+  translation += rule.params.map(v => v.value).join(" ")
   translation += ')'
   return translation
 }
@@ -186,7 +174,6 @@ const translate = (rules, constants, relations, atoms, types) => {
   file_contents = declare_atoms(atoms, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
-  console.log(file_contents)
   return file_contents
 }
 

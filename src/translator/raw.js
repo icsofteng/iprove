@@ -22,7 +22,12 @@ const translate_quantifier = ({ symbol, variables, value }) => {
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  translation += rule.params.map(v => translate_rule(v)).join(", ")
+  translation += rule.params.map(v => { 
+    if (v.type == "constant" || v.type == "variable") {
+      return v.value
+    }
+    return translate_rule(v)
+  }).join(", ")
   translation += ')'
   return translation
 }
@@ -91,7 +96,7 @@ const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' implies ' 
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' iff ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => 'not ' + translate_rule(rule.value)
 const translate_literal = (rule) =>{
-  if (rule.varType) {
+  if (rule.varType && rule.varType != "Any") {
     return rule.value + ':' + rule.varType
   }
   return rule.value 
