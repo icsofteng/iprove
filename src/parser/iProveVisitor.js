@@ -82,7 +82,6 @@ class iProveVisitor extends ParseTreeVisitor {
       if((this.types.indexOf(varType) === -1) && (this.base_types.indexOf(varType) === -1)) {
         this.types.push(varType)
       }
-      this.symbolTable.push({value : lit, varType})
     } else {
       varType = "Any"
     }
@@ -123,6 +122,7 @@ class iProveVisitor extends ParseTreeVisitor {
     return param
   }
   getType(symbolValue) {
+    // look it up in constant and variable table
     const symbol = this.symbolTable.find(({ value }) => value === symbolValue)
     return symbol ? symbol.varType : false
   }
@@ -246,8 +246,8 @@ class iProveVisitor extends ParseTreeVisitor {
     if (varType) {
       return { type: 'variable', value, varType }
     } else {
-      //TODO: error? not found type in symbol table, so free variable?
-      return { type: 'variable', value, varType: null}
+     // should have type ANY
+      return { type: 'variable', value, varType: "Any"}
     }
     
   }
