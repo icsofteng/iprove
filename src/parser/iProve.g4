@@ -23,6 +23,7 @@ expression:
 | EXIT                                                                                                # exitExp
 | INTEGER                                                                                             # integerExp
 | REAL                                                                                                # realExp
+| ATOM                                                                                                # atomExp
 | DEFINE IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE COLON IDENTIFIER       # relationDefExp
 | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
 | BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
@@ -39,7 +40,7 @@ expression:
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
 | expression DOUBLEEQUALS expression                                                                  # equalExp
-| IDENTIFIER (COLON IDENTIFIER)?                                                                      # literalExp
+| IDENTIFIER (COLON IDENTIFIER)?                                                                      # identifierExp
 ;
 
 CASE: 'case';
@@ -64,6 +65,7 @@ BRACKET_CLOSE: ')';
 SQ_BRACKET_OPEN: '[';
 SQ_BRACKET_CLOSE: ']';
 VARIABLE: [a-z];
+ATOM: [A-Z];
 IDENTIFIER: [A-Za-z]+;
 COMMA: ',';
 COLON: ':';

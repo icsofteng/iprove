@@ -1,3 +1,4 @@
+const _ = require('underscore')
 const { tree } = require('antlr4')
 const { ParseTreeVisitor } = tree
 
@@ -64,7 +65,14 @@ class iProveVisitor extends ParseTreeVisitor {
   visitFalseExp(ctx) {
     return { type: 'false' }
   }
-  visitLiteralExp(ctx) {
+  visitAtomExp(ctx) {
+    const lit = ctx.ATOM().toString()
+    if (this.atoms.indexOf(lit) === -1) {
+      this.atoms.push(lit)
+    }
+    return {type:"literal", value:lit}
+  }
+  visitIdentifierExp(ctx) {
     const lit = ctx.IDENTIFIER()[0].toString()
 
     let varType = ctx.IDENTIFIER()[1]
@@ -79,13 +87,13 @@ class iProveVisitor extends ParseTreeVisitor {
       }
       this.symbolTable.values.push({value : lit, varType})
     } else {
-      varType = "Type"
+      varType = "Any"
     }
-    if (this.atoms.indexOf(lit) === -1) { // this could be a problem..
-      this.atoms.push({type:'literal', value:lit, varType })
-    }
-    
-    return { type: 'literal', value: lit , varType}
+
+    this.constants.push({ value:lit, varType })
+    this.constants = _.uniq(this.constants, false, _.iteratee('value'))
+
+    return { type: 'constant', value: lit , varType}
   }
   visitForallExp(ctx) {
     this.symbolTable = {enclosingSymbolTable: this.symbolTable, values: []}
@@ -109,17 +117,8 @@ class iProveVisitor extends ParseTreeVisitor {
     console.log("RELATION EXP!!")
     const name = ctx.IDENTIFIER().toString()
     const params = ctx.parameter().map(param => {
-      let p = this.visit(param)
-      if (p.type != 'variable'){
-        // if it is not a variable it must be a constant
-        p = {type: 'constant', value:p.value}
-        if (this.constants.indexOf(p.value) === -1) {
-          this.constants.push(p.value)
-        }
-      }
-      p = this.updateTypes(p)
-      return p
-    }) || []
+      return this.updateTypes(this.visit(param))
+    })
     if (this.relations.indexOf(name) === -1) {
       console.log("PUSHING PARAMS for " + name)
       console.log(params)
@@ -128,7 +127,7 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'relation', name, params }
   }
   updateTypes(param) {
-    param.varType = "Type"
+    param.varType = "Any"
     const type = this.getType(param.value)
     if (type) {
       param.varType = type
@@ -269,7 +268,7 @@ class iProveVisitor extends ParseTreeVisitor {
 
   visitParamIdent(ctx) {
     const value =  ctx.IDENTIFIER().toString()
-    return { type: 'identifier', value }
+    return { type: 'constant', value }
   }
 
   getAtoms() {

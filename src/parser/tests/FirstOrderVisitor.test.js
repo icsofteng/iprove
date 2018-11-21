@@ -1,31 +1,32 @@
 import {parse} from '../'
 
-const dragonX = { type: 'relation', name:"dragon", params:[{type:"variable", value:"x"}] }
-const humanXYZ = { type: 'relation', name:"human", params:[{type:"variable", value:"x"}, {type:"variable", value:"y"}, {type:"variable", value:"z"}] }
-const Frank = { type: 'relation', name:"person", params:[{type:"constant", value:"Frank"}]}
+const dragonX = { type: 'relation', name:"dragon", params:[{type:"variable", value:"x", varType: "Any"}] }
+const dragonInt = { type: 'relation', name:"dragon", params:[{type:"variable", value:"x", varType: "Int"}] }
+const humanXYZ = { type: 'relation', name:"human", params:[{type:"variable", value:"x", varType: "Any"}, {type:"variable", value:"y", varType: "Any"}, {type:"variable", value:"z", varType: "Any"}] }
+const Frank = { type: 'relation', name:"person", params:[{type:"constant", value:"Frank", varType: "Any"}]}
 
-test("Visitor Test relations", ()=> {
-  expect(parse("dragon(x)")).toEqual({ast:[dragonX], constants: [], atoms:[],relations: [{name: "dragon", numParam: 1}], types:[]})
+test("Visitor Test relations 1", ()=> {
+  expect(parse("dragon(x)")).toEqual({ast:[dragonX], constants: [], atoms:[],relations: [{name: "dragon", numParam: 1, params: [{ type: "variable", value: "x", varType: "Any"}]}], types:[]})
 })
 
 test("Visitor Test forall", ()=> {
-  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("forall x dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1, params: [{ type: "variable", value: "x", varType: "Any"}]}], types:[]})
 })
 
 test("Visitor Test exists", ()=> {
-  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("exists x dragon(x)")).toEqual({ast:[{symbol:"exists", type: "existential_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType: "Any"}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1, params: [{ type: "variable", value: "x", varType: "Any"}]}], types:[]})
 })
 
 test("Visitor Test params", ()=> {
-  expect(parse("human(x, y, z)")).toEqual({ast:[humanXYZ], constants: [], atoms:[], relations: [{name: "human", numParam: 3}], types:[]})
+  expect(parse("human(x, y, z)")).toEqual({ast:[humanXYZ], constants: [], atoms:[], relations: [{name: "human", numParam: 3, params: [{ type: "variable", value: "x", varType: "Any"}, { type: "variable", value: "y", varType: "Any"}, { type: "variable", value: "z", varType: "Any"}]}], types:[]})
 })
 
-test("Visitor Test relations", ()=> {
-  expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: ["Frank"], atoms:[], relations: [{name: "person", numParam: 1}], types:[]})
+test("Visitor Test relations for person", ()=> {
+  expect(parse("person(Frank)")).toEqual({ast:[Frank], constants: [], atoms:[], relations: [{name: "person", numParam: 1, params: [{"type": "constant", "value": "Frank","varType": "Any"}]}], types:[]})
 })
 
 test("Visitor Test forall with type", ()=> {
-  expect(parse("forall x:Int dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonX, variables: [{type: "variable", value: "x", varType:'Int'}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1}], types:[]})
+  expect(parse("forall x:Int dragon(x)")).toEqual({ast:[{symbol:"forall", type: "universal_quantifier", value: dragonInt, variables: [{type: "variable", value: "x", varType:'Int'}]}], constants: [], atoms:[], relations: [{name: "dragon", numParam: 1, params: [{ type: "variable", value: "x", varType: "Int"}]}], types:[]})
 })
 
 test("Visitor Test less than", () => {
