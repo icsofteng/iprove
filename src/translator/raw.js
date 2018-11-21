@@ -90,7 +90,12 @@ const translate_or_rule = (rule) => translate_rule(rule.lhs) + ' or ' + translat
 const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' implies ' + translate_rule(rule.rhs)
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' iff ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => 'not ' + translate_rule(rule.value)
-const translate_literal = (rule) => rule.value
+const translate_literal = (rule) =>{
+  if (rule.varType) {
+    return rule.value + ':' + rule.varType
+  }
+  return rule.value 
+}
 const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
 const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
 const translate_assume = (rule) => 'assume '+ translate_rule(rule.value)

@@ -39,7 +39,7 @@ expression:
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
 | expression DOUBLEEQUALS expression                                                                  # equalExp
-| IDENTIFIER                                                                                          # literalExp
+| IDENTIFIER (COLON IDENTIFIER)?                                                                      # literalExp
 ;
 
 CASE: 'case';
