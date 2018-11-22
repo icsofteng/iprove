@@ -106,7 +106,6 @@ class TextBox extends Component {
   keyDown(event, parse) {
     let promise = Promise.resolve({})
     const isShift = event.shiftKey
-    const isGiven = this.props.type === 'givens'
     if (event.keyCode === 9) {
       // TAB key (go to next input)
       event.preventDefault()
@@ -143,7 +142,7 @@ class TextBox extends Component {
       }
       promise.then((new_ast) => {
         if (this.props.type !== 'goal' && new_ast.type !== 'case') {
-          this.props.newStepAfter(this.props.index, isGiven)
+          this.props.newStepAfter(this.props.index)
         }
         if (new_ast.type === 'case') {
           this.props.setScope(this.props.scope.slice(0, -1), [this.props.type, this.props.index+1], false)
@@ -152,7 +151,7 @@ class TextBox extends Component {
     }
     else if (event.keyCode === 8 && event.target.value === '') {
       event.preventDefault()
-      this.props.removeCurrentStep(this.props.index, isGiven)
+      this.props.removeCurrentStep(this.props.index)
     }
   }
 
