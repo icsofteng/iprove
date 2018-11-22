@@ -13,8 +13,7 @@ import {
   SET_STEP_DEPENDENCY,
   ADD_ATOMS,
   SET_SCOPE,
-  ADD_TYPES,
-  OPEN_CASE
+  ADD_TYPES
 } from '../../../constants'
 
 import styles from './styles.scss'
@@ -77,22 +76,25 @@ class TextBox extends Component {
     return new Promise((resolve, reject) => {
       if (statement !== '') {
         fetch('/parse?input=' + encodeURIComponent(statement)).then(r => r.json()).then(response => {
+          const newPath = [this.props.type, this.props.index]
           const { ast, constants, relations, atoms, types } = response
-          this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
-          this.props.addConstants(constants)
-          this.props.addAtoms(atoms)
-          this.props.addRelations(relations)
-          this.props.addTypes(types)
-          if (ast[0].type === 'assume') {
-            this.props.setScope(this.props.scope, this.props.index, true)
+          if (ast[0].type === 'exit') {
+            this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
-          else if (ast[0].type === 'case') {
-            this.props.setScope(this.props.scope, this.props.index, true)
+          else {
+            this.props.updateRule(ast[0], [...newPath, "ast"])
+            this.props.addConstants(constants)
+            this.props.addAtoms(atoms)
+            this.props.addRelations(relations)
+            this.props.addTypes(types)
+            if (ast[0].type === 'assume') {
+              this.props.setScope([...this.props.scope, this.props.index], newPath, false)
+            }
+            else if (ast[0].type === 'case') {
+              this.props.setScope([...this.props.scope, this.props.index], newPath, false)
+            }
+            this.setState({ edit: false })
           }
-          else if (ast[0].type === 'exit') {
-            this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
-          }
-          this.setState({ edit: false })
           resolve(ast[0])
         })
       }
@@ -140,7 +142,7 @@ class TextBox extends Component {
         promise = this.parseInput(event.target.value)
       }
       promise.then((new_ast) => {
-        if (this.props.type !== 'goal') {
+        if (this.props.type !== 'goal' && new_ast.type !== "exit") {
           this.props.newStepAfter(this.props.index)
         }
         if (new_ast.type === 'case') {
@@ -217,8 +219,7 @@ const mapDispatchToProps = dispatch => ({
   addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
-  setScope: (scope, thisIndex, override) => dispatch({ type: SET_SCOPE, payload: scope, path: [], thisIndex, override }),
-  openCase: (startScope, lhs, rhs) => dispatch({ type: OPEN_CASE, payload: startScope, path: [], lhs, rhs })
+  setScope: (scope, path, removeLine) => dispatch({ type: SET_SCOPE, payload: scope, path, removeLine })
 })
 
 export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
