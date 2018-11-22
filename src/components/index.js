@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, REFRESH_PROOF } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE, REFRESH_PROOF, BEAUTIFY } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -129,6 +129,29 @@ class IProve extends Component {
     this.setState({ selectedTextBox: v })
   }
 
+  clean_up_dependencies = (step) => {
+    let redundant_deps = [];
+    const dependencies = step.dependencies
+    dependencies.forEach(dep => {
+      if (this.is_redundant_dep(dep, dependencies, redundant_deps, step)) {
+        redundant_deps.add(dep)
+      }
+    });
+    step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
+    return step
+  }
+  
+  is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
+    const { atoms, constants, relations, steps, givens, types } = this.props
+    const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
+    let requiredSteps = rem_deps.filter(Boolean)
+                                .map(d => validate_dependencies(step, d, givens, steps))
+                                .filter(Boolean)
+    requiredSteps.push(step)
+    const promise = this.callZ3(requiredSteps, constants, relations, atoms, step.i, types)
+    return Promise.resolve(promise)
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -140,6 +163,7 @@ class IProve extends Component {
           onUndo={this.props.undo}
           onRedo={this.props.redo}
           onRefresh={this.props.refresh}
+          onBeautify={this.props.beautify}
           onExportPdf={this.callLatex}
         />
         <div className={styles.header}>
@@ -193,7 +217,9 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
-  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] })
+  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] }),
+  beautify: () => dispatch({ type: BEAUTIFY, path:[] }),
+  setCurrentScope: (newScope) => dispatch({ type: SET_CURRENT_SCOPE, payload: newScope, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)
