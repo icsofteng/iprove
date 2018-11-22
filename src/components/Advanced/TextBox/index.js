@@ -76,7 +76,7 @@ class TextBox extends Component {
   parseInput(statement) {
     return new Promise((resolve, reject) => {
       if (statement !== '') {
-        fetch('/parse?input=' + statement).then(r => r.json()).then(response => {
+        fetch('/parse?input=' + encodeURIComponent(statement)).then(r => r.json()).then(response => {
           const { ast, constants, relations, atoms, types } = response
           this.props.updateRule(ast[0], [this.props.type, this.props.index, "ast"])
           this.props.addConstants(constants)

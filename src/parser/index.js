@@ -16,7 +16,6 @@ const parse = (input) => {
   const relations = visitor.getRelations()
   const atoms = visitor.getAtoms()
   const types = visitor.getTypes()
-  console.log('ast', ast[0].value.rhs.lhs.rhs)
   return { ast, atoms, constants, relations, types }
 }
 
