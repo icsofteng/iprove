@@ -58,7 +58,6 @@ const reducer = (state = initialState, action) => {
         return { ...newState,
           steps: newState.steps.filter(Boolean)
         }
-        return newState
 
       case NEW_RULE:
         depth[index] = { type: action.payload,...action.otherArgs }
