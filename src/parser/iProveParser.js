@@ -86,33 +86,33 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002\u0002l-\u0003\u0002\u0002\u0002l=\u0003\u0002\u0002\u0002lJ\u0003",
     "\u0002\u0002\u0002lX\u0003\u0002\u0002\u0002lf\u0003\u0002\u0002\u0002",
     "lk\u0003\u0002\u0002\u0002m\u009a\u0003\u0002\u0002\u0002no\f\u001d",
-    "\u0002\u0002op\u0007\n\u0002\u0002p\u0099\u0005\b\u0005\u001eqr\f\u001c",
-    "\u0002\u0002rs\u0007\u000b\u0002\u0002s\u0099\u0005\b\u0005\u001dtu",
-    "\f\u001b\u0002\u0002uv\u0007&\u0002\u0002v\u0099\u0005\b\u0005\u001c",
-    "wx\f\u001a\u0002\u0002xy\u0007(\u0002\u0002y\u0099\u0005\b\u0005\u001b",
-    "z{\f\u0019\u0002\u0002{|\u0007\'\u0002\u0002|\u0099\u0005\b\u0005\u001a",
-    "}~\f\u0018\u0002\u0002~\u007f\u0007$\u0002\u0002\u007f\u0099\u0005\b",
-    "\u0005\u0019\u0080\u0081\f\u0017\u0002\u0002\u0081\u0082\u0007%\u0002",
-    "\u0002\u0082\u0099\u0005\b\u0005\u0018\u0083\u0084\f\u0016\u0002\u0002",
-    "\u0084\u0085\u0007\u001f\u0002\u0002\u0085\u0099\u0005\b\u0005\u0017",
-    "\u0086\u0087\f\u0015\u0002\u0002\u0087\u0088\u0007 \u0002\u0002\u0088",
-    "\u0099\u0005\b\u0005\u0016\u0089\u008a\f\u0014\u0002\u0002\u008a\u008b",
-    "\u0007!\u0002\u0002\u008b\u0099\u0005\b\u0005\u0015\u008c\u008d\f\u0013",
-    "\u0002\u0002\u008d\u008e\u0007\"\u0002\u0002\u008e\u0099\u0005\b\u0005",
-    "\u0014\u008f\u0090\f\u0012\u0002\u0002\u0090\u0091\u0007#\u0002\u0002",
-    "\u0091\u0099\u0005\b\u0005\u0013\u0092\u0093\f\u0011\u0002\u0002\u0093",
-    "\u0094\t\u0002\u0002\u0002\u0094\u0099\u0005\b\u0005\u0012\u0095\u0096",
-    "\f\u0010\u0002\u0002\u0096\u0097\t\u0003\u0002\u0002\u0097\u0099\u0005",
-    "\b\u0005\u0011\u0098n\u0003\u0002\u0002\u0002\u0098q\u0003\u0002\u0002",
-    "\u0002\u0098t\u0003\u0002\u0002\u0002\u0098w\u0003\u0002\u0002\u0002",
-    "\u0098z\u0003\u0002\u0002\u0002\u0098}\u0003\u0002\u0002\u0002\u0098",
-    "\u0080\u0003\u0002\u0002\u0002\u0098\u0083\u0003\u0002\u0002\u0002\u0098",
-    "\u0086\u0003\u0002\u0002\u0002\u0098\u0089\u0003\u0002\u0002\u0002\u0098",
-    "\u008c\u0003\u0002\u0002\u0002\u0098\u008f\u0003\u0002\u0002\u0002\u0098",
-    "\u0092\u0003\u0002\u0002\u0002\u0098\u0095\u0003\u0002\u0002\u0002\u0099",
-    "\u009c\u0003\u0002\u0002\u0002\u009a\u0098\u0003\u0002\u0002\u0002\u009a",
-    "\u009b\u0003\u0002\u0002\u0002\u009b\t\u0003\u0002\u0002\u0002\u009c",
-    "\u009a\u0003\u0002\u0002\u0002\u0010\u000e\u001358DGMS[ail\u0098\u009a"].join("");
+    "\u0002\u0002op\u0007&\u0002\u0002p\u0099\u0005\b\u0005\u001eqr\f\u001c",
+    "\u0002\u0002rs\u0007(\u0002\u0002s\u0099\u0005\b\u0005\u001dtu\f\u001b",
+    "\u0002\u0002uv\u0007\'\u0002\u0002v\u0099\u0005\b\u0005\u001cwx\f\u001a",
+    "\u0002\u0002xy\u0007$\u0002\u0002y\u0099\u0005\b\u0005\u001bz{\f\u0019",
+    "\u0002\u0002{|\u0007%\u0002\u0002|\u0099\u0005\b\u0005\u001a}~\f\u0018",
+    "\u0002\u0002~\u007f\u0007#\u0002\u0002\u007f\u0099\u0005\b\u0005\u0019",
+    "\u0080\u0081\f\u0017\u0002\u0002\u0081\u0082\u0007\u001f\u0002\u0002",
+    "\u0082\u0099\u0005\b\u0005\u0018\u0083\u0084\f\u0016\u0002\u0002\u0084",
+    "\u0085\u0007 \u0002\u0002\u0085\u0099\u0005\b\u0005\u0017\u0086\u0087",
+    "\f\u0015\u0002\u0002\u0087\u0088\u0007!\u0002\u0002\u0088\u0099\u0005",
+    "\b\u0005\u0016\u0089\u008a\f\u0014\u0002\u0002\u008a\u008b\u0007\"\u0002",
+    "\u0002\u008b\u0099\u0005\b\u0005\u0015\u008c\u008d\f\u0013\u0002\u0002",
+    "\u008d\u008e\u0007\n\u0002\u0002\u008e\u0099\u0005\b\u0005\u0014\u008f",
+    "\u0090\f\u0012\u0002\u0002\u0090\u0091\u0007\u000b\u0002\u0002\u0091",
+    "\u0099\u0005\b\u0005\u0013\u0092\u0093\f\u0011\u0002\u0002\u0093\u0094",
+    "\t\u0002\u0002\u0002\u0094\u0099\u0005\b\u0005\u0012\u0095\u0096\f\u0010",
+    "\u0002\u0002\u0096\u0097\t\u0003\u0002\u0002\u0097\u0099\u0005\b\u0005",
+    "\u0011\u0098n\u0003\u0002\u0002\u0002\u0098q\u0003\u0002\u0002\u0002",
+    "\u0098t\u0003\u0002\u0002\u0002\u0098w\u0003\u0002\u0002\u0002\u0098",
+    "z\u0003\u0002\u0002\u0002\u0098}\u0003\u0002\u0002\u0002\u0098\u0080",
+    "\u0003\u0002\u0002\u0002\u0098\u0083\u0003\u0002\u0002\u0002\u0098\u0086",
+    "\u0003\u0002\u0002\u0002\u0098\u0089\u0003\u0002\u0002\u0002\u0098\u008c",
+    "\u0003\u0002\u0002\u0002\u0098\u008f\u0003\u0002\u0002\u0002\u0098\u0092",
+    "\u0003\u0002\u0002\u0002\u0098\u0095\u0003\u0002\u0002\u0002\u0099\u009c",
+    "\u0003\u0002\u0002\u0002\u009a\u0098\u0003\u0002\u0002\u0002\u009a\u009b",
+    "\u0003\u0002\u0002\u0002\u009b\t\u0003\u0002\u0002\u0002\u009c\u009a",
+    "\u0003\u0002\u0002\u0002\u0010\u000e\u001358DGMS[ail\u0098\u009a"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -513,52 +513,6 @@ ExpressionContext.prototype.copyFrom = function(ctx) {
     antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
 };
 
-function AndExpContext(parser, ctx) {
-	ExpressionContext.call(this, parser);
-    ExpressionContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-AndExpContext.prototype = Object.create(ExpressionContext.prototype);
-AndExpContext.prototype.constructor = AndExpContext;
-
-iProveParser.AndExpContext = AndExpContext;
-
-AndExpContext.prototype.expression = function(i) {
-    if(i===undefined) {
-        i = null;
-    }
-    if(i===null) {
-        return this.getTypedRuleContexts(ExpressionContext);
-    } else {
-        return this.getTypedRuleContext(ExpressionContext,i);
-    }
-};
-
-AndExpContext.prototype.AND = function() {
-    return this.getToken(iProveParser.AND, 0);
-};
-AndExpContext.prototype.enterRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.enterAndExp(this);
-	}
-};
-
-AndExpContext.prototype.exitRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.exitAndExp(this);
-	}
-};
-
-AndExpContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof iProveVisitor ) {
-        return visitor.visitAndExp(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
 function LessThanExpContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
     ExpressionContext.prototype.copyFrom.call(this, ctx);
@@ -599,6 +553,52 @@ LessThanExpContext.prototype.exitRule = function(listener) {
 LessThanExpContext.prototype.accept = function(visitor) {
     if ( visitor instanceof iProveVisitor ) {
         return visitor.visitLessThanExp(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function AndExpContext(parser, ctx) {
+	ExpressionContext.call(this, parser);
+    ExpressionContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+AndExpContext.prototype = Object.create(ExpressionContext.prototype);
+AndExpContext.prototype.constructor = AndExpContext;
+
+iProveParser.AndExpContext = AndExpContext;
+
+AndExpContext.prototype.expression = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(ExpressionContext);
+    } else {
+        return this.getTypedRuleContext(ExpressionContext,i);
+    }
+};
+
+AndExpContext.prototype.AND = function() {
+    return this.getToken(iProveParser.AND, 0);
+};
+AndExpContext.prototype.enterRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.enterAndExp(this);
+	}
+};
+
+AndExpContext.prototype.exitRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.exitAndExp(this);
+	}
+};
+
+AndExpContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof iProveVisitor ) {
+        return visitor.visitAndExp(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -1550,52 +1550,6 @@ SqParenthesesExpContext.prototype.accept = function(visitor) {
 };
 
 
-function LessThanEqExpContext(parser, ctx) {
-	ExpressionContext.call(this, parser);
-    ExpressionContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-LessThanEqExpContext.prototype = Object.create(ExpressionContext.prototype);
-LessThanEqExpContext.prototype.constructor = LessThanEqExpContext;
-
-iProveParser.LessThanEqExpContext = LessThanEqExpContext;
-
-LessThanEqExpContext.prototype.expression = function(i) {
-    if(i===undefined) {
-        i = null;
-    }
-    if(i===null) {
-        return this.getTypedRuleContexts(ExpressionContext);
-    } else {
-        return this.getTypedRuleContext(ExpressionContext,i);
-    }
-};
-
-LessThanEqExpContext.prototype.LESSTHANEQ = function() {
-    return this.getToken(iProveParser.LESSTHANEQ, 0);
-};
-LessThanEqExpContext.prototype.enterRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.enterLessThanEqExp(this);
-	}
-};
-
-LessThanEqExpContext.prototype.exitRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.exitLessThanEqExp(this);
-	}
-};
-
-LessThanEqExpContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof iProveVisitor ) {
-        return visitor.visitLessThanEqExp(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
 function EqualExpContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
     ExpressionContext.prototype.copyFrom.call(this, ctx);
@@ -1636,6 +1590,52 @@ EqualExpContext.prototype.exitRule = function(listener) {
 EqualExpContext.prototype.accept = function(visitor) {
     if ( visitor instanceof iProveVisitor ) {
         return visitor.visitEqualExp(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function LessThanEqExpContext(parser, ctx) {
+	ExpressionContext.call(this, parser);
+    ExpressionContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+LessThanEqExpContext.prototype = Object.create(ExpressionContext.prototype);
+LessThanEqExpContext.prototype.constructor = LessThanEqExpContext;
+
+iProveParser.LessThanEqExpContext = LessThanEqExpContext;
+
+LessThanEqExpContext.prototype.expression = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(ExpressionContext);
+    } else {
+        return this.getTypedRuleContext(ExpressionContext,i);
+    }
+};
+
+LessThanEqExpContext.prototype.LESSTHANEQ = function() {
+    return this.getToken(iProveParser.LESSTHANEQ, 0);
+};
+LessThanEqExpContext.prototype.enterRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.enterLessThanEqExp(this);
+	}
+};
+
+LessThanEqExpContext.prototype.exitRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.exitLessThanEqExp(this);
+	}
+};
+
+LessThanEqExpContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof iProveVisitor ) {
+        return visitor.visitLessThanEqExp(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -2260,157 +2260,157 @@ iProveParser.prototype.expression = function(_p) {
                 var la_ = this._interp.adaptivePredict(this._input,12,this._ctx);
                 switch(la_) {
                 case 1:
-                    localctx = new AndExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new PowerExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 108;
                     if (!( this.precpred(this._ctx, 27))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 27)");
                     }
                     this.state = 109;
-                    this.match(iProveParser.AND);
+                    this.match(iProveParser.POWER);
                     this.state = 110;
                     this.expression(28);
                     break;
 
                 case 2:
-                    localctx = new OrExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new DivideExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 111;
                     if (!( this.precpred(this._ctx, 26))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 26)");
                     }
                     this.state = 112;
-                    this.match(iProveParser.OR);
+                    this.match(iProveParser.DIVIDE);
                     this.state = 113;
                     this.expression(27);
                     break;
 
                 case 3:
-                    localctx = new PowerExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new MultiplyExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 114;
                     if (!( this.precpred(this._ctx, 25))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 25)");
                     }
                     this.state = 115;
-                    this.match(iProveParser.POWER);
+                    this.match(iProveParser.MULTIPLY);
                     this.state = 116;
                     this.expression(26);
                     break;
 
                 case 4:
-                    localctx = new DivideExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new PlusExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 117;
                     if (!( this.precpred(this._ctx, 24))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 24)");
                     }
                     this.state = 118;
-                    this.match(iProveParser.DIVIDE);
+                    this.match(iProveParser.PLUS);
                     this.state = 119;
                     this.expression(25);
                     break;
 
                 case 5:
-                    localctx = new MultiplyExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new MinusExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 120;
                     if (!( this.precpred(this._ctx, 23))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 23)");
                     }
                     this.state = 121;
-                    this.match(iProveParser.MULTIPLY);
+                    this.match(iProveParser.MINUS);
                     this.state = 122;
                     this.expression(24);
                     break;
 
                 case 6:
-                    localctx = new PlusExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new EqualExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 123;
                     if (!( this.precpred(this._ctx, 22))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 22)");
                     }
                     this.state = 124;
-                    this.match(iProveParser.PLUS);
+                    this.match(iProveParser.DOUBLEEQUALS);
                     this.state = 125;
                     this.expression(23);
                     break;
 
                 case 7:
-                    localctx = new MinusExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new LessThanExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 126;
                     if (!( this.precpred(this._ctx, 21))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 21)");
                     }
                     this.state = 127;
-                    this.match(iProveParser.MINUS);
+                    this.match(iProveParser.LESSTHAN);
                     this.state = 128;
                     this.expression(22);
                     break;
 
                 case 8:
-                    localctx = new LessThanExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new LessThanEqExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 129;
                     if (!( this.precpred(this._ctx, 20))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 20)");
                     }
                     this.state = 130;
-                    this.match(iProveParser.LESSTHAN);
+                    this.match(iProveParser.LESSTHANEQ);
                     this.state = 131;
                     this.expression(21);
                     break;
 
                 case 9:
-                    localctx = new LessThanEqExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new GreaterThanExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 132;
                     if (!( this.precpred(this._ctx, 19))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 19)");
                     }
                     this.state = 133;
-                    this.match(iProveParser.LESSTHANEQ);
+                    this.match(iProveParser.GREATERTHAN);
                     this.state = 134;
                     this.expression(20);
                     break;
 
                 case 10:
-                    localctx = new GreaterThanExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new GreaterThanEqExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 135;
                     if (!( this.precpred(this._ctx, 18))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 18)");
                     }
                     this.state = 136;
-                    this.match(iProveParser.GREATERTHAN);
+                    this.match(iProveParser.GREATERTHANEQ);
                     this.state = 137;
                     this.expression(19);
                     break;
 
                 case 11:
-                    localctx = new GreaterThanEqExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new AndExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 138;
                     if (!( this.precpred(this._ctx, 17))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 17)");
                     }
                     this.state = 139;
-                    this.match(iProveParser.GREATERTHANEQ);
+                    this.match(iProveParser.AND);
                     this.state = 140;
                     this.expression(18);
                     break;
 
                 case 12:
-                    localctx = new EqualExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
+                    localctx = new OrExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, iProveParser.RULE_expression);
                     this.state = 141;
                     if (!( this.precpred(this._ctx, 16))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 16)");
                     }
                     this.state = 142;
-                    this.match(iProveParser.DOUBLEEQUALS);
+                    this.match(iProveParser.OR);
                     this.state = 143;
                     this.expression(17);
                     break;

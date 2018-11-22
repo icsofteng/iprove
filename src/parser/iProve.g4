@@ -14,18 +14,18 @@ expression:
 | BRACKET_OPEN expression BRACKET_CLOSE                                                               # parenthesesExp
 | SQ_BRACKET_OPEN expression SQ_BRACKET_CLOSE                                                         # sqParenthesesExp
 | ASSUME expression                                                                                   # assumeExp
-| expression AND expression                                                                           # andExp
-| expression OR expression                                                                            # orExp
 | expression POWER expression                                                                         # powerExp
 | expression DIVIDE expression                                                                        # divideExp
 | expression MULTIPLY expression                                                                      # multiplyExp
 | expression PLUS expression                                                                          # plusExp
 | expression MINUS expression                                                                         # minusExp
+| expression DOUBLEEQUALS expression                                                                  # equalExp
 | expression LESSTHAN expression                                                                      # lessThanExp
 | expression LESSTHANEQ expression                                                                    # lessThanEqExp
 | expression GREATERTHAN expression                                                                   # greaterThanExp
 | expression GREATERTHANEQ expression                                                                 # greaterThanEqExp
-| expression DOUBLEEQUALS expression                                                                  # equalExp
+| expression AND expression                                                                           # andExp
+| expression OR expression                                                                            # orExp
 | expression (IMPLIES|IMPLIES2|IMPLIES3) expression                                                   # impliesExp
 | expression (IFF|IFF2|IFF3) expression                                                               # iffExp
 | CASE expression OR expression                                                                       # caseExp
