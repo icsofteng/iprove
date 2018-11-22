@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY, SET_STEP_DEPENDENCY } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -141,9 +141,9 @@ class IProve extends Component {
   newStepAfter = (index) => {
     const absIndex = this.state.selectedTextBox[0] == 'givens' ? index : index + this.props.givens.length
     const sameSelectedType = this.state.selectedTextBox[0]
-    this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
     this.props.newStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
+    this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
   }
 
   setSelected = (v) => {
@@ -181,10 +181,17 @@ class IProve extends Component {
 
   updateDependenciesFromInsertionAndRemoval = (index, increment) => {
     for (let i = 0; i < this.props.steps.length; i++) {
+      let dependencies = this.props.steps[i].dependencies
+      let dependenciesNeedUpdating = false
       for (let j = 0; j < this.props.steps[i].dependencies.length; j++) {
-        if (this.props.steps[i].dependencies[j] > index) {
-          this.props.steps[i].dependencies[j] += increment
+        if (this.props.steps[i].dependencies[j] > index + 1) {
+          dependencies[j] += increment
+          dependenciesNeedUpdating = true
         }
+      }
+      if (dependenciesNeedUpdating) {
+        dependencies = dependencies.map(String)
+        this.props.setDependency(dependencies, ['steps', i, "dependencies"])
       }
     }
   }
@@ -251,6 +258,7 @@ class IProve extends Component {
 const mapDispatchToProps = dispatch => ({
   newStep: (path) => dispatch({ type: NEW_STEP, path }),
   removeStep: (path) => dispatch({ type: REMOVE_STEP, path }),
+  setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
