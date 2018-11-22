@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE, REFRESH_PROOF } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, REFRESH_PROOF } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -127,9 +127,6 @@ class IProve extends Component {
 
   setSelected = (v) => {
     this.setState({ selectedTextBox: v })
-    if (this.props[v[0]] && this.props[v[0]][v[1]]) {
-      this.props.setCurrentScope(this.props[v[0]][v[1]].scope)
-    }
   }
 
   render() {
@@ -196,8 +193,7 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
-  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] }),
-  setCurrentScope: (newScope) => dispatch({ type: SET_CURRENT_SCOPE, payload: newScope, path: [] })
+  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)

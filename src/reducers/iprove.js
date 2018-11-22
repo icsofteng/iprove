@@ -16,7 +16,6 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
   SET_SCOPE,
-  SET_CURRENT_SCOPE,
   ADD_TYPES,
   REFRESH_PROOF,
 } from '../constants'
@@ -28,7 +27,6 @@ const initialState = {
   atoms: [],
   constants: [],
   relations: [],
-  currentScope: [],
   types: []
 }
 
@@ -44,7 +42,7 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        let scope = (key === 'steps') ? newState.currentScope : []
+        let scope = (key === 'steps') ? depth[index - 1].scope : []
         depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
         return newState
 
@@ -118,24 +116,10 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case SET_SCOPE:
-        if (action.override) {
-          // This is an "assume" line
-          newState.currentScope = [...action.payload, action.thisIndex]
-          newState.currentScope = _.uniq(newState.currentScope)
-          newState.steps[action.thisIndex].scope = newState.currentScope
+        depth[index].scope = _.uniq(action.payload)
+        if (action.removeLine) {
+          depth[index] = { dependencies: [], ast: {}, scope: depth[index].scope }
         }
-        else {
-          // This is an "exit" line
-          newState.currentScope = action.payload
-          newState.currentScope = _.uniq(newState.currentScope)
-          if (newState.steps[action.thisIndex].ast.type === 'exit') {
-            newState.steps.splice(action.thisIndex, 1)
-          }
-        }
-        return newState
-
-      case SET_CURRENT_SCOPE:
-        newState.currentScope = action.payload
         return newState
 
       case REFRESH_PROOF:
