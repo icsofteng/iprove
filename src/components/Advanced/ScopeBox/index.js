@@ -1,26 +1,37 @@
 import React, { Component } from 'react'
-import cx from 'classnames'
 import { translate_rule as translate_latex } from '../../../translator/latex'
+import { connect } from 'react-redux'
 import Latex from 'react-latex'
 import styles from './styles.scss'
+import { ADD_CASE } from '../../../constants'
 
-export default class ScopeBox extends Component {
+class ScopeBox extends Component {
   constructor() {
     super()
     this.state = { expand: true }
   }
+  addCaseStep = () => {
+    this.props.addCase(this.props.start, this.props.end)
+    this.props.setSelected(["steps", this.props.end - this.props.givens])
+  }
   render() {
     return (
-      <div className={cx(styles.scopeBox, {
-        [styles.caseScopeBox]: Boolean(this.props.case)
-      })}>
+      <div className={styles.scopeBox}>
         <div className={styles.caseCollapseExpand} onClick={() => this.setState({ expand: !this.state.expand })}>
           { this.state.expand ? "-" : "+" }
         </div>
         { this.state.expand ?
-          this.props.children :
+          <React.Fragment>
+            {this.props.children}
+            { this.props.isCase &&
+              <div className={styles.newCase} onClick={this.addCaseStep}>
+              <i className={styles.addScopeButton}>+</i> Add a new case
+            </div>
+            }
+          </React.Fragment>
+          :
           <div className={styles.scopeSummary}>
-            {this.props.case && "[Case "+this.props.case+"] "}
+            {this.props.caseNumber && "[Case "+this.props.caseNumber+"] "}
             {this.props.start}
             {
               (this.props.end > this.props.start) &&
@@ -32,3 +43,9 @@ export default class ScopeBox extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  addCase: (start, end) => dispatch({ type: ADD_CASE, start, end, path: [] })
+})
+
+export default connect(state => ({ givens: state.present.givens.length }), mapDispatchToProps)(ScopeBox)

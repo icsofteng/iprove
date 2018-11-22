@@ -18,6 +18,7 @@ import {
   SET_SCOPE,
   ADD_TYPES,
   REFRESH_PROOF,
+  ADD_CASE,
 } from '../constants'
 
 const initialState = {
@@ -124,6 +125,12 @@ const reducer = (state = initialState, action) => {
 
       case REFRESH_PROOF:
         newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
+        return newState
+
+      case ADD_CASE:
+        let startScope = newState.steps[action.start-newState.givens.length-1].scope
+        let newIndex = action.end-newState.givens.length
+        newState.steps.splice(newIndex, 0, { scope: [...startScope, newIndex], dependencies: [], ast: { type: 'assume' } })
         return newState
 
       default:

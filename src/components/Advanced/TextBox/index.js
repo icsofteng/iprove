@@ -23,7 +23,7 @@ class TextBox extends Component {
     super(props)
     this.state = {
       raw: (props.ast && translate_raw(props.ast)) || '',
-      edit: Object.keys(props.ast).filter(k => props.ast[k]).length === 0,
+      edit: Object.keys(props.ast).filter(k => props.ast[k]).length <= 1,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
       focusDependencies: false
     }
