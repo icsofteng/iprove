@@ -22,39 +22,21 @@ const assumeScope = (steps, offset, props, textboxes, i) => {
 }
 
 const caseScope = (steps, offset, props, textboxes, i) => {
-  let findSwitch
-  for (findSwitch = i+1; findSwitch < steps.length; findSwitch++) {
-    if (!is_subscope(steps[findSwitch].scope, steps[i+1].scope)) {
+  let s = steps[i]
+  let findExit
+  for (findExit = i; findExit < steps.length; findExit++) {
+    if (!is_subscope(steps[findExit].scope, s.scope)) {
       break
     }
   }
-  const assume1 = steps[i+1]
-  const case1 = steps.slice(i+2, findSwitch)
-  if (!steps[findSwitch]) return i+1
-  let findEnd
-  for (findEnd = findSwitch; findEnd < steps.length; findEnd++) {
-    if (!is_subscope(steps[findEnd].scope, steps[findSwitch].scope)) {
-      break
-    }
-  }
-  const assume2 = steps[findSwitch]
-  const case2 = steps.slice(findSwitch+1, findEnd)
+  const insideSteps = steps.slice(i+1, findExit)
   textboxes.push(
-    <ScopeBox start={i+offset+props.start+1} end={findEnd+offset+props.start} firstAst={steps[i].ast}>
-      <div className={styles.case_step}>
-        {stepToTextBox(steps[i], i + offset, props)}
-      </div>
-      <ScopeBox case={1} start={i+offset+props.start+2} end={findSwitch+offset+props.start} firstAst={assume1.ast}>
-        {stepToTextBox(assume1, i + offset + 1, props)}
-        {generateTextBoxScopes(case1, i + offset + 2, props)}
-      </ScopeBox>
-      <ScopeBox case={2} start={findSwitch+offset+props.start+1} end={findEnd+offset+props.start} firstAst={assume2.ast}>
-        {stepToTextBox(assume2, findSwitch + offset, props)}
-        {generateTextBoxScopes(case2, findSwitch + offset + 1, props)}
-      </ScopeBox>
+    <ScopeBox start={i+offset+props.start+1} end={findExit+offset+props.start} firstAst={s.ast}>
+      {stepToTextBox(s, i + offset, props)}
+      {generateTextBoxScopes(insideSteps, i + offset + 1, props)}
     </ScopeBox>
   )
-  return findEnd
+  return findExit
 }
 
 const generateTextBoxScopes = (steps, offset, props) => {

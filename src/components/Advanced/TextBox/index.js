@@ -87,7 +87,7 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope, this.props.index, true)
           }
           else if (ast[0].type === 'case') {
-            this.props.openCase(this.props.scope, ast[0].lhs, ast[0].rhs)
+            this.props.setScope(this.props.scope, this.props.index, true)
           }
           else if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), this.props.index, false)
@@ -122,7 +122,7 @@ class TextBox extends Component {
           }
         }
         else {
-          if (this.state.focusDependencies || this.props.type === 'givens' || new_ast.type === 'assume' || new_ast.type === 'exit') {
+          if (this.state.focusDependencies || this.props.type === 'givens' || new_ast.type === 'assume' || new_ast.type === 'case' || new_ast.type === 'exit') {
             this.setState({ focusDependencies: false })
             this.props.onIncInput(1)
           }
@@ -140,12 +140,15 @@ class TextBox extends Component {
         promise = this.parseInput(event.target.value)
       }
       promise.then((new_ast) => {
-        if (this.props.type !== 'goal' && new_ast.type !== 'case') {
+        if (this.props.type !== 'goal') {
           this.props.newStepAfter(this.props.index)
+        }
+        if (new_ast.type === 'case') {
+          this.props.setScope(this.props.scope.slice(0, -1), this.props.index + 1, false)
         }
       })
     }
-    else if (event.keyCode === 8 && event.target.value == '') {
+    else if (event.keyCode === 8 && event.target.value === '') {
       event.preventDefault()
       this.props.removeCurrentStep(this.props.index)
     }

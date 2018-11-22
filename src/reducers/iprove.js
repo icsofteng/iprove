@@ -16,7 +16,6 @@ import {
   SET_STEP_DEPENDENCY,
   LOAD_PROOF,
   SET_SCOPE,
-  OPEN_CASE,
   SET_CURRENT_SCOPE,
   ADD_TYPES,
   REFRESH_PROOF,
@@ -133,12 +132,6 @@ const reducer = (state = initialState, action) => {
             newState.steps.splice(action.thisIndex, 1)
           }
         }
-        return newState
-
-      case OPEN_CASE:
-        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.lhs } })
-        newState.steps.push({ scope: [...action.payload, newState.steps.length], dependencies: [], ast: { type: 'assume', value: action.rhs } })
-        newState.steps.push({ scope: action.payload, dependencies: [], ast: { type: undefined } })
         return newState
 
       case SET_CURRENT_SCOPE:
