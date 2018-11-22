@@ -66,7 +66,7 @@ const translate_greater_than_eq = (rule) => `${translate_rule(rule.lhs)} \\geq $
 const translate_equal = (rule) => `${translate_rule(rule.lhs)} == ${translate_rule(rule.rhs)}`
 const translate_plus = (rule) => `${translate_rule(rule.lhs)} + ${translate_rule(rule.rhs)}`
 const translate_minus = (rule) => `${translate_rule(rule.lhs)} - ${translate_rule(rule.rhs)}`
-const translate_power = (rule) => `${translate_rule(rule.lhs)} ^ ${translate_rule(rule.rhs)}`
+const translate_power = (rule) => `${translate_rule(rule.lhs)} ^{${translate_rule(rule.rhs)}}`
 const translate_multiply = (rule) => `${translate_rule(rule.lhs)} \\times ${translate_rule(rule.rhs)}`
 const translate_divide = (rule) => `${translate_rule(rule.lhs)} \\div ${translate_rule(rule.rhs)}`
 
