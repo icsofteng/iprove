@@ -4,7 +4,7 @@ import { translate_rule as translate_latex } from '../../../translator/latex'
 import Latex from 'react-latex'
 import styles from './styles.scss'
 
-export class ScopeBox extends Component {
+export default class ScopeBox extends Component {
   constructor() {
     super()
     this.state = { expand: true }
@@ -12,7 +12,7 @@ export class ScopeBox extends Component {
   render() {
     return (
       <div className={cx(styles.scopeBox, {
-        [styles.caseScopeBox]: this.props.case
+        [styles.caseScopeBox]: Boolean(this.props.case)
       })}>
         <div className={styles.caseCollapseExpand} onClick={() => this.setState({ expand: !this.state.expand })}>
           { this.state.expand ? "-" : "+" }
@@ -20,6 +20,7 @@ export class ScopeBox extends Component {
         { this.state.expand ?
           this.props.children :
           <div className={styles.scopeSummary}>
+            {this.props.case && "[Case "+this.props.case+"] "}
             {this.props.start}-{this.props.end}: <Latex>{"$"+translate_latex(this.props.firstAst)+"$"}</Latex>
           </div>
         }
@@ -27,11 +28,3 @@ export class ScopeBox extends Component {
     )
   }
 }
-
-export const CaseAnalysis = (props) =>
-  <div className={styles.caseAnalysis}>
-    <div className={styles.caseCollapseExpand}>-</div>
-    {props.children}
-  </div>
-
-export default ScopeBox

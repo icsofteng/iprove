@@ -1,17 +1,8 @@
-.scopeBox {
+.scopeBox, .caseAnalysis {
   border: 2px solid black;
   margin: 10px 0;
   padding: 10px;
-}
-.caseAnalysis {
-  display: flex;
-  flex-wrap: wrap;
-
-  .caseScopeBox {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 50%;
-  }
+  position: relative;
 }
 .caseCollapseExpand {
   background: #000;
@@ -21,7 +12,7 @@
   padding: 0 5px;
   position: absolute;
   margin: -25px 0 0;
-  right: 28px;
+  right: -12px;
   height: 23px;
   cursor: pointer;
 }

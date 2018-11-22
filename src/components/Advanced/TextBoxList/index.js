@@ -1,6 +1,6 @@
 import React from 'react'
 import TextBox from '../TextBox'
-import { ScopeBox, CaseAnalysis } from '../ScopeBox'
+import ScopeBox from '../ScopeBox'
 import styles from './styles.scss'
 
 const assumeScope = (steps, offset, props, textboxes, i) => {
@@ -13,7 +13,7 @@ const assumeScope = (steps, offset, props, textboxes, i) => {
   }
   const insideSteps = steps.slice(i+1, findExit)
   textboxes.push(
-    <ScopeBox start={i + offset + props.start + 1} end={findExit + offset + props.start} firstAst={s.ast}>
+    <ScopeBox start={i+offset+props.start+1} end={findExit+offset+props.start} firstAst={s.ast}>
       {stepToTextBox(s, i + offset, props)}
       {generateTextBoxScopes(insideSteps, i + offset + 1, props)}
     </ScopeBox>
@@ -40,19 +40,19 @@ const caseScope = (steps, offset, props, textboxes, i) => {
   const assume2 = steps[findSwitch]
   const case2 = steps.slice(findSwitch+1, findEnd)
   textboxes.push(
-    <CaseAnalysis>
+    <ScopeBox start={i+offset+props.start+1} end={findEnd+offset+props.start} firstAst={steps[i].ast}>
       <div className={styles.case_step}>
         {stepToTextBox(steps[i], i + offset, props)}
       </div>
-      <ScopeBox scope={steps[i+1].scope} case>
+      <ScopeBox case={1} start={i+offset+props.start+2} end={findSwitch+offset+props.start} firstAst={assume1.ast}>
         {stepToTextBox(assume1, i + offset + 1, props)}
         {generateTextBoxScopes(case1, i + offset + 2, props)}
       </ScopeBox>
-      <ScopeBox scope={steps[findSwitch].scope} case>
+      <ScopeBox case={2} start={findSwitch+offset+props.start+1} end={findEnd+offset+props.start} firstAst={assume2.ast}>
         {stepToTextBox(assume2, findSwitch + offset, props)}
         {generateTextBoxScopes(case2, findSwitch + offset + 1, props)}
       </ScopeBox>
-    </CaseAnalysis>
+    </ScopeBox>
   )
   return findEnd
 }
