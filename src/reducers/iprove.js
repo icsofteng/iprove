@@ -18,11 +18,8 @@ import {
   SET_SCOPE,
   ADD_TYPES,
   REFRESH_PROOF,
-<<<<<<< d2514dfacc74737ba186b031e0f5c2187956b539
   ADD_CASE,
-=======
   BEAUTIFY,
->>>>>>> Add beautify function that cleans up dependencies of the last step
 } from '../constants'
 
 const initialState = {
@@ -139,6 +136,10 @@ const reducer = (state = initialState, action) => {
       case BEAUTIFY:
         newState = { ...newState}
 
+      // case BEAUTIFY:
+      //   // newState = { ...newState, steps: [...newState.steps.splice(-1, 1), action.payload]}
+      //   return newState
+        
       default:
         return newState
     }
