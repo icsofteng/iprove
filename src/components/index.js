@@ -140,10 +140,14 @@ class IProve extends Component {
     let redundant_deps = [];
     const dependencies = step.dependencies
     dependencies.forEach(dep => {
-      if (this.is_redundant_dep(dep, dependencies, redundant_deps, step)) {
-        redundant_deps.add(dep)
-      }
+      const redundantPromise = this.is_redundant_dep(dep, dependencies, redundant_deps, step)
+      redundantPromise.then((redundant) => {
+        if (redundant) {
+          redundant_deps.add(dep)
+        }
+      })
     });
+    console.log("Redundant deps: ", redundant_deps)
     step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
     return step
   }
@@ -151,12 +155,14 @@ class IProve extends Component {
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
     const { atoms, constants, relations, steps, givens, types } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
+    console.log("RemDeps: ", rem_deps)
     let requiredSteps = rem_deps.filter(Boolean)
                                 .map(d => validate_dependencies(step, d, givens, steps))
                                 .filter(Boolean)
     requiredSteps.push(step.ast)
     const promise = this.callZ3(requiredSteps, constants, relations, atoms, step.i, types)
     promise.then((response) => {
+      console.log("response: " , response)
       return response === 'unsat'
     })
   }
