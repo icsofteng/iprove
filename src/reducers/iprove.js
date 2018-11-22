@@ -133,12 +133,15 @@ const reducer = (state = initialState, action) => {
         let newIndex = action.end-newState.givens.length
         newState.steps.splice(newIndex, 0, { scope: [...startScope, newIndex], dependencies: [], ast: { type: 'assume' } })
         return newState
-      case BEAUTIFY:
-        newState = { ...newState}
 
-      // case BEAUTIFY:
-      //   // newState = { ...newState, steps: [...newState.steps.splice(-1, 1), action.payload]}
-      //   return newState
+      case BEAUTIFY:
+        const prevSteps = newState.steps
+        prevSteps.pop()
+        console.log("Previous steps ", prevSteps)
+        const lastStep = action.payload
+        console.log("Last Step", lastStep)
+        newState = { ...newState, steps: [...prevSteps, lastStep]}
+        return newState
         
       default:
         return newState
