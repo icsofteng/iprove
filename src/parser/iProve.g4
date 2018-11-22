@@ -28,7 +28,7 @@ expression:
 | expression OR expression                                                                            # orExp
 | expression (IMPLIES|IMPLIES2|IMPLIES3) expression                                                   # impliesExp
 | expression (IFF|IFF2|IFF3) expression                                                               # iffExp
-| CASE expression OR expression                                                                       # caseExp
+| CASE                                                                                                # caseExp
 | TRUE                                                                                                # trueExp
 | FALSE                                                                                               # falseExp
 | EXIT                                                                                                # exitExp
