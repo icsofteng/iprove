@@ -178,10 +178,10 @@ class IProve extends Component {
   }
 
   updateDependenciesFromInsertionAndRemoval = (index, increment) => {
-    console.log(index)
-    for (var i = index + 1; i < this.props.steps.length; i++) {
+    for (var i = 0; i < this.props.steps.length; i++) {
       for (var j = 0; j < this.props.steps[i].dependencies.length; j++) {
-        if (this.props.steps[i].dependencies[j] > this.props.givens.length) {
+        if (this.props.steps[i].dependencies[j] > this.props.givens.length &&
+            this.props.steps[i].dependencies[j] > index + 2) {
           this.props.steps[i].dependencies[j] += increment
         }
       }
