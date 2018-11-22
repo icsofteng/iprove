@@ -51,9 +51,7 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   visitImpliesExp(ctx) {
     const lhs = this.visit(ctx.expression()[0])
-    console.log("LHS:",lhs)
     const rhs = this.visit(ctx.expression()[1])
-    console.log("RHS:",rhs)
     return { type: 'binary', symbol: 'implies', lhs, rhs }
   }
   visitIffExp(ctx) {
@@ -200,8 +198,6 @@ class iProveVisitor extends ParseTreeVisitor {
   visitEqualExp(ctx) {
     const lhs = this.visit(ctx.expression()[0])
     const rhs = this.visit(ctx.expression()[1])
-    console.log("EQUALS LHS:", lhs)
-    console.log("EQUALS RHS:", rhs)
     return { type: 'binary_numerical', symbol: 'equal', lhs, rhs }
   }
 
