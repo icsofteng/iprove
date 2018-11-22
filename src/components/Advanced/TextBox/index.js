@@ -146,7 +146,7 @@ class TextBox extends Component {
           this.props.newStepAfter(this.props.index)
         }
         if (new_ast.type === 'case') {
-          this.props.setScope(this.props.scope.slice(0, -1), this.props.index + 1, false)
+          this.props.setScope(this.props.scope.slice(0, -1), [this.props.type, this.props.index+1], false)
         }
       })
     }
