@@ -34,6 +34,9 @@ const caseScope = (steps, offset, props, textboxes, i) => {
     <ScopeBox start={i+offset+props.start+1} end={findExit+offset+props.start} firstAst={s.ast}>
       {stepToTextBox(s, i + offset, props)}
       {generateTextBoxScopes(insideSteps, i + offset + 1, props)}
+      <div className={styles.newCase}>
+        <i className={styles.addScopeButton}>+</i> Add a new case
+      </div>
     </ScopeBox>
   )
   return findExit

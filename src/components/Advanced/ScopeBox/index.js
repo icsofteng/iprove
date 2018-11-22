@@ -21,7 +21,11 @@ export default class ScopeBox extends Component {
           this.props.children :
           <div className={styles.scopeSummary}>
             {this.props.case && "[Case "+this.props.case+"] "}
-            {this.props.start}-{this.props.end}: <Latex>{"$"+translate_latex(this.props.firstAst)+"$"}</Latex>
+            {this.props.start}
+            {
+              (this.props.end > this.props.start) &&
+              "-" + this.props.end
+            }: <Latex>{"$"+translate_latex(this.props.firstAst)+"$"}</Latex>
           </div>
         }
       </div>
