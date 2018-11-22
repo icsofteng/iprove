@@ -128,18 +128,20 @@ class IProve extends Component {
     }
   }
 
-  removeCurrentStep = (index) => {
+  removeCurrentStep = (index, isGiven) => {
+    const absIndex = isGiven ? index : index + this.props.givens.length
     const sameSelectedType = this.state.selectedTextBox[0]
     if (index !== 0 || (index === 0 && this.props[sameSelectedType].length !== 1)) {
-      this.updateDependenciesFromInsertionAndRemoval(index, -1)
+      this.updateDependenciesFromInsertionAndRemoval(absIndex, -1)
       this.props.removeStep([sameSelectedType, index])
       this.setState({ selectedTextBox: [sameSelectedType, index - 1] })
     }
   }
 
-  newStepAfter = (index) => {
+  newStepAfter = (index, isGiven) => {
+    const absIndex = isGiven ? index : index + this.props.givens.length
     const sameSelectedType = this.state.selectedTextBox[0]
-    this.updateDependenciesFromInsertionAndRemoval(index, 1)
+    this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
     this.props.newStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
   }
@@ -180,8 +182,8 @@ class IProve extends Component {
   updateDependenciesFromInsertionAndRemoval = (index, increment) => {
     for (var i = 0; i < this.props.steps.length; i++) {
       for (var j = 0; j < this.props.steps[i].dependencies.length; j++) {
-        if (this.props.steps[i].dependencies[j] > this.props.givens.length &&
-            this.props.steps[i].dependencies[j] > index + 2) {
+        if (this.props.steps[i].dependencies[j] > index) {
+          console.log(this.props.steps[i].dependencies[j])
           this.props.steps[i].dependencies[j] += increment
         }
       }
