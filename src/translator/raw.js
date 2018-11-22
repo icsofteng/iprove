@@ -88,6 +88,7 @@ const translate_rule = (rule) => {
       default: return translate_literal(rule)
     }
   }
+  return ''
 }
 
 const translate_and_rule = (rule) => translate_rule(rule.lhs) + ' and ' + translate_rule(rule.rhs)
