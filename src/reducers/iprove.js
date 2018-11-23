@@ -79,7 +79,7 @@ const reducer = (state = initialState, action) => {
 
       case ADD_CONSTANTS:
         const newConstants = newState.constants.concat(action.payload)
-        newState.constants = _.uniq(newConstants)
+        newState.constants = _.uniq(newConstants, false, _.iteratee('value'))
         return newState
 
       case ADD_ATOMS:
