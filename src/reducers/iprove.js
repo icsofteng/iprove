@@ -137,9 +137,7 @@ const reducer = (state = initialState, action) => {
       case BEAUTIFY:
         const prevSteps = newState.steps
         prevSteps.pop()
-        console.log("Previous steps ", prevSteps)
         const lastStep = action.payload
-        console.log("Last Step", lastStep)
         newState = { ...newState, steps: [...prevSteps, lastStep]}
         return newState
         
