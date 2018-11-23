@@ -39,7 +39,7 @@ expression:
 | IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
 | FORALL variableDef POINT? (COMMA variableDef)* expression                                           # forallExp
 | EXISTS variableDef POINT? (COMMA variableDef)* expression                                           # existsExp
-| IDENTIFIER (COLON IDENTIFIER)?                                                                      # literalExp
+| IDENTIFIER (COLON IDENTIFIER)?                                                                      # identifierExp
 | VARIABLE                                                                                            # variableExp
 ;
 
