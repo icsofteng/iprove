@@ -4,7 +4,7 @@ import React from 'react'
 import IProve from '../components'
 import { createMockStore } from 'redux-test-utils'
 import { shallowWithStore } from 'enzyme-redux'
-import { execSync } from 'child_process'
+import { exec } from 'child_process'
 import { translate_and_save } from '../translator/z3'
 import TextBoxList from '../components/Advanced/TextBoxList'
 import TextBox from '../components/Advanced/TextBox'
@@ -15,12 +15,13 @@ global.fetch = (_, options) => {
     const { steps, atoms, constants, relations, types } = body
     const file = translate_and_save(steps, constants, relations, atoms, types)
     const binary_file = process.env.SERVER === 'test' ? './z3-deb' : (process.platform === 'darwin' ? './z3-osx' : './z3')
-    const result = execSync(`${binary_file} ${file}`)
-    fs.unlink(file, () =>
-      resolve({
-        text: () => Promise.resolve(result.toString('utf8'))
-      })
-    )
+    exec(`${binary_file} ${file}`, (err, stdout) => {
+      fs.unlink(file, () =>
+        resolve({
+          text: () => Promise.resolve(stdout.toString('utf8'))
+        })
+      )
+    })
   })
 }
 
