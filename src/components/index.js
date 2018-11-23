@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, SET_CURRENT_SCOPE, REFRESH_PROOF, BEAUTIFY } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, REFRESH_PROOF, BEAUTIFY } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -234,7 +234,6 @@ const mapDispatchToProps = dispatch => ({
   redo: () => dispatch(ActionCreators.redo()),
   refresh: () => dispatch({ type: REFRESH_PROOF, path:[] }),
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
-  setCurrentScope: (newScope) => dispatch({ type: SET_CURRENT_SCOPE, payload: newScope, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)
