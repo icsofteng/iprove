@@ -141,9 +141,9 @@ class IProve extends Component {
   newStepAfter = (index) => {
     const absIndex = this.state.selectedTextBox[0] == 'givens' ? index : index + this.props.givens.length
     const sameSelectedType = this.state.selectedTextBox[0]
+    this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
     this.props.newStep([sameSelectedType, index + 1])
     this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
-    this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
   }
 
   setSelected = (v) => {
@@ -186,6 +186,10 @@ class IProve extends Component {
       for (let j = 0; j < this.props.steps[i].dependencies.length; j++) {
         if (this.props.steps[i].dependencies[j] > index + 1) {
           dependencies[j] += increment
+          dependenciesNeedUpdating = true
+        }
+        else if (this.props.steps[i].dependencies[j] == index + 1 && increment == -1) {
+          dependencies.splice(j, 1)
           dependenciesNeedUpdating = true
         }
       }
