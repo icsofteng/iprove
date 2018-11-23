@@ -264,8 +264,6 @@ class iProveVisitor extends ParseTreeVisitor {
     return this.atoms
   }
   getConstants() {
-    console.log("Printing constants")
-    console.log(this.constants)
     return this.constants
   }
   getRelations() {
