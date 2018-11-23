@@ -39,8 +39,9 @@ class TextBox extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Changing dependencies props
-    if (this.props.dependencies && prevState.dependencies) {
-      if (prevState.dependencies !== this.props.dependencies.join(", ")) {
+    if (this.props.dependencies && prevProps.dependencies) {
+      //if (prevState.dependencies !== this.props.dependencies.join(", ")) {
+      if (!_.isEqual(prevProps.dependencies, this.props.dependencies)) {
         this.setState({ dependencies: this.props.dependencies.join(", ") })
       }
     }
@@ -197,7 +198,7 @@ class TextBox extends Component {
                 onKeyDown={(event)=>this.keyDown(event)}
                 onFocus={()=>{ this.props.onFocus(); this.setState({ focusDependencies: true })}}
                 onBlur={(event)=>{
-                  this.props.onBlur()
+                  // this.props.onBlur()
                   this.setState({ focusDependencies: false })
                   this.props.setDependency(event.target.value.split(/[\s,]+/), [this.props.type, index, "dependencies"])
                 }}
