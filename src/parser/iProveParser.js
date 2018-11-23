@@ -511,6 +511,53 @@ ExpressionContext.prototype.copyFrom = function(ctx) {
     antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
 };
 
+function IdentifierExpContext(parser, ctx) {
+	ExpressionContext.call(this, parser);
+    ExpressionContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+IdentifierExpContext.prototype = Object.create(ExpressionContext.prototype);
+IdentifierExpContext.prototype.constructor = IdentifierExpContext;
+
+iProveParser.IdentifierExpContext = IdentifierExpContext;
+
+IdentifierExpContext.prototype.IDENTIFIER = function(i) {
+	if(i===undefined) {
+		i = null;
+	}
+    if(i===null) {
+        return this.getTokens(iProveParser.IDENTIFIER);
+    } else {
+        return this.getToken(iProveParser.IDENTIFIER, i);
+    }
+};
+
+
+IdentifierExpContext.prototype.COLON = function() {
+    return this.getToken(iProveParser.COLON, 0);
+};
+IdentifierExpContext.prototype.enterRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.enterIdentifierExp(this);
+	}
+};
+
+IdentifierExpContext.prototype.exitRule = function(listener) {
+    if(listener instanceof iProveListener ) {
+        listener.exitIdentifierExp(this);
+	}
+};
+
+IdentifierExpContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof iProveVisitor ) {
+        return visitor.visitIdentifierExp(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
 function LessThanExpContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
     ExpressionContext.prototype.copyFrom.call(this, ctx);
@@ -1159,53 +1206,6 @@ ForallExpContext.prototype.exitRule = function(listener) {
 ForallExpContext.prototype.accept = function(visitor) {
     if ( visitor instanceof iProveVisitor ) {
         return visitor.visitForallExp(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function LiteralExpContext(parser, ctx) {
-	ExpressionContext.call(this, parser);
-    ExpressionContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-LiteralExpContext.prototype = Object.create(ExpressionContext.prototype);
-LiteralExpContext.prototype.constructor = LiteralExpContext;
-
-iProveParser.LiteralExpContext = LiteralExpContext;
-
-LiteralExpContext.prototype.IDENTIFIER = function(i) {
-	if(i===undefined) {
-		i = null;
-	}
-    if(i===null) {
-        return this.getTokens(iProveParser.IDENTIFIER);
-    } else {
-        return this.getToken(iProveParser.IDENTIFIER, i);
-    }
-};
-
-
-LiteralExpContext.prototype.COLON = function() {
-    return this.getToken(iProveParser.COLON, 0);
-};
-LiteralExpContext.prototype.enterRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.enterLiteralExp(this);
-	}
-};
-
-LiteralExpContext.prototype.exitRule = function(listener) {
-    if(listener instanceof iProveListener ) {
-        listener.exitLiteralExp(this);
-	}
-};
-
-LiteralExpContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof iProveVisitor ) {
-        return visitor.visitLiteralExp(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -2196,7 +2196,7 @@ iProveParser.prototype.expression = function(_p) {
             break;
 
         case 16:
-            localctx = new LiteralExpContext(this, localctx);
+            localctx = new IdentifierExpContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
             this.state = 96;

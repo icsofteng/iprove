@@ -86,7 +86,6 @@ class iProveVisitor extends ParseTreeVisitor {
 
     this.constants.push({ value:lit, varType })
     this.constants = _.uniq(this.constants, false, _.iteratee('value'))
-
     return { type: 'constant', value: lit , varType}
   }
   visitForallExp(ctx) {

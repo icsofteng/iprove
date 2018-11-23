@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, REFRESH_PROOF } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -34,15 +34,12 @@ class IProve extends Component {
     })
   }
 
-  callZ3(steps, constants, relations, atoms, i, types) {
-    return fetch('/z3', {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify({steps, constants, relations, atoms, types})
-    }).then(r => r.text()).then(response => {
+  updateStateZ3(steps, constants, relations, atoms, i, types) {
+    const promise = this.callZ3(steps, constants, relations, atoms, i, types)
+    return promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.state.z3
-        currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
+        currentZ3[i] = response.trim()
         this.setState({ z3: currentZ3 }, () => {
           // Check goal
           if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
@@ -54,6 +51,15 @@ class IProve extends Component {
         })
       })
     })
+
+  }
+
+  callZ3(steps, constants, relations, atoms, i, types) {
+    return fetch('/z3', {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({steps, constants, relations, atoms, types})
+    }).then(r => r.text())
   }
 
   callLatex = () => {
@@ -89,7 +95,7 @@ class IProve extends Component {
                                              .map(d => validate_dependencies(step, d, givens, steps))
                                              .filter(Boolean)
         requiredSteps.push(step.ast)
-        return this.callZ3(requiredSteps, constants, relations, atoms, i, types)
+        return this.updateStateZ3(requiredSteps, constants, relations, atoms, i, types)
       }
       return Promise.resolve()
     })
@@ -129,6 +135,37 @@ class IProve extends Component {
     this.setState({ selectedTextBox: v })
   }
 
+  clean_up_dependencies = () => {
+    return new Promise((res, _) => {
+      const step = this.props.steps[this.props.steps.length - 1]
+      let redundant_deps = [];
+      const dependencies = step.dependencies
+      const promises = dependencies.map(dep => {
+        const promise = this.is_redundant_dep(dep, dependencies, redundant_deps, step)
+        return promise.then((response) => {
+          if (response.trim() === 'unsat') {
+            redundant_deps.push(dep)
+          }
+        })
+      });
+      Promise.all(promises).then(() => {
+        step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
+        res(step)
+      })
+    })
+  }
+  
+  is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
+    const { atoms, constants, relations, steps, givens, types } = this.props
+    const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
+    let requiredSteps = rem_deps.filter(Boolean)
+                                .map(d => validate_dependencies(step, d, givens, steps))
+                                .filter(Boolean)
+    requiredSteps.push(step.ast)
+    const promise = this.callZ3(requiredSteps, constants, relations, atoms, step.i, types)
+    return promise
+  }
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -139,7 +176,8 @@ class IProve extends Component {
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
           onUndo={this.props.undo}
           onRedo={this.props.redo}
-          onRefresh={this.props.refresh}
+          onClear={this.props.clear}
+          onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
         />
         <div className={styles.header}>
@@ -193,7 +231,8 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
-  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] })
+  clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
+  beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)

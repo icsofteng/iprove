@@ -17,8 +17,9 @@ import {
   LOAD_PROOF,
   SET_SCOPE,
   ADD_TYPES,
-  REFRESH_PROOF,
+  CLEAR_PROOF,
   ADD_CASE,
+  BEAUTIFY,
 } from '../constants'
 
 const initialState = {
@@ -123,7 +124,7 @@ const reducer = (state = initialState, action) => {
         }
         return newState
 
-      case REFRESH_PROOF:
+      case CLEAR_PROOF:
         newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
         return newState
 
@@ -133,6 +134,13 @@ const reducer = (state = initialState, action) => {
         newState.steps.splice(newIndex, 0, { scope: [...startScope, newIndex], dependencies: [], ast: { type: 'assume' } })
         return newState
 
+      case BEAUTIFY:
+        const prevSteps = newState.steps
+        prevSteps.pop()
+        const lastStep = action.payload
+        newState = { ...newState, steps: [...prevSteps, lastStep]}
+        return newState
+        
       default:
         return newState
     }
