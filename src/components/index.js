@@ -36,7 +36,7 @@ class IProve extends Component {
 
   updateStateZ3(steps, constants, relations, atoms, i, types) {
     const promise = this.callZ3(steps, constants, relations, atoms, i, types)
-    promise.then((response) => {
+    return promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.state.z3
         currentZ3[i] = response.trim()
