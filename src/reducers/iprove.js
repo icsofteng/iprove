@@ -17,7 +17,7 @@ import {
   LOAD_PROOF,
   SET_SCOPE,
   ADD_TYPES,
-  REFRESH_PROOF,
+  CLEAR_PROOF,
   ADD_CASE,
   BEAUTIFY,
 } from '../constants'
@@ -124,7 +124,7 @@ const reducer = (state = initialState, action) => {
         }
         return newState
 
-      case REFRESH_PROOF:
+      case CLEAR_PROOF:
         newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
         return newState
 

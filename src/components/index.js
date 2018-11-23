@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, REFRESH_PROOF, BEAUTIFY } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -176,7 +176,7 @@ class IProve extends Component {
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
           onUndo={this.props.undo}
           onRedo={this.props.redo}
-          onRefresh={this.props.refresh}
+          onClear={this.props.clear}
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
         />
@@ -231,7 +231,7 @@ const mapDispatchToProps = dispatch => ({
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
-  refresh: () => dispatch({ type: REFRESH_PROOF, path:[] }),
+  clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
 })
 
