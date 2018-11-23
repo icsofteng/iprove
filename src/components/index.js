@@ -188,10 +188,6 @@ class IProve extends Component {
           dependencies[j] += increment
           dependenciesNeedUpdating = true
         }
-        else if (this.props.steps[i].dependencies[j] == index + 1 && increment == -1) {
-          dependencies.splice(j, 1)
-          dependenciesNeedUpdating = true
-        }
       }
       if (dependenciesNeedUpdating) {
         dependencies = dependencies.map(String)
