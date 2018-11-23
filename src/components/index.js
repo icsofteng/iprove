@@ -39,7 +39,7 @@ class IProve extends Component {
     promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.state.z3
-        currentZ3[i] = response.replace(/(\r\n\t|\n|\r\t)/gm, "")
+        currentZ3[i] = response.trim()
         this.setState({ z3: currentZ3 }, () => {
           // Check goal
           if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
@@ -136,35 +136,34 @@ class IProve extends Component {
   }
 
   clean_up_dependencies = () => {
-    const step = this.props.steps[this.props.steps.length - 1]
-    let redundant_deps = [];
-    const dependencies = step.dependencies
-    dependencies.forEach(dep => {
-      const redundantPromise = this.is_redundant_dep(dep, dependencies, redundant_deps, step)
-      redundantPromise.then((redundant) => {
-        if (redundant) {
-          redundant_deps.add(dep)
-        }
+    return new Promise((res, _) => {
+      const step = this.props.steps[this.props.steps.length - 1]
+      let redundant_deps = [];
+      const dependencies = step.dependencies
+      const promises = dependencies.map(dep => {
+        const promise = this.is_redundant_dep(dep, dependencies, redundant_deps, step)
+        return promise.then((response) => {
+          if (response.trim() === 'unsat') {
+            redundant_deps.push(dep)
+          }
+        })
+      });
+      Promise.all(promises).then(() => {
+        step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
+        res(step)
       })
-    });
-    console.log("Redundant deps: ", redundant_deps)
-    step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
-    return step
+    })
   }
   
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
     const { atoms, constants, relations, steps, givens, types } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
-    console.log("RemDeps: ", rem_deps)
     let requiredSteps = rem_deps.filter(Boolean)
                                 .map(d => validate_dependencies(step, d, givens, steps))
                                 .filter(Boolean)
     requiredSteps.push(step.ast)
     const promise = this.callZ3(requiredSteps, constants, relations, atoms, step.i, types)
-    promise.then((response) => {
-      console.log("response: " , response)
-      return response === 'unsat'
-    })
+    return promise
   }
 
   render() {
@@ -178,7 +177,7 @@ class IProve extends Component {
           onUndo={this.props.undo}
           onRedo={this.props.redo}
           onRefresh={this.props.refresh}
-          onBeautify={() => this.props.beautify(this.clean_up_dependencies())}
+          onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
         />
         <div className={styles.header}>
