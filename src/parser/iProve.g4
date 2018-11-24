@@ -34,7 +34,7 @@ expression:
 | IDENTIFIER BRACKET_OPEN (ident (COMMA ident)*)? BRACKET_CLOSE                                       # relationExp
 | FORALL ident POINT? (COMMA ident)* expression                                                       # forallExp
 | EXISTS ident POINT? (COMMA ident)* expression                                                       # existsExp
-| ARBITRARY expression                                                                                # arbitraryExp
+| ARBITRARY ident                                                                                     # arbitraryExp
 | ident                                                                                               # identifierExp
 ;
 

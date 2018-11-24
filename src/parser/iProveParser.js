@@ -70,7 +70,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002\u0002\u0002UX\u0003\u0002\u0002\u0002VT\u0003\u0002\u0002\u0002",
     "VW\u0003\u0002\u0002\u0002WY\u0003\u0002\u0002\u0002XV\u0003\u0002\u0002",
     "\u0002YZ\u0005\u0006\u0004\u0005Z_\u0003\u0002\u0002\u0002[\\\u0007",
-    "\u0004\u0002\u0002\\_\u0005\u0006\u0004\u0004]_\u0005\u0004\u0003\u0002",
+    "\u0004\u0002\u0002\\_\u0005\u0004\u0003\u0002]_\u0005\u0004\u0003\u0002",
     "^\u000f\u0003\u0002\u0002\u0002^\u0012\u0003\u0002\u0002\u0002^\u0016",
     "\u0003\u0002\u0002\u0002^\u001a\u0003\u0002\u0002\u0002^\u001c\u0003",
     "\u0002\u0002\u0002^\u001d\u0003\u0002\u0002\u0002^\u001e\u0003\u0002",
@@ -1234,8 +1234,8 @@ ArbitraryExpContext.prototype.ARBITRARY = function() {
     return this.getToken(iProveParser.ARBITRARY, 0);
 };
 
-ArbitraryExpContext.prototype.expression = function() {
-    return this.getTypedRuleContext(ExpressionContext,0);
+ArbitraryExpContext.prototype.ident = function() {
+    return this.getTypedRuleContext(IdentContext,0);
 };
 ArbitraryExpContext.prototype.enterRule = function(listener) {
     if(listener instanceof iProveListener ) {
@@ -2019,7 +2019,7 @@ iProveParser.prototype.expression = function(_p) {
             this.state = 89;
             this.match(iProveParser.ARBITRARY);
             this.state = 90;
-            this.expression(2);
+            this.ident();
             break;
 
         case 16:
