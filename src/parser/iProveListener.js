@@ -20,30 +20,12 @@ iProveListener.prototype.exitStatement = function(ctx) {
 };
 
 
-// Enter a parse tree produced by iProveParser#paramVar.
-iProveListener.prototype.enterParamVar = function(ctx) {
+// Enter a parse tree produced by iProveParser#identRule.
+iProveListener.prototype.enterIdentRule = function(ctx) {
 };
 
-// Exit a parse tree produced by iProveParser#paramVar.
-iProveListener.prototype.exitParamVar = function(ctx) {
-};
-
-
-// Enter a parse tree produced by iProveParser#paramIdent.
-iProveListener.prototype.enterParamIdent = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#paramIdent.
-iProveListener.prototype.exitParamIdent = function(ctx) {
-};
-
-
-// Enter a parse tree produced by iProveParser#variableDef.
-iProveListener.prototype.enterVariableDef = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#variableDef.
-iProveListener.prototype.exitVariableDef = function(ctx) {
+// Exit a parse tree produced by iProveParser#identRule.
+iProveListener.prototype.exitIdentRule = function(ctx) {
 };
 
 
@@ -209,21 +191,21 @@ iProveListener.prototype.exitCaseExp = function(ctx) {
 };
 
 
+// Enter a parse tree produced by iProveParser#arbitraryExp.
+iProveListener.prototype.enterArbitraryExp = function(ctx) {
+};
+
+// Exit a parse tree produced by iProveParser#arbitraryExp.
+iProveListener.prototype.exitArbitraryExp = function(ctx) {
+};
+
+
 // Enter a parse tree produced by iProveParser#minusExp.
 iProveListener.prototype.enterMinusExp = function(ctx) {
 };
 
 // Exit a parse tree produced by iProveParser#minusExp.
 iProveListener.prototype.exitMinusExp = function(ctx) {
-};
-
-
-// Enter a parse tree produced by iProveParser#variableExp.
-iProveListener.prototype.enterVariableExp = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#variableExp.
-iProveListener.prototype.exitVariableExp = function(ctx) {
 };
 
 
@@ -260,15 +242,6 @@ iProveListener.prototype.enterLessThanEqExp = function(ctx) {
 
 // Exit a parse tree produced by iProveParser#lessThanEqExp.
 iProveListener.prototype.exitLessThanEqExp = function(ctx) {
-};
-
-
-// Enter a parse tree produced by iProveParser#atomExp.
-iProveListener.prototype.enterAtomExp = function(ctx) {
-};
-
-// Exit a parse tree produced by iProveParser#atomExp.
-iProveListener.prototype.exitAtomExp = function(ctx) {
 };
 
 
