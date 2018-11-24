@@ -47,8 +47,8 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u001d_\u0007\u0013\u0002\u0002\u001e_\u0007\u0014\u0002\u0002\u001f",
     "_\u0007\t\u0002\u0002 _\u0007\u001c\u0002\u0002!_\u0007\u001d\u0002",
     "\u0002\"#\u0007\u0007\u0002\u0002#$\u0007\u0019\u0002\u0002$-\u0007",
-    "\u0015\u0002\u0002%*\u0005\u0004\u0003\u0002&\'\u0007\u001a\u0002\u0002",
-    "\')\u0005\u0004\u0003\u0002(&\u0003\u0002\u0002\u0002),\u0003\u0002",
+    "\u0015\u0002\u0002%*\u0007\u0019\u0002\u0002&\'\u0007\u001a\u0002\u0002",
+    "\')\u0007\u0019\u0002\u0002(&\u0003\u0002\u0002\u0002),\u0003\u0002",
     "\u0002\u0002*(\u0003\u0002\u0002\u0002*+\u0003\u0002\u0002\u0002+.\u0003",
     "\u0002\u0002\u0002,*\u0003\u0002\u0002\u0002-%\u0003\u0002\u0002\u0002",
     "-.\u0003\u0002\u0002\u0002./\u0003\u0002\u0002\u0002/0\u0007\u0016\u0002",
@@ -717,17 +717,6 @@ RelationDefExpContext.prototype.BRACKET_CLOSE = function() {
 
 RelationDefExpContext.prototype.COLON = function() {
     return this.getToken(iProveParser.COLON, 0);
-};
-
-RelationDefExpContext.prototype.ident = function(i) {
-    if(i===undefined) {
-        i = null;
-    }
-    if(i===null) {
-        return this.getTypedRuleContexts(IdentContext);
-    } else {
-        return this.getTypedRuleContext(IdentContext,i);
-    }
 };
 
 RelationDefExpContext.prototype.COMMA = function(i) {
@@ -1904,7 +1893,7 @@ iProveParser.prototype.expression = function(_p) {
             _la = this._input.LA(1);
             if(_la===iProveParser.IDENTIFIER) {
                 this.state = 35;
-                this.ident();
+                this.match(iProveParser.IDENTIFIER);
                 this.state = 40;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
@@ -1912,7 +1901,7 @@ iProveParser.prototype.expression = function(_p) {
                     this.state = 36;
                     this.match(iProveParser.COMMA);
                     this.state = 37;
-                    this.ident();
+                    this.match(iProveParser.IDENTIFIER);
                     this.state = 42;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
