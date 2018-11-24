@@ -34,8 +34,8 @@ class IProve extends Component {
     })
   }
 
-  updateStateZ3(steps, identifiers, relations, i, types) {
-    const promise = this.callZ3(steps, identifiers, relations, i, types)
+  updateStateZ3(steps, identifiers, relations, types, i) {
+    const promise = this.callZ3(steps, identifiers, relations, types, i)
     return promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.state.z3
@@ -54,7 +54,7 @@ class IProve extends Component {
 
   }
 
-  callZ3(steps, identifiers, relations, i, types) {
+  callZ3(steps, identifiers, relations, types, i) {
     return fetch('/z3', {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -87,7 +87,7 @@ class IProve extends Component {
   }
 
   getRequiredSteps() {
-    const { atoms, identifiers, relations, steps, givens, types } = this.props
+    const { identifiers, relations, steps, givens, types } = this.props
     this.setState({ goalAchieved: [] })
     const promises = steps.map((step, i) => {
       if (step.ast.type) {
@@ -95,7 +95,7 @@ class IProve extends Component {
                                              .map(d => validate_dependencies(step, d, givens, steps))
                                              .filter(Boolean)
         requiredSteps.push(step.ast)
-        return this.updateStateZ3(requiredSteps, identifiers, relations, atoms, i, types)
+        return this.updateStateZ3(requiredSteps, identifiers, relations, types, i)
       }
       return Promise.resolve()
     })

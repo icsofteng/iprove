@@ -16,18 +16,13 @@ const translate_unary_rule = (rule) => {
 }
 
 const translate_quantifier = ({ symbol, variables, value }) => {
-  let vars = variables.map(v => v.value + (v.varType !== "Any" ? ': ' + v.varType : "")).join(", ")
+  let vars = variables.map(v => v.value + (v.varType !== "Bool" ? ': ' + v.varType : "")).join(", ")
   return symbol + ' ' + vars + ' ' + translate_rule(value)
 }
 
 const translate_relation = (rule) => {
   let translation = rule.name + '('
-  translation += rule.params.map(v => {
-    if (v.type === "constant" || v.type === "variable") {
-      return v.value
-    }
-    return translate_rule(v)
-  }).join(", ")
+  translation += rule.params.map(v => v.value).join(", ")
   translation += ')'
   return translation
 }
@@ -98,7 +93,7 @@ const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' implies ' 
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' iff ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => 'not ' + translate_rule(rule.value)
 const translate_literal = (rule) =>{
-  if (rule.varType && rule.varType !== "Any") {
+  if (rule.varType && rule.varType !== "Bool") {
     return rule.value + ': ' + rule.varType
   }
   return rule.value
