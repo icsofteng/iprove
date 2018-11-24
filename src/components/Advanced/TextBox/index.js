@@ -82,7 +82,7 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
           else {
-            this.props.addConstants(identifiers)
+            this.props.addIdentifiers(identifiers)
             this.props.addRelations(relations)
             this.props.addTypes(types)
             this.props.updateRule(ast[0], [...newPath, "ast"])
@@ -213,7 +213,7 @@ class TextBox extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
-  addConstants: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
+  addIdentifiers: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),

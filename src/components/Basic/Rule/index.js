@@ -63,7 +63,7 @@ const Rule = (props) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addConstants: (value) => dispatch({ type: ADD_CONSTANTS, payload: [value], path: [] }),
+  addIdentifiers: (value) => dispatch({ type: ADD_CONSTANTS, payload: [value], path: [] }),
   updateValue: (path, value) => dispatch({ type: UPDATE_RULE, payload: value, path }),
   removeRule: (path) => dispatch({ type: REMOVE_RULE, path }),
   dropLiteral: (path) => dispatch({ type: NEW_RULE, payload: 'literal', path })
