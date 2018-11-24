@@ -164,9 +164,9 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'assume', value }
   }
   visitArbitraryExp(ctx) {
-    const constant = this.visit(ctx.expression())
-    this.constants.push({ value: constant.value, varType: constant.varType })
-    return { type: 'arbitrary', value: constant }
+    const identifier = this.visit(ctx.ident())
+    this.identifiers.push({ value: identifier.value, varType: identifier.varType })
+    return { type: 'arbitrary', value: identifier }
   }
   visitExitExp(ctx) {
     return { type: 'exit' }

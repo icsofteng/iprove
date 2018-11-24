@@ -79,7 +79,7 @@ const translate_rule = (rule) => {
       case 'relation': return translate_relation(rule)
       case 'assume': return translate_assume(rule)
       case 'variable': return translate_variable(rule)
-      case 'arbitrary': return 'arbitrary ' + translate_variable(rule.value)
+      case 'arbitrary': return 'arbitrary ' + translate_literal(rule.value)
       case 'funcDef': return translate_funcDef(rule)
       default: return translate_literal(rule)
     }
