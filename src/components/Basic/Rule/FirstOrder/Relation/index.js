@@ -25,7 +25,7 @@ class Relation extends Component {
           <Rule
             updateValue={this.props.updateValue}
             deleteRule={this.props.deleteRule}
-            addConstants={this.props.addConstants}
+            addIdentifiers={this.props.addIdentifiers}
             path={[...this.props.path, "params", index]}
             key={`param-rule${index}-${last_param_index}`}
             {...param}

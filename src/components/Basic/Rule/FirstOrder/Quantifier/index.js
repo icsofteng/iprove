@@ -20,7 +20,7 @@ const Quantifier = (props) => (
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
-        addConstants={props.addConstants}
+        addIdentifiers={props.addIdentifiers}
         path={[...props.path, "variable"]}
         {...props.variable}
       /> : <RulePlaceholder path={[...props.path, "variable"]} dropLiteral={props.dropLiteral} />
@@ -29,7 +29,7 @@ const Quantifier = (props) => (
       <Rule
         updateValue={props.updateValue}
         deleteRule={props.deleteRule}
-        addConstants={props.addConstants}
+        addIdentifiers={props.addIdentifiers}
         path={[...props.path, "value"]}
         {...props.value}
       /> : <RulePlaceholder path={[...props.path, "value"]} dropLiteral={props.dropLiteral} />
