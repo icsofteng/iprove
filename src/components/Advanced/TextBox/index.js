@@ -8,7 +8,7 @@ import { translate_rule as translate_latex } from '../../../translator/latex'
 import { translate_rule as translate_raw } from '../../../translator/raw'
 import {
   UPDATE_RULE,
-  ADD_CONSTANTS,
+  ADD_IDENTIFIERS,
   ADD_RELATIONS,
   SET_STEP_DEPENDENCY,
   ADD_ATOMS,
@@ -213,7 +213,7 @@ class TextBox extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateRule: (object, path) => dispatch({ type: UPDATE_RULE, payload: object, path }),
-  addIdentifiers: (values) => dispatch({ type: ADD_CONSTANTS, payload: values, path: [] }),
+  addIdentifiers: (values) => dispatch({ type: ADD_IDENTIFIERS, payload: values, path: [] }),
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
   addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
