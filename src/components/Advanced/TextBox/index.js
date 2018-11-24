@@ -82,11 +82,11 @@ class TextBox extends Component {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
           else {
-            this.props.updateRule(ast[0], [...newPath, "ast"])
             this.props.addConstants(constants)
             this.props.addAtoms(atoms)
             this.props.addRelations(relations)
             this.props.addTypes(types)
+            this.props.updateRule(ast[0], [...newPath, "ast"])
             if (ast[0].type === 'assume') {
               this.props.setScope([...this.props.scope, this.props.index], newPath, false)
             }

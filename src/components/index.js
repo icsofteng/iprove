@@ -5,7 +5,7 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, INSERT_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
 import { is_step, validate_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
@@ -42,7 +42,7 @@ class IProve extends Component {
         currentZ3[i] = response.trim()
         this.setState({ z3: currentZ3 }, () => {
           // Check goal
-          if (_.isEqual(this.props.goal[0].ast, steps[steps.length - 1])) {
+          if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
             this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
           }
           else {
@@ -103,7 +103,8 @@ class IProve extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.steps !== this.props.steps) {
+    if (!_.isEqual(prevProps.steps, this.props.steps) || !_.isEqual(prevProps.givens, this.props.givens)  || !_.isEqual(prevProps.goal, this.props.goal)) {
+      console.log('calling z3')
       this.getRequiredSteps()
     }
   }
@@ -119,7 +120,7 @@ class IProve extends Component {
 
   removeCurrentStep = (index) => {
     const sameSelectedType = this.state.selectedTextBox[0]
-    if (index != 0 || (index == 0 && this.props[sameSelectedType].length != 1)) {
+    if (index !== 0 || (index === 0 && this.props[sameSelectedType].length !== 1)) {
       this.props.removeStep([sameSelectedType, index])
       this.setState({ selectedTextBox: [sameSelectedType, index - 1] })
     }
