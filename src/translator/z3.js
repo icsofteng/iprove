@@ -133,6 +133,7 @@ const translate_rule = (rule) => {
     case 'assume': return translate_assume(rule)
     case 'exit': return
     case 'constant': return
+    case 'arbitrary': return
     case 'variable': return translate_variable(rule)
     default: return translate_literal(rule)
   }

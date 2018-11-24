@@ -2,12 +2,8 @@ grammar iProve;
 
 statement: expression;
 
-parameter:
-    VARIABLE                                                            # paramVar
-  | IDENTIFIER                                                          # paramIdent
-  ;
-
-variableDef: VARIABLE (COLON IDENTIFIER)?;
+ident: IDENTIFIER (COLON IDENTIFIER)?                                                                 # identRule
+;
 
 expression:
   NOT expression                                                                                      # notExp
@@ -34,16 +30,16 @@ expression:
 | EXIT                                                                                                # exitExp
 | INTEGER                                                                                             # integerExp
 | REAL                                                                                                # realExp
-| ATOM                                                                                                # atomExp
-| DEFINE IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE COLON IDENTIFIER       # relationDefExp
-| IDENTIFIER BRACKET_OPEN (parameter (COMMA parameter)*)? BRACKET_CLOSE                               # relationExp
-| FORALL variableDef POINT? (COMMA variableDef)* expression                                           # forallExp
-| EXISTS variableDef POINT? (COMMA variableDef)* expression                                           # existsExp
-| IDENTIFIER (COLON IDENTIFIER)?                                                                      # identifierExp
-| VARIABLE                                                                                            # variableExp
+| DEFINE IDENTIFIER BRACKET_OPEN (ident (COMMA ident)*)? BRACKET_CLOSE COLON IDENTIFIER               # relationDefExp
+| IDENTIFIER BRACKET_OPEN (ident (COMMA ident)*)? BRACKET_CLOSE                                       # relationExp
+| FORALL ident POINT? (COMMA ident)* expression                                                       # forallExp
+| EXISTS ident POINT? (COMMA ident)* expression                                                       # existsExp
+| ARBITRARY expression                                                                                # arbitraryExp
+| ident                                                                                               # identifierExp
 ;
 
 CASE: 'case';
+ARBITRARY: 'arbitrary';
 ASSUME: 'assume';
 FORALL: 'forall';
 DEFINE: 'define';
@@ -64,8 +60,6 @@ BRACKET_OPEN: '(';
 BRACKET_CLOSE: ')';
 SQ_BRACKET_OPEN: '[';
 SQ_BRACKET_CLOSE: ']';
-VARIABLE: [a-z];
-ATOM: [A-Z];
 IDENTIFIER: [A-Za-z]+;
 COMMA: ',';
 COLON: ':';
