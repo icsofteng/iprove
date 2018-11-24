@@ -12,11 +12,10 @@ const parse = (input) => {
   parser.buildParseTrees = true
   const tree = parser.statement()
   const ast = visitor.visitStatement(tree)
-  const constants = visitor.getConstants()
+  const identifiers = visitor.getIdentifiers()
   const relations = visitor.getRelations()
-  const atoms = visitor.getAtoms()
   const types = visitor.getTypes()
-  return { ast, atoms, constants, relations, types }
+  return { ast, identifiers, relations, types }
 }
 
 exports.parse = parse

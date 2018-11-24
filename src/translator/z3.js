@@ -1,28 +1,16 @@
 const fs = require('fs')
 const {random_file_name} = require('../utils')
 
-const declare_atoms = (atoms, file_contents) => {
-  atoms.forEach(element => {
-    file_contents += '(declare-const ' + element + ' Bool)\n'
-  })
-  return file_contents
-}
-
-const declare_constants = (constants, file_contents) => {
-  constants.forEach(element => {
+const declare_identifiers = (identifiers, file_contents) => {
+  identifiers.forEach(element => {
     if (element) {
-      let varType = "Any"
-      if (element.varType) {
-        varType = element.varType
-      }
-      file_contents += '(declare-const ' + element.value + ' '+varType+')\n'
+      file_contents += '(declare-const ' + element.value + ' '+element.varType+')\n'
     }
   })
   return file_contents
 }
 
 const declare_relations = (relations, file_contents) => {
-  file_contents += '(declare-sort Any)\n'
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
     rel.params.forEach(p => {
@@ -163,22 +151,21 @@ const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_assume = (rule) => translate_rule(rule.value)
 const translate_literal = (rule) => rule.value
 
-const translate = (rules, constants, relations, atoms, types) => {
+const translate = (rules, identifiers, relations, types) => {
   let file_contents = ""
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)
   file_contents = declare_types(types, file_contents)
   file_contents = declare_relations(relations, file_contents)
-  file_contents = declare_constants(constants, file_contents)
-  file_contents = declare_atoms(atoms, file_contents)
+  file_contents = declare_identifiers(identifiers, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
   file_contents = translate_goal(goal, file_contents)
   return file_contents
 }
 
-const translate_and_save = (rules, constants, relations, atoms, types) => {
-  const file_contents = translate(rules, constants, relations, atoms, types)
+const translate_and_save = (rules, identifiers, relations, types) => {
+  const file_contents = translate(rules, identifiers, relations, types)
   const proof_file_name = random_file_name()
   fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name

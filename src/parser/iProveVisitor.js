@@ -212,8 +212,8 @@ class iProveVisitor extends ParseTreeVisitor {
   getAtoms() {
     return this.atoms
   }
-  getConstants() {
-    return this.constants
+  getIdentifiers() {
+    return this.identifiers
   }
   getRelations() {
     return this.relations

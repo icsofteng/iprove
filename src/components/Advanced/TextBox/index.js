@@ -77,13 +77,12 @@ class TextBox extends Component {
       if (statement !== '') {
         fetch('/parse?input=' + encodeURIComponent(statement)).then(r => r.json()).then(response => {
           const newPath = [this.props.type, this.props.index]
-          const { ast, constants, relations, atoms, types } = response
+          const { ast, identifiers, relations, types } = response
           if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
           else {
-            this.props.addConstants(constants)
-            this.props.addAtoms(atoms)
+            this.props.addConstants(identifiers)
             this.props.addRelations(relations)
             this.props.addTypes(types)
             this.props.updateRule(ast[0], [...newPath, "ast"])

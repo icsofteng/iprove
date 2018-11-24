@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Implies test 1`] = `
-"(declare-sort Any)
-(declare-const P Bool)
+"(declare-const P Bool)
 (declare-const Q Bool)
 (assert (not (=> P Q)))
 (check-sat)"

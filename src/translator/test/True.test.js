@@ -1,7 +1,7 @@
 const {translate} = require('../../translator/z3')
 const {translate: translate_latex} = require('../../translator/latex')
 
-const test_constants = ['P']
+const test_constants = [{ value: 'P', varType: 'Bool' }]
 const test_rules = [{
   type: 'binary',
   symbol: 'implies',
@@ -16,9 +16,9 @@ const test_rules = [{
 
 
 test('True test', () => {
-  expect(translate(test_rules, [], [], test_constants, [])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [], [])).toMatchSnapshot()
 })
 
 test('True test latex', () => {
-  expect(translate_latex(test_rules, [],[], test_constants, [])).toMatchSnapshot()
+  expect(translate_latex(test_rules, test_constants, [], [])).toMatchSnapshot()
 })

@@ -26,8 +26,7 @@ const initialState = {
   steps: [{ dependencies: [], ast: {}, scope: [] }],
   givens: [{ ast: {} }],
   goal: [{ ast: {} }],
-  atoms: [],
-  constants: [],
+  identifiers: [],
   relations: [],
   types: []
 }
@@ -79,8 +78,8 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case ADD_CONSTANTS:
-        const newConstants = newState.constants.concat(action.payload)
-        newState.constants = _.uniq(newConstants, false, _.iteratee('value'))
+        const newConstants = newState.identifiers.concat(action.payload)
+        newState.identifiers = _.uniq(newConstants, false, _.iteratee('value'))
         return newState
 
       case ADD_ATOMS:

@@ -1,7 +1,7 @@
 const {translate} = require('../../translator/z3')
 const {translate: translate_latex} = require('../../translator/latex')
 
-const test_constants = ['P']
+const test_constants = [{ value: 'P', varType: 'Bool' }]
 const test_rules = [
   {
     type: 'funcDef',
@@ -16,10 +16,10 @@ const test_rules = [
 ]
 
 test('func Def test', () => {
-  expect(translate(test_rules, [], [], test_constants, ['Person'])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [], ['Person'])).toMatchSnapshot()
 })
 
-const test_constants2 = ['P']
+const test_constants2 = [{ value: 'P', varType: 'Bool' }]
 const test_rules2 = [
   {
     type:'funcDef',
@@ -33,10 +33,10 @@ const test_rules2 = [
   }
 ]
 test('func Def Dragon test', () => {
-  expect(translate(test_rules2, [], [], test_constants2, ['Dragon'])).toMatchSnapshot()
+  expect(translate(test_rules2, test_constants2, [], ['Dragon'])).toMatchSnapshot()
 })
 
-const test_constants3 = ['P']
+const test_constants3 = [{ value: 'P', varType: 'Bool' }]
 const test_rules3 = [
   {
     type:'funcDef',
@@ -50,7 +50,7 @@ const test_rules3 = [
   }
 ]
 test('func Def Happy test', () => {
-  expect(translate(test_rules3, [], [], test_constants3, ['Reward' ,'Dragon', 'Human'])).toMatchSnapshot()
+  expect(translate(test_rules3, test_constants3, [], ['Reward' ,'Dragon', 'Human'])).toMatchSnapshot()
 })
 
 
