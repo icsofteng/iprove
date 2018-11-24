@@ -12,8 +12,8 @@ import TextBox from '../components/Advanced/TextBox'
 global.fetch = (_, options) => {
   return new Promise((resolve, _) => {
     const body = JSON.parse(options.body)
-    const { steps, atoms, constants, relations, types } = body
-    const file = translate_and_save(steps, constants, relations, atoms, types)
+    const { steps, identifiers, relations, types } = body
+    const file = translate_and_save(steps, identifiers, relations, types)
     const binary_file = process.env.SERVER === 'test' ? './z3-deb' : (process.platform === 'darwin' ? './z3-osx' : './z3')
     exec(`${binary_file} ${file}`, (err, stdout) => {
       fs.unlink(file, () =>

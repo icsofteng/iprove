@@ -34,8 +34,11 @@ const translate_assumptions = (assumptions, file_contents) => {
       if (element.type === 'funcDef') {
         file_contents += translate_func_declaration(element)
       }
-      else if (element.type !== 'constant') {
-        file_contents += '(assert ' + translate_rule(element) + ')\n'
+      if (element.type !== 'identifier' || (element.type === 'identifier' && element.varType === "Bool")) {
+        const translation = translate_rule(element)
+        if (translation) {
+          file_contents += '(assert ' + translation + ')\n'
+        }
       }
     }
   })
@@ -66,14 +69,14 @@ const translate_binary_rule = (rule) => {
     case 'or': return translate_or_rule(rule)
     case 'iff': return translate_iff_rule(rule)
     case 'implies': return translate_implies_rule(rule)
-    default: return translate_literal(rule)
+    default: return translate_identifier(rule)
   }
 }
 
 const translate_unary_rule = (rule) => {
   switch (rule.symbol) {
     case 'not': return translate_not_rule(rule)
-    default: return translate_literal(rule)
+    default: return translate_identifier(rule)
   }
 }
 
@@ -120,10 +123,9 @@ const translate_rule = (rule) => {
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
     case 'exit': return
-    case 'constant': return
     case 'arbitrary': return
     case 'variable': return translate_variable(rule)
-    default: return translate_literal(rule)
+    default: return translate_identifier(rule)
   }
 }
 
@@ -149,7 +151,7 @@ const translate_implies_rule = (rule) => '(=> ' + translate_rule(rule.lhs) + ' '
 const translate_iff_rule = (rule) => '(iff '+ translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_assume = (rule) => translate_rule(rule.value)
-const translate_literal = (rule) => rule.value
+const translate_identifier = (rule) => rule.value
 
 const translate = (rules, identifiers, relations, types) => {
   let file_contents = ""
