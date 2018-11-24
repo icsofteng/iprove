@@ -8,8 +8,7 @@ Array [
 `;
 
 exports[`And test z3 1`] = `
-"(declare-sort Any)
-(declare-const P Bool)
+"(declare-const P Bool)
 (declare-const Q Bool)
 (assert (and P Q))
 (assert (not P))
