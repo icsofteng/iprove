@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { REMOVE_RULE, UPDATE_RULE, ADD_CONSTANTS, NEW_RULE } from '../../../constants'
+import { REMOVE_RULE, UPDATE_RULE, ADD_IDENTIFIERS, NEW_RULE } from '../../../constants'
 
 /* Propositional */
 import BinaryRule from './Propositional/BinaryRule'
@@ -63,7 +63,7 @@ const Rule = (props) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addIdentifiers: (value) => dispatch({ type: ADD_CONSTANTS, payload: [value], path: [] }),
+  addIdentifiers: (value) => dispatch({ type: ADD_IDENTIFIERS, payload: [value], path: [] }),
   updateValue: (path, value) => dispatch({ type: UPDATE_RULE, payload: value, path }),
   removeRule: (path) => dispatch({ type: REMOVE_RULE, path }),
   dropLiteral: (path) => dispatch({ type: NEW_RULE, payload: 'literal', path })

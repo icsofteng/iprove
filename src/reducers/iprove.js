@@ -7,7 +7,7 @@ import {
   REMOVE_RULE,
   CHANGE_SYMBOL,
   UPDATE_RULE,
-  ADD_CONSTANTS,
+  ADD_IDENTIFIERS,
   ADD_ATOMS,
   ADD_RELATIONS,
   ADD_STEP_DEPENDENCY,
@@ -77,7 +77,7 @@ const reducer = (state = initialState, action) => {
         depth[index].symbol = action.payload
         return newState
 
-      case ADD_CONSTANTS:
+      case ADD_IDENTIFIERS:
         const newConstants = newState.identifiers.concat(action.payload)
         newState.identifiers = _.uniq(newConstants, false, _.iteratee('value'))
         return newState
