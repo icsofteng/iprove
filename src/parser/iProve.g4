@@ -30,7 +30,7 @@ expression:
 | EXIT                                                                                                # exitExp
 | INTEGER                                                                                             # integerExp
 | REAL                                                                                                # realExp
-| DEFINE IDENTIFIER BRACKET_OPEN (ident (COMMA ident)*)? BRACKET_CLOSE COLON IDENTIFIER               # relationDefExp
+| DEFINE IDENTIFIER BRACKET_OPEN (IDENTIFIER (COMMA IDENTIFIER)*)? BRACKET_CLOSE COLON IDENTIFIER     # relationDefExp
 | IDENTIFIER BRACKET_OPEN (ident (COMMA ident)*)? BRACKET_CLOSE                                       # relationExp
 | FORALL ident POINT? (COMMA ident)* expression                                                       # forallExp
 | EXISTS ident POINT? (COMMA ident)* expression                                                       # existsExp

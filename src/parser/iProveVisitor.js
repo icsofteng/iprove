@@ -36,14 +36,14 @@ class iProveVisitor extends ParseTreeVisitor {
     return { type: 'relation', name, params }
   }
   visitRelationDefExp(ctx) {
-    const name = ctx.IDENTIFIER()[0].toString()
-    let rType = _.capitalize(ctx.IDENTIFIER()[1].toString())
+    const identifiers = ctx.IDENTIFIER()
+    const name = identifiers.shift().toString()
+    let rType = _.capitalize(identifiers.pop().toString())
     if ((this.types.indexOf(rType) === -1) && (this.base_types.indexOf(rType) === -1)) {
       this.types.push(rType)
     }
-    const params = ctx.ident().map(iden => {
-      let para = this.visit(iden)
-      para = {type: 'type', value: para.value}
+    const params = identifiers.map(para => {
+      para = {type: 'type', value: para.toString()}
       para.value = _.capitalize(para.value)
       if ((this.types.indexOf(para.value) === -1) && (this.base_types.indexOf(para.value) === -1)) {
         this.types.push(para.value)
@@ -66,8 +66,10 @@ class iProveVisitor extends ParseTreeVisitor {
       const findPrevDefinedVariable = this.variables_quantifiers.find(({ value }) => value === lit)
       varType = findPrevDefinedVariable ? findPrevDefinedVariable.varType : "Bool"
     }
-    this.identifiers.push({ value: lit, varType })
-    this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
+    if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
+      this.identifiers.push({ value: lit, varType })
+      this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
+    }
     return { type: 'identifier', value: lit , varType}
   }
 
@@ -76,6 +78,7 @@ class iProveVisitor extends ParseTreeVisitor {
     const variables = ctx.ident().map(varDef => {
       const thisVar = this.visit(varDef)
       this.variables_quantifiers.push(thisVar)
+      this.identifiers = this.identifiers.filter(ident => thisVar.value !== ident.value)
       return thisVar
     })
     let value = this.visit(ctx.expression())
@@ -86,6 +89,7 @@ class iProveVisitor extends ParseTreeVisitor {
     const variables = ctx.ident().map(varDef => {
       const thisVar = this.visit(varDef)
       this.variables_quantifiers.push(thisVar)
+      this.identifiers = this.identifiers.filter(ident => thisVar.value !== ident.value)
       return thisVar
     })
     return { type: 'existential_quantifier', symbol: 'exists', variables, value }
