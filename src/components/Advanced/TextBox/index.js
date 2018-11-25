@@ -157,7 +157,7 @@ class TextBox extends Component {
 
   render() {
     const { ast, index, offset, z3, type } = this.props
-    const isCorrect = (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'exit' || ast.type === 'case'
+    const isCorrect = (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'arbitrary' || ast.type === 'exit' || ast.type === 'case'
     return (
       <div className={cx(styles.step, {
         [styles.correct]: isCorrect,
@@ -187,7 +187,7 @@ class TextBox extends Component {
           </div>
         }
         {
-          (this.props.showDependencies && ast.type !== 'assume' && ast.type !== 'exit' && ast.type !== 'case') &&
+          (this.props.showDependencies && ast.type !== 'assume' && ast.type !== 'arbitrary' && ast.type !== 'exit' && ast.type !== 'case') &&
             <div className={styles.dependencies}>
               <div className={styles.using} onClick={()=>this.refDef.focus()}>using</div>
               <input
