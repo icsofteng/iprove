@@ -99,7 +99,7 @@ const reducer = (state = initialState, action) => {
 
       case SET_STEP_DEPENDENCY:
         if (depth[index]) {
-          depth[index] = action.payload.map(x => parseInt(x)).filter(x => !isNaN(x))
+          depth[index] = action.payload
         }
         return newState
 
@@ -113,7 +113,7 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case UPDATE_STEP_DEPENDENCY:
-        depth[index][action.index] = parseInt(action.value)
+        depth[index][action.index] = action.value
         return newState
 
       case SET_SCOPE:

@@ -91,9 +91,20 @@ class IProve extends Component {
     this.setState({ goalAchieved: [] })
     const promises = steps.map((step, i) => {
       if (step.ast.type) {
-        let requiredSteps = step.dependencies.filter(Boolean)
-                                             .map(d => validate_dependencies(step, d, givens, steps))
-                                             .filter(Boolean)
+        let dependenciesNoRanges = []
+        step.dependencies.forEach(d => {
+          if (d.toString().indexOf("..") > -1) {
+            const startRange = parseInt(d.split("..")[0])
+            const endRange = parseInt(d.split("..")[1])
+            for (let j=startRange; j<=endRange; j++) {
+              dependenciesNoRanges.push(j)
+            }
+          }
+          else {
+            dependenciesNoRanges.push(parseInt(d))
+          }
+        })
+        let requiredSteps = dependenciesNoRanges.map(d => validate_dependencies(step, d, givens, steps))
         requiredSteps.push(step.ast)
         return this.updateStateZ3(requiredSteps, identifiers, relations, types, i)
       }
