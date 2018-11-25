@@ -123,7 +123,7 @@ const translate_rule = (rule) => {
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
     case 'exit': return
-    case 'arbitrary': return
+    case 'arbitrary': return translate_arbitrary(rule)
     case 'variable': return translate_variable(rule)
     default: return translate_identifier(rule)
   }
@@ -144,6 +144,9 @@ const translate_relation = (rule) => {
   translation += ')'
   return translation
 }
+
+const translate_arbitrary = (rule) =>
+  '(forall ((somevar ' + rule.value.varType + ')) (= somevar ' + rule.value.value + '))'
 
 const translate_and_rule = (rule) => '(and ' + translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
 const translate_or_rule = (rule) => '(or ' +  translate_rule(rule.lhs) + ' ' + translate_rule(rule.rhs) + ')'
