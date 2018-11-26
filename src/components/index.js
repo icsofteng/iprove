@@ -6,7 +6,7 @@ import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY } from '../constants'
-import { is_step, validate_dependencies } from '../utils'
+import { is_step, validate_step_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
@@ -104,7 +104,7 @@ class IProve extends Component {
             dependenciesNoRanges.push(parseInt(d))
           }
         })
-        let requiredSteps = dependenciesNoRanges.map(d => validate_dependencies(step, d, givens, steps))
+        let requiredSteps = validate_step_dependencies(step, dependenciesNoRanges, givens, steps)
         requiredSteps.push(step.ast)
         return this.updateStateZ3(requiredSteps, identifiers, relations, types, i)
       }
@@ -169,9 +169,7 @@ class IProve extends Component {
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
     const { identifiers, relations, steps, givens, types } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
-    let requiredSteps = rem_deps.filter(Boolean)
-                                .map(d => validate_dependencies(step, d, givens, steps))
-                                .filter(Boolean)
+    let requiredSteps = validate_step_dependencies(step, rem_deps, givens, steps)
     requiredSteps.push(step.ast)
     const promise = this.callZ3(requiredSteps, identifiers, relations, step.i, types)
     return promise
