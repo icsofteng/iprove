@@ -30,70 +30,43 @@ const equal_ast = (first, second) => {
   return _.isEqual(modifiedFirst, modifiedSecond)
 }
 
-const is_valid_dependency = (step, dependencyStep, allSteps, givens) => {
-  // Make sure no dependencies have a scope that the step's scope contains
-  if (dependencyStep.scope.filter(s => step.scope.indexOf(s) === -1).length === 0) {
-    return true
-  }
-  // Allow assumptions
-  if (step.ast.symbol === 'implies' &&
-     ((dependencyStep.ast.type === 'assume' && equal_ast(step.ast.lhs, dependencyStep.ast.value)) ||
-      equal_ast(step.ast.rhs, dependencyStep.ast)
-     ) &&
-     (_.isEqual(dependencyStep.scope.slice(0, -1), step.scope))) {
-    return true
-  }
-  // Allow case analysis
-  if ((dependencyStep.ast.type !== 'case' && step.dependencies.filter(d => calculate_dependency_step(allSteps, d, givens).ast.type === 'case').length > 0) ||
-      (dependencyStep.ast.type === 'case' && _.isEqual(dependencyStep.scope, step.scope) &&
-      step.dependencies
-        .filter(d => calculate_dependency_step(allSteps, d, givens).ast.type === 'assume')
-        .filter(d => {
-          let dStep = calculate_dependency_step(allSteps, d, givens)
-          let scopeEqual = _.isEqual(dStep.scope.slice(0, -1), step.scope)
-          let matchesLhs = _.isEqual(dStep.ast.value, dependencyStep.ast.lhs)
-          let matchesRhs = _.isEqual(dStep.ast.value, dependencyStep.ast.rhs)
-          return scopeEqual && (matchesLhs || matchesRhs)
-        }).length === 2 &&
-      step.dependencies
-        .filter((d, i) => {
-          let dStep = calculate_dependency_step(allSteps, d, givens)
-          if (_.isEqual(dStep.scope.slice(0, -1), step.scope)) {
-            for (let j in step.dependencies) {
-              if (j !== i && _.isEqual(calculate_dependency_step(allSteps, step.dependencies[j], givens).ast, dStep.ast)) {
-                return _.isEqual(calculate_dependency_step(allSteps, step.dependencies[j], givens).scope.slice(0, -1), dStep.scope.slice(0, -1))
-              }
-            }
-          }
-          return false
-        }).length >= 1
-      )) {
-    return true
-  }
-  return false
-}
+const dependency_in_scope = (step, dependencyStep) =>
+  dependencyStep.scope.filter(s => step.scope.indexOf(s) === -1).length === 0
 
-const calculate_dependency_step = (steps, dependency, givens) => {
-  if (dependency <= givens.length) {
-    return givens[dependency-1]
-  }
-  else {
-    return steps[dependency-givens.length-1]
-  }
-}
+const calculate_dependency_offset = (steps, dependency, givens) =>
+  (dependency <= givens.length) ? givens[dependency-1] : steps[dependency-givens.length-1]
 
-const validate_dependencies = (step, dependency, givens, allSteps) => {
-  const dependencyStep = calculate_dependency_step(allSteps, dependency, givens)
-  if (dependency <= givens.length) {
-    return (dependencyStep && dependencyStep.ast) || null
-  }
-  else {
-    // Using a step dependency, check scope is valid
-    if (is_valid_dependency(step, dependencyStep, allSteps, givens)) {
+const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
+  // Normal case: loop through each dependecy individually
+  let valid_deps = dependencies.map(d => {
+    const dependencyStep = calculate_dependency_offset(allSteps, d, givens)
+    if (d <= givens.length) {
       return (dependencyStep && dependencyStep.ast) || null
     }
-    return null
+    else {
+      if (dependency_in_scope(step, dependencyStep)) {
+        return (dependencyStep && dependencyStep.ast) || null
+      }
+      return null
+    }
+  })
+
+  // Special case: we can take an 'implies' out of an assume scope
+  if (step.ast.symbol === 'implies' && dependencies.length === 2) {
+    const depsClone = dependencies.slice(0)
+    const assumeStepNumber = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens).ast.type === 'assume')[0]
+    const assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens)
+    depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
+    const assumptionInScope = _.isEqual(assumeStep.scope.slice(0, -1), step.scope)
+    const conclusionStep = calculate_dependency_offset(allSteps, depsClone[0], givens)
+    const conclusionInScope = _.isEqual(conclusionStep.scope.slice(0, -1), step.scope)
+    if (assumptionInScope && conclusionInScope && equal_ast(assumeStep.ast.value, step.ast.lhs) && equal_ast(conclusionStep.ast, step.ast.rhs)) {
+      // This is a valid proof justification
+      valid_deps = [assumeStep.ast, conclusionStep.ast]
+    }
   }
+
+  return valid_deps
 }
 
-module.exports = { is_step, scan_state, random_file_name, validate_dependencies }
+module.exports = { is_step, scan_state, random_file_name, validate_step_dependencies }
