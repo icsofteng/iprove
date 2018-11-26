@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visitor Test Func Def Dragon 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "Power",
+      "params": Array [
+        Object {
+          "type": "type",
+          "value": "Dragon",
+        },
+        Object {
+          "type": "type",
+          "value": "Dragon",
+        },
+      ],
+      "returnType": Object {
+        "type": "type",
+        "value": "Int",
+      },
+      "type": "funcDef",
+    },
+  ],
+  "errors": false,
+  "functions": Array [
+    Object {
+      "name": "Power",
+      "params": Array [
+        "Dragon",
+        "Dragon",
+      ],
+      "rType": "Int",
+    },
+  ],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [
+    "Dragon",
+  ],
+}
+`;
+
+exports[`Visitor Test Func Def Happy 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "Happy",
+      "params": Array [
+        Object {
+          "type": "type",
+          "value": "Dragon",
+        },
+        Object {
+          "type": "type",
+          "value": "Human",
+        },
+      ],
+      "returnType": Object {
+        "type": "type",
+        "value": "Reward",
+      },
+      "type": "funcDef",
+    },
+  ],
+  "errors": false,
+  "functions": Array [
+    Object {
+      "name": "Happy",
+      "params": Array [
+        "Dragon",
+        "Human",
+      ],
+      "rType": "Reward",
+    },
+  ],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [
+    "Reward",
+    "Dragon",
+    "Human",
+  ],
+}
+`;
+
+exports[`Visitor Test Func Def friends 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "friends",
+      "params": Array [
+        Object {
+          "type": "type",
+          "value": "Person",
+        },
+        Object {
+          "type": "type",
+          "value": "Person",
+        },
+      ],
+      "returnType": Object {
+        "type": "type",
+        "value": "Bool",
+      },
+      "type": "funcDef",
+    },
+  ],
+  "errors": false,
+  "functions": Array [
+    Object {
+      "name": "friends",
+      "params": Array [
+        "Person",
+        "Person",
+      ],
+      "rType": "Bool",
+    },
+  ],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [
+    "Person",
+  ],
+}
+`;

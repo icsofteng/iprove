@@ -1,0 +1,527 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visitor Test divide 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "divide",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test equal 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "equal",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test exists 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "symbol": "exists",
+      "type": "existential_quantifier",
+      "value": Object {
+        "name": "dragon",
+        "params": Array [
+          Object {
+            "type": "identifier",
+            "value": "x",
+            "varType": "Bool",
+          },
+        ],
+        "type": "relation",
+      },
+      "variables": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [
+    Object {
+      "name": "dragon",
+      "numParam": 1,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test forall 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "symbol": "forall",
+      "type": "universal_quantifier",
+      "value": Object {
+        "name": "dragon",
+        "params": Array [
+          Object {
+            "type": "identifier",
+            "value": "x",
+            "varType": "Bool",
+          },
+        ],
+        "type": "relation",
+      },
+      "variables": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [
+    Object {
+      "name": "dragon",
+      "numParam": 1,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test forall with type 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "symbol": "forall",
+      "type": "universal_quantifier",
+      "value": Object {
+        "name": "dragon",
+        "params": Array [
+          Object {
+            "type": "identifier",
+            "value": "x",
+            "varType": "Int",
+          },
+        ],
+        "type": "relation",
+      },
+      "variables": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Int",
+        },
+      ],
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [
+    Object {
+      "name": "dragon",
+      "numParam": 1,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Int",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test greater than 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "greater_than",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test greater than equal 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "greater_than_eq",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test less than 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "less_than",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test less than equal 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "less_than_eq",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test minus 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "minus",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test multiply 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "multiply",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test params 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "human",
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+        Object {
+          "type": "identifier",
+          "value": "y",
+          "varType": "Bool",
+        },
+        Object {
+          "type": "identifier",
+          "value": "z",
+          "varType": "Bool",
+        },
+      ],
+      "type": "relation",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "x",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "y",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "z",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [
+    Object {
+      "name": "human",
+      "numParam": 3,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+        Object {
+          "type": "identifier",
+          "value": "y",
+          "varType": "Bool",
+        },
+        Object {
+          "type": "identifier",
+          "value": "z",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test plus 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "plus",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test power 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "integer",
+        "value": 2,
+      },
+      "rhs": Object {
+        "type": "integer",
+        "value": 3,
+      },
+      "symbol": "power",
+      "type": "binary_numerical",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test relations 1 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "dragon",
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+      "type": "relation",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "x",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [
+    Object {
+      "name": "dragon",
+      "numParam": 1,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "x",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test relations for person 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "name": "person",
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "Frank",
+          "varType": "Bool",
+        },
+      ],
+      "type": "relation",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "Frank",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [
+    Object {
+      "name": "person",
+      "numParam": 1,
+      "params": Array [
+        Object {
+          "type": "identifier",
+          "value": "Frank",
+          "varType": "Bool",
+        },
+      ],
+    },
+  ],
+  "types": Array [],
+}
+`;
