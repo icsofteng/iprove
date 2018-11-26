@@ -29,14 +29,24 @@ class iProveVisitor extends ParseTreeVisitor {
 
   // Relations and functions
   visitRelationExp(ctx) {
-    const name = ctx.IDENTIFIER().toString()
+    const rel_name = ctx.IDENTIFIER().toString()
     const params = ctx.ident().map(param => this.visit(param))
     const existing_function = this.functions.find(({ name: func_name }) => name === func_name)
-    const existing_rel = this.relations.find(({ name: rel_name }) => name === rel_name)
+    const existing_rel = this.relations.find(({ name }) => name === rel_name)
     if (!existing_rel && !existing_function) {
       this.relations.push({name, numParam: params.length, params})
+    } else {
+      // it exist in the relations now check the params
+      //same length of params but now need to check if the orders are the same
+      for (let i = 0; i < params.length; i++) {
+        if (params[i] != existing_rel.params[i]) {
+          // check if each of those params match if not its a new relations
+          newRelations = true
+        }
+        // different length params means different relations
+      }
     }
-    return { type: 'relation', name, params }
+    return { type: 'relation', name:rel_name, params }
   }
   visitRelationDefExp(ctx) {
     const identifiers = ctx.IDENTIFIER()
