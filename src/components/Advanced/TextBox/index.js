@@ -156,14 +156,14 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index, offset, z3, type } = this.props
+    const { ast, index, offset, z3, type, parentCase } = this.props
     const isCorrect = (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'arbitrary' || ast.type === 'exit' || ast.type === 'case'
     return (
       <div className={cx(styles.step, {
         [styles.correct]: isCorrect,
         [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat' && !isCorrect
       })}>
-        { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
+        { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1} { parentCase && ast.type === 'assume' && "[Case " + parentCase + "]" }</div> }
         {
           this.state.edit ?
           <div className={styles.textboxContainer}>
