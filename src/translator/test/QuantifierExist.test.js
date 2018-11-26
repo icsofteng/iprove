@@ -27,9 +27,9 @@ const test_rules = [
 ]
 
 test('Quantifier Exist test', () => {
-  expect(translate(test_rules, test_constants, [], [])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [], [], [])).toMatchSnapshot()
 })
 
 test('Qualifier Exist test latex', () => {
-  expect(translate_latex(test_rules, test_constants, [], [])).toMatchSnapshot()
+  expect(translate_latex(test_rules, test_constants, [], [], [])).toMatchSnapshot()
 })

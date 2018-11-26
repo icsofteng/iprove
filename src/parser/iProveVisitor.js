@@ -31,7 +31,9 @@ class iProveVisitor extends ParseTreeVisitor {
   visitRelationExp(ctx) {
     const name = ctx.IDENTIFIER().toString()
     const params = ctx.ident().map(param => this.visit(param))
-    if (this.relations.indexOf(name) === -1) {
+    const existing_function = this.functions.find(({ name: func_name }) => name === func_name)
+    const existing_rel = this.relations.find(({ name: rel_name }) => name === rel_name)
+    if (!existing_rel && !existing_function) {
       this.relations.push({name, numParam: params.length, params})
     }
     return { type: 'relation', name, params }

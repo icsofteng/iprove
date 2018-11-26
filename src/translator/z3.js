@@ -10,6 +10,17 @@ const declare_identifiers = (identifiers, file_contents) => {
   return file_contents
 }
 
+const declare_functions = (functions, file_contents) => {
+  functions.forEach(func => {
+    file_contents += '(declare-fun ' + func.name + ' ('
+    func.params.forEach(p => {
+      file_contents += '(' + p + ')'
+    })
+    file_contents += ') '+func.rType+')\n'
+  })
+  return file_contents
+}
+
 const declare_relations = (relations, file_contents) => {
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
@@ -31,9 +42,6 @@ const declare_types = (types, file_contents) => {
 const translate_assumptions = (assumptions, file_contents) => {
   assumptions.forEach(element => {
     if (element) {
-      if (element.type === 'funcDef') {
-        file_contents += translate_func_declaration(element)
-      }
       if (element.type !== 'identifier' || (element.type === 'identifier' && element.varType === "Bool")) {
         const translation = translate_rule(element)
         if (translation) {
@@ -42,15 +50,6 @@ const translate_assumptions = (assumptions, file_contents) => {
       }
     }
   })
-  return file_contents
-}
-
-const translate_func_declaration = (func) => {
-  let file_contents = '(declare-fun ' + func.name + ' ('
-  func.params.forEach(type => {
-    file_contents += type.value + ' '
-  })
-  file_contents += ') ' + func.returnType.value + ')\n'
   return file_contents
 }
 
@@ -156,12 +155,13 @@ const translate_not_rule = (rule) => '(not '+ translate_rule(rule.value) + ')'
 const translate_assume = (rule) => translate_rule(rule.value)
 const translate_identifier = (rule) => rule.value
 
-const translate = (rules, identifiers, relations, types) => {
+const translate = (rules, identifiers, relations, types, functions) => {
   let file_contents = ""
   const length = rules.length
   const goal = rules.slice(length - 1)[0]
   const assumptions = rules.slice(0, length - 1)
   file_contents = declare_types(types, file_contents)
+  file_contents = declare_functions(functions, file_contents)
   file_contents = declare_relations(relations, file_contents)
   file_contents = declare_identifiers(identifiers, file_contents)
   file_contents = translate_assumptions(assumptions, file_contents)
@@ -169,8 +169,8 @@ const translate = (rules, identifiers, relations, types) => {
   return file_contents
 }
 
-const translate_and_save = (rules, identifiers, relations, types) => {
-  const file_contents = translate(rules, identifiers, relations, types)
+const translate_and_save = (rules, identifiers, relations, types, functions) => {
+  const file_contents = translate(rules, identifiers, relations, types, functions)
   const proof_file_name = random_file_name()
   fs.writeFileSync(proof_file_name, file_contents)
   return proof_file_name

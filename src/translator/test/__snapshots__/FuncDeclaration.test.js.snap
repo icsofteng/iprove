@@ -5,7 +5,6 @@ exports[`FuncDef test latex 1`] = `"define \\\\ friends(Person, Person): Bool"`;
 exports[`func Def Dragon test 1`] = `
 "(declare-sort Dragon)
 (declare-const P Bool)
-(declare-fun Power (Dragon Dragon ) Int)
 (assert (not P))
 (check-sat)"
 `;
@@ -15,7 +14,6 @@ exports[`func Def Happy test 1`] = `
 (declare-sort Dragon)
 (declare-sort Human)
 (declare-const P Bool)
-(declare-fun Happy (Dragon Human ) Reward)
 (assert (not P))
 (check-sat)"
 `;
@@ -23,7 +21,6 @@ exports[`func Def Happy test 1`] = `
 exports[`func Def test 1`] = `
 "(declare-sort Person)
 (declare-const P Bool)
-(declare-fun friends (Person Person ) Bool)
 (assert (not P))
 (check-sat)"
 `;

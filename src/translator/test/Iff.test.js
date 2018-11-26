@@ -22,9 +22,9 @@ const test_rules = [
 ]
 
 test('Iff test', () => {
-  expect(translate(test_rules, test_constants, [], [])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [], [], [])).toMatchSnapshot()
 })
 
 test('Iff test latex', () => {
-  expect(translate_latex(test_rules,test_constants, [], [])).toMatchSnapshot()
+  expect(translate_latex(test_rules,test_constants, [], [], [])).toMatchSnapshot()
 })

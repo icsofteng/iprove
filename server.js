@@ -17,8 +17,8 @@ app.use(express.static(__dirname + '/public'))
 
 app.post('/z3', (req, res) => {
   const binary_file = process.platform === 'darwin' ? './z3-osx' : './z3'
-  const { steps, identifiers, relations, types } = req.body
-  const file = translate_z3(steps, identifiers, relations, types)
+  const { steps, identifiers, relations, types, functions } = req.body
+  const file = translate_z3(steps, identifiers, relations, types, functions)
 
   exec(`${binary_file} ${file}`, (err, stdout) => {
     fs.unlink(file, () => res.send(stdout))

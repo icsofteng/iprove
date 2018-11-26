@@ -73,10 +73,10 @@ const test_rules = [
   }]
 
 test('Nested 2 test', () => {
-  expect(translate(test_rules, test_constants, [], [])).toMatchSnapshot()
+  expect(translate(test_rules, test_constants, [], [], [])).toMatchSnapshot()
 })
 
 
 test('Nested 2 test latex', () => {
-  expect(translate_latex(test_rules, test_constants, [], [])).toMatchSnapshot()
+  expect(translate_latex(test_rules, test_constants, [], [], [])).toMatchSnapshot()
 })
