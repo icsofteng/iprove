@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Menu, Menubar, MenuItem, Divider } from "react-desktop-menus"
-import { MdInsertDriveFile, MdFolder, MdSave, MdPrint, MdInput, MdHelp, MdUndo, MdRedo, MdSync, MdRefresh } from 'react-icons/md'
+import { MdInsertDriveFile, MdFolder, MdSave, MdPrint, MdInput, MdHelp, MdUndo, MdRedo, MdSync, MdRefresh, MdAdd, MdLabel } from 'react-icons/md'
 
 export default class Toolbar extends Component {
   dispatch = (fn) => () => {
@@ -18,6 +18,8 @@ export default class Toolbar extends Component {
           <Divider />
           <MenuItem action={ action } icon={ <MdSave /> } label="Save"/>
           <MenuItem action={this.dispatch(this.props.onSave)} label="Save As..."/>
+          <Divider />
+          <MenuItem action={this.dispatch(this.props.onLemma)} icon={ <MdLabel />} label="Lemmas" />
           <Divider />
           <MenuItem action={ action } icon={ <MdPrint /> } label="Print"/>
           <MenuItem action={ action } icon={ <MdInput /> } label="Export">

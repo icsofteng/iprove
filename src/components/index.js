@@ -11,6 +11,7 @@ import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
 import styles from './styles.scss'
+import ModalLemmas from './Shared/ModalLemmas';
 
 class IProve extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class IProve extends Component {
       goalAchieved: [],
       z3: [],
       simple: false,
-      selectedTextBox: ["givens", 0]
+      selectedTextBox: ["givens", 0],
+      viewLemmas: false
     }
   }
 
@@ -214,6 +216,8 @@ class IProve extends Component {
     }
   }
 
+
+
   render() {
     return (
       <div className={styles.iprove}>
@@ -227,6 +231,7 @@ class IProve extends Component {
           onClear={this.props.clear}
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
+          onLemma={this.setState(state => ({ viewLemmas: true }))}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
@@ -268,6 +273,7 @@ class IProve extends Component {
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }
         </div>
+        { this.state.viewLemmas ? <ModalLemmas onCancel={()=>this.openViewFeedback()} /> : '' }
       </div>
     )
   }
