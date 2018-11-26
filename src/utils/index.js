@@ -66,6 +66,35 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
     }
   }
 
+  // Special case: we can take any expression concluded in all cases
+  const findCase = dependencies.filter(d => calculate_dependency_offset(allSteps, d, givens).ast.type === 'case')
+  if (findCase.length === 1) {
+    const depsClone = dependencies.slice(0)
+    depsClone.splice(depsClone.indexOf(findCase[0]), 1)
+    const findAssumes = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens).ast.type === 'assume')
+    const validateAssumes = findAssumes.map(assumeStepNumber => {
+      let assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens)
+      depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
+      // The conclusion step must be in the same scope as the assume
+      let findConclusion = depsClone.filter(d => _.isEqual(calculate_dependency_offset(allSteps, d, givens).scope, assumeStep.scope))
+      if (findConclusion.length === 1) {
+        depsClone.splice(depsClone.indexOf(findConclusion[0]), 1)
+        let conclusionStep = calculate_dependency_offset(allSteps, findConclusion[0], givens)
+        // The conclusion step must match this step
+        return equal_ast(conclusionStep.ast, step.ast)
+      }
+      return false
+    })
+    if (validateAssumes.every(Boolean)) {
+      // We should have one rule left which is an OR
+      let remainingRule = calculate_dependency_offset(allSteps, depsClone[0], givens)
+      if (depsClone.length === 1 && remainingRule.ast.type === 'binary' && remainingRule.ast.symbol === 'or') {
+        valid_deps = dependencies.map(d => calculate_dependency_offset(allSteps, d, givens).ast)
+      }
+      // TODO: the assumptions must imply the OR rule which is one of the dependencies
+    }
+  }
+
   return valid_deps
 }
 
