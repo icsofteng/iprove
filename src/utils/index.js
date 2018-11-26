@@ -36,6 +36,16 @@ const dependency_in_scope = (step, dependencyStep) =>
 const calculate_dependency_offset = (steps, dependency, givens) =>
   (dependency <= givens.length) ? givens[dependency-1] : steps[dependency-givens.length-1]
 
+const extract_out_ors = (ast) => {
+  if (ast.type === 'paren') {
+    return [extract_out_ors(ast.value)]
+  }
+  else if (ast.type === 'binary' && ast.symbol === 'or') {
+    return extract_out_ors(ast.lhs).concat(extract_out_ors(ast.rhs))
+  }
+  return [ast]
+}
+
 const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
   // Normal case: loop through each dependecy individually
   let valid_deps = dependencies.map(d => {
@@ -89,9 +99,16 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
       // We should have one rule left which is an OR
       let remainingRule = calculate_dependency_offset(allSteps, depsClone[0], givens)
       if (depsClone.length === 1 && remainingRule.ast.type === 'binary' && remainingRule.ast.symbol === 'or') {
-        valid_deps = dependencies.map(d => calculate_dependency_offset(allSteps, d, givens).ast)
+        const listOfAssumptions = extract_out_ors(remainingRule.ast)
+        const orContainsAllAssumes = findAssumes.map(assumeStepNumber => {
+          let assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens)
+          let assumeAst = assumeStep.ast.value
+          return listOfAssumptions.filter(assump => _.isEqual(assumeAst, assump)).length === 1
+        })
+        if (orContainsAllAssumes.every(Boolean) && findAssumes.length === listOfAssumptions.length) {
+          valid_deps = dependencies.map(d => calculate_dependency_offset(allSteps, d, givens).ast)
+        }
       }
-      // TODO: the assumptions must imply the OR rule which is one of the dependencies
     }
   }
 
