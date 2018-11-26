@@ -16,7 +16,8 @@ const parse = (input, identifiers_existing = [], relations_existing = [], functi
   const relations = visitor.getRelations()
   const types = visitor.getTypes()
   const functions = visitor.getFunctions()
-  return { ast, identifiers, relations, types, functions }
+  const errors = visitor.getErrors()
+  return { ast, identifiers, relations, types, functions, errors }
 }
 
 exports.parse = parse

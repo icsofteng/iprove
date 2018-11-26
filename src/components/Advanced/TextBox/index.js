@@ -11,7 +11,6 @@ import {
   ADD_IDENTIFIERS,
   ADD_RELATIONS,
   SET_STEP_DEPENDENCY,
-  ADD_ATOMS,
   SET_SCOPE,
   ADD_TYPES,
   ADD_FUNCTIONS
@@ -26,7 +25,8 @@ class TextBox extends Component {
       raw: (props.ast && translate_raw(props.ast)) || '',
       edit: Object.keys(props.ast).filter(k => props.ast[k]).length <= 1,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
-      focusDependencies: false
+      focusDependencies: false,
+      semanticErrors: false
     }
     this.ref = null
     this.refDef = null
@@ -82,7 +82,8 @@ class TextBox extends Component {
              '&functions='+ JSON.stringify(this.props.functions)
         ).then(r => r.json()).then(response => {
           const newPath = [this.props.type, this.props.index]
-          const { ast, identifiers, relations, types, functions } = response
+          const { ast, identifiers, relations, types, functions, errors } = response
+          this.setState({semanticErrors:errors})
           if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
@@ -167,7 +168,7 @@ class TextBox extends Component {
     return (
       <div className={cx(styles.step, {
         [styles.correct]: isCorrect,
-        [styles.error]: this.state.raw !== '' && type !== 'givens' && z3 !== 'unsat' && !isCorrect
+        [styles.error]: this.state.raw !== '' && (type !== 'givens' || (type === 'givens' && this.state.semanticErrors)) && z3 !== 'unsat' && !isCorrect
       })}>
         { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1} { parentCase && ast.type === 'assume' && "[Case " + parentCase + "]" }</div> }
         {

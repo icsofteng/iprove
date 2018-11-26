@@ -17,6 +17,7 @@ class iProveVisitor extends ParseTreeVisitor {
     this.functions = functions
     this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
     this.variables_quantifiers = []
+    this.errors = false
   }
 
   // Recursive definitions
@@ -31,23 +32,17 @@ class iProveVisitor extends ParseTreeVisitor {
   visitRelationExp(ctx) {
     const rel_name = ctx.IDENTIFIER().toString()
     const params = ctx.ident().map(param => this.visit(param))
-    const existing_function = this.functions.find(({ name: func_name }) => name === func_name)
+    const existing_func = this.functions.find(({ name }) => name === rel_name)
     const existing_rel = this.relations.find(({ name }) => name === rel_name)
-    if (!existing_rel && !existing_function) {
+    if (!existing_rel && !existing_func) {
       this.relations.push({name: rel_name, numParam: params.length, params})
     } else {
-      // it exist in the relations now check the params
-      // or it exist in functions
       if (params.length == existing_rel.params.length) {
-        //same length of params but now need to check if the orders are the same
         for (let i = 0; i < params.length; i++) {
-          // check if each of those params match if not its a new relations
-          if (params[i] != existing_rel.params[i]) {
-            // if its not the same this is not the same relations 
-            
+          if (params[i].varType != existing_rel.params[i].varType) {
+            this.errors = true
           }
         }
-        // different length params means different relations
       }
     }
     return { type: 'relation', name:rel_name, params }
@@ -251,6 +246,9 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   getFunctions() {
     return this.functions
+  }
+  getErrors() {
+    return this.errors
   }
 
 }
