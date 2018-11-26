@@ -48,17 +48,19 @@ const extract_out_ors = (ast) => {
 
 const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
   // Normal case: loop through each dependecy individually
-  let valid_deps = dependencies.map(d => {
+  let valid_deps = dependencies.filter(Boolean).map(d => {
     const dependencyStep = calculate_dependency_offset(allSteps, d, givens)
-    if (d <= givens.length) {
-      return (dependencyStep && dependencyStep.ast) || null
-    }
-    else {
-      if (dependency_in_scope(step, dependencyStep)) {
+    if (dependencyStep) {
+      if (d <= givens.length) {
         return (dependencyStep && dependencyStep.ast) || null
       }
-      return null
+      else {
+        if (dependency_in_scope(step, dependencyStep)) {
+          return (dependencyStep && dependencyStep.ast) || null
+        }
+      }
     }
+    return null
   })
 
   // Special case: we can take an 'implies' out of an assume scope

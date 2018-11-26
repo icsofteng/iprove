@@ -183,10 +183,26 @@ class IProve extends Component {
     for (let i = 0; i < this.props.steps.length; i++) {
       let dependencies = this.props.steps[i].dependencies
       let dependenciesNeedUpdating = false
-      for (let j = 0; j < this.props.steps[i].dependencies.length; j++) {
-        if (this.props.steps[i].dependencies[j] > index + 1) {
-          dependencies[j] += increment
-          dependenciesNeedUpdating = true
+      for (let j = 0; j < dependencies.length; j++) {
+        if (isNaN(dependencies[j])) {
+          let parts = dependencies[j].split("..")
+          if (parts[0] > index + 1) {
+            parts[0] = parseInt(parts[0]) + increment
+            dependenciesNeedUpdating = true
+          }
+          if (parts[1] > index + 1) {
+            parts[1] = parseInt(parts[1]) + increment
+            dependenciesNeedUpdating = true
+          }
+          if (dependenciesNeedUpdating) {
+            dependencies[j] = parts[0] + ".." + parts[1]
+          }
+        }
+        else {
+          if (dependencies[j] > index + 1) {
+            dependencies[j] = parseInt(dependencies[j]) + increment
+            dependenciesNeedUpdating = true
+          }
         }
       }
       if (dependenciesNeedUpdating) {

@@ -198,7 +198,7 @@ class TextBox extends Component {
                 onKeyDown={(event)=>this.keyDown(event)}
                 onFocus={()=>{ this.props.onFocus(); this.setState({ focusDependencies: true })}}
                 onBlur={(event)=>{
-                  // this.props.onBlur()
+                  this.props.onBlur()
                   this.setState({ focusDependencies: false })
                   this.props.setDependency(event.target.value.split(/[\s,]+/), [this.props.type, index, "dependencies"])
                 }}
