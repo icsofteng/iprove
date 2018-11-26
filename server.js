@@ -26,7 +26,7 @@ app.post('/z3', (req, res) => {
 })
 
 app.get('/parse', (req, res) => {
-  res.send(parse(decodeURIComponent(req.query.input)))
+  res.send(parse(decodeURIComponent(req.query.input), JSON.parse(req.query.identifiers)))
 })
 
 app.post('/pdf', (req, res) => {

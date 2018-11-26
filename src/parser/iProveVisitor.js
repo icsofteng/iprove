@@ -9,9 +9,9 @@ _.mixin({
 })
 
 class iProveVisitor extends ParseTreeVisitor {
-  constructor() {
+  constructor(identifiers) {
     super()
-    this.identifiers = []
+    this.identifiers = identifiers
     this.relations = []
     this.types = []
     this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
@@ -64,11 +64,13 @@ class iProveVisitor extends ParseTreeVisitor {
     }
     else {
       const findPrevDefinedVariable = this.variables_quantifiers.find(({ value }) => value === lit)
-      varType = findPrevDefinedVariable ? findPrevDefinedVariable.varType : "Bool"
-    }
-    if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
-      this.identifiers.push({ value: lit, varType })
-      this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
+      varType = findPrevDefinedVariable? findPrevDefinedVariable.varType :"Bool"
+      if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
+        const findPrevDefinedConst = this.identifiers.find(({ value }) => value === lit)
+        varType = findPrevDefinedConst? findPrevDefinedConst.varType :"Bool"
+        this.identifiers.push({ value: lit, varType })
+        this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
+      }
     }
     return { type: 'identifier', value: lit , varType}
   }

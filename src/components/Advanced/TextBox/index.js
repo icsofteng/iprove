@@ -75,7 +75,7 @@ class TextBox extends Component {
   parseInput(statement) {
     return new Promise((resolve, reject) => {
       if (statement !== '') {
-        fetch('/parse?input=' + encodeURIComponent(statement)).then(r => r.json()).then(response => {
+        fetch('/parse?input=' + encodeURIComponent(statement) + '&identifiers='+ JSON.stringify(this.props.identifiers)).then(r => r.json()).then(response => {
           const newPath = [this.props.type, this.props.index]
           const { ast, identifiers, relations, types } = response
           if (ast[0].type === 'exit') {
@@ -221,4 +221,4 @@ const mapDispatchToProps = dispatch => ({
   setScope: (scope, path, removeLine) => dispatch({ type: SET_SCOPE, payload: scope, path, removeLine })
 })
 
-export default connect(state => ({ givens: state.present.givens }), mapDispatchToProps)(TextBox)
+export default connect(state => ({ givens: state.present.givens, identifiers:state.present.identifiers }), mapDispatchToProps)(TextBox)

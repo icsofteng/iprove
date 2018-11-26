@@ -3,12 +3,12 @@ const { iProveLexer } = require('./iProveLexer')
 const { iProveParser } = require('./iProveParser')
 const { iProveVisitor } = require('./iProveVisitor')
 
-const parse = (input) => {
+const parse = (input, identifiers_existing = []) => {
   const chars = new InputStream(input)
   const lexer = new iProveLexer(chars)
   const tokens  = new CommonTokenStream(lexer)
   const parser = new iProveParser(tokens)
-  const visitor = new iProveVisitor()
+  const visitor = new iProveVisitor(identifiers_existing)
   parser.buildParseTrees = true
   const tree = parser.statement()
   const ast = visitor.visitStatement(tree)
