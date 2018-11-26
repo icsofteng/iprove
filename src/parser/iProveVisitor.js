@@ -34,14 +34,18 @@ class iProveVisitor extends ParseTreeVisitor {
     const existing_function = this.functions.find(({ name: func_name }) => name === func_name)
     const existing_rel = this.relations.find(({ name }) => name === rel_name)
     if (!existing_rel && !existing_function) {
-      this.relations.push({name, numParam: params.length, params})
+      this.relations.push({name: rel_name, numParam: params.length, params})
     } else {
       // it exist in the relations now check the params
-      //same length of params but now need to check if the orders are the same
-      for (let i = 0; i < params.length; i++) {
-        if (params[i] != existing_rel.params[i]) {
+      // or it exist in functions
+      if (params.length == existing_rel.params.length) {
+        //same length of params but now need to check if the orders are the same
+        for (let i = 0; i < params.length; i++) {
           // check if each of those params match if not its a new relations
-          newRelations = true
+          if (params[i] != existing_rel.params[i]) {
+            // if its not the same this is not the same relations 
+            
+          }
         }
         // different length params means different relations
       }
