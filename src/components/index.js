@@ -34,8 +34,8 @@ class IProve extends Component {
     })
   }
 
-  updateStateZ3(steps, identifiers, relations, types, i) {
-    const promise = this.callZ3(steps, identifiers, relations, types, i)
+  updateStateZ3(steps, identifiers, relations, types, functions, i) {
+    const promise = this.callZ3(steps, identifiers, relations, types, functions, i)
     return promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.state.z3
@@ -54,11 +54,11 @@ class IProve extends Component {
 
   }
 
-  callZ3(steps, identifiers, relations, types, i) {
+  callZ3(steps, identifiers, relations, types, functions, i) {
     return fetch('/z3', {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify({steps, identifiers, relations, types})
+      body: JSON.stringify({steps, identifiers, relations, types, functions })
     }).then(r => r.text())
   }
 
@@ -87,7 +87,7 @@ class IProve extends Component {
   }
 
   getRequiredSteps() {
-    const { identifiers, relations, steps, givens, types } = this.props
+    const { identifiers, relations, steps, givens, types, functions } = this.props
     this.setState({ goalAchieved: [] })
     const promises = steps.map((step, i) => {
       if (step.ast.type) {
@@ -106,7 +106,7 @@ class IProve extends Component {
         })
         let requiredSteps = validate_step_dependencies(step, dependenciesNoRanges, givens, steps)
         requiredSteps.push(step.ast)
-        return this.updateStateZ3(requiredSteps, identifiers, relations, types, i)
+        return this.updateStateZ3(requiredSteps, identifiers, relations, types, functions, i)
       }
       return Promise.resolve()
     })
@@ -171,11 +171,11 @@ class IProve extends Component {
   }
   
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
-    const { identifiers, relations, steps, givens, types } = this.props
+    const { identifiers, relations, steps, givens, types, functions } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
     let requiredSteps = validate_step_dependencies(step, rem_deps, givens, steps)
     requiredSteps.push(step.ast)
-    const promise = this.callZ3(requiredSteps, identifiers, relations, step.i, types)
+    const promise = this.callZ3(requiredSteps, identifiers, relations, types, functions, step.i)
     return promise
   }
 

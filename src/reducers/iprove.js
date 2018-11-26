@@ -10,6 +10,7 @@ import {
   ADD_IDENTIFIERS,
   ADD_ATOMS,
   ADD_RELATIONS,
+  ADD_FUNCTIONS,
   ADD_STEP_DEPENDENCY,
   REMOVE_STEP_DEPENDENCY,
   UPDATE_STEP_DEPENDENCY,
@@ -28,6 +29,7 @@ const initialState = {
   goal: [{ ast: {} }],
   identifiers: [],
   relations: [],
+  functions: [],
   types: []
 }
 
@@ -90,6 +92,11 @@ const reducer = (state = initialState, action) => {
       case ADD_RELATIONS:
         const newRelations = newState.relations.concat(action.payload)
         newState.relations = _.uniq(newRelations, false, _.iteratee('name'))
+        return newState
+
+      case ADD_FUNCTIONS:
+        const newFunctions = newState.functions.concat(action.payload)
+        newState.functions = _.uniq(newFunctions, false, _.iteratee('name'))
         return newState
 
       case ADD_TYPES:

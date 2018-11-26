@@ -13,7 +13,8 @@ import {
   SET_STEP_DEPENDENCY,
   ADD_ATOMS,
   SET_SCOPE,
-  ADD_TYPES
+  ADD_TYPES,
+  ADD_FUNCTIONS
 } from '../../../constants'
 
 import styles from './styles.scss'
@@ -75,9 +76,13 @@ class TextBox extends Component {
   parseInput(statement) {
     return new Promise((resolve, reject) => {
       if (statement !== '') {
-        fetch('/parse?input=' + encodeURIComponent(statement) + '&identifiers='+ JSON.stringify(this.props.identifiers)).then(r => r.json()).then(response => {
+        fetch('/parse?input=' + encodeURIComponent(statement) +
+             '&identifiers='+ JSON.stringify(this.props.identifiers) +
+             '&relations='+ JSON.stringify(this.props.relations) +
+             '&functions='+ JSON.stringify(this.props.functions)
+        ).then(r => r.json()).then(response => {
           const newPath = [this.props.type, this.props.index]
-          const { ast, identifiers, relations, types } = response
+          const { ast, identifiers, relations, types, functions } = response
           if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
@@ -85,6 +90,7 @@ class TextBox extends Component {
             this.props.addIdentifiers(identifiers)
             this.props.addRelations(relations)
             this.props.addTypes(types)
+            this.props.addFunctions(functions)
             this.props.updateRule(ast[0], [...newPath, "ast"])
             if (ast[0].type === 'assume') {
               this.props.setScope([...this.props.scope, this.props.index], newPath, false)
@@ -216,9 +222,14 @@ const mapDispatchToProps = dispatch => ({
   addIdentifiers: (values) => dispatch({ type: ADD_IDENTIFIERS, payload: values, path: [] }),
   addRelations: (values) => dispatch({ type: ADD_RELATIONS, payload: values, path: [] }),
   addTypes: (values) => dispatch({ type: ADD_TYPES, payload: values, path: [] }),
-  addAtoms: (values) => dispatch({ type: ADD_ATOMS, payload: values, path: [] }),
+  addFunctions: (values) => dispatch({ type: ADD_FUNCTIONS, payload: values, path: [] }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   setScope: (scope, path, removeLine) => dispatch({ type: SET_SCOPE, payload: scope, path, removeLine })
 })
 
-export default connect(state => ({ givens: state.present.givens, identifiers:state.present.identifiers }), mapDispatchToProps)(TextBox)
+const mapStateToProps = state => {
+  const { givens, identifiers, relations, functions } = state.present
+  return { givens, identifiers, relations, functions }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextBox)

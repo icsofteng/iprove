@@ -9,11 +9,12 @@ _.mixin({
 })
 
 class iProveVisitor extends ParseTreeVisitor {
-  constructor(identifiers) {
+  constructor(identifiers, relations, functions) {
     super()
     this.identifiers = identifiers
-    this.relations = []
+    this.relations = relations
     this.types = []
+    this.functions = functions
     this.base_types = ['Int', 'Bool', 'Real', 'BitVec 4', 'Array', 'Set', 'Pair']
     this.variables_quantifiers = []
   }
@@ -49,8 +50,11 @@ class iProveVisitor extends ParseTreeVisitor {
         this.types.push(para.value)
       }
      return para
-    }) || []
-
+    })
+    const findPrevDefinedFunction = this.functions.find(({ name: func_name }) => func_name === name)
+    if (!findPrevDefinedFunction) {
+      this.functions.push({ name, params: params.map(p => p.value), rType })
+    }
     return { type: 'funcDef', name, params, returnType: {type: 'type', value: rType} }
   }
   visitIdentRule(ctx) {
@@ -68,9 +72,11 @@ class iProveVisitor extends ParseTreeVisitor {
       if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
         const findPrevDefinedConst = this.identifiers.find(({ value }) => value === lit)
         varType = findPrevDefinedConst? findPrevDefinedConst.varType :"Bool"
-        this.identifiers.push({ value: lit, varType })
-        this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
       }
+    }
+    if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
+      this.identifiers.push({ value: lit, varType })
+      this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
     }
     return { type: 'identifier', value: lit , varType}
   }
@@ -226,6 +232,9 @@ class iProveVisitor extends ParseTreeVisitor {
   }
   getTypes() {
     return this.types
+  }
+  getFunctions() {
+    return this.functions
   }
 
 }
