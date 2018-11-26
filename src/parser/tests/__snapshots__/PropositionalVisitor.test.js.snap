@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visitor Integrated Test 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "paren",
+        "value": Object {
+          "lhs": Object {
+            "type": "identifier",
+            "value": "P",
+            "varType": "Bool",
+          },
+          "rhs": Object {
+            "type": "identifier",
+            "value": "Q",
+            "varType": "Bool",
+          },
+          "symbol": "and",
+          "type": "binary",
+        },
+      },
+      "rhs": Object {
+        "type": "paren",
+        "value": Object {
+          "lhs": Object {
+            "symbol": "not",
+            "type": "unary",
+            "value": Object {
+              "type": "identifier",
+              "value": "X",
+              "varType": "Bool",
+            },
+          },
+          "rhs": Object {
+            "type": "identifier",
+            "value": "Y",
+            "varType": "Bool",
+          },
+          "symbol": "or",
+          "type": "binary",
+        },
+      },
+      "symbol": "implies",
+      "type": "binary",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Q",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "X",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Y",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test and 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "identifier",
+        "value": "P",
+        "varType": "Bool",
+      },
+      "rhs": Object {
+        "type": "identifier",
+        "value": "Q",
+        "varType": "Bool",
+      },
+      "symbol": "and",
+      "type": "binary",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Q",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test iff 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "identifier",
+        "value": "P",
+        "varType": "Bool",
+      },
+      "rhs": Object {
+        "type": "identifier",
+        "value": "Q",
+        "varType": "Bool",
+      },
+      "symbol": "iff",
+      "type": "binary",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Q",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test implies 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "identifier",
+        "value": "P",
+        "varType": "Bool",
+      },
+      "rhs": Object {
+        "type": "identifier",
+        "value": "Q",
+        "varType": "Bool",
+      },
+      "symbol": "implies",
+      "type": "binary",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Q",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test literals 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "type": "identifier",
+      "value": "P",
+      "varType": "Bool",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test literals 2`] = `
+Object {
+  "ast": Array [
+    Object {
+      "type": "true",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test literals 3`] = `
+Object {
+  "ast": Array [
+    Object {
+      "type": "false",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test not 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "symbol": "not",
+      "type": "unary",
+      "value": Object {
+        "type": "identifier",
+        "value": "P",
+        "varType": "Bool",
+      },
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
+
+exports[`Visitor Test or 1`] = `
+Object {
+  "ast": Array [
+    Object {
+      "lhs": Object {
+        "type": "identifier",
+        "value": "P",
+        "varType": "Bool",
+      },
+      "rhs": Object {
+        "type": "identifier",
+        "value": "Q",
+        "varType": "Bool",
+      },
+      "symbol": "or",
+      "type": "binary",
+    },
+  ],
+  "errors": false,
+  "functions": Array [],
+  "identifiers": Array [
+    Object {
+      "value": "P",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "Q",
+      "varType": "Bool",
+    },
+  ],
+  "relations": Array [],
+  "types": Array [],
+}
+`;
