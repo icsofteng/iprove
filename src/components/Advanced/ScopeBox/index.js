@@ -22,7 +22,11 @@ class ScopeBox extends Component {
         </div>
         { this.state.expand ?
           <React.Fragment>
-            {this.props.children}
+            {
+              React.Children.map(this.props.children, child =>
+                React.cloneElement(child, { parentCase: this.props.caseNumber })
+              )
+            }
             { this.props.isCase &&
               <div className={styles.newCase} onClick={this.addCaseStep}>
               <i className={styles.addScopeButton}>+</i> Add a new case
