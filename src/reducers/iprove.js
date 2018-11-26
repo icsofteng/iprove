@@ -20,7 +20,6 @@ import {
   CLEAR_PROOF,
   ADD_CASE,
   BEAUTIFY,
-  REFRESH_PROOF,
 } from '../constants'
 
 const initialState = {
@@ -55,9 +54,7 @@ const reducer = (state = initialState, action) => {
         else {
           delete depth[index]
         }
-        return { ...newState,
-          steps: newState.steps.filter(Boolean)
-        }
+        return { ...newState, steps: newState.steps.filter(Boolean) }
 
       case NEW_RULE:
         depth[index] = { type: action.payload,...action.otherArgs }
@@ -143,10 +140,6 @@ const reducer = (state = initialState, action) => {
         newState = { ...newState, steps: [...prevSteps, lastStep]}
         return newState
         
-      case REFRESH_PROOF:
-        newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
-        return newState
-
       default:
         return newState
     }
