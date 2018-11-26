@@ -48,7 +48,8 @@ const extract_out_ors = (ast) => {
 
 const validate_step_dependencies = (step, dependencies, givens, allSteps) => {
   // Normal case: loop through each dependecy individually
-  let valid_deps = dependencies.filter(Boolean).map(d => {
+  dependencies = dependencies.filter(Boolean)
+  let valid_deps = dependencies.map(d => {
     const dependencyStep = calculate_dependency_offset(allSteps, d, givens)
     if (dependencyStep) {
       if (d <= givens.length) {
