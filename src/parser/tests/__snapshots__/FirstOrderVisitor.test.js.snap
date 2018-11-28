@@ -359,7 +359,7 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "x",
+      "value": "z",
       "varType": "Bool",
     },
     Object {
@@ -367,7 +367,7 @@ Object {
       "varType": "Bool",
     },
     Object {
-      "value": "z",
+      "value": "x",
       "varType": "Bool",
     },
   ],
