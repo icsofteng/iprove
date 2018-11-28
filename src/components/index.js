@@ -21,7 +21,7 @@ class IProve extends Component {
       z3: [],
       simple: false,
       selectedTextBox: ["givens", 0],
-      viewLemmas: false
+      viewAddLemmas: false
     }
   }
 
@@ -216,8 +216,8 @@ class IProve extends Component {
     }
   }
 
-  updateViewLemmas = () => {
-    this.setState(state => ({ viewLemmas: !state.viewLemmas }))
+  updateViewAddLemmas = () => {
+    this.setState(state => ({ viewAddLemmas: !state.viewAddLemmas }))
   }
 
 
@@ -225,7 +225,7 @@ class IProve extends Component {
   render() {
     return (
       <div className={styles.iprove}>
-        { this.state.viewLemmas && <ModalLemmas onCancel={()=>this.updateViewLemmas()} z3={this.state.z3} steps={this.props.givens} selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep}/>  }
+        { this.state.viewAddLemmas && <ModalLemmas onCancel={()=>this.updateViewAddLemmas()} z3={this.state.z3}/>  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
@@ -236,7 +236,7 @@ class IProve extends Component {
           onClear={this.props.clear}
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
-          onLemma={() => this.updateViewLemmas()}
+          onAddLemma={() => this.updateViewAddLemmas()}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>

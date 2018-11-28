@@ -81,9 +81,10 @@ const stepToTextBox = (step, id, props) =>
     z3={props.z3[id]}
   />
 
-const TextBoxList = (props) =>
+const TextBoxList = (props) => 
   <div className={styles.steps}>
     { generateTextBoxScopes(props.steps, 0, props) }
   </div>
+
 
 export default TextBoxList

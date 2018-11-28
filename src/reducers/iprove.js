@@ -27,7 +27,6 @@ const initialState = {
   steps: [{ dependencies: [], ast: {}, scope: [] }],
   givens: [{ ast: {} }],
   goal: [{ ast: {} }],
-  lemmas: [{ ast: {} }],
   identifiers: [],
   relations: [],
   functions: [],
