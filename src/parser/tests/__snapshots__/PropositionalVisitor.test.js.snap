@@ -50,11 +50,7 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "P",
-      "varType": "Bool",
-    },
-    Object {
-      "value": "Q",
+      "value": "Y",
       "varType": "Bool",
     },
     Object {
@@ -62,7 +58,11 @@ Object {
       "varType": "Bool",
     },
     Object {
-      "value": "Y",
+      "value": "Q",
+      "varType": "Bool",
+    },
+    Object {
+      "value": "P",
       "varType": "Bool",
     },
   ],
@@ -93,11 +93,11 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "P",
+      "value": "Q",
       "varType": "Bool",
     },
     Object {
-      "value": "Q",
+      "value": "P",
       "varType": "Bool",
     },
   ],
@@ -128,11 +128,11 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "P",
+      "value": "Q",
       "varType": "Bool",
     },
     Object {
-      "value": "Q",
+      "value": "P",
       "varType": "Bool",
     },
   ],
@@ -163,11 +163,11 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "P",
+      "value": "Q",
       "varType": "Bool",
     },
     Object {
-      "value": "Q",
+      "value": "P",
       "varType": "Bool",
     },
   ],
@@ -276,11 +276,11 @@ Object {
   "functions": Array [],
   "identifiers": Array [
     Object {
-      "value": "P",
+      "value": "Q",
       "varType": "Bool",
     },
     Object {
-      "value": "Q",
+      "value": "P",
       "varType": "Bool",
     },
   ],
