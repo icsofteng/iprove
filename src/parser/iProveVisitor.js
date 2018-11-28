@@ -44,6 +44,15 @@ class iProveVisitor extends ParseTreeVisitor {
           }
         }
       }
+
+      // if you havent errored and this use of a relation (with these params) is not in list, add it
+      if (!this.errors) {
+        const existing_use = this.relations.find(({name, ps}) => name === rel_name && params ==ps)
+        if (!existing_use) {
+          this.relations.push({name: rel_name, numParam: params.length, params})
+        }
+        
+      }
     }
     return { type: 'relation', name:rel_name, params }
   }
@@ -89,7 +98,6 @@ class iProveVisitor extends ParseTreeVisitor {
       // push ident to front of list so uniq() can discard older definitions e.g. if type has changed and you are adding new def
       this.identifiers.unshift({ value: lit, varType })
       this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
-      console.log("Identifiers after new addition: ", this.identifiers)
     }
     return { type: 'identifier', value: lit , varType}
   }
