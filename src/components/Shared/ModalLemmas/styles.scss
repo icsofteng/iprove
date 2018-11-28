@@ -5,11 +5,19 @@
   top: 0;
   left: 0;
   background: #0000008c;
+  z-index: 9;
 }
 .panelBox {
-  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: white;
+  width: 1000px;
+  height: 1000px;
+  margin-left: -500px;
+  margin-top: -500px;
   padding: 40px 25px 50px;
-  border-bottom: 1px solid #ccc;
+  z-index: 10;
 }
 .panelTitle {
   font-size: 23px;
