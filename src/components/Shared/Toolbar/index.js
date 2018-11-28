@@ -19,7 +19,12 @@ export default class Toolbar extends Component {
           <MenuItem action={ action } icon={ <MdSave /> } label="Save"/>
           <MenuItem action={this.dispatch(this.props.onSave)} label="Save As..."/>
           <Divider />
-          <MenuItem action={this.dispatch(this.props.onLemma)} icon={ <MdLabel />} label="Lemmas" />
+          <MenuItem action={ action } icon={ <MdLabel />} label="Lemmas" >
+            <Menu>
+              <MenuItem action={this.dispatch(this.props.onAddLemma)} label="Add a lemma"/>
+              <MenuItem action={ action } label="Import lemmas"/>
+            </Menu>
+          </MenuItem>
           <Divider />
           <MenuItem action={ action } icon={ <MdPrint /> } label="Print"/>
           <MenuItem action={ action } icon={ <MdInput /> } label="Export">
