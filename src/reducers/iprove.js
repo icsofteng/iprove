@@ -81,8 +81,12 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case ADD_IDENTIFIERS:
-        const newConstants = newState.identifiers.concat(action.payload)
+        // concat old identifiers onto new ones, uniq then finds new ones first 
+        // and discards old definitions if e.g. type has changed of a declared identifier
+        const newConstants = action.payload.concat(newState.identifiers)
+        console.log(newConstants)
         newState.identifiers = _.uniq(newConstants, false, _.iteratee('value'))
+        console.log("new state idents: ", newState.identifiers)
         return newState
 
       case ADD_ATOMS:

@@ -74,6 +74,7 @@ class TextBox extends Component {
   }
 
   parseInput(statement) {
+    console.log("PARSING!!!!")
     return new Promise((resolve, reject) => {
       if (statement !== '') {
         fetch('/parse?input=' + encodeURIComponent(statement) +
@@ -84,6 +85,8 @@ class TextBox extends Component {
           const newPath = [this.props.type, this.props.index]
           const { ast, identifiers, relations, types, functions, errors } = response
           this.setState({semanticErrors:errors})
+          console.log(identifiers)
+
           if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
