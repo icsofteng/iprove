@@ -11,7 +11,7 @@ import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
 import styles from './styles.scss'
-import ModalLemmas from './Shared/ModalLemmas';
+import ModalAddLemma from './Shared/ModalAddLemma';
 
 class IProve extends Component {
   constructor(props) {
@@ -225,7 +225,7 @@ class IProve extends Component {
   render() {
     return (
       <div className={styles.iprove}>
-        { this.state.viewAddLemmas && <ModalLemmas onCancel={()=>this.updateViewAddLemmas()} z3={this.state.z3}/>  }
+        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} z3={this.state.z3}/>  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
