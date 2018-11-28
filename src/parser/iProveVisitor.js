@@ -86,8 +86,10 @@ class iProveVisitor extends ParseTreeVisitor {
       }
     }
     if (!this.variables_quantifiers.find(({ value }) => value === lit)) {
-      this.identifiers.push({ value: lit, varType })
+      // push ident to front of list so uniq() can discard older definitions e.g. if type has changed and you are adding new def
+      this.identifiers.unshift({ value: lit, varType })
       this.identifiers = _.uniq(this.identifiers, false, _.iteratee('value'))
+      console.log("Identifiers after new addition: ", this.identifiers)
     }
     return { type: 'identifier', value: lit , varType}
   }
