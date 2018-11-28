@@ -216,11 +216,16 @@ class IProve extends Component {
     }
   }
 
+  updateViewLemmas = () => {
+    this.setState(state => ({ viewLemmas: !state.viewLemmas }))
+  }
+
 
 
   render() {
     return (
       <div className={styles.iprove}>
+        { this.state.viewLemmas && <ModalLemmas onCancel={()=>this.updateViewLemmas()} />  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
@@ -231,7 +236,7 @@ class IProve extends Component {
           onClear={this.props.clear}
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
-          onLemma={this.setState(state => ({ viewLemmas: true }))}
+          onLemma={() => this.updateViewLemmas()}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
@@ -273,7 +278,6 @@ class IProve extends Component {
           { this.state.simple && <DragDrop /> }
           { this.state.simple && <Controls /> }
         </div>
-        { this.state.viewLemmas ? <ModalLemmas onCancel={()=>this.openViewFeedback()} /> : '' }
       </div>
     )
   }
