@@ -38,7 +38,6 @@ const reducer = (state = initialState, action) => {
   if (action.path) {
     const [key, ...path] = action.path
     let { depth, index } = scan_state(newState, path, key)
-
     switch (action.type) {
       case LOAD_PROOF:
         newState = {...newState, ...action.payload}
@@ -146,7 +145,7 @@ const reducer = (state = initialState, action) => {
         const lastStep = action.payload
         newState = { ...newState, steps: [...prevSteps, lastStep]}
         return newState
-        
+
       default:
         return newState
     }

@@ -25,7 +25,8 @@ class IProve extends Component {
 
   componentDidMount() {
     document.addEventListener('keypress', (e) => {
-      if (e.code === 'KeyZ' && e.ctrlKey) {
+      if ((e.code === 'KeyZ' && e.ctrlKey) || (e.code === 'KeyZ' && e.metaKey)) {
+        e.preventDefault()
         this.props.undo()
       }
       else if (e.code === 'KeyY' && e.ctrlKey) {
@@ -169,7 +170,7 @@ class IProve extends Component {
       })
     })
   }
-  
+
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
     const { identifiers, relations, steps, givens, types, functions } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)

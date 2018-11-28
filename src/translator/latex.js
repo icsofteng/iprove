@@ -97,6 +97,9 @@ const translate_literal = (rule) => {
   if (rule.varType && rule.varType !== "Bool") {
     return rule.value + ':' + rule.varType
   }
+  if (rule.value == undefined) {
+    rule.value = ' '
+  }
   return rule.value
 }
 const translate_variable = (rule) => rule.value
