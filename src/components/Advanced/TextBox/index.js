@@ -130,7 +130,7 @@ class TextBox extends Component {
           }
         }
         else {
-          if (this.state.focusDependencies || this.props.type === 'givens' || this.props.type === 'lemmas' || new_ast.type === 'assume' || new_ast.type === 'case' || new_ast.type === 'exit') {
+          if (this.state.focusDependencies || this.props.type === 'givens' || new_ast.type === 'assume' || new_ast.type === 'case' || new_ast.type === 'exit') {
             this.setState({ focusDependencies: false })
             this.props.onIncInput(1)
           }
