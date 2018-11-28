@@ -29,7 +29,8 @@ class IProve extends Component {
         e.preventDefault()
         this.props.undo()
       }
-      else if (e.code === 'KeyY' && e.ctrlKey) {
+      else if ((e.code === 'KeyY' && e.ctrlKey) || (e.code === 'KeyY' && e.metaKey)) {
+        e.preventDefault()
         this.props.redo()
       }
     })
