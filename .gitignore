@@ -5,5 +5,5 @@ npm-debug.log
 .vscode/
 .DS_Store
 
-*.proof
-*.lemmas
+/*.proof
+/*.lemmas
