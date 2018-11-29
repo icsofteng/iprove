@@ -22,7 +22,8 @@ export default class Toolbar extends Component {
           <MenuItem action={ action } icon={ <MdLabel />} label="Lemmas" >
             <Menu>
               <MenuItem action={this.dispatch(this.props.onAddLemma)} label="Add a lemma"/>
-              <MenuItem action={this.dispatch(this.props.onImportLemma)} label="Import lemmas"/>
+              <MenuItem action={this.dispatch(this.props.onImportLemmas)} label="Import lemmas"/>
+              <MenuItem action={this.dispatch(this.props.onExportLemmas)} label="Export lemmas"/>
             </Menu>
           </MenuItem>
           <Divider />
