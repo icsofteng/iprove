@@ -34,7 +34,7 @@ class IProve extends Component {
       z3: [],
       simple: false,
       selectedTextBox: ["givens", 0],
-      viewAddLemmas: false
+      expandLemmas: true,
     }
   }
 
@@ -288,30 +288,47 @@ class IProve extends Component {
                       <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
                       :
                       (
-                        <React.Fragment>
-                          <TextBoxList
-                            z3={this.state.z3}
-                            start={0}
-                            steps={this.props.lemmas}
-                            type="lemmas"
-                            selectedTextBox={this.state.selectedTextBox}
-                            setSelected={this.setSelected}
-                            incrementInput={this.incrementInput}
-                            newStepAfter={this.newStepAfter}
-                            removeCurrentStep={this.removeCurrentStep}
-                          />
-                          <TextBoxList
-                            z3={this.state.z3}
-                            start={0}
-                            steps={this.props.givens}
-                            type="givens"
-                            selectedTextBox={this.state.selectedTextBox}
-                            setSelected={this.setSelected}
-                            incrementInput={this.incrementInput}
-                            newStepAfter={this.newStepAfter}
-                            removeCurrentStep={this.removeCurrentStep}
-                          />
-                        </React.Fragment>
+                        <div>
+                          {this.props.lemmas.length !== 0 &&
+                          <div className={styles.lemmasBox}>
+                            <div className={styles.lemmasCollapseExpand} onClick={() => this.setState({ expandLemmas: !this.state.expandLemmas })}>
+                              { this.state.expandLemmas ? "-" : "+" }
+                            </div>
+                            { this.state.expandLemmas ?
+                              <React.Fragment>
+                                <TextBoxList
+                                  z3={this.state.z3}
+                                  start={0}
+                                  steps={this.props.lemmas}
+                                  type="lemmas"
+                                  selectedTextBox={this.state.selectedTextBox}
+                                  setSelected={this.setSelected}
+                                  incrementInput={this.incrementInput}
+                                  newStepAfter={this.newStepAfter}
+                                  removeCurrentStep={this.removeCurrentStep}
+                                />
+                              </React.Fragment>
+                              :
+                              <div className={styles.scopeSummary}>
+                                Lemmas
+                              </div>
+                            }
+                          </div>
+                          }
+                          <React.Fragment>
+                            <TextBoxList
+                              z3={this.state.z3}
+                              start={0}
+                              steps={this.props.givens}
+                              type="givens"
+                              selectedTextBox={this.state.selectedTextBox}
+                              setSelected={this.setSelected}
+                              incrementInput={this.incrementInput}
+                              newStepAfter={this.newStepAfter}
+                              removeCurrentStep={this.removeCurrentStep}
+                            />
+                          </React.Fragment>
+                        </div>
                       )
                   }
                 </div>
