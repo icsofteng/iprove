@@ -235,7 +235,7 @@ class IProve extends Component {
   render() {
     return (
       <div className={styles.iprove}>
-        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} z3={this.state.z3}/>  }
+        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} onSave={(lemmas)=>this.props.addLemmas(lemmas)}/>  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}

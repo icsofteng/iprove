@@ -12,17 +12,16 @@ export default class ModalAddLemma extends Component {
         <div className={styles.panelContent}>
           {
             <TextBox
-            key={"lemma"}
-            ast= {{}}
+            ast={{}}
             focus={true}
-            z3={this.props.z3}
+            onFocus={()=>{}}
           />  
           }
         </div>
         <div>
           <button
             onClick={() => {
-              this.props.addLemmas()
+              this.props.onSave(null)
               this.props.onCancel()
             }}>
             Save
