@@ -21,6 +21,7 @@ import {
   CLEAR_PROOF,
   ADD_CASE,
   BEAUTIFY,
+  ADD_LEMMAS,
 } from '../constants'
 
 const initialState = {
@@ -30,7 +31,8 @@ const initialState = {
   identifiers: [],
   relations: [],
   functions: [],
-  types: []
+  types: [],
+  lemmas: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -144,6 +146,11 @@ const reducer = (state = initialState, action) => {
         prevSteps.pop()
         const lastStep = action.payload
         newState = { ...newState, steps: [...prevSteps, lastStep]}
+        return newState
+
+      case ADD_LEMMAS:
+        const newLemmas = newState.lemmas.concat(action.payload)
+        newState.lemmas = _.uniq(newLemmas)
         return newState
 
       default:

@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
+import { ActionCreators } from 'redux-undo'
+
 import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY, SET_STEP_DEPENDENCY } from '../constants'
-import { is_step, validate_step_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
-import { ActionCreators } from 'redux-undo'
-import styles from './styles.scss'
 import ModalAddLemma from './Shared/ModalAddLemma';
+
+import {
+  NEW_STEP,
+  LOAD_PROOF,
+  REMOVE_STEP,
+  CLEAR_PROOF,
+  BEAUTIFY,
+  SET_STEP_DEPENDENCY,
+  ADD_LEMMAS
+} from '../constants'
+import { is_step, validate_step_dependencies } from '../utils'
+
+import styles from './styles.scss'
+
 
 class IProve extends Component {
   constructor(props) {
@@ -220,8 +232,6 @@ class IProve extends Component {
     this.setState(state => ({ viewAddLemmas: !state.viewAddLemmas }))
   }
 
-
-
   render() {
     return (
       <div className={styles.iprove}>
@@ -229,7 +239,12 @@ class IProve extends Component {
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
-          onOpen={()=>openDialog((p, s)=>{this.props.loadProof(p); this.setState(s)})}
+          onOpen={() => {
+            openDialog('.proof', ({ props, state }) => {
+              this.props.loadProof(props)
+              this.setState(state)
+            })
+          }}
           onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
           onUndo={this.props.undo}
           onRedo={this.props.redo}
@@ -237,6 +252,11 @@ class IProve extends Component {
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
           onAddLemma={() => this.updateViewAddLemmas()}
+          onImportLemma={() => {
+            openDialog('.lemmas', ({ lemmas }) => {
+              this.props.addLemmas(lemmas)
+            })
+          }}
         />
         <div className={styles.header}>
           <h1 className={styles.title}>iProve</h1>
@@ -288,6 +308,7 @@ const mapDispatchToProps = dispatch => ({
   removeStep: (path) => dispatch({ type: REMOVE_STEP, path }),
   setDependency: (list, path) => dispatch({ type: SET_STEP_DEPENDENCY, payload: list, path }),
   loadProof: (props) => dispatch({ type: LOAD_PROOF, payload: props, path: [] }),
+  addLemmas: (lemmas) => dispatch({ type: ADD_LEMMAS, payload: lemmas, path: [] }),
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
   clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
