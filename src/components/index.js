@@ -9,7 +9,6 @@ import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
-import ModalAddLemma from './Shared/ModalAddLemma';
 
 import {
   NEW_STEP,
@@ -228,14 +227,13 @@ class IProve extends Component {
     }
   }
 
-  updateViewAddLemmas = () => {
-    this.setState(state => ({ viewAddLemmas: !state.viewAddLemmas }))
+  updateAddLemma = () => {
+    this.props.addLemmas([{ast: {}}])
   }
 
   render() {
     return (
       <div className={styles.iprove}>
-        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} onSave={(lemmas)=>this.props.addLemmas(lemmas)}/>  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
@@ -251,7 +249,7 @@ class IProve extends Component {
           onClear={this.props.clear}
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
-          onAddLemma={() => this.updateViewAddLemmas()}
+          onAddLemma={() => this.updateAddLemma()}
           onImportLemma={() => {
             openDialog('.lemmas', ({ lemmas }) => {
               this.props.addLemmas(lemmas)
