@@ -18,4 +18,9 @@ export const ADD_TYPES = 'add_types'
 export const CLEAR_PROOF = 'clear_proof'
 export const ADD_CASE = 'add_case'
 export const BEAUTIFY = 'beautify'
+<<<<<<< 7717769883e0b5fa8921724a6a300944f25d0d52
 export const ADD_LEMMAS = 'add_lemmas'
+=======
+export const ADD_LEMMA = 'add_lemma'
+
+>>>>>>> Initial structure to add a lemma

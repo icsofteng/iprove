@@ -21,7 +21,11 @@ import {
   CLEAR_PROOF,
   ADD_CASE,
   BEAUTIFY,
+<<<<<<< 7717769883e0b5fa8921724a6a300944f25d0d52
   ADD_LEMMAS,
+=======
+  ADD_LEMMA,
+>>>>>>> Initial structure to add a lemma
 } from '../constants'
 
 const initialState = {
