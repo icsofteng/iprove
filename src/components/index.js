@@ -18,7 +18,7 @@ import {
   CLEAR_PROOF,
   BEAUTIFY,
   SET_STEP_DEPENDENCY,
-  ADD_LEMMAS
+  ADD_LEMMAS,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 

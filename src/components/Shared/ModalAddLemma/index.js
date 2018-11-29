@@ -21,7 +21,10 @@ export default class ModalAddLemma extends Component {
         </div>
         <div>
           <button
-            onClick={() => this.props.onCancel() }>
+            onClick={() => {
+              this.props.addLemmas()
+              this.props.onCancel()
+            }}>
             Save
           </button>
         </div>
