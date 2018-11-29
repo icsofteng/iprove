@@ -164,13 +164,31 @@ class TextBox extends Component {
 
   render() {
     const { ast, index, offset, z3, type, parentCase } = this.props
-    const isCorrect = (type !== 'givens' && z3 === 'unsat') || ast.type === 'assume' || ast.type === 'arbitrary' || ast.type === 'exit' || ast.type === 'case'
+
+    const isCorrect =
+      (type !== 'givens' && type !== 'lemmas' && z3 === 'unsat') ||
+      ['assume', 'arbitrary', 'exit', 'case'].includes(ast.type)
+
+    const isError =
+      this.state.raw !== '' &&
+      (type !== 'givens' || (type === 'givens' && this.state.semanticErrors)) &&
+      (type !== 'lemmas' || (type === 'lemmas' && this.state.semanticErrors)) &&
+      z3 !== 'unsat' &&
+      !isCorrect
+
+    const lineNumber = `${type === 'lemmas' ? 'L' : ''}${offset + index + 1}`
+
     return (
       <div className={cx(styles.step, {
         [styles.correct]: isCorrect,
-        [styles.error]: this.state.raw !== '' && (type !== 'givens' || (type === 'givens' && this.state.semanticErrors)) && z3 !== 'unsat' && !isCorrect
+        [styles.error]: isError
       })}>
-        { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1} { parentCase && ast.type === 'assume' && "[Case " + parentCase + "]" }</div> }
+        { type !== 'goal' && (
+            <div className={styles.lineNumber}>
+              {lineNumber} { parentCase && ast.type === 'assume' && "[Case " + parentCase + "]" }
+            </div>
+          )
+        }
         {
           this.state.edit ?
           <div className={styles.textboxContainer}>

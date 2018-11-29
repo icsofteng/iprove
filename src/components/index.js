@@ -269,7 +269,33 @@ class IProve extends Component {
                 <div className={styles.panelContent}>
                   { this.state.simple ?
                       <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+                      :
+                      (
+                        <React.Fragment>
+                          <TextBoxList
+                            z3={this.state.z3}
+                            start={0}
+                            steps={this.props.lemmas}
+                            type="lemmas"
+                            selectedTextBox={this.state.selectedTextBox}
+                            setSelected={this.setSelected}
+                            incrementInput={this.incrementInput}
+                            newStepAfter={this.newStepAfter}
+                            removeCurrentStep={this.removeCurrentStep}
+                          />
+                          <TextBoxList
+                            z3={this.state.z3}
+                            start={0}
+                            steps={this.props.givens}
+                            type="givens"
+                            selectedTextBox={this.state.selectedTextBox}
+                            setSelected={this.setSelected}
+                            incrementInput={this.incrementInput}
+                            newStepAfter={this.newStepAfter}
+                            removeCurrentStep={this.removeCurrentStep}
+                          />
+                        </React.Fragment>
+                      )
                   }
                 </div>
               </div>
