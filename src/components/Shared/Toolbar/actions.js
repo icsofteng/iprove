@@ -10,16 +10,15 @@ export const saveDialog = (props, state) => {
   })
 }
 
-export const openDialog = (callback) => {
+export const openDialog = (accept, callback) => {
   dialog({
     multiple: false,
-    accept: '.proof'
+    accept,
   }, (files) => {
     const reader = new FileReader()
     reader.readAsText(files[0])
     reader.onload = () => {
-      const { props, state } = JSON.parse(reader.result)
-      callback(props, state)
+      callback(JSON.parse(reader.result))
     }
   })
 }
