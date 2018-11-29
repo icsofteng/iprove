@@ -94,7 +94,9 @@ const reducer = (state = initialState, action) => {
 
       case ADD_RELATIONS:
         const newRelations = newState.relations.concat(action.payload)
-        newState.relations = _.uniq(newRelations, false, _.iteratee('name'))
+        newState.relations = _.uniq(newRelations, function (r) {
+          return JSON.stringify({name:r.name, params: r.params})
+        });
         return newState
 
       case ADD_FUNCTIONS:
