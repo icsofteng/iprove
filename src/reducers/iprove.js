@@ -1,157 +1,34 @@
-import _ from 'underscore'
 import { scan_state } from '../utils'
-import {
-  NEW_RULE,
-  REMOVE_STEP,
-  NEW_STEP,
-  REMOVE_RULE,
-  CHANGE_SYMBOL,
-  UPDATE_RULE,
-  ADD_IDENTIFIERS,
-  ADD_ATOMS,
-  ADD_RELATIONS,
-  ADD_FUNCTIONS,
-  ADD_STEP_DEPENDENCY,
-  REMOVE_STEP_DEPENDENCY,
-  UPDATE_STEP_DEPENDENCY,
-  SET_STEP_DEPENDENCY,
-  LOAD_PROOF,
-  SET_SCOPE,
-  ADD_TYPES,
-  CLEAR_PROOF,
-  ADD_CASE,
-  BEAUTIFY,
-} from '../constants'
+import { SET_SELECTED, UPDATE_DEP_KEY_DOWN, UPDATE_DEP_NOTHING, ENABLE_EDIT, PARSE_KEY_DOWN, PARSE_NOTHING } from '../constants'
+import { setSelected, updateDepKeyDown, updateDepNothing, enableEdit, parseKeyDown, parseNothing } from './actions'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {}, scope: [] }],
-  givens: [{ ast: {} }],
-  goal: [{ ast: {} }],
+  steps: [{ dependencies: [], ast: {}, scope: [], edit: true }],
+  givens: [{ ast: {}, edit: true }],
+  goal: [{ ast: {}, edit: true }],
   identifiers: [],
   relations: [],
   functions: [],
-  types: []
+  types: [],
+  goalAchieved: [],
+  z3: [],
+  simple: false,
+  selectedTextBox: ["givens", 0, false],
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, { type, path = [], payload, ...otherArgs }) => {
   let newState = JSON.parse(JSON.stringify(state))
-  if (action.path) {
-    const [key, ...path] = action.path
-    let { depth, index } = scan_state(newState, path, key)
-    switch (action.type) {
-      case LOAD_PROOF:
-        newState = {...newState, ...action.payload}
-        return newState
-
-      case NEW_STEP:
-        let scope = (key === 'steps') ? depth[index - 1].scope : []
-        depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
-        return newState
-
-      case REMOVE_STEP:
-        if (Array.isArray(depth)) {
-          depth.splice(index, 1)
-        }
-        else {
-          delete depth[index]
-        }
-        return { ...newState, steps: newState.steps.filter(Boolean) }
-
-      case NEW_RULE:
-        depth[index] = { type: action.payload,...action.otherArgs }
-        return newState
-
-      case UPDATE_RULE:
-        depth[index] = action.payload
-        return newState
-
-      case REMOVE_RULE:
-        if (Array.isArray(depth)) {
-          depth.splice(index, 1)
-        }
-        else {
-          delete depth[index]
-        }
-        return { ...newState, steps: newState.steps.filter(Boolean)}
-
-      case CHANGE_SYMBOL:
-        depth[index].symbol = action.payload
-        return newState
-
-      case ADD_IDENTIFIERS:
-        const newConstants = newState.identifiers.concat(action.payload)
-        newState.identifiers = _.uniq(newConstants, false, _.iteratee('value'))
-        return newState
-
-      case ADD_ATOMS:
-        const newAtoms = newState.atoms.concat(action.payload)
-        newState.atoms = _.uniq(newAtoms)
-        return newState
-
-      case ADD_RELATIONS:
-        const newRelations = newState.relations.concat(action.payload)
-        newState.relations = _.uniq(newRelations, false, _.iteratee('name'))
-        return newState
-
-      case ADD_FUNCTIONS:
-        const newFunctions = newState.functions.concat(action.payload)
-        newState.functions = _.uniq(newFunctions, false, _.iteratee('name'))
-        return newState
-
-      case ADD_TYPES:
-        const newTypes = newState.types.concat(action.payload)
-        newState.types = _.uniq(newTypes)
-        return newState
-
-      case SET_STEP_DEPENDENCY:
-        if (depth[index]) {
-          depth[index] = action.payload
-        }
-        return newState
-
-      case ADD_STEP_DEPENDENCY:
-        depth[index] = depth[index] ? [...depth[index], null] : [null]
-        return newState
-
-      case REMOVE_STEP_DEPENDENCY:
-        delete depth[index][action.index]
-        depth[index] = depth[index].filter(d => d || d === null)
-        return newState
-
-      case UPDATE_STEP_DEPENDENCY:
-        depth[index][action.index] = action.value
-        return newState
-
-      case SET_SCOPE:
-        depth[index].scope = _.uniq(action.payload)
-        if (action.removeLine) {
-          depth[index] = { dependencies: [], ast: {}, scope: depth[index].scope }
-        }
-        return newState
-
-      case CLEAR_PROOF:
-        newState = { ...newState, steps: [{ dependencies: [], ast: {}, scope: [] }] }
-        return newState
-
-      case ADD_CASE:
-        let startScope = newState.steps[action.start-newState.givens.length-1].scope
-        let newIndex = action.end-newState.givens.length
-        newState.steps.splice(newIndex, 0, { scope: [...startScope, newIndex], dependencies: [], ast: { type: 'assume' } })
-        return newState
-
-      case BEAUTIFY:
-        const prevSteps = newState.steps
-        prevSteps.pop()
-        const lastStep = action.payload
-        newState = { ...newState, steps: [...prevSteps, lastStep]}
-        return newState
-
-      default:
-        return newState
-    }
+  const [key, ...extractedPath] = path
+  let { depth, scanIndex } = scan_state(newState, extractedPath, key)
+  switch (type) {
+    case SET_SELECTED: setSelected(newState, payload); return newState
+    case UPDATE_DEP_KEY_DOWN: updateDepKeyDown(newState, payload); return newState
+    case UPDATE_DEP_NOTHING: updateDepNothing(newState, payload); return newState
+    case ENABLE_EDIT: enableEdit(newState, depth[scanIndex], path); return newState
+    case PARSE_KEY_DOWN: parseKeyDown(newState, payload, otherArgs.keyCode); return newState
+    case PARSE_NOTHING: parseNothing(newState, payload); return newState
+    default: return newState
   }
-
-  return newState
 }
 
 export default reducer

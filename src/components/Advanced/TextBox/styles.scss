@@ -35,30 +35,6 @@
   align-items: center;
   flex: 3;
 }
-.dependencies {
-  border-left: 1px solid #CCC;
-  display: flex;
-  flex: 2;
-}
-.using {
-  height: 100%;
-  align-items: center;
-  display: flex;
-  color: #aaa;
-  font-size: 13px;
-  margin: 0 0 0 15px;
-}
-.dependencyTextbox {
-  background: none;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  margin: 0 0 0 20px;
-  height: 100%;
-  color: #333;
-  font-family: Monaco, Consolas, monospace;
-  width: 100%;
-}
 :global .mjx-chtml.MJXc-display {
   text-align: left !important;
   margin: 0;

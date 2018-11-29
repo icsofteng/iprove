@@ -3,7 +3,7 @@ import { translate_rule as translate_latex } from '../../../translator/latex'
 import { connect } from 'react-redux'
 import Latex from 'react-latex'
 import styles from './styles.scss'
-import { ADD_CASE } from '../../../constants'
+import { ADD_CASE, SET_SELECTED } from '../../../constants'
 
 class ScopeBox extends Component {
   constructor() {
@@ -49,7 +49,8 @@ class ScopeBox extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addCase: (start, end) => dispatch({ type: ADD_CASE, start, end, path: [] })
+  addCase: (start, end) => dispatch({ type: ADD_CASE, start, end, path: [] }),
+  setSelected: (selected) => dispatch({ type: SET_SELECTED, payload: selected })
 })
 
 export default connect(state => ({ givens: state.present.givens.length }), mapDispatchToProps)(ScopeBox)

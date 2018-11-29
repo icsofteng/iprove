@@ -5,22 +5,18 @@ import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY, SET_STEP_DEPENDENCY } from '../constants'
+import { NEW_STEP, LOAD_PROOF, REMOVE_STEP, CLEAR_PROOF, BEAUTIFY, SET_STEP_DEPENDENCY, UPDATE_Z3, SET_GOAL_ACHIEVED, SET_SELECTED } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 import { ActionCreators } from 'redux-undo'
 import styles from './styles.scss'
-import ModalAddLemma from './Shared/ModalAddLemma';
+import ModalAddLemma from './Shared/ModalAddLemma'
 
 class IProve extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      goalAchieved: [],
-      z3: [],
-      simple: false,
-      selectedTextBox: ["givens", 0],
       viewAddLemmas: false
     }
   }
@@ -42,17 +38,16 @@ class IProve extends Component {
     const promise = this.callZ3(steps, identifiers, relations, types, functions, i)
     return promise.then((response) => {
       return new Promise((resolve, reject) => {
-        const currentZ3 = this.state.z3
+        const currentZ3 = this.props.z3
         currentZ3[i] = response.trim()
-        this.setState({ z3: currentZ3 }, () => {
-          // Check goal
-          if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
-            this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
-          }
-          else {
-            resolve()
-          }
-        })
+        this.props.updateStateZ3(currentZ3)
+        // // Check goal
+        // if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
+        //   this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
+        // }
+        // else {
+        //   resolve()
+        // }
       })
     })
 
@@ -117,16 +112,16 @@ class IProve extends Component {
     return Promise.all(promises)
   }
 
-  componentDidUpdate(prevProps) {
-    if (!_.isEqual(prevProps.steps, this.props.steps) || !_.isEqual(prevProps.givens, this.props.givens)  || !_.isEqual(prevProps.goal, this.props.goal)) {
-      this.getRequiredSteps()
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (!_.isEqual(prevProps.steps, this.props.steps) || !_.isEqual(prevProps.givens, this.props.givens)  || !_.isEqual(prevProps.goal, this.props.goal)) {
+  //     this.getRequiredSteps()
+  //   }
+  // }
 
   incrementInput = (v) => {
     const sameSelectedType = this.state.selectedTextBox[0]
     const newSelected = Math.min(this.state.selectedTextBox[1] + v, this.props[sameSelectedType].length)
-    this.setState({ selectedTextBox: [sameSelectedType, newSelected] })
+    this.props.setSelected([sameSelectedType, newSelected])
     if (newSelected === this.props[sameSelectedType].length) {
       this.props.newStep([sameSelectedType, newSelected])
     }
@@ -138,7 +133,7 @@ class IProve extends Component {
     if (index !== 0 || (index === 0 && this.props[sameSelectedType].length !== 1)) {
       this.updateDependenciesFromInsertionAndRemoval(absIndex, -1)
       this.props.removeStep([sameSelectedType, index])
-      this.setState({ selectedTextBox: [sameSelectedType, index - 1] })
+      this.props.setSelected([sameSelectedType, index - 1])
     }
   }
 
@@ -147,11 +142,7 @@ class IProve extends Component {
     const sameSelectedType = this.state.selectedTextBox[0]
     this.updateDependenciesFromInsertionAndRemoval(absIndex, 1)
     this.props.newStep([sameSelectedType, index + 1])
-    this.setState({ selectedTextBox: [sameSelectedType, index + 1] })
-  }
-
-  setSelected = (v) => {
-    this.setState({ selectedTextBox: v })
+    this.props.setSelected([sameSelectedType, index + 1])
   }
 
   clean_up_dependencies = () => {
@@ -220,12 +211,10 @@ class IProve extends Component {
     this.setState(state => ({ viewAddLemmas: !state.viewAddLemmas }))
   }
 
-
-
   render() {
     return (
       <div className={styles.iprove}>
-        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} z3={this.state.z3}/>  }
+        { this.state.viewAddLemmas && <ModalAddLemma onCancel={()=>this.updateViewAddLemmas()} z3={this.props.z3}/>  }
         <Toolbar
           simple={this.state.simple}
           onSave={()=>saveDialog(this.props, this.state)}
@@ -247,18 +236,18 @@ class IProve extends Component {
               <div className={styles.panelBox}>
                 <div className={styles.panelTitle}>Givens</div>
                 <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                    : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+                  { this.props.simple ?
+                      <ProofStepList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" />
+                    : <TextBoxList type="givens" />
                   }
                 </div>
               </div>
               <div className={styles.panelBox}>
                 <div className={styles.panelTitle}>Goal</div>
                 <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
+                  { this.props.simple ?
+                      <ProofStepList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" />
+                    : <TextBoxList type="goal" />
                   }
                 </div>
               </div>
@@ -267,16 +256,16 @@ class IProve extends Component {
               <div className={styles.panelBox}>
                 <div className={styles.panelTitle}>Proof</div>
                 <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+                  { this.props.simple ?
+                      <ProofStepList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" />
+                    : <TextBoxList dependencies type="steps" firstLineNumber={this.props.givens.length} />
                   }
                 </div>
               </div>
             </div>
           </div>
-          { this.state.simple && <DragDrop /> }
-          { this.state.simple && <Controls /> }
+          { this.props.simple && <DragDrop /> }
+          { this.props.simple && <Controls /> }
         </div>
       </div>
     )
@@ -292,6 +281,9 @@ const mapDispatchToProps = dispatch => ({
   redo: () => dispatch(ActionCreators.redo()),
   clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
+  updateZ3: (z3) => dispatch({ type: UPDATE_Z3, payload: z3 }),
+  setGoalAchieved: (goal) => dispatch({ type: SET_GOAL_ACHIEVED, payload: goal }),
+  setSelected: (selected) => dispatch({ type: SET_SELECTED, payload: selected })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)

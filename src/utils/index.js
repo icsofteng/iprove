@@ -11,7 +11,7 @@ const scan_state = (state, path, key) => {
     for (; i < path.length - 1; i++) {
       depth = depth[path[i]]
     }
-    return { depth, index: path[i] }
+    return { depth, scanIndex: path[i] }
   }
   return state.steps
 }
