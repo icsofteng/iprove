@@ -74,7 +74,6 @@ class TextBox extends Component {
   }
 
   parseInput(statement) {
-    console.log("PARSING!!!!")
     return new Promise((resolve, reject) => {
       if (statement !== '') {
         fetch('/parse?input=' + encodeURIComponent(statement) +
