@@ -23,6 +23,8 @@ import { is_step, validate_step_dependencies } from '../utils'
 
 import styles from './styles.scss'
 
+const PROOF_EXTENSION = '.proof'
+const LEMMAS_EXTENSION = '.lemmas'
 
 class IProve extends Component {
   constructor(props) {
@@ -236,9 +238,17 @@ class IProve extends Component {
       <div className={styles.iprove}>
         <Toolbar
           simple={this.state.simple}
-          onSave={()=>saveDialog(this.props, this.state)}
+          onSave={() => {
+            const d = new Date()
+            const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
+
+            const data = { props: this.props, state: this.state }
+            const name = `${date}${PROOF_EXTENSION}`
+
+            saveDialog(data, name)
+          }}
           onOpen={() => {
-            openDialog('.proof', ({ props, state }) => {
+            openDialog(PROOF_EXTENSION, ({ props, state }) => {
               this.props.loadProof(props)
               this.setState(state)
             })
@@ -250,10 +260,19 @@ class IProve extends Component {
           onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
           onExportPdf={this.callLatex}
           onAddLemma={() => this.updateAddLemma()}
-          onImportLemma={() => {
-            openDialog('.lemmas', ({ lemmas }) => {
+          onImportLemmas={() => {
+            openDialog(LEMMAS_EXTENSION, ({ lemmas }) => {
               this.props.addLemmas(lemmas)
             })
+          }}
+          onExportLemmas={() => {
+            const d = new Date()
+            const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
+
+            const data = { lemmas: this.props.lemmas }
+            const name = `${date}${LEMMAS_EXTENSION}`
+
+            saveDialog(data, name)
           }}
         />
         <div className={styles.header}>
