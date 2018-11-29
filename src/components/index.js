@@ -289,7 +289,7 @@ class IProve extends Component {
                       :
                       (
                         <div>
-                          {this.props.lemmas.length !== 0 &&
+                          {this.props.lemmas && this.props.lemmas.length !== 0 &&
                           <div className={styles.lemmasBox}>
                             <div className={styles.lemmasCollapseExpand} onClick={() => this.setState({ expandLemmas: !this.state.expandLemmas })}>
                               { this.state.expandLemmas ? "-" : "+" }
