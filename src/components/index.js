@@ -104,7 +104,7 @@ class IProve extends Component {
   }
 
   getRequiredSteps() {
-    const { identifiers, relations, steps, givens, types, functions } = this.props
+    const { identifiers, relations, steps, givens, types, functions, lemmas } = this.props
     this.setState({ goalAchieved: [] })
     const promises = steps.map((step, i) => {
       if (step.ast.type) {
@@ -117,11 +117,14 @@ class IProve extends Component {
               dependenciesNoRanges.push(j)
             }
           }
+          else if (typeof d === 'string' && d.substr(0, 1).toLowerCase() === 'l') {
+            dependenciesNoRanges.push(d)
+          }
           else {
             dependenciesNoRanges.push(parseInt(d))
           }
         })
-        let requiredSteps = validate_step_dependencies(step, dependenciesNoRanges, givens, steps)
+        let requiredSteps = validate_step_dependencies(step, dependenciesNoRanges, givens, steps, lemmas)
         requiredSteps.push(step.ast)
         return this.updateStateZ3(requiredSteps, identifiers, relations, types, functions, i)
       }
@@ -188,9 +191,9 @@ class IProve extends Component {
   }
 
   is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
-    const { identifiers, relations, steps, givens, types, functions } = this.props
+    const { identifiers, relations, steps, givens, types, functions, lemmas } = this.props
     const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
-    let requiredSteps = validate_step_dependencies(step, rem_deps, givens, steps)
+    let requiredSteps = validate_step_dependencies(step, rem_deps, givens, steps, lemmas)
     requiredSteps.push(step.ast)
     const promise = this.callZ3(requiredSteps, identifiers, relations, types, functions, step.i)
     return promise
