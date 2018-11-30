@@ -83,8 +83,6 @@ Object {
       "numParam": 1,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "x",
           "varType": "Bool",
         },
       ],
@@ -129,8 +127,6 @@ Object {
       "numParam": 1,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "x",
           "varType": "Bool",
         },
       ],
@@ -175,8 +171,6 @@ Object {
       "numParam": 1,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "x",
           "varType": "Int",
         },
       ],
@@ -377,18 +371,12 @@ Object {
       "numParam": 3,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "x",
           "varType": "Bool",
         },
         Object {
-          "type": "identifier",
-          "value": "y",
           "varType": "Bool",
         },
         Object {
-          "type": "identifier",
-          "value": "z",
           "varType": "Bool",
         },
       ],
@@ -475,8 +463,6 @@ Object {
       "numParam": 1,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "x",
           "varType": "Bool",
         },
       ],
@@ -515,8 +501,6 @@ Object {
       "numParam": 1,
       "params": Array [
         Object {
-          "type": "identifier",
-          "value": "Frank",
           "varType": "Bool",
         },
       ],
