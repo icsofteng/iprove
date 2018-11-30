@@ -47,13 +47,14 @@ class iProveVisitor extends ParseTreeVisitor {
 
       // if you havent errored and this use of an existing relation with different params is not in list, add it
       if (!this.errors) {
-        const existing_use = this.relations.find((r) => JSON.stringify(r) === JSON.stringify({name:rel_name, numParam:params.length, params}))
+        const existing_use = this.relations.find(r => _.isEqual(r, {name:rel_name, numParam:params.length, params}))
         if (!existing_use) {
+          console.log("PUSHING NOT EXISTING USE: ", {name: rel_name, numParam: params.length, params})
           this.relations.push({name: rel_name, numParam: params.length, params})
         }
       }
     }
-
+    console.log("relations at parse end: ", this.relations)
     return { type: 'relation', name:rel_name, params }
   }
   visitRelationDefExp(ctx) {
