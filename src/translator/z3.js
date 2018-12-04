@@ -117,7 +117,7 @@ const translate_rule = (rule) => {
     case 'false': return rule.type
     case 'case': return
     case 'paren': return translate_rule(rule.value)
-    case 'sq_paren': return translate_rule(rule)
+    case 'sq_paren': return translate_rule(rule.value)
     case 'universal_quantifier': case 'existential_quantifier': return translate_quantifier(rule)
     case 'relation': return translate_relation(rule)
     case 'assume': return translate_assume(rule)
