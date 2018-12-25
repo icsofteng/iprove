@@ -16,8 +16,6 @@ import {
   ADD_FUNCTIONS
 } from '../../../constants'
 
-import styles from './styles.scss'
-
 class TextBox extends Component {
   constructor(props) {
     super(props)
@@ -179,58 +177,47 @@ class TextBox extends Component {
     const lineNumber = `${type === 'lemmas' ? 'L' : ''}${offset + index + 1}`
 
     return (
-      <div className={cx(styles.step, {
-        [styles.correct]: isCorrect,
-        [styles.error]: isError
-      })}>
-        { type !== 'goal' && (
-            <div className={styles.lineNumber}>
-              {lineNumber} { parentCase && ast.type === 'assume' && "[Case " + parentCase + "]" }
-            </div>
-          )
-        }
+      <div className="proof-line">
+        <div className="proof-linenumber">{lineNumber}</div>
         {
           this.state.edit ?
-          <div className={styles.textboxContainer}>
-            <input
-              type="text"
-              className={styles.textbox}
-              value={this.state.raw || ''}
-              onChange={(event)=>this.setState({raw: event.target.value})}
-              onKeyDown={(event)=>this.keyDown(event, true)}
-              onFocus={()=>this.props.onFocus()}
-              onBlur={(event)=>{
-                this.props.onBlur()
-                this.parseInput(event.target.value)
-              }}
-              ref={(ref)=>this.ref=ref}
-            />
-          </div>
+          <input
+            type="text"
+            className="proof-text"
+            value={this.state.raw || ''}
+            onChange={(event)=>this.setState({raw: event.target.value})}
+            onKeyDown={(event)=>this.keyDown(event, true)}
+            onFocus={()=>this.props.onFocus()}
+            onBlur={(event)=>{
+              this.props.onBlur()
+              this.parseInput(event.target.value)
+            }}
+            ref={(ref)=>this.ref=ref}
+          />
           :
-          <div className={styles.latex} onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
+          <div className="proof-text" onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
             <Latex>{"$"+translate_latex(ast)+"$"}</Latex>
           </div>
         }
         {
           (this.props.showDependencies && ast.type !== 'assume' && ast.type !== 'arbitrary' && ast.type !== 'exit' && ast.type !== 'case') &&
-            <div className={styles.dependencies}>
-              <div className={styles.using} onClick={()=>this.refDef.focus()}>using</div>
-              <input
-                type="text"
-                className={styles.dependencyTextbox}
-                value={this.state.dependencies || ''}
-                onChange={(event)=>this.setState({dependencies: event.target.value})}
-                onKeyDown={(event)=>this.keyDown(event)}
-                onFocus={()=>{ this.props.onFocus(); this.setState({ focusDependencies: true })}}
-                onBlur={(event)=>{
-                  this.props.onBlur()
-                  this.setState({ focusDependencies: false })
-                  this.props.setDependency(event.target.value.split(/[\s,]+/), [this.props.type, index, "dependencies"])
-                }}
-                ref={(ref)=>this.refDef=ref}
-              />
-            </div>
+          <input
+            type="text"
+            className="proof-justifications"
+            value={this.state.dependencies || ''}
+            onChange={(event)=>this.setState({dependencies: event.target.value})}
+            onKeyDown={(event)=>this.keyDown(event)}
+            onFocus={()=>{ this.props.onFocus(); this.setState({ focusDependencies: true })}}
+            onBlur={(event)=>{
+              this.props.onBlur()
+              this.setState({ focusDependencies: false })
+              this.props.setDependency(event.target.value.split(/[\s,]+/), [this.props.type, index, "dependencies"])
+            }}
+            ref={(ref)=>this.refDef=ref}
+          />
         }
+        { (isCorrect || !isError) && <div className="proof-feedback feedback-good"><i className="fas fa-check"></i></div> }
+        { isError && <div className="proof-feedback feedback-bad"><i className="fas fa-exclamation-circle"></i></div> }
       </div>
     )
   }

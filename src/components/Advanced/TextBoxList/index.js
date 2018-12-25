@@ -1,7 +1,6 @@
 import React from 'react'
 import TextBox from '../TextBox'
 import ScopeBox from '../ScopeBox'
-import styles from './styles.scss'
 
 const assumeScope = (steps, offset, props, textboxes, i, caseNumber) => {
   let s = steps[i]
@@ -81,10 +80,6 @@ const stepToTextBox = (step, id, props) =>
     z3={props.z3[id]}
   />
 
-const TextBoxList = (props) => 
-  <div className={styles.steps}>
-    { generateTextBoxScopes(props.steps, 0, props) }
-  </div>
-
+const TextBoxList = (props) => generateTextBoxScopes(props.steps, 0, props)
 
 export default TextBoxList

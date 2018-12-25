@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { ActionCreators } from 'redux-undo'
-
 import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
 import DragDrop from './Basic/DragDrop'
 import TextBoxList from './Advanced/TextBoxList'
-import Toolbar from './Shared/Toolbar'
 import { saveDialog, openDialog } from './Shared/Toolbar/actions'
 
 import {
@@ -20,8 +18,6 @@ import {
   ADD_LEMMAS,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
-
-import styles from './styles.scss'
 
 const PROOF_EXTENSION = '.proof'
 const LEMMAS_EXTENSION = '.lemmas'
@@ -238,130 +234,142 @@ class IProve extends Component {
 
   render() {
     return (
-      <div className={styles.iprove}>
-        <Toolbar
-          simple={this.state.simple}
-          onSave={() => {
-            const d = new Date()
-            const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
-
-            const data = { props: this.props, state: this.state }
-            const name = `${date}${PROOF_EXTENSION}`
-
-            saveDialog(data, name)
-          }}
-          onOpen={() => {
-            openDialog(PROOF_EXTENSION, ({ props, state }) => {
-              this.props.loadProof(props)
-              this.setState(state)
-            })
-          }}
-          onSwitch={()=>this.setState(state => ({ simple: !state.simple}))}
-          onUndo={this.props.undo}
-          onRedo={this.props.redo}
-          onClear={this.props.clear}
-          onBeautify={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}
-          onExportPdf={this.callLatex}
-          onAddLemma={() => this.updateAddLemma()}
-          onImportLemmas={() => {
-            openDialog(LEMMAS_EXTENSION, ({ lemmas }) => {
-              this.props.addLemmas(lemmas)
-            })
-          }}
-          onExportLemmas={() => {
-            const d = new Date()
-            const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
-
-            const data = { lemmas: this.props.lemmas }
-            const name = `${date}${LEMMAS_EXTENSION}`
-
-            saveDialog(data, name)
-          }}
-        />
-        <div className={styles.header}>
-          <h1 className={styles.title}>iProve</h1>
-        </div>
-        <div className={styles.panels}>
-          <div className={styles.leftRightPanel}>
-            <div className={styles.leftPanel}>
-              <div className={styles.panelBox}>
-                <div className={styles.panelTitle}>Givens</div>
-                <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-                      :
-                      (
-                        <div>
-                          {this.props.lemmas && this.props.lemmas.length !== 0 &&
-                          <div className={styles.lemmasBox}>
-                            <div className={styles.lemmasCollapseExpand} onClick={() => this.setState({ expandLemmas: !this.state.expandLemmas })}>
-                              { this.state.expandLemmas ? "-" : "+" }
-                            </div>
-                            { this.state.expandLemmas ?
-                              <React.Fragment>
-                                <TextBoxList
-                                  z3={this.state.z3}
-                                  start={0}
-                                  steps={this.props.lemmas}
-                                  type="lemmas"
-                                  selectedTextBox={this.state.selectedTextBox}
-                                  setSelected={this.setSelected}
-                                  incrementInput={this.incrementInput}
-                                  newStepAfter={this.newStepAfter}
-                                  removeCurrentStep={this.removeCurrentStep}
-                                />
-                              </React.Fragment>
-                              :
-                              <div className={styles.scopeSummary}>
-                                Lemmas
-                              </div>
-                            }
-                          </div>
-                          }
-                          <React.Fragment>
-                            <TextBoxList
-                              z3={this.state.z3}
-                              start={0}
-                              steps={this.props.givens}
-                              type="givens"
-                              selectedTextBox={this.state.selectedTextBox}
-                              setSelected={this.setSelected}
-                              incrementInput={this.incrementInput}
-                              newStepAfter={this.newStepAfter}
-                              removeCurrentStep={this.removeCurrentStep}
-                            />
-                          </React.Fragment>
-                        </div>
-                      )
-                  }
-                </div>
+      <React.Fragment>
+        <div className="sidebar">
+          <div className="sidebar-top">
+            <img src="/iProve.png" className="logo" />
+            <div className="slogan">The easiest way to construct logic proofs.</div>
+          </div>
+          <div className="document">
+            <div className="document-title">Your proof is called</div>
+            <input type="text" className="document-text" placeholder="Untitled" />
+          </div>
+          <div className="actions">
+            <div className="actions-title">File</div>
+            <div className="actions-content">
+              <div className="action-button" onClick={() => {
+                openDialog(PROOF_EXTENSION, ({ props, state }) => {
+                  this.props.loadProof(props)
+                  this.setState(state)
+                })
+              }}>
+                <i className="fas fa-folder-open"></i>
+                <div className="action-button-text">Open</div>
               </div>
-              <div className={styles.panelBox}>
-                <div className={styles.panelTitle}>Goal</div>
-                <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-                    : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
-                  }
-                </div>
+              <div className="action-button" onClick={() => {
+                const d = new Date()
+                const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
+
+                const data = { props: this.props, state: this.state }
+                const name = `${date}${PROOF_EXTENSION}`
+
+                saveDialog(data, name)
+              }}>
+                <i className="fas fa-save"></i>
+                <div className="action-button-text">Save</div>
               </div>
-            </div>
-            <div className={styles.rightPanel}>
-              <div className={styles.panelBox}>
-                <div className={styles.panelTitle}>Proof</div>
-                <div className={styles.panelContent}>
-                  { this.state.simple ?
-                      <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-                    : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-                  }
-                </div>
+              <div className="action-button" onClick={this.callLatex}>
+                <i className="fas fa-print"></i>
+                <div className="action-button-text">Print</div>
+              </div>
+              <div className="action-button" onClick={this.props.undo}>
+                <i className="fas fa-undo"></i>
+                <div className="action-button-text">Undo</div>
+              </div>
+              <div className="action-button" onClick={this.props.redo}>
+                <i className="fas fa-redo"></i>
+                <div className="action-button-text">Redo</div>
               </div>
             </div>
           </div>
-          { this.state.simple && <DragDrop /> }
-          { this.state.simple && <Controls /> }
+          <div className="actions">
+            <div className="actions-title">Proof</div>
+            <div className="actions-content">
+              <div className="action-button" onClick={this.props.clear}>
+                <i className="fas fa-times"></i>
+                <div className="action-button-text">Clear</div>
+              </div>
+              <div className="action-button" onClick={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}>
+                <i className="fas fa-broom"></i>
+                <div className="action-button-text">Beautify</div>
+              </div>
+              <div className="action-button" onClick={()=>this.setState(state => ({ simple: !state.simple}))}>
+                <i className="fas fa-toggle-on"></i>
+                <div className="action-button-text">Switch Modes</div>
+              </div>
+            </div>
+          </div>
+          <div className="actions">
+            <div className="actions-title">Lemmas</div>
+            <div className="actions-content">
+              <div className="action-button" onClick={() => {
+                openDialog(LEMMAS_EXTENSION, ({ lemmas }) => {
+                  this.props.addLemmas(lemmas)
+                })
+              }}>
+                <i className="fas fa-file-import"></i>
+                <div className="action-button-text">Import</div>
+              </div>
+              <div className="action-button" onClick={() => {
+                const d = new Date()
+                const date = d.getDate().toString() + (d.getMonth() + 1).toString() + d.getFullYear().toString()
+
+                const data = { lemmas: this.props.lemmas }
+                const name = `${date}${LEMMAS_EXTENSION}`
+
+                saveDialog(data, name)
+              }}>
+                <i className="fas fa-download"></i>
+                <div className="action-button-text">Export</div>
+              </div>
+              <div className="action-button" onClick={() => this.updateAddLemma()}>
+                <i className="fas fa-plus-circle"></i>
+                <div className="action-button-text">Add Lemma</div>
+              </div>
+            </div>
+          </div>
+          <div className="copyright">
+            &copy; 2018 Imperial College London<br />3rd Year Group Project Group 25
+          </div>
         </div>
-      </div>
+        <div className="proof">
+          { this.props.lemmas && this.props.lemmas.length !== 0 &&
+            <React.Fragment>
+              <div className="proof-section-container">
+                <div className="proof-section">Lemmas</div>
+                <div className="proof-empty"></div>
+              </div>
+              <TextBoxList z3={this.state.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+            </React.Fragment>
+          }
+          <div className="proof-section-container">
+            <div className="proof-section">Givens</div>
+            <div className="proof-empty"></div>
+          </div>
+          { this.state.simple ?
+              <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
+            : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+          }
+          <div className="proof-section-container">
+            <div className="proof-section">Proof</div>
+            <div className="proof-empty"></div>
+          </div>
+          { this.state.simple ?
+              <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
+            : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+          }
+          <div className="proof-section-container">
+            <div className="proof-section">Goal</div>
+            <div className="proof-empty"></div>
+          </div>
+          { this.state.simple ?
+              <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
+            : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
+          }
+        </div>
+        { this.state.simple && <DragDrop /> }
+        { this.state.simple && <Controls /> }
+      </React.Fragment>
     )
   }
 }

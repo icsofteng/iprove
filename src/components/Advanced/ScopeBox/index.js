@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { translate_rule as translate_latex } from '../../../translator/latex'
 import { connect } from 'react-redux'
 import Latex from 'react-latex'
-import styles from './styles.scss'
 import { ADD_CASE } from '../../../constants'
 
 class ScopeBox extends Component {

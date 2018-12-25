@@ -32,7 +32,7 @@ const integration_test = (f) => {
     const component = shallowWithStore(<IProve />, store).dive()
     component.setState({ goalAchieved: [], "z3": [], "simple": false, "selectedTextBox": ["",-1] })
     component.instance().getRequiredSteps().then(() => {
-      const stepsTextBox = 2 + (props.lemmas && props.lemmas.length > 0 ? 1 : 0)
+      const stepsTextBox = 1 + (props.lemmas && props.lemmas.length > 0 ? 1 : 0)
       const steps = component.find(TextBoxList).at(stepsTextBox).dive().find(TextBox)
       expect(steps.length).toEqual(props.steps.length)
       steps.forEach((s) => {
