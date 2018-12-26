@@ -30,7 +30,6 @@ const integration_test = (f) => {
     const { props } = JSON.parse(fs.readFileSync(f))
     const store = createMockStore({ present: props })
     const component = shallowWithStore(<IProve />, store).dive()
-    component.setState({ goalAchieved: [], "z3": [], "simple": false, "selectedTextBox": ["",-1] })
     component.instance().getRequiredSteps().then(() => {
       const stepsTextBox = 1 + (props.lemmas && props.lemmas.length > 0 ? 1 : 0)
       const steps = component.find(TextBoxList).at(stepsTextBox).dive().find(TextBox)

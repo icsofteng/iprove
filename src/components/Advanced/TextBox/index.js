@@ -21,8 +21,7 @@ class TextBox extends Component {
     this.state = {
       edit: Object.keys(props.ast).filter(k => props.ast[k]).length <= 1,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
-      focusDependencies: false,
-      semanticErrors: false
+      focusDependencies: false
     }
     this.ref = null
     this.refDef = null
@@ -77,7 +76,7 @@ class TextBox extends Component {
         ).then(r => r.json()).then(response => {
           const newPath = [this.props.type, this.props.index]
           const { ast, identifiers, relations, types, functions, errors } = response
-          this.setState({semanticErrors:errors})
+          this.props.updateRule(errors, [...newPath, "errors"])
           if (ast[0].type === 'exit') {
             this.props.setScope(this.props.scope.slice(0, -1), newPath, true)
           }
@@ -166,8 +165,8 @@ class TextBox extends Component {
 
     const isError =
       this.props.raw !== '' &&
-      (type !== 'givens' || (type === 'givens' && this.state.semanticErrors)) &&
-      (type !== 'lemmas' || (type === 'lemmas' && this.state.semanticErrors)) &&
+      (type !== 'givens' || (type === 'givens' && this.props.errors)) &&
+      (type !== 'lemmas' || (type === 'lemmas' && this.props.errors)) &&
       z3 !== 'unsat' &&
       !isCorrect
 
