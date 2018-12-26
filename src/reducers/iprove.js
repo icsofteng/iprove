@@ -28,9 +28,9 @@ import {
 } from '../constants'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {}, scope: [], raw: '', errors: false }],
-  givens: [{ ast: {}, raw: '', errors: false }],
-  goal: [{ ast: {}, raw: '', errors: false }],
+  steps: [{ dependencies: [], ast: {}, scope: [], raw: '', errors: false, placeholder: 'Start your proof here' }],
+  givens: [{ ast: {}, raw: '', errors: false, placeholder: 'Type something that\'s always true' }],
+  goal: [{ ast: {}, raw: '', errors: false, placeholder: 'What do you want to prove?' }],
   identifiers: [],
   relations: [],
   functions: [],
