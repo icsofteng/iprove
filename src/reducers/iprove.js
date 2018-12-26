@@ -28,9 +28,9 @@ import {
 } from '../constants'
 
 const initialState = {
-  steps: [{ dependencies: [], ast: {}, scope: [], raw: '' }],
-  givens: [{ ast: {}, raw: '' }],
-  goal: [{ ast: {}, raw: '' }],
+  steps: [{ dependencies: [], ast: {}, scope: [], raw: '', errors: false }],
+  givens: [{ ast: {}, raw: '', errors: false }],
+  goal: [{ ast: {}, raw: '', errors: false }],
   identifiers: [],
   relations: [],
   functions: [],
