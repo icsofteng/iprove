@@ -22,7 +22,8 @@ import {
   ADD_CASE,
   BEAUTIFY,
   ADD_LEMMAS,
-  SET_Z3
+  SET_Z3,
+  SET_GOAL_ACHIEVED
 } from '../constants'
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
   types: [],
   lemmas: [],
   z3: [],
+  goalAchieved: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -43,6 +45,10 @@ const reducer = (state = initialState, action) => {
     const [key, ...path] = action.path
     let { depth, index } = scan_state(newState, path, key)
     switch (action.type) {
+      case SET_GOAL_ACHIEVED:
+        newState.goalAchieved = action.payload
+        return newState
+
       case SET_Z3:
         newState.z3 = action.payload
         return newState

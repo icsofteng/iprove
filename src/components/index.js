@@ -17,6 +17,7 @@ import {
   SET_STEP_DEPENDENCY,
   ADD_LEMMAS,
   SET_Z3,
+  SET_GOAL_ACHIEVED,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 
@@ -27,7 +28,6 @@ class IProve extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      goalAchieved: [],
       simple: false,
       selectedTextBox: ["givens", 0]
     }
@@ -55,11 +55,9 @@ class IProve extends Component {
         this.props.setZ3(currentZ3)
         // Check goal
         if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
-          this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
+          this.props.setGoalAchieved([currentZ3[currentZ3.length - 1]])
         }
-        else {
-          resolve()
-        }
+        resolve()
       })
     })
 
@@ -99,7 +97,7 @@ class IProve extends Component {
 
   getRequiredSteps() {
     const { identifiers, relations, steps, givens, types, functions, lemmas } = this.props
-    this.setState({ goalAchieved: [] })
+    this.props.setGoalAchieved([])
     const promises = steps.map((step, i) => {
       if (step.ast.type) {
         let dependenciesNoRanges = []
@@ -361,8 +359,8 @@ class IProve extends Component {
             <div className="proof-empty"></div>
           </div>
           { this.state.simple ?
-              <ProofStepList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" />
-            : <TextBoxList z3={this.state.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
+              <ProofStepList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" />
+            : <TextBoxList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} />
           }
         </div>
         { this.state.simple && <DragDrop /> }
@@ -382,7 +380,8 @@ const mapDispatchToProps = dispatch => ({
   redo: () => dispatch(ActionCreators.redo()),
   clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
-  setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] })
+  setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] }),
+  setGoalAchieved: (ga) => dispatch({ type: SET_GOAL_ACHIEVED, payload: ga, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)
