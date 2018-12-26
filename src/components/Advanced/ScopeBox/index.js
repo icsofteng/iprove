@@ -15,8 +15,8 @@ class ScopeBox extends Component {
   }
   render() {
     return (
-      <div className={styles.scopeBox}>
-        <div className={styles.caseCollapseExpand} onClick={() => this.setState({ expand: !this.state.expand })}>
+      <div className="scope-box">
+        <div className="case-expand" onClick={() => this.setState({ expand: !this.state.expand })}>
           { this.state.expand ? "-" : "+" }
         </div>
         { this.state.expand ?
@@ -27,13 +27,13 @@ class ScopeBox extends Component {
               )
             }
             { this.props.isCase &&
-              <div className={styles.newCase} onClick={this.addCaseStep}>
-              <i className={styles.addScopeButton}>+</i> Add a new case
+              <div className="new-case" onClick={this.addCaseStep}>
+              <i className="fas fa-plus-circle"></i> Add a new case
             </div>
             }
           </React.Fragment>
           :
-          <div className={styles.scopeSummary}>
+          <div className="scope-summary">
             {this.props.caseNumber && "[Case "+this.props.caseNumber+"] "}
             {this.props.start}
             {
