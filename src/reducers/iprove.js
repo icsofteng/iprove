@@ -23,7 +23,8 @@ import {
   BEAUTIFY,
   ADD_LEMMAS,
   SET_Z3,
-  SET_GOAL_ACHIEVED
+  SET_GOAL_ACHIEVED,
+  SET_SELECTED
 } from '../constants'
 
 const initialState = {
@@ -36,7 +37,8 @@ const initialState = {
   types: [],
   lemmas: [],
   z3: [],
-  goalAchieved: []
+  goalAchieved: [],
+  selectedTextBox: ["givens", 0]
 }
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +47,10 @@ const reducer = (state = initialState, action) => {
     const [key, ...path] = action.path
     let { depth, index } = scan_state(newState, path, key)
     switch (action.type) {
+      case SET_SELECTED:
+        newState.selectedTextBox = action.payload
+        return newState
+
       case SET_GOAL_ACHIEVED:
         newState.goalAchieved = action.payload
         return newState
