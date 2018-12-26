@@ -180,6 +180,7 @@ class TextBox extends Component {
           <input
             type="text"
             className="proof-text"
+            placeholder={this.props.placeholder}
             defaultValue={this.props.raw}
             onKeyDown={(event)=>this.keyDown(event, true)}
             onFocus={()=>this.props.onFocus()}

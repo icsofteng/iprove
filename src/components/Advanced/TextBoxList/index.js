@@ -64,11 +64,7 @@ const is_subscope = (inner, outer) => outer.every(i => inner.indexOf(i) > -1)
 const stepToTextBox = (step, id, props) =>
   <TextBox
     key={"step"+id}
-    ast={step.ast}
-    raw={step.raw}
-    errors={step.errors}
-    scope={step.scope || []}
-    dependencies={step.dependencies}
+    {...step}
     index={id}
     focus={props.type === props.selectedTextBox[0] && id === props.selectedTextBox[1]}
     onIncInput={props.incrementInput}
