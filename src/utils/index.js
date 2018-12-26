@@ -49,6 +49,13 @@ const extract_out_ors = (ast) => {
 }
 
 const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas) => {
+  // Clarity check: ensure all line justifications are real steps
+  let stepNumber = allSteps.indexOf(step)
+  let invalid_deps = dependencies.filter(d => {
+    return d > givens.length && (d-givens.length-1 >= stepNumber || d-givens.length >= allSteps.length)
+  })
+  if (invalid_deps.length > 0) return []
+
   // Normal case: loop through each dependecy individually
   dependencies = dependencies.filter(Boolean)
   let valid_deps = dependencies.map(d => {

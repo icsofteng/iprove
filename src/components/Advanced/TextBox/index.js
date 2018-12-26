@@ -200,6 +200,7 @@ class TextBox extends Component {
           <input
             type="text"
             className="proof-justifications"
+            placeholder={index===0&&"Justifications"}
             value={this.state.dependencies || ''}
             onChange={(event)=>this.setState({dependencies: event.target.value})}
             onKeyDown={(event)=>this.keyDown(event)}
