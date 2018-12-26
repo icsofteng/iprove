@@ -49,7 +49,7 @@ class iProveVisitor extends ParseTreeVisitor {
       if (params.length === existing.params.length) {
         for (let i = 0; i < params.length; i++) {
           if (params[i].varType !== existing.params[i]) {
-            this.errors = true
+            this.errors = `You tried to call ${(existing_rel?"relation":"function")} <b>${existing.name}</b> with types <b>${fixParams.join(", ")}</b>. Expected <b>${existing.params.join(", ")}</b>`
           }
         }
       }

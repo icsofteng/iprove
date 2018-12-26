@@ -157,7 +157,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { ast, index, offset, z3, type, parentCase } = this.props
+    const { ast, index, offset, z3, type } = this.props
 
     const isCorrect =
       (type !== 'givens' && type !== 'lemmas' && z3 === 'unsat') ||
@@ -169,6 +169,24 @@ class TextBox extends Component {
       (type !== 'lemmas' || (type === 'lemmas' && this.props.errors)) &&
       z3 !== 'unsat' &&
       !isCorrect
+    
+    let errors = this.props.errors
+    if (!errors) {
+      if (type === 'goal') {
+        if (z3 === 'sat') {
+          errors = 'You must fix the errors with the line above before your proof is finished'
+        }
+        else if (z3 !== 'unsat') {
+          errors = 'Your goal must match with the last line of the proof'
+        }
+      }
+      else if (this.state.dependencies === "") {
+        errors = 'You need some justification steps to prove this line!'
+      }
+      else {
+        errors = `This step cannot be justified from lines <b>${this.state.dependencies}</b`
+      }
+    }
 
     const lineNumber = `${type === 'lemmas' ? 'L' : ''}${offset + index + 1}`
 
@@ -213,8 +231,18 @@ class TextBox extends Component {
             ref={(ref)=>this.refDef=ref}
           />
         }
-        { (isCorrect || !isError) && <div className="proof-feedback feedback-good"><i className="fas fa-check"></i></div> }
-        { isError && <div className="proof-feedback feedback-bad"><i className="fas fa-exclamation-circle"></i></div> }
+        { (isCorrect || !isError) &&
+          <div className="proof-feedback feedback-good">
+            <i className="fas fa-check"></i>
+            <div className="proof-good-message">Everything looks great!</div>
+          </div>
+        }
+        { isError &&
+          <div className="proof-feedback feedback-bad">
+            <i className="fas fa-exclamation-circle"></i>
+            <div className="proof-error-message" dangerouslySetInnerHTML={{__html: errors}}></div>
+          </div>
+        }
       </div>
     )
   }

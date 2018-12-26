@@ -17,13 +17,13 @@ input.document-text{outline:none;border:none;background:none;font-family:'Barlow
 .action-button:hover{cursor:pointer;background:#f7f7f7}
 .proof{flex:1;padding:0 30px;margin-left: 350px;margin-bottom: 50px;}
 .proof-section{background:#0e80c5;color:#fff;font-weight:700;font-size:18px;padding:10px 15px;margin:30px 0 20px;flex:1}
-.proof-line{font-family:Monaco,monospace;display:flex;margin-bottom:10px}
+.proof-line{font-family:Monaco,monospace;display:flex;margin-bottom: 15px;}
 .proof-text,.proof-justifications{outline:none;border:none;background:none;font-family:Monaco,monospace;border-bottom:1px dotted #aaa;padding:0;flex:1;font-size:14px;height:20px}
 .proof-linenumber{width:25px;font-size:15px}
 input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .proof-section-container{display:flex}
-.proof-empty{flex:initial;margin-left:25px;width:75px;box-sizing:border-box}
-.proof-feedback{width:75px;margin-left:25px;text-align:center}
+.proof-empty{flex:initial;margin-left:25px;width: 280px;box-sizing:border-box;}
+.proof-feedback{width: 280px;margin-left:25px;text-align:center;display: flex;}
 .proof-feedback.feedback-good{color:#3c983c;font-size:21px;line-height:15px}
 .proof-feedback.feedback-bad{color:#ca5959;font-size:21px;line-height:15px}
 .scope-box{background: #e1e1e1;padding:20px;border:2px solid #197fc4;margin:20px 0;}
@@ -32,3 +32,5 @@ input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .new-case {background: #fff;padding: 10px 8px;text-align: center;}
 .new-case:hover{cursor: pointer;background: #f7f7f7;}
 .new-case i {color: #535353;font-size: 18px;}
+.proof-error-message {font-size: 11px;background: #ca5959;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
+.proof-good-message {font-size: 11px;background: #3c983c;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
