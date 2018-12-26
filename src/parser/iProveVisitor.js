@@ -32,25 +32,25 @@ class iProveVisitor extends ParseTreeVisitor {
   visitRelationExp(ctx) {
     const rel_name = ctx.IDENTIFIER().toString()
     const params = ctx.ident().map(param => this.visit(param))
-    const fixParams = params.map(({varType}) => ({varType}))
+    const fixParams = params.map(({varType}) => varType)
     const existing_func = this.functions.find(({ name }) => name === rel_name)
     const existing_rel = this.relations.find(({ name }) => name === rel_name)
-    if (!existing_rel && !existing_func) {
-      this.relations.push({name: rel_name, numParam: params.length, params: fixParams })
-    } else {
-      if (params.length == existing_rel.params.length) {
+    let existing = null
+    if (existing_rel) {
+      existing = existing_rel
+    }
+    else if (existing_func) {
+      existing = existing_func
+    }
+    if (existing === null) {
+      this.relations.push({name: rel_name, params: fixParams })
+    }
+    else {
+      if (params.length === existing.params.length) {
         for (let i = 0; i < params.length; i++) {
-          if (params[i].varType != existing_rel.params[i].varType) {
+          if (params[i].varType !== existing.params[i]) {
             this.errors = true
           }
-        }
-      }
-
-      // if you havent errored and this use of an existing relation with different params is not in list, add it
-      if (!this.errors) {
-        const existing_use = this.relations.find(r => _.isEqual(r, {name:rel_name, numParam:params.length, params}))
-        if (!existing_use) {
-          this.relations.push({name: rel_name, numParam: params.length, params: fixParams})
         }
       }
     }

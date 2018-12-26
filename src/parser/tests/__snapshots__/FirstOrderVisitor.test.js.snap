@@ -80,11 +80,8 @@ Object {
   "relations": Array [
     Object {
       "name": "dragon",
-      "numParam": 1,
       "params": Array [
-        Object {
-          "varType": "Bool",
-        },
+        "Bool",
       ],
     },
   ],
@@ -124,11 +121,8 @@ Object {
   "relations": Array [
     Object {
       "name": "dragon",
-      "numParam": 1,
       "params": Array [
-        Object {
-          "varType": "Bool",
-        },
+        "Bool",
       ],
     },
   ],
@@ -168,11 +162,8 @@ Object {
   "relations": Array [
     Object {
       "name": "dragon",
-      "numParam": 1,
       "params": Array [
-        Object {
-          "varType": "Int",
-        },
+        "Int",
       ],
     },
   ],
@@ -368,17 +359,10 @@ Object {
   "relations": Array [
     Object {
       "name": "human",
-      "numParam": 3,
       "params": Array [
-        Object {
-          "varType": "Bool",
-        },
-        Object {
-          "varType": "Bool",
-        },
-        Object {
-          "varType": "Bool",
-        },
+        "Bool",
+        "Bool",
+        "Bool",
       ],
     },
   ],
@@ -460,11 +444,8 @@ Object {
   "relations": Array [
     Object {
       "name": "dragon",
-      "numParam": 1,
       "params": Array [
-        Object {
-          "varType": "Bool",
-        },
+        "Bool",
       ],
     },
   ],
@@ -498,11 +479,8 @@ Object {
   "relations": Array [
     Object {
       "name": "person",
-      "numParam": 1,
       "params": Array [
-        Object {
-          "varType": "Bool",
-        },
+        "Bool",
       ],
     },
   ],
