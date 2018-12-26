@@ -65,6 +65,7 @@ const stepToTextBox = (step, id, props) =>
   <TextBox
     key={"step"+id}
     ast={step.ast}
+    raw={step.raw}
     scope={step.scope || []}
     dependencies={step.dependencies}
     index={id}

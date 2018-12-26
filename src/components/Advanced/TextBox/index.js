@@ -4,8 +4,7 @@ import cx from 'classnames'
 import _ from 'underscore'
 import { connect } from 'react-redux'
 
-import { translate_rule as translate_latex } from '../../../translator/latex'
-import { translate_rule as translate_raw } from '../../../translator/raw'
+import { translate_rule } from '../../../translator/latex'
 import {
   UPDATE_RULE,
   ADD_IDENTIFIERS,
@@ -20,7 +19,6 @@ class TextBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      raw: (props.ast && translate_raw(props.ast)) || '',
       edit: Object.keys(props.ast).filter(k => props.ast[k]).length <= 1,
       dependencies: (props.dependencies && props.dependencies.join(", ")) || '',
       focusDependencies: false,
@@ -39,7 +37,6 @@ class TextBox extends Component {
   componentDidUpdate(prevProps, prevState) {
     // Changing dependencies props
     if (this.props.dependencies && prevProps.dependencies) {
-      //if (prevState.dependencies !== this.props.dependencies.join(", ")) {
       if (!_.isEqual(prevProps.dependencies, this.props.dependencies)) {
         this.setState({ dependencies: this.props.dependencies.join(", ") })
       }
@@ -47,12 +44,11 @@ class TextBox extends Component {
 
     // Change ast
     if (!_.isEqual(prevProps.ast, this.props.ast)) {
-      const translation = translate_raw(this.props.ast)
       //checks if the newly updated line was a newly inserted line and if so, clears the text box
-      let isInsert = this.state.raw && !this.props.ast.type
-      if (translation || isInsert) {
+      let isInsert = this.props.raw && !this.props.ast.type
+      if (isInsert) {
         this.setState({
-          raw: isInsert ? '' : translation,
+          raw: isInsert ? '' : this.props.raw,
           edit: Object.keys(this.props.ast).length === 0
         })
       }
@@ -91,6 +87,7 @@ class TextBox extends Component {
             this.props.addTypes(types)
             this.props.addFunctions(functions)
             this.props.updateRule(ast[0], [...newPath, "ast"])
+            this.props.updateRule(statement, [...newPath, "raw"])
             if (ast[0].type === 'assume') {
               this.props.setScope([...this.props.scope, this.props.index], newPath, false)
             }
@@ -168,7 +165,7 @@ class TextBox extends Component {
       ['assume', 'arbitrary', 'exit', 'case'].includes(ast.type)
 
     const isError =
-      this.state.raw !== '' &&
+      this.props.raw !== '' &&
       (type !== 'givens' || (type === 'givens' && this.state.semanticErrors)) &&
       (type !== 'lemmas' || (type === 'lemmas' && this.state.semanticErrors)) &&
       z3 !== 'unsat' &&
@@ -184,8 +181,7 @@ class TextBox extends Component {
           <input
             type="text"
             className="proof-text"
-            value={this.state.raw || ''}
-            onChange={(event)=>this.setState({raw: event.target.value})}
+            defaultValue={this.props.raw}
             onKeyDown={(event)=>this.keyDown(event, true)}
             onFocus={()=>this.props.onFocus()}
             onBlur={(event)=>{
@@ -196,7 +192,7 @@ class TextBox extends Component {
           />
           :
           <div className="proof-text" onClick={()=>{this.props.onFocus(); this.setState({ edit: true })}}>
-            <Latex>{"$"+translate_latex(ast)+"$"}</Latex>
+            <Latex>{"$"+translate_rule(ast)+"$"}</Latex>
           </div>
         }
         {
