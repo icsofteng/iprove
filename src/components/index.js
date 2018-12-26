@@ -16,6 +16,7 @@ import {
   BEAUTIFY,
   SET_STEP_DEPENDENCY,
   ADD_LEMMAS,
+  SET_Z3,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 
@@ -27,10 +28,8 @@ class IProve extends Component {
     super(props)
     this.state = {
       goalAchieved: [],
-      z3: [],
       simple: false,
-      selectedTextBox: ["givens", 0],
-      expandLemmas: true,
+      selectedTextBox: ["givens", 0]
     }
   }
 
@@ -51,17 +50,16 @@ class IProve extends Component {
     const promise = this.callZ3(steps, identifiers, relations, types, functions, i)
     return promise.then((response) => {
       return new Promise((resolve, reject) => {
-        const currentZ3 = this.state.z3
+        const currentZ3 = this.props.z3
         currentZ3[i] = response.trim()
-        this.setState({ z3: currentZ3 }, () => {
-          // Check goal
-          if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
-            this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
-          }
-          else {
-            resolve()
-          }
-        })
+        this.props.setZ3(currentZ3)
+        // Check goal
+        if (_.isEqual(this.props.goal[0].ast, this.props.steps[this.props.steps.length - 1].ast)) {
+          this.setState({ goalAchieved: [currentZ3[currentZ3.length - 1]] }, () => resolve())
+        }
+        else {
+          resolve()
+        }
       })
     })
 
@@ -339,7 +337,7 @@ class IProve extends Component {
                 <div className="proof-section">Lemmas</div>
                 <div className="proof-empty"></div>
               </div>
-              <TextBoxList z3={this.state.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+              <TextBoxList z3={this.props.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
             </React.Fragment>
           }
           <div className="proof-section-container">
@@ -347,16 +345,16 @@ class IProve extends Component {
             <div className="proof-empty"></div>
           </div>
           { this.state.simple ?
-              <ProofStepList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" />
-            : <TextBoxList z3={this.state.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+              <ProofStepList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" />
+            : <TextBoxList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
           }
           <div className="proof-section-container">
             <div className="proof-section">Proof</div>
             <div className="proof-empty"></div>
           </div>
           { this.state.simple ?
-              <ProofStepList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-            : <TextBoxList z3={this.state.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+              <ProofStepList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
+            : <TextBoxList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.state.selectedTextBox} setSelected={this.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
           }
           <div className="proof-section-container">
             <div className="proof-section">Goal</div>
@@ -384,6 +382,7 @@ const mapDispatchToProps = dispatch => ({
   redo: () => dispatch(ActionCreators.redo()),
   clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
+  setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)

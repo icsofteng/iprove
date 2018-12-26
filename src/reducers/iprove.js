@@ -22,6 +22,7 @@ import {
   ADD_CASE,
   BEAUTIFY,
   ADD_LEMMAS,
+  SET_Z3
 } from '../constants'
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   functions: [],
   types: [],
   lemmas: [],
+  z3: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +43,10 @@ const reducer = (state = initialState, action) => {
     const [key, ...path] = action.path
     let { depth, index } = scan_state(newState, path, key)
     switch (action.type) {
+      case SET_Z3:
+        newState.z3 = action.payload
+        return newState
+
       case LOAD_PROOF:
         newState = {...newState, ...action.payload}
         return newState
