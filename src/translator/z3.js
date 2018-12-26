@@ -25,7 +25,7 @@ const declare_relations = (relations, file_contents) => {
   relations.forEach(rel => {
     file_contents += '(declare-fun ' + rel.name + ' ('
     rel.params.forEach(p => {
-      file_contents += '(' + p.varType + ')'
+      file_contents += '(' + p + ')'
     })
     file_contents += ') Bool)\n'
   })
