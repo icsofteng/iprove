@@ -22,7 +22,7 @@ input.document-text{outline:none;border:none;background:none;font-family:'Barlow
 .proof-linenumber{width:25px;font-size:15px}
 input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .proof-section-container{display:flex}
-.proof-empty{flex:initial;margin-left:25px;width: 280px;box-sizing:border-box;}
+.proof-empty{flex:initial;width: 243px;box-sizing:border-box;}
 .proof-feedback{width: 280px;margin-left:25px;text-align:center;display: flex;}
 .proof-feedback.feedback-good{color:#3c983c;font-size:21px;line-height:15px}
 .proof-feedback.feedback-bad{color:#ca5959;font-size:21px;line-height:15px}
@@ -34,3 +34,4 @@ input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .new-case i {color: #535353;font-size: 18px;}
 .proof-error-message {font-size: 11px;background: #ca5959;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
 .proof-good-message {font-size: 11px;background: #3c983c;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
+.proof-collapse {background: #197fc4;color: #fff;border-radius: 50%;font-weight: 700;font-size: 22px;line-height: 10px;width: 20px;text-align: center;padding: 2px 0 7px;cursor: pointer;height: 11px;margin: 0 20px;align-self: center;}
