@@ -31,7 +31,7 @@ import {
 
 const initialState = {
   title: '',
-  sectionsOpen: [true, true, true, true],
+  sectionsOpen: [true, true, true, true, true],
   steps: [{ dependencies: [], ast: {}, scope: [], raw: '', errors: false, placeholder: 'Start your proof here' }],
   givens: [{ ast: {}, raw: '', errors: false, placeholder: 'Type something that\'s always true' }],
   goal: [{ ast: {}, raw: '', errors: false, placeholder: 'What do you want to prove?' }],

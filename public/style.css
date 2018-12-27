@@ -1,6 +1,6 @@
 *{margin:0;padding:0}
 body{font-family:'Barlow',sans-serif;font-size:16px}
-.sidebar{width:350px;height:100%;background:#e1e1e1;border-right:1px solid #ddd;display:flex;flex-direction:column;position: fixed;}
+.sidebar{width:350px;height:100%;background:#e1e1e1;border-right:1px solid #ddd;display:flex;flex-direction:column;position: fixed;z-index: 1;}
 div#root{width:100%;height:100%;position:absolute;}
 .sidebar-top{display:flex;flex-direction:column;margin-bottom:30px;}
 img.logo{width:250px;padding:15px}
@@ -15,7 +15,7 @@ input.document-text{outline:none;border:none;background:none;font-family:'Barlow
 .action-button i{color:#535353;font-size:18px}
 .action-button-text{padding:5px 0 0;font-size:13px}
 .action-button:hover{cursor:pointer;background:#f7f7f7}
-.proof{flex:1;padding:0 30px;margin-left: 350px;margin-bottom: 50px;}
+.proof{flex:1;padding:0 30px;margin-left: 350px;overflow-y: scroll;}
 .proof-section{background:#0e80c5;color:#fff;font-weight:700;font-size:18px;padding:10px 15px;margin:30px 0 20px;flex:1}
 .proof-line{font-family:Monaco,monospace;display:flex;margin-bottom: 15px;}
 .proof-text,.proof-justifications{outline:none;border:none;background:none;font-family:Monaco,monospace;border-bottom:1px dotted #aaa;padding:0;flex:1;font-size:14px;height:20px}
@@ -35,3 +35,12 @@ input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .proof-error-message {font-size: 11px;background: #ca5959;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
 .proof-good-message {font-size: 11px;background: #3c983c;color: #fff;text-align: left;padding: 6px 10px;margin: -7px 15px;border-radius: 5px;line-height: 11px;font-family: 'Barlow',sans-serif;align-self: center;}
 .proof-collapse {background: #197fc4;color: #fff;border-radius: 50%;font-weight: 700;font-size: 22px;line-height: 10px;width: 20px;text-align: center;padding: 2px 0 7px;cursor: pointer;height: 11px;margin: 0 20px;align-self: center;}
+.getting-started {padding: 20px 31px 20px 375px;background: #e0e0e0;width: 100%;box-sizing: border-box;border-left: 1px solid #ddd;border-top: 1px solid #ddd;}
+.getting-started-title {font-size: 21px;margin-bottom: 15px;color: #197fc4;}
+.getting-started-columns {display: flex;}
+.getting-started-coltitle {font-weight: bold;flex-basis: 100%;padding-bottom: 10px;}
+.getting-started-col {display: flex;flex-wrap: wrap;margin-right: 50px;}
+.getting-started-latex {flex-basis: 50%;font-size: 14px;}
+.getting-started-item {flex-basis: 50%;font-family: Monaco, monospace;font-size: 14px;}
+.content-panel {display: flex;flex-direction: column;justify-content: space-around;height: 100%;}
+.getting-started .proof-collapse { display: inline-block;}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
+import Latex from 'react-latex'
 import { ActionCreators } from 'redux-undo'
 import Controls from './Basic/Controls'
 import ProofStepList from './Basic/ProofStepList'
@@ -326,49 +327,105 @@ class IProve extends Component {
             &copy; 2018 Imperial College London<br />3rd Year Group Project Group 25
           </div>
         </div>
-        <div className="proof">
-          { this.props.lemmas && this.props.lemmas.length !== 0 &&
-            <React.Fragment>
-              <div className="proof-section-container">
-                <div className="proof-section">Lemmas</div>
-                <div className="proof-collapse" onClick={()=>this.props.toggleSection(0)}>{this.props.sectionsOpen[0]?'-':'+'}</div>
-                <div className="proof-empty"></div>
+        <div className="content-panel">
+          <div className="proof">
+            { this.props.lemmas && this.props.lemmas.length !== 0 &&
+              <React.Fragment>
+                <div className="proof-section-container">
+                  <div className="proof-section">Lemmas</div>
+                  <div className="proof-collapse" onClick={()=>this.props.toggleSection(0)}>{this.props.sectionsOpen[0]?'-':'+'}</div>
+                  <div className="proof-empty"></div>
+                </div>
+                { this.props.sectionsOpen[0] &&
+                  <TextBoxList z3={this.props.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+                }
+              </React.Fragment>
+            }
+            <div className="proof-section-container">
+              <div className="proof-section">Givens</div>
+              <div className="proof-collapse" onClick={()=>this.props.toggleSection(1)}>{this.props.sectionsOpen[1]?'-':'+'}</div>
+              <div className="proof-empty"></div>
+            </div>
+            { this.props.sectionsOpen[1] && (
+              this.state.simple ?
+                <ProofStepList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" />
+              : <TextBoxList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+            )}
+            <div className="proof-section-container">
+              <div className="proof-section">Proof</div>
+              <div className="proof-collapse" onClick={()=>this.props.toggleSection(2)}>{this.props.sectionsOpen[2]?'-':'+'}</div>
+              <div className="proof-empty"></div>
+            </div>
+            {  this.props.sectionsOpen[2] && (
+              this.state.simple ?
+                <ProofStepList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
+              : <TextBoxList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+            )}
+            <div className="proof-section-container">
+              <div className="proof-section">Goal</div>
+              <div className="proof-collapse" onClick={()=>this.props.toggleSection(3)}>{this.props.sectionsOpen[3]?'-':'+'}</div>
+              <div className="proof-empty"></div>
+            </div>
+            { this.props.sectionsOpen[3] && (
+              this.state.simple ?
+                <ProofStepList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" />
+              : <TextBoxList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} />
+            )}
+          </div>
+          <div class="getting-started">
+            <div class="getting-started-title">Need help getting started?<div className="proof-collapse" onClick={()=>this.props.toggleSection(4)}>{this.props.sectionsOpen[4]?'-':'+'}</div></div>
+            {this.props.sectionsOpen[4] &&
+            <div class="getting-started-columns">
+              <div class="getting-started-col">
+                <div class="getting-started-coltitle">Propositional Logic</div>
+                <div class="getting-started-latex"><Latex>$A \land B$</Latex></div>
+                <div class="getting-started-item">A and B</div>
+                <div class="getting-started-latex"><Latex>$A \lor B$</Latex></div>
+                <div class="getting-started-item">A or B</div>
+                <div class="getting-started-latex"><Latex>$A \Longrightarrow B$</Latex></div>
+                <div class="getting-started-item">A -&gt; B</div>
+                <div class="getting-started-latex"><Latex>$A \Longleftrightarrow B$</Latex></div>
+                <div class="getting-started-item">A &lt;-&gt; B</div>
+                <div class="getting-started-latex"><Latex>$\lnot A$</Latex></div>
+                <div class="getting-started-item">not A</div>
+                <div class="getting-started-latex"><Latex>$\top$</Latex></div>
+                <div class="getting-started-item">true</div>
+                <div class="getting-started-latex"><Latex>$\bot$</Latex></div>
+                <div class="getting-started-item">false</div>
               </div>
-              { this.props.sectionsOpen[0] &&
-                <TextBoxList z3={this.props.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-              }
-            </React.Fragment>
-          }
-          <div className="proof-section-container">
-            <div className="proof-section">Givens</div>
-            <div className="proof-collapse" onClick={()=>this.props.toggleSection(1)}>{this.props.sectionsOpen[1]?'-':'+'}</div>
-            <div className="proof-empty"></div>
+              <div class="getting-started-col">
+                <div class="getting-started-coltitle">First-Order Logic</div>
+                <div class="getting-started-latex"><Latex>$\forall x.A$</Latex></div>
+                <div class="getting-started-item">forall x A</div>
+                <div class="getting-started-latex"><Latex>$\exists y.A$</Latex></div>
+                <div class="getting-started-item">exists y A</div>
+                <div class="getting-started-latex"><Latex>$x: Int$</Latex></div>
+                <div class="getting-started-item">x: Int</div>
+                <div class="getting-started-latex"><Latex>$friend(x, y)$</Latex></div>
+                <div class="getting-started-item">friend(x, y)</div>
+                <div class="getting-started-latex"><Latex>$define \ count(Type): Int$</Latex></div>
+                <div class="getting-started-item">define count(Type):Int</div>
+                <div class="getting-started-latex"><Latex>$count(x) == 2$</Latex></div>
+                <div class="getting-started-item">count(x) == 2</div>
+                <div class="getting-started-latex"><Latex>$arbitrary \ c$</Latex></div>
+                <div class="getting-started-item">arbitrary c</div>
+              </div>
+              <div class="getting-started-col">
+                <div class="getting-started-coltitle">Keywords</div>
+                <div class="getting-started-item">assume A</div>
+                <div class="getting-started-latex">Opens a new scope</div>
+                <div class="getting-started-item">exit</div>
+                <div class="getting-started-latex">Closes the current scope</div>
+                <div class="getting-started-item">case</div>
+                <div class="getting-started-latex">Starts a case analysis</div>
+                <div class="getting-started-item">(A)</div>
+                <div class="getting-started-latex">Computes A before other expressions</div>
+                <div class="getting-started-item">[A]</div>
+                <div class="getting-started-latex">Computes A before other expressions</div>
+              </div>
+            </div>
+            }
           </div>
-          { this.props.sectionsOpen[1] && (
-            this.state.simple ?
-              <ProofStepList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" />
-            : <TextBoxList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-          )}
-          <div className="proof-section-container">
-            <div className="proof-section">Proof</div>
-            <div className="proof-collapse" onClick={()=>this.props.toggleSection(2)}>{this.props.sectionsOpen[2]?'-':'+'}</div>
-            <div className="proof-empty"></div>
-          </div>
-          {  this.props.sectionsOpen[2] && (
-            this.state.simple ?
-              <ProofStepList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
-            : <TextBoxList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-          )}
-          <div className="proof-section-container">
-            <div className="proof-section">Goal</div>
-            <div className="proof-collapse" onClick={()=>this.props.toggleSection(3)}>{this.props.sectionsOpen[3]?'-':'+'}</div>
-            <div className="proof-empty"></div>
-          </div>
-          { this.props.sectionsOpen[3] && (
-            this.state.simple ?
-              <ProofStepList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" />
-            : <TextBoxList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} />
-          )}
         </div>
         { this.state.simple && <DragDrop /> }
         { this.state.simple && <Controls /> }
