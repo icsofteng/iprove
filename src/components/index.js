@@ -19,6 +19,7 @@ import {
   SET_Z3,
   SET_GOAL_ACHIEVED,
   SET_SELECTED,
+  UPDATE_TITLE,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 
@@ -234,7 +235,7 @@ class IProve extends Component {
           </div>
           <div className="document">
             <div className="document-title">Your proof is called</div>
-            <input type="text" className="document-text" placeholder="Untitled" />
+            <input type="text" className="document-text" placeholder="Untitled" defaultValue={this.props.title} onChange={(e)=>this.props.updateTitle(e.target.value)} />
           </div>
           <div className="actions">
             <div className="actions-title">File</div>
@@ -378,7 +379,8 @@ const mapDispatchToProps = dispatch => ({
   beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
   setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] }),
   setGoalAchieved: (ga) => dispatch({ type: SET_GOAL_ACHIEVED, payload: ga, path: [] }),
-  setSelected: (tb) => dispatch({ type: SET_SELECTED, payload: tb, path: [] })
+  setSelected: (tb) => dispatch({ type: SET_SELECTED, payload: tb, path: [] }),
+  updateTitle: (title) => dispatch({ type: UPDATE_TITLE, payload: title, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)
