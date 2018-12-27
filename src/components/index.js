@@ -20,6 +20,7 @@ import {
   SET_GOAL_ACHIEVED,
   SET_SELECTED,
   UPDATE_TITLE,
+  TOGGLE_SECTION,
 } from '../constants'
 import { is_step, validate_step_dependencies } from '../utils'
 
@@ -230,7 +231,7 @@ class IProve extends Component {
       <React.Fragment>
         <div className="sidebar">
           <div className="sidebar-top">
-            <img src="/iProve.png" className="logo" />
+            <a href="/"><img src="/iProve.png" className="logo" alt="" /></a>
             <div className="slogan">The easiest way to construct logic proofs.</div>
           </div>
           <div className="document">
@@ -330,35 +331,44 @@ class IProve extends Component {
             <React.Fragment>
               <div className="proof-section-container">
                 <div className="proof-section">Lemmas</div>
+                <div className="proof-collapse" onClick={()=>this.props.toggleSection(0)}>{this.props.sectionsOpen[0]?'-':'+'}</div>
                 <div className="proof-empty"></div>
               </div>
-              <TextBoxList z3={this.props.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+              { this.props.sectionsOpen[0] &&
+                <TextBoxList z3={this.props.z3} start={0} steps={this.props.lemmas} type="lemmas" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
+              }
             </React.Fragment>
           }
           <div className="proof-section-container">
             <div className="proof-section">Givens</div>
+            <div className="proof-collapse" onClick={()=>this.props.toggleSection(1)}>{this.props.sectionsOpen[1]?'-':'+'}</div>
             <div className="proof-empty"></div>
           </div>
-          { this.state.simple ?
+          { this.props.sectionsOpen[1] && (
+            this.state.simple ?
               <ProofStepList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" />
             : <TextBoxList z3={this.props.z3} start={0} steps={this.props.givens} type="givens" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-          }
+          )}
           <div className="proof-section-container">
             <div className="proof-section">Proof</div>
+            <div className="proof-collapse" onClick={()=>this.props.toggleSection(2)}>{this.props.sectionsOpen[2]?'-':'+'}</div>
             <div className="proof-empty"></div>
           </div>
-          { this.state.simple ?
+          {  this.props.sectionsOpen[2] && (
+            this.state.simple ?
               <ProofStepList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.filter(is_step).length} showDependencies type="steps" />
             : <TextBoxList z3={this.props.z3} steps={this.props.steps} start={this.props.givens.length} showDependencies type="steps" selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} newStepAfter={this.newStepAfter} removeCurrentStep={this.removeCurrentStep} />
-          }
+          )}
           <div className="proof-section-container">
             <div className="proof-section">Goal</div>
+            <div className="proof-collapse" onClick={()=>this.props.toggleSection(3)}>{this.props.sectionsOpen[3]?'-':'+'}</div>
             <div className="proof-empty"></div>
           </div>
-          { this.state.simple ?
+          { this.props.sectionsOpen[3] && (
+            this.state.simple ?
               <ProofStepList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" />
             : <TextBoxList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} />
-          }
+          )}
         </div>
         { this.state.simple && <DragDrop /> }
         { this.state.simple && <Controls /> }
@@ -380,7 +390,8 @@ const mapDispatchToProps = dispatch => ({
   setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] }),
   setGoalAchieved: (ga) => dispatch({ type: SET_GOAL_ACHIEVED, payload: ga, path: [] }),
   setSelected: (tb) => dispatch({ type: SET_SELECTED, payload: tb, path: [] }),
-  updateTitle: (title) => dispatch({ type: UPDATE_TITLE, payload: title, path: [] })
+  updateTitle: (title) => dispatch({ type: UPDATE_TITLE, payload: title, path: [] }),
+  toggleSection: (section) => dispatch({ type: TOGGLE_SECTION, payload: section, path: [] })
 })
 
 export default connect(state => state.present, mapDispatchToProps)(IProve)

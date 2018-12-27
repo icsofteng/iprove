@@ -25,11 +25,13 @@ import {
   SET_Z3,
   SET_GOAL_ACHIEVED,
   SET_SELECTED,
-  UPDATE_TITLE
+  UPDATE_TITLE,
+  TOGGLE_SECTION
 } from '../constants'
 
 const initialState = {
   title: '',
+  sectionsOpen: [true, true, true, true],
   steps: [{ dependencies: [], ast: {}, scope: [], raw: '', errors: false, placeholder: 'Start your proof here' }],
   givens: [{ ast: {}, raw: '', errors: false, placeholder: 'Type something that\'s always true' }],
   goal: [{ ast: {}, raw: '', errors: false, placeholder: 'What do you want to prove?' }],
@@ -49,6 +51,10 @@ const reducer = (state = initialState, action) => {
     const [key, ...path] = action.path
     let { depth, index } = scan_state(newState, path, key)
     switch (action.type) {
+      case TOGGLE_SECTION:
+        newState.sectionsOpen[action.payload] = !newState.sectionsOpen[action.payload]
+        return newState
+
       case UPDATE_TITLE:
         newState.title = action.payload
         return newState
