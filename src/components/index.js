@@ -372,56 +372,56 @@ class IProve extends Component {
               : <TextBoxList z3={this.props.goalAchieved} steps={this.props.goal} type="goal" start={this.props.givens.length+this.props.steps.length} selectedTextBox={this.props.selectedTextBox} setSelected={this.props.setSelected} incrementInput={this.incrementInput} />
             )}
           </div>
-          <div class="getting-started">
-            <div class="getting-started-title">Need help getting started?<div className="proof-collapse" onClick={()=>this.props.toggleSection(4)}>{this.props.sectionsOpen[4]?'-':'+'}</div></div>
+          <div className="getting-started">
+            <div className="getting-started-title">Need help getting started?<div className="proof-collapse" onClick={()=>this.props.toggleSection(4)}>{this.props.sectionsOpen[4]?'-':'+'}</div></div>
             {this.props.sectionsOpen[4] &&
-            <div class="getting-started-columns">
-              <div class="getting-started-col">
-                <div class="getting-started-coltitle">Propositional Logic</div>
-                <div class="getting-started-latex"><Latex>$A \land B$</Latex></div>
-                <div class="getting-started-item">A and B</div>
-                <div class="getting-started-latex"><Latex>$A \lor B$</Latex></div>
-                <div class="getting-started-item">A or B</div>
-                <div class="getting-started-latex"><Latex>$A \Longrightarrow B$</Latex></div>
-                <div class="getting-started-item">A -&gt; B</div>
-                <div class="getting-started-latex"><Latex>$A \Longleftrightarrow B$</Latex></div>
-                <div class="getting-started-item">A &lt;-&gt; B</div>
-                <div class="getting-started-latex"><Latex>$\lnot A$</Latex></div>
-                <div class="getting-started-item">not A</div>
-                <div class="getting-started-latex"><Latex>$\top$</Latex></div>
-                <div class="getting-started-item">true</div>
-                <div class="getting-started-latex"><Latex>$\bot$</Latex></div>
-                <div class="getting-started-item">false</div>
+            <div className="getting-started-columns">
+              <div className="getting-started-col">
+                <div className="getting-started-coltitle">Propositional Logic</div>
+                <div className="getting-started-latex"><Latex>$A \land B$</Latex></div>
+                <div className="getting-started-item">A and B</div>
+                <div className="getting-started-latex"><Latex>$A \lor B$</Latex></div>
+                <div className="getting-started-item">A or B</div>
+                <div className="getting-started-latex"><Latex>$A \Longrightarrow B$</Latex></div>
+                <div className="getting-started-item">A -&gt; B</div>
+                <div className="getting-started-latex"><Latex>$A \Longleftrightarrow B$</Latex></div>
+                <div className="getting-started-item">A &lt;-&gt; B</div>
+                <div className="getting-started-latex"><Latex>$\lnot A$</Latex></div>
+                <div className="getting-started-item">not A</div>
+                <div className="getting-started-latex"><Latex>$\top$</Latex></div>
+                <div className="getting-started-item">true</div>
+                <div className="getting-started-latex"><Latex>$\bot$</Latex></div>
+                <div className="getting-started-item">false</div>
               </div>
-              <div class="getting-started-col">
-                <div class="getting-started-coltitle">First-Order Logic</div>
-                <div class="getting-started-latex"><Latex>$\forall x.A$</Latex></div>
-                <div class="getting-started-item">forall x A</div>
-                <div class="getting-started-latex"><Latex>$\exists y.A$</Latex></div>
-                <div class="getting-started-item">exists y A</div>
-                <div class="getting-started-latex"><Latex>$x: Int$</Latex></div>
-                <div class="getting-started-item">x: Int</div>
-                <div class="getting-started-latex"><Latex>$friend(x, y)$</Latex></div>
-                <div class="getting-started-item">friend(x, y)</div>
-                <div class="getting-started-latex"><Latex>$define \ count(Type): Int$</Latex></div>
-                <div class="getting-started-item">define count(Type):Int</div>
-                <div class="getting-started-latex"><Latex>$count(x) == 2$</Latex></div>
-                <div class="getting-started-item">count(x) == 2</div>
-                <div class="getting-started-latex"><Latex>$arbitrary \ c$</Latex></div>
-                <div class="getting-started-item">arbitrary c</div>
+              <div className="getting-started-col">
+                <div className="getting-started-coltitle">First-Order Logic</div>
+                <div className="getting-started-latex"><Latex>$\forall x.A$</Latex></div>
+                <div className="getting-started-item">forall x A</div>
+                <div className="getting-started-latex"><Latex>$\exists y.A$</Latex></div>
+                <div className="getting-started-item">exists y A</div>
+                <div className="getting-started-latex"><Latex>$x: Int$</Latex></div>
+                <div className="getting-started-item">x: Int</div>
+                <div className="getting-started-latex"><Latex>$friend(x, y)$</Latex></div>
+                <div className="getting-started-item">friend(x, y)</div>
+                <div className="getting-started-latex"><Latex>$define \ count(Type): Int$</Latex></div>
+                <div className="getting-started-item">define count(Type):Int</div>
+                <div className="getting-started-latex"><Latex>$count(x) == 2$</Latex></div>
+                <div className="getting-started-item">count(x) == 2</div>
+                <div className="getting-started-latex"><Latex>$arbitrary \ c$</Latex></div>
+                <div className="getting-started-item">arbitrary c</div>
               </div>
-              <div class="getting-started-col">
-                <div class="getting-started-coltitle">Keywords</div>
-                <div class="getting-started-item">assume A</div>
-                <div class="getting-started-latex">Opens a new scope</div>
-                <div class="getting-started-item">exit</div>
-                <div class="getting-started-latex">Closes the current scope</div>
-                <div class="getting-started-item">case</div>
-                <div class="getting-started-latex">Starts a case analysis</div>
-                <div class="getting-started-item">(A)</div>
-                <div class="getting-started-latex">Computes A before other expressions</div>
-                <div class="getting-started-item">[A]</div>
-                <div class="getting-started-latex">Computes A before other expressions</div>
+              <div className="getting-started-col">
+                <div className="getting-started-coltitle">Keywords</div>
+                <div className="getting-started-item">assume A</div>
+                <div className="getting-started-latex">Opens a new scope</div>
+                <div className="getting-started-item">exit</div>
+                <div className="getting-started-latex">Closes the current scope</div>
+                <div className="getting-started-item">case</div>
+                <div className="getting-started-latex">Starts a case analysis</div>
+                <div className="getting-started-item">(A)</div>
+                <div className="getting-started-latex">Computes A before other expressions</div>
+                <div className="getting-started-item">[A]</div>
+                <div className="getting-started-latex">Computes A before other expressions</div>
               </div>
             </div>
             }

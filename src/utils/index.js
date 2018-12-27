@@ -79,12 +79,16 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
     const assumeStepNumber = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast.type === 'assume')[0]
     const assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens, lemmas)
     depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
-    const assumptionInScope = _.isEqual(assumeStep.scope.slice(0, -1), step.scope)
-    const conclusionStep = calculate_dependency_offset(allSteps, depsClone[0], givens, lemmas)
-    const conclusionInScope = _.isEqual(conclusionStep.scope.slice(0, -1), step.scope)
-    if (assumptionInScope && conclusionInScope && equal_ast(assumeStep.ast.value, step.ast.lhs) && equal_ast(conclusionStep.ast, step.ast.rhs)) {
-      // This is a valid proof justification
-      valid_deps = [assumeStep.ast, conclusionStep.ast]
+    if (assumeStep) {
+      const assumptionInScope = _.isEqual(assumeStep.scope.slice(0, -1), step.scope)
+      const conclusionStep = calculate_dependency_offset(allSteps, depsClone[0], givens, lemmas)
+      if (conclusionStep) {
+        const conclusionInScope = _.isEqual(conclusionStep.scope.slice(0, -1), step.scope)
+        if (assumptionInScope && conclusionInScope && equal_ast(assumeStep.ast.value, step.ast.lhs) && equal_ast(conclusionStep.ast, step.ast.rhs)) {
+          // This is a valid proof justification
+          valid_deps = [assumeStep.ast, conclusionStep.ast]
+        }
+      }
     }
   }
 
@@ -115,7 +119,7 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
         const orContainsAllAssumes = findAssumes.map(assumeStepNumber => {
           let assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens, lemmas)
           let assumeAst = assumeStep.ast.value
-          return listOfAssumptions.filter(assump => _.isEqual(assumeAst, assump)).length === 1
+          return listOfAssumptions.filter(assump => equal_ast(assumeAst, assump)).length === 1
         })
         if (orContainsAllAssumes.every(Boolean) && findAssumes.length === listOfAssumptions.length) {
           valid_deps = dependencies.map(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast)
