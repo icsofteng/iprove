@@ -220,7 +220,10 @@ class TextBox extends Component {
             className="proof-justifications"
             placeholder={index===0&&"Justifications"}
             value={this.state.dependencies || ''}
-            onChange={(event)=>this.setState({dependencies: event.target.value})}
+            onChange={(event)=>{
+              this.setState({dependencies: event.target.value})
+              this.props.setDependency(event.target.value.split(/[\s,]+/), [this.props.type, index, "dependencies"])
+            }}
             onKeyDown={(event)=>this.keyDown(event)}
             onFocus={()=>{ this.props.onFocus(); this.setState({ focusDependencies: true })}}
             onBlur={(event)=>{
