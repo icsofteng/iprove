@@ -54,18 +54,18 @@ const translate_binary_numerical = (rule) => {
   }
 }
 
-const translate_less_than = (rule) => `${translate_rule(rule.lhs)} < ${translate_rule(rule.rhs)}`
-const translate_less_than_eq = (rule) => `${translate_rule(rule.lhs)} \\leq ${translate_rule(rule.rhs)}`
-const translate_greater_than = (rule) => `${translate_rule(rule.lhs)} > ${translate_rule(rule.rhs)}`
-const translate_greater_than_eq = (rule) => `${translate_rule(rule.lhs)} \\geq ${translate_rule(rule.rhs)}`
-const translate_equal = (rule) => `${translate_rule(rule.lhs)} == ${translate_rule(rule.rhs)}`
-const translate_plus = (rule) => `${translate_rule(rule.lhs)} + ${translate_rule(rule.rhs)}`
-const translate_minus = (rule) => `${translate_rule(rule.lhs)} - ${translate_rule(rule.rhs)}`
-const translate_power = (rule) => `${translate_rule(rule.lhs)} ^{${translate_rule(rule.rhs)}}`
-const translate_multiply = (rule) => `${translate_rule(rule.lhs)} \\times ${translate_rule(rule.rhs)}`
-const translate_divide = (rule) => `${translate_rule(rule.lhs)} \\div ${translate_rule(rule.rhs)}`
+const translate_less_than = (rule) => `${translate_rule(rule.lhs, false)} < ${translate_rule(rule.rhs, false)}`
+const translate_less_than_eq = (rule) => `${translate_rule(rule.lhs, false)} \\leq ${translate_rule(rule.rhs, false)}`
+const translate_greater_than = (rule) => `${translate_rule(rule.lhs, false)} > ${translate_rule(rule.rhs, false)}`
+const translate_greater_than_eq = (rule) => `${translate_rule(rule.lhs, false)} \\geq ${translate_rule(rule.rhs, false)}`
+const translate_equal = (rule) => `${translate_rule(rule.lhs, false)} == ${translate_rule(rule.rhs, false)}`
+const translate_plus = (rule) => `${translate_rule(rule.lhs, false)} + ${translate_rule(rule.rhs, false)}`
+const translate_minus = (rule) => `${translate_rule(rule.lhs, false)} - ${translate_rule(rule.rhs, false)}`
+const translate_power = (rule) => `${translate_rule(rule.lhs, false)} ^{${translate_rule(rule.rhs, false)}}`
+const translate_multiply = (rule) => `${translate_rule(rule.lhs, false)} \\times ${translate_rule(rule.rhs, false)}`
+const translate_divide = (rule) => `${translate_rule(rule.lhs, false)} \\div ${translate_rule(rule.rhs, false)}`
 
-const translate_rule = (rule) => {
+const translate_rule = (rule, show_type = true) => {
   if (rule) {
     switch (rule.type) {
       case 'binary': return translate_binary_rule(rule)
@@ -83,7 +83,7 @@ const translate_rule = (rule) => {
       case 'variable': return translate_variable(rule)
       case 'arbitrary': return 'arbitrary \\ ' + translate_literal(rule.value)
       case 'funcDef': return translate_funcDef(rule)
-      default: return translate_literal(rule)
+      default: return translate_literal(rule, show_type)
     }
   }
 }
@@ -93,9 +93,9 @@ const translate_or_rule = (rule) => translate_rule(rule.lhs) + ' \\lor ' + trans
 const translate_implies_rule = (rule) => translate_rule(rule.lhs) + ' \\Longrightarrow ' + translate_rule(rule.rhs)
 const translate_iff_rule = (rule) => translate_rule(rule.lhs) + ' \\Longleftrightarrow ' + translate_rule(rule.rhs)
 const translate_not_rule = (rule) => '\\lnot ' + translate_rule(rule.value)
-const translate_literal = (rule) => {
+const translate_literal = (rule, show_type = true) => {
   if (rule.varType && rule.varType !== "Bool") {
-    return rule.value + ':' + rule.varType
+    return rule.value + (show_type ? ':' + rule.varType : "")
   }
   if (rule.value == undefined) {
     rule.value = ' '
@@ -103,8 +103,8 @@ const translate_literal = (rule) => {
   return rule.value
 }
 const translate_variable = (rule) => rule.value
-const translate_paren = (rule) => '(' + translate_rule(rule.value) + ')'
-const translate_sq_paren = (rule) => '[' + translate_rule(rule.value) + ']'
+const translate_paren = (rule, show_type = true) => '(' + translate_rule(rule.value, show_type) + ')'
+const translate_sq_paren = (rule, show_type = true) => '[' + translate_rule(rule.value, show_type) + ']'
 const translate_assume = (rule) => 'assume \\ ' + translate_rule(rule.value)
 
 const translate = (rules) => rules.map(rule => translate_rule(rule))
