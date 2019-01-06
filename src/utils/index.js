@@ -33,15 +33,10 @@ const equal_ast = (first, second) => {
 const dependency_in_scope = (step, dependencyStep) =>
   dependencyStep.scope.filter(s => step.scope.indexOf(s) === -1).length === 0
 
-const calculate_dependency_offset = (steps, dependency, givens, lemmas) => {
-  let d = (typeof dependency === 'string' && dependency.substr(0, 1).toLowerCase() === 'l') ?
+const calculate_dependency_offset = (steps, dependency, givens, lemmas) =>
+   (typeof dependency === 'string' && dependency.substr(0, 1).toLowerCase() === 'l') ?
     lemmas[parseInt(dependency.substr(1))-1] :
     (dependency <= givens.length) ? givens[dependency-1] : steps[dependency-givens.length-1]
-  if (d === undefined) {
-    return { ast: { type: false }, scope: [] }
-  }
-  return d
-}
 
 const extract_out_ors = (ast) => {
   if (ast.type === 'paren') {
@@ -84,10 +79,10 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
     const assumeStepNumber = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast.type === 'assume')[0]
     const assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens, lemmas)
     depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
-    if (assumeStep.type) {
+    if (assumeStep) {
       const assumptionInScope = _.isEqual(assumeStep.scope.slice(0, -1), step.scope)
       const conclusionStep = calculate_dependency_offset(allSteps, depsClone[0], givens, lemmas)
-      if (conclusionStep.type) {
+      if (conclusionStep) {
         const conclusionInScope = _.isEqual(conclusionStep.scope.slice(0, -1), step.scope)
         if (assumptionInScope && conclusionInScope && equal_ast(assumeStep.ast.value, step.ast.lhs) && equal_ast(conclusionStep.ast, step.ast.rhs)) {
           // This is a valid proof justification
