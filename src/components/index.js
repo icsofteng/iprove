@@ -37,7 +37,7 @@ class IProve extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keypress', (e) => {
+    document.addEventListener('keydown', (e) => {
       if ((e.code === 'KeyZ' && e.ctrlKey) || (e.code === 'KeyZ' && e.metaKey)) {
         e.preventDefault()
         this.props.undo()
