@@ -33,10 +33,15 @@ const equal_ast = (first, second) => {
 const dependency_in_scope = (step, dependencyStep) =>
   dependencyStep.scope.filter(s => step.scope.indexOf(s) === -1).length === 0
 
-const calculate_dependency_offset = (steps, dependency, givens, lemmas) =>
-  (typeof dependency === 'string' && dependency.substr(0, 1).toLowerCase() === 'l') ?
+const calculate_dependency_offset = (steps, dependency, givens, lemmas) => {
+  let d = (typeof dependency === 'string' && dependency.substr(0, 1).toLowerCase() === 'l') ?
     lemmas[parseInt(dependency.substr(1))-1] :
     (dependency <= givens.length) ? givens[dependency-1] : steps[dependency-givens.length-1]
+  if (d === undefined) {
+    return { ast: { type: '' }}
+  }
+  return d
+}
 
 const extract_out_ors = (ast) => {
   if (ast.type === 'paren') {
