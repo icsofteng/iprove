@@ -3,10 +3,10 @@
 exports[`Snapshot test 1`] = `
 <Fragment>
   <div
-    className="step"
+    className="proof-line proof-line-short"
   >
     <div
-      className="lineNumber"
+      className="proof-linenumber"
     >
       1
     </div>
@@ -48,6 +48,7 @@ exports[`Snapshot test 1`] = `
       />
     </div>
     <button
+      className="toggle"
       onClick={[Function]}
     >
       Toggle

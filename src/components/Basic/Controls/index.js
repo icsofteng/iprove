@@ -21,9 +21,6 @@ const Controls = (props) =>
     <ControlBlock type="false" label="False" symbol="⊥" {...props}/>
     <ControlBlock type="universal_quantifier" label="For all" symbol="∀"  {...props}/>
     <ControlBlock type="existential_quantifier" label="Exists" symbol="∃"  {...props}/>
-    <ControlBlock type="relation" label="Relation" symbol="f(x)"  {...props}/>
-    <ControlBlock type="variable" label="Variable" symbol="x"  {...props}/>
-    <ControlBlock type="constant" label="Constant" symbol="A"  {...props}/>
   </div>
 
 export default Controls

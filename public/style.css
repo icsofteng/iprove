@@ -20,7 +20,7 @@ input.document-text{outline:none;border:none;background:none;font-family:'Barlow
 .proof-section{background:#0e80c5;color:#fff;font-weight:700;font-size:18px;padding:10px 15px;margin:30px 0 20px;flex:1}
 .proof-line{font-family:Monaco,monospace;display:flex;margin-bottom: 15px;}
 .proof-text,.proof-justifications{outline:none;border:none;background:none;font-family:Monaco,monospace;border-bottom:1px dotted #aaa;padding:0;flex:1;font-size:14px;height:20px}
-.proof-linenumber{width:25px;font-size:15px}
+.proof-linenumber{width:25px;font-size:15px;}
 input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .proof-section-container{display:flex}
 .proof-empty{flex:initial;width: 243px;box-sizing:border-box;}
@@ -45,3 +45,5 @@ input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .getting-started-item {flex-basis: 50%;font-family: Monaco, monospace;font-size: 14px;}
 .content-panel {display: flex;flex-direction: column;justify-content: space-around;height: 100%;}
 .getting-started .proof-collapse { display: inline-block;}
+.proof-line-short{margin-right:305px;}
+.toggle{background: #0e80c5;padding: 5px 8px;text-align: center;border: none;color: #fff;outline: none;font-size: 10px;}

@@ -16,8 +16,8 @@ export default class ProofStep extends Component {
     const { step, index, showDependencies, offset, type } = this.props
     return (
       <React.Fragment>
-        <div className={styles.step}>
-          { type !== 'goal' && <div className={styles.lineNumber}>{offset + index + 1}</div> }
+        <div className="proof-line proof-line-short">
+          { type !== 'goal' && <div className="proof-linenumber">{offset + index + 1}</div> }
           <div className={cx(styles.latex, {[styles.showLatex]: this.state.latex})}>
             <Latex>{"$"+translate_rule(step.ast)+"$"}</Latex>
           </div>
@@ -27,7 +27,7 @@ export default class ProofStep extends Component {
               <Rule key={"rule" + index} {...step.ast} path={[type, index, "ast"]} />
             </div>
           }
-          <button onClick={()=>this.setState(state => ({ latex: !state.latex }))}>Toggle</button>
+          <button className="toggle" onClick={()=>this.setState(state => ({ latex: !state.latex }))}>Toggle</button>
         { showDependencies && <DependencyList index={index} dependencies={step.dependencies} path={[type, index, "dependencies"]} /> }
         </div>
       </React.Fragment>

@@ -42,20 +42,5 @@ exports[`Snapshot test 1`] = `
     symbol="∃"
     type="existential_quantifier"
   />
-  <ControlBlock
-    label="Relation"
-    symbol="f(x)"
-    type="relation"
-  />
-  <ControlBlock
-    label="Variable"
-    symbol="x"
-    type="variable"
-  />
-  <ControlBlock
-    label="Constant"
-    symbol="A"
-    type="constant"
-  />
 </div>
 `;

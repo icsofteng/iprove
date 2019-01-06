@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot test 1`] = `
-<div
-  className="steps"
->
+<Fragment>
   <ProofStep
     index={0}
     key="step0"
@@ -27,14 +25,21 @@ exports[`Snapshot test 1`] = `
     }
     type="givens"
   />
-  <RulePlaceholder
-    path={
-      Array [
-        "givens",
-        1,
-      ]
-    }
-    wide={true}
-  />
-</div>
+  <div
+    className="proof-line"
+  >
+    <RulePlaceholder
+      path={
+        Array [
+          "givens",
+          1,
+        ]
+      }
+      wide={true}
+    />
+    <div
+      className="proof-feedback"
+    />
+  </div>
+</Fragment>
 `;

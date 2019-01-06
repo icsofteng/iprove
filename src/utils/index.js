@@ -38,7 +38,7 @@ const calculate_dependency_offset = (steps, dependency, givens, lemmas) => {
     lemmas[parseInt(dependency.substr(1))-1] :
     (dependency <= givens.length) ? givens[dependency-1] : steps[dependency-givens.length-1]
   if (d === undefined) {
-    return { ast: { type: '' }}
+    return { ast: { type: false }, scope: [] }
   }
   return d
 }
@@ -65,7 +65,7 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
   dependencies = dependencies.filter(Boolean)
   let valid_deps = dependencies.map(d => {
     const dependencyStep = calculate_dependency_offset(allSteps, d, givens, lemmas)
-    if (dependencyStep) {
+    if (dependencyStep.type) {
       if (d <= givens.length) {
         return (dependencyStep && dependencyStep.ast) || null
       }
@@ -84,10 +84,10 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
     const assumeStepNumber = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast.type === 'assume')[0]
     const assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens, lemmas)
     depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
-    if (assumeStep) {
+    if (assumeStep.type) {
       const assumptionInScope = _.isEqual(assumeStep.scope.slice(0, -1), step.scope)
       const conclusionStep = calculate_dependency_offset(allSteps, depsClone[0], givens, lemmas)
-      if (conclusionStep) {
+      if (conclusionStep.type) {
         const conclusionInScope = _.isEqual(conclusionStep.scope.slice(0, -1), step.scope)
         if (assumptionInScope && conclusionInScope && equal_ast(assumeStep.ast.value, step.ast.lhs) && equal_ast(conclusionStep.ast, step.ast.rhs)) {
           // This is a valid proof justification
