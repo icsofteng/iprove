@@ -60,7 +60,7 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
   dependencies = dependencies.filter(Boolean)
   let valid_deps = dependencies.map(d => {
     const dependencyStep = calculate_dependency_offset(allSteps, d, givens, lemmas)
-    if (dependencyStep.type) {
+    if (dependencyStep) {
       if (d <= givens.length) {
         return (dependencyStep && dependencyStep.ast) || null
       }
