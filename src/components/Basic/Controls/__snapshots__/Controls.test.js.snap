@@ -20,7 +20,7 @@ exports[`Snapshot test 1`] = `
   <ControlBlock
     label="Literal"
     symbol="P"
-    type="literal"
+    type="identifier"
   />
   <ControlBlock
     label="True"
@@ -31,16 +31,6 @@ exports[`Snapshot test 1`] = `
     label="False"
     symbol="⊥"
     type="false"
-  />
-  <ControlBlock
-    label="For all"
-    symbol="∀"
-    type="universal_quantifier"
-  />
-  <ControlBlock
-    label="Exists"
-    symbol="∃"
-    type="existential_quantifier"
   />
 </div>
 `;

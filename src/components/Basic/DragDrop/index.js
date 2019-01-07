@@ -35,26 +35,7 @@ class DragDrop extends Component {
       ondrop: function (event) {
         event.target.classList.remove('drop-target')
         const { type, symbol } = event.relatedTarget.dataset
-
         let otherArgs = {}
-
-        if (type === 'relation') {
-
-        }
-
-        switch (type) {
-          case 'relation':
-            otherArgs = { params: [] }
-            break;
-          case 'universal_quantifier':
-            otherArgs = { symbol: 'forall' }
-            break
-          case 'existential_quantifier':
-            otherArgs = { symbol: 'exists' }
-            break
-          default: break
-        }
-
         if (Array.from(event.target.classList).indexOf("wide") > -1) {
           this.props.addStep(type, symbol, JSON.parse(event.target.dataset.path), otherArgs)
         }

@@ -76,7 +76,7 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case NEW_STEP:
-        let scope = (key === 'steps') ? depth[index - 1].scope : []
+        let scope = (key === 'steps' && depth[index - 1]) ? depth[index - 1].scope : []
         depth.splice(index, 0, { scope, dependencies: [], ast: { type: action.payload, ...action.otherArgs } })
         return newState
 

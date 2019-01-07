@@ -105,7 +105,7 @@ class IProve extends Component {
       if (step.ast.type) {
         let dependenciesNoRanges = []
         step.dependencies.forEach(d => {
-          if (d.toString().indexOf("..") > -1) {
+          if (d !== null && d.toString().indexOf("..") > -1) {
             const startRange = parseInt(d.split("..")[0])
             const endRange = parseInt(d.split("..")[1])
             for (let j=startRange; j<=endRange; j++) {

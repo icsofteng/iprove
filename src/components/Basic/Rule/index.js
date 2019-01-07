@@ -21,7 +21,7 @@ import styles from './styles.scss'
 const components = {
   binary: BinaryRule,
   unary: UnaryRule,
-  literal: LiteralRule,
+  identifier: LiteralRule,
   true: TrueRule,
   false: FalseRule,
   universal_quantifier: Quantifier,
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => ({
   addIdentifiers: (value) => dispatch({ type: ADD_IDENTIFIERS, payload: [value], path: [] }),
   updateValue: (path, value) => dispatch({ type: UPDATE_RULE, payload: value, path }),
   removeRule: (path) => dispatch({ type: REMOVE_RULE, path }),
-  dropLiteral: (path) => dispatch({ type: NEW_RULE, payload: 'literal', path })
+  dropLiteral: (path) => dispatch({ type: NEW_RULE, payload: 'identifier', path })
 })
 
 export default connect(null, mapDispatchToProps)(Rule)

@@ -16,11 +16,9 @@ const Controls = (props) =>
   <div className={styles.controlList}>
     <ControlBlock type="binary" label="Binary Rule" symbol="?" exprLeft exprRight {...props} />
     <ControlBlock type="unary" label="Unary Rule" symbol="?" exprRight {...props}/>
-    <ControlBlock type="literal" label="Literal" symbol="P" {...props}/>
+    <ControlBlock type="identifier" label="Literal" symbol="P" {...props}/>
     <ControlBlock type="true" label="True" symbol="⊤" {...props}/>
     <ControlBlock type="false" label="False" symbol="⊥" {...props}/>
-    <ControlBlock type="universal_quantifier" label="For all" symbol="∀"  {...props}/>
-    <ControlBlock type="existential_quantifier" label="Exists" symbol="∃"  {...props}/>
   </div>
 
 export default Controls
