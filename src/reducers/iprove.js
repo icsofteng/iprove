@@ -28,7 +28,8 @@ import {
   SET_SELECTED,
   UPDATE_TITLE,
   TOGGLE_SECTION,
-  GENERATE_RAW
+  GENERATE_RAW,
+  REMOVE_FIRST_EMPTY
 } from '../constants'
 
 const initialState = {
@@ -191,6 +192,12 @@ const reducer = (state = initialState, action) => {
 
       case GENERATE_RAW:
         depth[index].raw = translate_to_raw(depth[index].ast)
+        return newState
+
+      case REMOVE_FIRST_EMPTY:
+        if (!("type" in newState[key][0].ast)) {
+          newState[key] = []
+        }
         return newState
 
       default:
