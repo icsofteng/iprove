@@ -24,6 +24,7 @@ exports[`Snapshot test 1`] = `
       }
     }
     type="givens"
+    z3="unsat"
   />
   <div
     className="proof-line"

@@ -1,5 +1,6 @@
 import _ from 'underscore'
 import { scan_state } from '../utils'
+import { translate_rule as translate_to_raw } from '../translator/raw'
 import {
   NEW_RULE,
   REMOVE_STEP,
@@ -26,7 +27,8 @@ import {
   SET_GOAL_ACHIEVED,
   SET_SELECTED,
   UPDATE_TITLE,
-  TOGGLE_SECTION
+  TOGGLE_SECTION,
+  GENERATE_RAW
 } from '../constants'
 
 const initialState = {
@@ -185,6 +187,10 @@ const reducer = (state = initialState, action) => {
       case ADD_LEMMAS:
         const newLemmas = newState.lemmas.concat(action.payload)
         newState.lemmas = _.uniq(newLemmas)
+        return newState
+
+      case GENERATE_RAW:
+        depth[index].raw = translate_to_raw(depth[index].ast)
         return newState
 
       default:

@@ -13,10 +13,22 @@ export default class ProofStep extends Component {
   }
 
   render() {
-    const { step, index, showDependencies, offset, type } = this.props
+    const { step, index, showDependencies, offset, type, z3 } = this.props
+
+    const isCorrect =
+      (type !== 'givens' && type !== 'lemmas' && z3 === 'unsat') ||
+      ['assume', 'arbitrary', 'exit', 'case'].includes(step.ast.type)
+
+    const isError =
+      this.props.raw !== '' &&
+      (type !== 'givens' || (type === 'givens' && this.props.errors)) &&
+      (type !== 'lemmas' || (type === 'lemmas' && this.props.errors)) &&
+      z3 !== 'unsat' &&
+      !isCorrect
+
     return (
       <React.Fragment>
-        <div className="proof-line proof-line-short">
+        <div className={cx("proof-line", "proof-line-short", { correct: isCorrect, error: isError })}>
           { type !== 'goal' && <div className="proof-linenumber">{offset + index + 1}</div> }
           <div className={cx(styles.latex, {[styles.showLatex]: this.state.latex})}>
             <Latex>{"$"+translate_rule(step.ast)+"$"}</Latex>

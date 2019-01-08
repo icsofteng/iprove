@@ -8,7 +8,7 @@ const ProofStepList = (props) => {
     <React.Fragment>
       {
         props.steps.filter(is_step).map((step, id) =>
-          <ProofStep key={"step"+id} step={step} index={id} showDependencies={props.showDependencies} offset={props.start} type={props.type} />
+          <ProofStep key={"step"+id} step={step} index={id} showDependencies={props.showDependencies} offset={props.start} type={props.type} z3={props.z3[id]} />
         )
       }
       <div className="proof-line">

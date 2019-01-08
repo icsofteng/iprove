@@ -3,7 +3,7 @@
 exports[`Snapshot test 1`] = `
 <Fragment>
   <div
-    className="proof-line proof-line-short"
+    className="proof-line proof-line-short error"
   >
     <div
       className="proof-linenumber"
