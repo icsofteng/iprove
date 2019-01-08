@@ -50,7 +50,7 @@ class IProve extends Component {
   }
 
   updateStateZ3(steps, identifiers, relations, types, functions, i) {
-    const promise = this.callZ3(steps, identifiers, relations, types, functions, i)
+    const promise = this.callZ3(steps, identifiers, relations, types, functions)
     return promise.then((response) => {
       return new Promise((resolve, reject) => {
         const currentZ3 = this.props.z3
@@ -66,7 +66,7 @@ class IProve extends Component {
 
   }
 
-  callZ3(steps, identifiers, relations, types, functions, i) {
+  callZ3(steps, identifiers, relations, types, functions) {
     return fetch('/z3', {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -162,32 +162,38 @@ class IProve extends Component {
   }
 
   clean_up_dependencies = () => {
-    return new Promise((res, _) => {
-      const step = this.props.steps[this.props.steps.length - 1]
-      let redundant_deps = [];
-      const dependencies = step.dependencies
-      const promises = dependencies.map(dep => {
-        const promise = this.is_redundant_dep(dep, dependencies, redundant_deps, step)
-        return promise.then((response) => {
-          if (response.trim() === 'unsat') {
-            redundant_deps.push(dep)
-          }
-        })
-      });
-      Promise.all(promises).then(() => {
-        step.dependencies = dependencies.filter(dep => !redundant_deps.includes(dep))
-        res(step)
-      })
-    })
+    this.props.steps.reduce(
+      (acc, step, i) =>
+        acc.then(() => {
+          let newDependencies = [].concat(step.dependencies)
+          return step.dependencies.reduce(
+            (chain, dep) => chain.then(() => {
+              return new Promise((res2, _) =>
+                this.is_redundant_dep(dep, newDependencies, step).then((response) => {
+                  if (response.trim() === 'unsat') {
+                    newDependencies.splice(newDependencies.indexOf(dep), 1)
+                  }
+                  res2()
+                })
+              )
+            }),
+            Promise.resolve()
+          ).then(() => {
+            step.dependencies = newDependencies
+            this.props.beautify(i, step)
+          })
+        }),
+      Promise.resolve()
+    )
   }
 
-  is_redundant_dep = (dependency, dependencies, redundant_deps, step) => {
+  is_redundant_dep = (dep, dependencies, step) => {
     const { identifiers, relations, steps, givens, types, functions, lemmas } = this.props
-    const rem_deps = dependencies.filter(dep => !redundant_deps.includes(dep) && dep !== dependency)
+    let rem_deps = dependencies.slice(0)
+    rem_deps.splice(rem_deps.indexOf(dep), 1)
     let requiredSteps = validate_step_dependencies(step, rem_deps, givens, steps, lemmas)
     requiredSteps.push(step.ast)
-    const promise = this.callZ3(requiredSteps, identifiers, relations, types, functions, step.i)
-    return promise
+    return this.callZ3(requiredSteps, identifiers, relations, types, functions)
   }
 
   updateDependenciesFromInsertionAndRemoval = (index, increment) => {
@@ -284,7 +290,7 @@ class IProve extends Component {
                 <i className="fas fa-times"></i>
                 <div className="action-button-text">Clear</div>
               </div>
-              <div className="action-button" onClick={() => this.clean_up_dependencies().then(step => this.props.beautify(step))}>
+              <div className="action-button" onClick={() => this.clean_up_dependencies()}>
                 <i className="fas fa-broom"></i>
                 <div className="action-button-text">Beautify</div>
               </div>
@@ -443,7 +449,7 @@ const mapDispatchToProps = dispatch => ({
   undo: () => dispatch(ActionCreators.undo()),
   redo: () => dispatch(ActionCreators.redo()),
   clear: () => dispatch({ type: CLEAR_PROOF, path:[] }),
-  beautify: (step) => dispatch({ type: BEAUTIFY, payload: step, path:[] }),
+  beautify: (i, step) => dispatch({ type: BEAUTIFY, payload: step, i, path:[] }),
   setZ3: (z3) => dispatch({ type: SET_Z3, payload: z3, path: [] }),
   setGoalAchieved: (ga) => dispatch({ type: SET_GOAL_ACHIEVED, payload: ga, path: [] }),
   setSelected: (tb) => dispatch({ type: SET_SELECTED, payload: tb, path: [] }),

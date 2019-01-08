@@ -179,10 +179,7 @@ const reducer = (state = initialState, action) => {
         return newState
 
       case BEAUTIFY:
-        const prevSteps = newState.steps
-        prevSteps.pop()
-        const lastStep = action.payload
-        newState = { ...newState, steps: [...prevSteps, lastStep]}
+        newState.steps[action.i] = action.payload
         return newState
 
       case ADD_LEMMAS:

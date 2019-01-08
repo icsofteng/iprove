@@ -48,9 +48,17 @@ const extract_out_ors = (ast) => {
   return [ast]
 }
 
+const indexOfObject = (arr, obj) => {
+  let matches = arr.map((el, i) => _.isEqual(el, obj) ? i : -1).filter(j => j !== -1)
+  if (matches.length > 0) {
+    return matches[0]
+  }
+  return -1
+}
+
 const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas) => {
   // Clarity check: ensure all line justifications are real steps
-  let stepNumber = allSteps.indexOf(step)
+  let stepNumber = indexOfObject(allSteps, step)
   let invalid_deps = dependencies.filter(d => {
     return d > givens.length && (d-givens.length-1 >= stepNumber || d-givens.length >= allSteps.length)
   })

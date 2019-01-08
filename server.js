@@ -19,10 +19,21 @@ app.post('/z3', (req, res) => {
   const binary_file = process.platform === 'darwin' ? './z3-osx' : './z3'
   const { steps, identifiers, relations, types, functions} = req.body
   const file = translate_z3(steps, identifiers, relations, types, functions)
+  let done = false
 
-  exec(`${binary_file} ${file}`, (err, stdout) => {
-    fs.unlink(file, () => res.send(stdout))
+  let proc = exec(`${binary_file} ${file}`, (err, stdout) => {
+    fs.unlink(file, () => {
+      res.send(stdout)
+      done = true
+    })
   })
+
+  setTimeout(() => {
+    if (!done) {
+      proc.kill("SIGINT")
+      fs.unlink(file, () => res.send("sat"))
+    }
+  }, 2000)
 })
 
 app.get('/parse', (req, res) => {
