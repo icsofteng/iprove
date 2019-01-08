@@ -1,0 +1,1 @@
+{"lemmas":[{"ast":{"type":"binary","symbol":"or","lhs":{"type":"identifier","value":"P","varType":"Bool"},"rhs":{"type":"unary","symbol":"not","value":{"type":"identifier","value":"P","varType":"Bool"}}},"errors":false,"raw":"P or not P"}]}
