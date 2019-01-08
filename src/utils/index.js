@@ -93,16 +93,28 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
   }
 
   // Special case: we can take any expression concluded in all cases
-  const findCase = dependencies.filter(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast.type === 'case')
+  const findCase = dependencies.filter(d => {
+    let find = calculate_dependency_offset(allSteps, d, givens, lemmas)
+    if (find) return find.ast.type === 'case'
+    return false
+  })
   if (findCase.length === 1) {
     const depsClone = dependencies.slice(0)
     depsClone.splice(depsClone.indexOf(findCase[0]), 1)
-    const findAssumes = depsClone.filter(d => calculate_dependency_offset(allSteps, d, givens, lemmas).ast.type === 'assume')
+    const findAssumes = depsClone.filter(d => {
+      let find = calculate_dependency_offset(allSteps, d, givens, lemmas)
+      if (find) return find.ast.type === 'assume'
+      return false
+    })
     const validateAssumes = findAssumes.map(assumeStepNumber => {
       let assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens)
       depsClone.splice(depsClone.indexOf(assumeStepNumber), 1)
       // The conclusion step must be in the same scope as the assume
-      let findConclusion = depsClone.filter(d => _.isEqual(calculate_dependency_offset(allSteps, d, givens, lemmas).scope, assumeStep.scope))
+      let findConclusion = depsClone.filter(d => {
+        let find = calculate_dependency_offset(allSteps, d, givens, lemmas)
+        if (find) return _.isEqual(find.scope, assumeStep.scope)
+        return false
+      })
       if (findConclusion.length === 1) {
         depsClone.splice(depsClone.indexOf(findConclusion[0]), 1)
         let conclusionStep = calculate_dependency_offset(allSteps, findConclusion[0], givens, lemmas)
@@ -114,7 +126,7 @@ const validate_step_dependencies = (step, dependencies, givens, allSteps, lemmas
     if (validateAssumes.every(Boolean)) {
       // We should have one rule left which is an OR
       let remainingRule = calculate_dependency_offset(allSteps, depsClone[0], givens, lemmas)
-      if (depsClone.length === 1 && remainingRule.ast.type === 'binary' && remainingRule.ast.symbol === 'or') {
+      if (depsClone.length === 1 && remainingRule && remainingRule.ast.type === 'binary' && remainingRule.ast.symbol === 'or') {
         const listOfAssumptions = extract_out_ors(remainingRule.ast)
         const orContainsAllAssumes = findAssumes.map(assumeStepNumber => {
           let assumeStep = calculate_dependency_offset(allSteps, assumeStepNumber, givens, lemmas)

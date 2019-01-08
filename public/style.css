@@ -47,3 +47,5 @@ input.proof-justifications{width:150px;margin-left:35px;flex:initial}
 .getting-started .proof-collapse { display: inline-block;}
 .proof-line-short{margin-right:305px;}
 .toggle{background: #0e80c5;padding: 5px 8px;text-align: center;border: none;color: #fff;outline: none;font-size: 10px;}
+.proof-line.error {background: #fdb2b2;}
+.proof-line.correct {background: #83c79a;}

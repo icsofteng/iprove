@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import interact from 'interactjs'
-import { NEW_RULE, NEW_STEP } from '../../../constants'
+import { NEW_RULE, NEW_STEP, REMOVE_FIRST_EMPTY } from '../../../constants'
 
 class DragDrop extends Component {
   componentDidMount() {
@@ -66,7 +66,10 @@ class DragDrop extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addStep: (type, symbol, path, otherArgs) => dispatch({ type: NEW_STEP, payload: type, symbol, path, otherArgs }),
+    addStep: (type, symbol, path, otherArgs) => {
+      dispatch({ type: REMOVE_FIRST_EMPTY, path })
+      dispatch({ type: NEW_STEP, payload: type, symbol, path, otherArgs })
+    },
     addRule: (type, symbol, path, otherArgs) => dispatch({ type: NEW_RULE, payload: type, symbol, path, otherArgs })
   }
 }

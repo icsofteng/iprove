@@ -15,8 +15,9 @@ class LiteralRule extends Component {
         value={this.props.value}
         onChange={(event) => {
           const upper = event.target.value.toUpperCase()
-          this.props.addIdentifiers(upper)
+          this.props.addIdentifiers({ value: upper, varType: "Bool" })
           this.props.updateValue([...this.props.path, "value"], upper)
+          this.props.updateValue([...this.props.path, "varType"], "Bool")
         }}
         className={styles.ruleInput}
         ref={(ref) => this.ref = ref}
